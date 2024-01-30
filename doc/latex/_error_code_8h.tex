@@ -1,0 +1,30 @@
+\doxysection{src/error/\+Error\+Code.h File Reference}
+\hypertarget{_error_code_8h}{}\label{_error_code_8h}\index{src/error/ErrorCode.h@{src/error/ErrorCode.h}}
+\doxysubsubsection*{Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+enum \mbox{\hyperlink{_error_code_8h_a59e56af19e754a6aa26a612ebf91d05f}{Error\+Code}} \{ \mbox{\hyperlink{_error_code_8h_a59e56af19e754a6aa26a612ebf91d05fa2cfbedee4226e70e54cad70893f67d47}{ERROR\+\_\+\+CANNOT\+\_\+\+OPEN\+\_\+\+FILE}} = 100
+ \}
+\begin{DoxyCompactList}\small\item\em Standardized error codes for the interpreter that should be used by the entire project. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Enumeration Type Documentation}
+\Hypertarget{_error_code_8h_a59e56af19e754a6aa26a612ebf91d05f}\label{_error_code_8h_a59e56af19e754a6aa26a612ebf91d05f} 
+\index{ErrorCode.h@{ErrorCode.h}!ErrorCode@{ErrorCode}}
+\index{ErrorCode@{ErrorCode}!ErrorCode.h@{ErrorCode.h}}
+\doxysubsubsection{\texorpdfstring{ErrorCode}{ErrorCode}}
+{\footnotesize\ttfamily enum \mbox{\hyperlink{_error_code_8h_a59e56af19e754a6aa26a612ebf91d05f}{Error\+Code}}}
+
+
+
+Standardized error codes for the interpreter that should be used by the entire project. 
+
+Every single possible error is included in the enum, and no error reporting should be done without using the correct code. 1xx are general errors. 2xx are lexical errors. 3xx are parsing errors. 4xx are interpreter runtime errors. \begin{DoxySeeAlso}{See also}
+\doxylink{_error_messages_8h}{Error\+Messages.\+h} for the error messages corresponding to each code. 
+\end{DoxySeeAlso}
+\begin{DoxyEnumFields}{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{ERROR\_CANNOT\_OPEN\_FILE@{ERROR\_CANNOT\_OPEN\_FILE}!ErrorCode.h@{ErrorCode.h}}\index{ErrorCode.h@{ErrorCode.h}!ERROR\_CANNOT\_OPEN\_FILE@{ERROR\_CANNOT\_OPEN\_FILE}}}\Hypertarget{_error_code_8h_a59e56af19e754a6aa26a612ebf91d05fa2cfbedee4226e70e54cad70893f67d47}\label{_error_code_8h_a59e56af19e754a6aa26a612ebf91d05fa2cfbedee4226e70e54cad70893f67d47} 
+ERROR\+\_\+\+CANNOT\+\_\+\+OPEN\+\_\+\+FILE&\\
+\hline
+
+\end{DoxyEnumFields}

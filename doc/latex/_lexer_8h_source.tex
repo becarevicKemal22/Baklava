@@ -1,0 +1,34 @@
+\doxysection{Lexer.\+h}
+\hypertarget{_lexer_8h_source}{}\label{_lexer_8h_source}\index{src/lexer/Lexer.h@{src/lexer/Lexer.h}}
+\mbox{\hyperlink{_lexer_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{//}}
+\DoxyCodeLine{00002\ \textcolor{comment}{//\ Created\ by\ kemal\ on\ 1/28/2024.}}
+\DoxyCodeLine{00003\ \textcolor{comment}{//}}
+\DoxyCodeLine{00004\ }
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#ifndef\ MATURSKI\_2\_LEXER\_H}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#define\ MATURSKI\_2\_LEXER\_H}}
+\DoxyCodeLine{00007\ }
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#include\ <string>}}
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#include\ <vector>}}
+\DoxyCodeLine{00010\ }
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_token_8h}{Token.h}}"{}}}
+\DoxyCodeLine{00012\ }
+\DoxyCodeLine{00013\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_lexer}{Lexer}}\ \{}
+\DoxyCodeLine{00014\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00015\ \ \ \ \ \textcolor{keyword}{explicit}\ \mbox{\hyperlink{class_lexer_ae3d94795aa1bc6570f7f8fe3882423aa}{Lexer}}(\textcolor{keyword}{const}\ std::string\&\ \ source)\ :\ source(source)\ \{\}}
+\DoxyCodeLine{00016\ \ \ \ \ std::vector<Token>\ \mbox{\hyperlink{class_lexer_adfc224cc460a688deb4655f88ccd1bbb}{tokens}}\{\};}
+\DoxyCodeLine{00017\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_lexer_a8307e9de879e09ea9a336d19e949cf4d}{tokenize}}();}
+\DoxyCodeLine{00018\ }
+\DoxyCodeLine{00019\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00020\ \ \ \ \ std::string\ source;}
+\DoxyCodeLine{00021\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ currentChar\ =\ 0;}
+\DoxyCodeLine{00022\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ line\ =\ 1;}
+\DoxyCodeLine{00023\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ charIndexOnLine\ =\ 0;}
+\DoxyCodeLine{00024\ \ \ \ \ \textcolor{keywordtype}{void}\ addToken(\mbox{\hyperlink{_token_type_8h_afa91e1934f818659a4e2b0c8ce1214b0}{TokenType}}\ type,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ line,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ offset);}
+\DoxyCodeLine{00025\ \};}
+\DoxyCodeLine{00026\ }
+\DoxyCodeLine{00027\ }
+\DoxyCodeLine{00028\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//MATURSKI\_2\_LEXER\_H}}
+
+\end{DoxyCode}

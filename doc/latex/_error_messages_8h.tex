@@ -1,0 +1,33 @@
+\doxysection{src/error/\+Error\+Messages.h File Reference}
+\hypertarget{_error_messages_8h}{}\label{_error_messages_8h}\index{src/error/ErrorMessages.h@{src/error/ErrorMessages.h}}
+{\ttfamily \#include $<$unordered\+\_\+map$>$}\newline
+{\ttfamily \#include $<$string$>$}\newline
+{\ttfamily \#include "{}Error\+Code.\+h"{}}\newline
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+const std\+::unordered\+\_\+map$<$ int, std\+::wstring $>$ \mbox{\hyperlink{_error_messages_8h_a669e63044a518d78e6f72946f5f3b8f9}{ERRORMESSAGES}}
+\begin{DoxyCompactList}\small\item\em Map of error codes to error messages. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Variable Documentation}
+\Hypertarget{_error_messages_8h_a669e63044a518d78e6f72946f5f3b8f9}\label{_error_messages_8h_a669e63044a518d78e6f72946f5f3b8f9} 
+\index{ErrorMessages.h@{ErrorMessages.h}!ERRORMESSAGES@{ERRORMESSAGES}}
+\index{ERRORMESSAGES@{ERRORMESSAGES}!ErrorMessages.h@{ErrorMessages.h}}
+\doxysubsubsection{\texorpdfstring{ERRORMESSAGES}{ERRORMESSAGES}}
+{\footnotesize\ttfamily const std\+::unordered\+\_\+map$<$int , std\+::wstring$>$ ERRORMESSAGES}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{=\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \{\mbox{\hyperlink{_error_code_8h_a59e56af19e754a6aa26a612ebf91d05fa2cfbedee4226e70e54cad70893f67d47}{ERROR\_CANNOT\_OPEN\_FILE}},\ L\textcolor{stringliteral}{"{}Nemoguće\ otvoriti\ datoteku:\ \{\}"{}}\}}
+\DoxyCodeLine{\}}
+
+\end{DoxyCode}
+
+
+Map of error codes to error messages. 
+
+All error codes defined in \doxylink{_error_code_8h}{Error\+Code.\+h} must have a corresponding error message in this map. \begin{DoxySeeAlso}{See also}
+\doxylink{_error_code_8h}{Error\+Code.\+h} 
+\end{DoxySeeAlso}

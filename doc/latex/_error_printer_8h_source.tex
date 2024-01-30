@@ -1,0 +1,35 @@
+\doxysection{Error\+Printer.\+h}
+\hypertarget{_error_printer_8h_source}{}\label{_error_printer_8h_source}\index{src/error/printer/ErrorPrinter.h@{src/error/printer/ErrorPrinter.h}}
+\mbox{\hyperlink{_error_printer_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{//}}
+\DoxyCodeLine{00002\ \textcolor{comment}{//\ Created\ by\ kemal\ on\ 1/28/2024.}}
+\DoxyCodeLine{00003\ \textcolor{comment}{//}}
+\DoxyCodeLine{00004\ }
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#ifndef\ MATURSKI\_2\_ERRORPRINTER\_H}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#define\ MATURSKI\_2\_ERRORPRINTER\_H}}
+\DoxyCodeLine{00007\ }
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#include\ <unordered\_map>}}
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#include\ <string>}}
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#include\ <vector>}}
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#include\ <variant>}}
+\DoxyCodeLine{00012\ }
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_error_code_8h}{ErrorCode.h}}"{}}}
+\DoxyCodeLine{00014\ }
+\DoxyCodeLine{00015\ \textcolor{keyword}{typedef}\ std::variant<std::wstring,\ std::string,\ const\ char*>\ \mbox{\hyperlink{_error_printer_8h_a2ce8d7c0c01d40b6373946f75c36eee7}{ErrorMessageArgument}};}
+\DoxyCodeLine{00016\ }
+\DoxyCodeLine{00024\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_error_printer}{ErrorPrinter}}\ \{}
+\DoxyCodeLine{00025\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00026\ \ \ \ \ \mbox{\hyperlink{class_error_printer_aee50c5084d181f2bf07d8cbd69fc959b}{ErrorPrinter}}();}
+\DoxyCodeLine{00027\ \ \ \ \ \mbox{\hyperlink{class_error_printer_a962f248b48c52c988f1bcb815f2a9886}{\string~ErrorPrinter}}()\ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{00028\ }
+\DoxyCodeLine{00036\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_error_printer_a917eb0aee677b76e3843cebf54de4ec0}{printErrorMessage}}(\mbox{\hyperlink{_error_code_8h_a59e56af19e754a6aa26a612ebf91d05f}{ErrorCode}}\ errorCode,\ \textcolor{keyword}{const}\ std::vector<ErrorMessageArgument>\&\ args);}
+\DoxyCodeLine{00037\ }
+\DoxyCodeLine{00038\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00039\ \ \ \ \ std::wstring\ formattedErrorMessage(\mbox{\hyperlink{_error_code_8h_a59e56af19e754a6aa26a612ebf91d05f}{ErrorCode}}\ errorCode,\ \textcolor{keyword}{const}\ std::vector<ErrorMessageArgument>\&\ args);}
+\DoxyCodeLine{00040\ \};}
+\DoxyCodeLine{00041\ }
+\DoxyCodeLine{00042\ }
+\DoxyCodeLine{00043\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//MATURSKI\_2\_ERRORPRINTER\_H}}
+
+\end{DoxyCode}

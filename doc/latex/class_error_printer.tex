@@ -1,0 +1,66 @@
+\doxysection{Error\+Printer Class Reference}
+\hypertarget{class_error_printer}{}\label{class_error_printer}\index{ErrorPrinter@{ErrorPrinter}}
+
+
+Base class used for printing error messages to the console.  
+
+
+
+
+{\ttfamily \#include $<$Error\+Printer.\+h$>$}
+
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_error_printer_aee50c5084d181f2bf07d8cbd69fc959b}{Error\+Printer}} ()
+\item 
+\mbox{\hyperlink{class_error_printer_a962f248b48c52c988f1bcb815f2a9886}{\texorpdfstring{$\sim$}{\string~}\+Error\+Printer}} ()=default
+\item 
+void \mbox{\hyperlink{class_error_printer_a917eb0aee677b76e3843cebf54de4ec0}{print\+Error\+Message}} (\mbox{\hyperlink{_error_code_8h_a59e56af19e754a6aa26a612ebf91d05f}{Error\+Code}} error\+Code, const std\+::vector$<$ \mbox{\hyperlink{_error_printer_8h_a2ce8d7c0c01d40b6373946f75c36eee7}{Error\+Message\+Argument}} $>$ \&args)
+\begin{DoxyCompactList}\small\item\em Prints a simple error message to the console, without any source code or highlighting. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Base class used for printing error messages to the console. 
+
+It is passed as a pointer to the lexer, parser and interpreter and is used to print all error messages. All error messages should go through the error printer. 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{class_error_printer_aee50c5084d181f2bf07d8cbd69fc959b}\label{class_error_printer_aee50c5084d181f2bf07d8cbd69fc959b} 
+\index{ErrorPrinter@{ErrorPrinter}!ErrorPrinter@{ErrorPrinter}}
+\index{ErrorPrinter@{ErrorPrinter}!ErrorPrinter@{ErrorPrinter}}
+\doxysubsubsection{\texorpdfstring{ErrorPrinter()}{ErrorPrinter()}}
+{\footnotesize\ttfamily Error\+Printer\+::\+Error\+Printer (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\Hypertarget{class_error_printer_a962f248b48c52c988f1bcb815f2a9886}\label{class_error_printer_a962f248b48c52c988f1bcb815f2a9886} 
+\index{ErrorPrinter@{ErrorPrinter}!````~ErrorPrinter@{\texorpdfstring{$\sim$}{\string~}ErrorPrinter}}
+\index{````~ErrorPrinter@{\texorpdfstring{$\sim$}{\string~}ErrorPrinter}!ErrorPrinter@{ErrorPrinter}}
+\doxysubsubsection{\texorpdfstring{\texorpdfstring{$\sim$}{\string~}ErrorPrinter()}{\string~ErrorPrinter()}}
+{\footnotesize\ttfamily Error\+Printer\+::\texorpdfstring{$\sim$}{\string~}\+Error\+Printer (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [default]}}
+
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_error_printer_a917eb0aee677b76e3843cebf54de4ec0}\label{class_error_printer_a917eb0aee677b76e3843cebf54de4ec0} 
+\index{ErrorPrinter@{ErrorPrinter}!printErrorMessage@{printErrorMessage}}
+\index{printErrorMessage@{printErrorMessage}!ErrorPrinter@{ErrorPrinter}}
+\doxysubsubsection{\texorpdfstring{printErrorMessage()}{printErrorMessage()}}
+{\footnotesize\ttfamily void Error\+Printer\+::print\+Error\+Message (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{_error_code_8h_a59e56af19e754a6aa26a612ebf91d05f}{Error\+Code}}}]{error\+Code,  }\item[{const std\+::vector$<$ \mbox{\hyperlink{_error_printer_8h_a2ce8d7c0c01d40b6373946f75c36eee7}{Error\+Message\+Argument}} $>$ \&}]{args }\end{DoxyParamCaption})}
+
+
+
+Prints a simple error message to the console, without any source code or highlighting. 
+
+Mainly used for errors that occur before the lexer is initialized, most likely 1xx errors. 
+\begin{DoxyParams}{Parameters}
+{\em error\+Code} & one of the error codes defined in \doxylink{_error_code_8h}{Error\+Code.\+h} \\
+\hline
+{\em args} & vector of arguments that will be used to format the error message, according to the message definition in \doxylink{_error_messages_8h}{Error\+Messages.\+h} \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+src/error/printer/\mbox{\hyperlink{_error_printer_8h}{Error\+Printer.\+h}}\item 
+src/error/printer/\mbox{\hyperlink{_error_printer_8cpp}{Error\+Printer.\+cpp}}\end{DoxyCompactItemize}
