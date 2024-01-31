@@ -13,6 +13,9 @@ add_executable(Maturski_2 main.cpp
         src/error/printer/ErrorPrinter.h
         src/error/ErrorMessages.h
         src/error/printer/ErrorPrinter.cpp
+        src/lexer/Keywords.h
 )
+
+target_link_libraries(Maturski_2 -static)
 
 target_compile_options(Maturski_2 PRIVATE -fexec-charset=utf-8)

@@ -5,12 +5,15 @@
 #ifndef MATURSKI_2_TOKEN_H
 #define MATURSKI_2_TOKEN_H
 
+#include <string>
+#include <utility>
 #include "TokenType.h"
 
 class Token {
 public:
-    Token(TokenType type, unsigned int line, unsigned int offset) : type(type), line(line), offset(offset) {}
+    Token(TokenType type, const std::wstring& value, unsigned int line, unsigned int offset) : type(type), value(value), line(line), offset(offset) {}
     TokenType type;
+    std::wstring value;
     unsigned int line;
     unsigned int offset;
 };

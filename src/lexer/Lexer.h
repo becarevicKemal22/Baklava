@@ -26,7 +26,10 @@ private:
     unsigned int line = 1;
     unsigned int charIndexOnLine = 0;
     ErrorPrinter* printer;
-    void addToken(TokenType type, unsigned int line, unsigned int offset);
+    void addToken(TokenType type, wchar_t character);
+    void addToken(TokenType type, const std::wstring& value);
+    void advance() { currentChar++; charIndexOnLine++;}
+    wchar_t peek() { return source[currentChar + 1];}
 };
 
 

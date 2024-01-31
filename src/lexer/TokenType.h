@@ -9,6 +9,9 @@
 
 enum class TokenType: uint8_t {
     OpenParenthesis, ClosedParenthesis,
+    Identifier, Number,
+    // Keywords
+    If,
     Eof
 };
 
