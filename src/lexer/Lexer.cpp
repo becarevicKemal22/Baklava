@@ -22,7 +22,9 @@ void Lexer::tokenize() {
             advance();
         }
 
-
+        else if(c == ' '){
+            advance();
+        }
 
         else if(iswalnum(c)){
             if(iswalpha(c)){
@@ -49,15 +51,16 @@ void Lexer::tokenize() {
                 addToken(TokenType::Number, number);
                 advance();
             }
+        } else{
+            if(printer != nullptr){
+                printer->printLexerError(ERROR_UNEXPECTED_CHARACTER, line, charIndexOnLine, currentChar);
+            }
+            throw std::runtime_error("");
         }
-
-//                if(printer != nullptr){
-//                    printer->printLexerError(ERROR_UNEXPECTED_CHARACTER, line, charIndexOnLine, currentChar);
-//                }
-//                throw std::runtime_error("");
-                // Add custom exception to be caught in main.cpp
+        // Add custom exception to be caught in main.cpp
 
     }
+    addToken(TokenType::Eof, L"");
 }
 
 void Lexer::addToken(TokenType type, wchar_t character) {

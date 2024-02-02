@@ -16,6 +16,8 @@ add_executable(Maturski_2 main.cpp
         src/lexer/Keywords.h
 )
 
+add_subdirectory(tests)
+
 target_link_libraries(Maturski_2 -static)
 
 target_compile_options(Maturski_2 PRIVATE -fexec-charset=utf-8)

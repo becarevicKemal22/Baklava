@@ -8,7 +8,7 @@
 
 
 void runRepl(){
-    std::cout << "Running repl\n";
+    std::wcout << "Running repl\n";
 }
 
 void loadFile(const char* path, std::wstring& source){
@@ -25,7 +25,7 @@ void loadFile(const char* path, std::wstring& source){
 }
 
 void runFile(const char* path){
-    std::cout << "Running file: " << path << "\n";
+    std::wcout << "Running file: " << path << "\n";
     std::wstring source;
     loadFile(path, source);
     ErrorPrinter printer(source);

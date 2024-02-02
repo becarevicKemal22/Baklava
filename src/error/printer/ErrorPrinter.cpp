@@ -94,10 +94,10 @@ void ErrorPrinter::printLineDivider(unsigned int lineNumber = 0){
 void ErrorPrinter::printCaretSupportLine(unsigned int offset){
     printLineDivider(0);
     if(offset > 0){
-        std::wcout << ANSI_RED << std::wstring(offset - 1, L'~') << std::wstring(1, L'^') << ANSI_RESET;
+        std::wcout << ANSI_RED << std::wstring(offset, L'~') << std::wstring(1, L'^') << ANSI_RESET;
         return;
     }
-    std::wcout << ANSI_RED << std::wstring(1, L'^') << ANSI_RESET;
+    std::wcout << ANSI_RED << std::wstring(offset, L'^') << ANSI_RESET;
 }
 
 void ErrorPrinter::makeLines() {
