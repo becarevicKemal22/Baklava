@@ -7,11 +7,41 @@
 
 #include <cstdint>
 
-enum class TokenType: uint8_t {
-    OpenParenthesis, ClosedParenthesis,
-    Identifier, Number,
+enum class TokenType : uint8_t {
+    // Characters
+    OpenParenthesis,
+    ClosedParenthesis,
+    OpenBrace,
+    ClosedBrace,
+    OpenBracket,
+    ClosedBracket,
+    Semicolon,
+    Colon,
+    Comma,
+    Dot,
+    // Operators
+    Plus,
+    Minus,
+    Star,
+    Slash,
+    Percent,
+    Bang,
+    BangEqual,
+    Less,
+    LessEqual,
+    Greater,
+    GreaterEqual,
+    Equal,
+    DoubleEqual,
+    DoublePipe,
+    DoubleAmpersand,
+    // Types and identifiers
+    Identifier,
+    Number,
+    String,
     // Keywords
     If,
+
     Eof
 };
 

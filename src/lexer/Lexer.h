@@ -13,7 +13,7 @@
 
 class Lexer {
 public:
-    Lexer(const std::wstring&  source) : source(source) {}
+    Lexer(const std::wstring&  source) : source(source), printer(nullptr) {}
     Lexer(const std::wstring& source, ErrorPrinter* printer) : source(source), printer(printer) {}
     std::vector<Token> tokens{};
     void tokenize();
@@ -27,9 +27,14 @@ private:
     unsigned int charIndexOnLine = 0;
     ErrorPrinter* printer;
     void addToken(TokenType type, wchar_t character);
-    void addToken(TokenType type, const std::wstring& value);
+    void addToken(TokenType type, const std::wstring& value, bool offsetIsStartOfToken = false);
+    void addStringToken(const std::wstring& value, unsigned int line, unsigned int offset);
     void advance() { currentChar++; charIndexOnLine++;}
     wchar_t peek() { return source[currentChar + 1];}
+    void handleTab();
+    void handleNewLine();
+    void handleString();
+    void handleComment();
 };
 
 

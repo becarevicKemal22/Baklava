@@ -20,12 +20,116 @@ void Lexer::tokenize() {
         } else if(c == ')'){
             addToken(TokenType::ClosedParenthesis, c);
             advance();
+        } else if(c == '{'){
+            addToken(TokenType::OpenBrace, c);
+            advance();
+        } else if(c == '}'){
+            addToken(TokenType::ClosedBrace, c);
+            advance();
+        } else if(c == '['){
+            addToken(TokenType::OpenBracket, c);
+            advance();
+        } else if(c == ']') {
+            addToken(TokenType::ClosedBracket, c);
+            advance();
+        } else if(c == ';'){
+            addToken(TokenType::Semicolon, c);
+            advance();
+        } else if(c == ':'){
+            addToken(TokenType::Colon, c);
+            advance();
+        } else if(c == ','){
+            addToken(TokenType::Comma, c);
+            advance();
+        } else if(c == '.'){
+            addToken(TokenType::Dot, c);
+            advance();
+        } else if(c == '+'){
+            addToken(TokenType::Plus, c);
+            advance();
+        } else if(c == '-'){
+            addToken(TokenType::Minus, c);
+            advance();
+        } else if(c == '*'){
+            addToken(TokenType::Star, c);
+            advance();
+        } else if(c == '/'){
+            if(peek() == '/'){
+                handleComment();
+            } else {
+                addToken(TokenType::Slash, c);
+                advance();
+            }
+        } else if(c == '%'){
+            addToken(TokenType::Percent, c);
+            advance();
+        } else if(c == '!'){
+            if(peek() == '='){
+                addToken(TokenType::BangEqual, L"!=", true);
+                advance();
+            } else{
+                addToken(TokenType::Bang, c);
+            }
+            advance();
+        } else if(c == '<'){
+            if(peek() == '='){
+                addToken(TokenType::LessEqual, L"<=", true);
+                advance();
+            } else{
+                addToken(TokenType::Less, c);
+            }
+            advance();
+        } else if(c == '>'){
+            if(peek() == '='){
+                addToken(TokenType::GreaterEqual, L">=", true);
+                advance();
+            } else{
+                addToken(TokenType::Greater, c);
+            }
+            advance();
+        } else if(c == '='){
+            if(peek() == '='){
+                addToken(TokenType::DoubleEqual, L"==", true);
+                advance();
+            } else{
+                addToken(TokenType::Equal, c);
+            }
+            advance();
+        } else if(c == '|'){
+            if(peek() == '|'){
+                addToken(TokenType::DoublePipe, L"||", true);
+                advance();
+                advance();
+            } else{
+                if(printer != nullptr){
+                    printer->printLexerError(ERROR_UNEXPECTED_CHARACTER, line, charIndexOnLine, currentChar);
+                }
+                throw std::runtime_error("Single Pipe");
+            }
+        } else if(c == '&'){
+            if(peek() == '&'){
+                addToken(TokenType::DoubleAmpersand, L"&&", true);
+                advance();
+                advance();
+            } else{
+                if(printer != nullptr){
+                    printer->printLexerError(ERROR_UNEXPECTED_CHARACTER, line, charIndexOnLine, currentChar);
+                }
+                throw std::runtime_error("Single ampersand");
+            }
+        }
+
+        else if(c == '"'){
+            handleString();
         }
 
         else if(c == ' '){
             advance();
+        } else if(c == '\t'){
+            handleTab();
+        } else if(c == '\n' || c == '\r'){
+            handleNewLine();
         }
-
         else if(iswalnum(c)){
             if(iswalpha(c)){
                 std::wstring identifier;
@@ -64,9 +168,55 @@ void Lexer::tokenize() {
 }
 
 void Lexer::addToken(TokenType type, wchar_t character) {
-    tokens.emplace_back(type, std::to_wstring(character), line, charIndexOnLine);
+    tokens.emplace_back(type, std::wstring(1, character), line, charIndexOnLine);
 }
 
-void Lexer::addToken(TokenType type, const std::wstring& value) {
-    tokens.emplace_back(type, value, line, (charIndexOnLine + 1) - value.length());
+void Lexer::addToken(TokenType type, const std::wstring& value, bool offsetIsStartOfToken) {
+    if(offsetIsStartOfToken)
+        tokens.emplace_back(type, value, line, charIndexOnLine);
+    else
+        tokens.emplace_back(type, value, line, (charIndexOnLine + 1) - value.length());
+}
+
+void Lexer::addStringToken(const std::wstring& value, unsigned int line, unsigned int offset){
+    tokens.emplace_back(TokenType::String, value, line, offset);
+}
+
+void Lexer::handleTab(){
+    advance();
+    charIndexOnLine += 3;
+}
+
+void Lexer::handleNewLine() {
+    line++;
+    currentChar++;
+    charIndexOnLine = 0;
+}
+
+void Lexer::handleString(){
+    unsigned int startLine = line;
+    unsigned int startOffset = charIndexOnLine;
+    unsigned int startChar = currentChar;
+    advance();
+    std::wstring string;
+    while(source[currentChar] != '\0'){
+        if(source[currentChar] == '"'){
+            advance();
+            addStringToken(string, startLine, startOffset);
+            return;
+        }
+        string += source[currentChar];
+        advance();
+    }
+    if(printer != nullptr){
+        printer->printLexerError(ERROR_UNTERMINATED_STRING, startLine, startOffset, startChar);
+    }
+    throw std::runtime_error("Unterminated string");
+}
+
+void Lexer::handleComment() {
+    while(source[currentChar] != '\n' && source[currentChar] != '\0'){
+        advance();
+    }
+    handleNewLine();
 }
