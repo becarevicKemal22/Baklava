@@ -7,6 +7,7 @@
 
 #include <string>
 #include <utility>
+#include <memory>
 #include "TokenType.h"
 
 class Token {
@@ -17,5 +18,7 @@ public:
     unsigned int line;
     unsigned int offset;
 };
+
+typedef Token* TokenPtr;
 
 #endif //MATURSKI_2_TOKEN_H

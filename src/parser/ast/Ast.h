@@ -13,13 +13,26 @@ enum class AstNodeType : uint8_t {
 
     // Expressions
     BinaryExpression,
-    Unary,
-    Primary,
+    UnaryExpression,
+    NullLiteralExpression,
+    BooleanLiteralExpression,
+    NumericLiteralExpression,
+    StringLiteralExpression,
 };
 
 typedef unsigned int NodeRef;
 
 class Statement;
 class Program;
+
+class Expression;
+class BinaryExpression;
+class UnaryExpression;
+class NullLiteralExpression;
+class BooleanLiteralExpression;
+class NumericLiteralExpression;
+class StringLiteralExpression;
+
+typedef Expression* ExprPtr;
 
 #endif //MATURSKI_2_AST_H

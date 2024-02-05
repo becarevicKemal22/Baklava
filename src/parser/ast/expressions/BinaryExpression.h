@@ -11,12 +11,12 @@
 
 class BinaryExpression : public Expression {
 public:
-    BinaryExpression(NodeRef left, Token* op, NodeRef right) : left(left), op(op), right(right) {
+    BinaryExpression(ExprPtr left, Token* op, ExprPtr right) : left(left), op(op), right(right) {
         type = AstNodeType::BinaryExpression;
     }
-    NodeRef left;
+    ExprPtr left;
     Token* op;
-    NodeRef right;
+    ExprPtr right;
 };
 
 #endif //MATURSKI_2_BINARYEXPRESSION_H

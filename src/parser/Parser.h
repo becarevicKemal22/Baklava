@@ -23,17 +23,18 @@ private:
         return tokens[current].type == type;
     }
     void advance() { current++; }
-    Token previous() { return tokens[current - 1]; }
+    Token* previous() { return &(tokens[current - 1]); }
     bool match(std::vector<TokenType> types);
+    Token* at() { return &(tokens[current]); }
 
     Statement* statement();
-    Statement* expression();
-    Statement* equalityExpression();
-    Statement* comparisonExpression();
-    Statement* termExpression();
-    Statement* factorExpression();
-    Statement* unaryExpression();
-    Statement* primaryExpression();
+    Expression* expression();
+    Expression* equalityExpression();
+    Expression* comparisonExpression();
+    Expression* termExpression();
+    Expression* factorExpression();
+    Expression* unaryExpression();
+    Expression* primaryExpression();
 };
 
 

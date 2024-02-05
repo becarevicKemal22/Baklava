@@ -21,6 +21,13 @@ add_executable(Maturski_2 main.cpp
         src/parser/ast/statements/Program.h
         src/parser/ast/expressions/Expression.h
         src/parser/ast/expressions/BinaryExpression.h
+        src/parser/ast/expressions/UnaryExpression.h
+        src/parser/ast/expressions/NullLiteralExpression.h
+        src/parser/ast/expressions/StringLiteralExpression.h
+        src/parser/ast/expressions/NumericLiteralExpression.h
+        src/parser/ast/expressions/BooleanLiteralExpression.h
+        src/parser/ast/PrettyPrint.h
+        src/parser/ast/PrettyPrint.cpp
 )
 
 add_subdirectory(tests)

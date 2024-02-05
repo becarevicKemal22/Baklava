@@ -39,6 +39,9 @@ enum class TokenType : uint8_t {
     Identifier,
     Number,
     String,
+    True,
+    False,
+    Null,
     // Keywords
     If,
 

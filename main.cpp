@@ -4,7 +4,11 @@
 #include <fcntl.h>
 #include <codecvt>
 #include <format>
+
 #include "Lexer.h"
+#include "Parser.h"
+#include "Program.h"
+#include "PrettyPrint.h"
 
 
 void runRepl(){
@@ -36,6 +40,10 @@ void runFile(const char* path){
         exit(0);
     }
     std::vector<Token> tokens = lexer.tokens;
+    Parser parser(tokens);
+    std::unique_ptr<Program> program = parser.parse();
+    printAST(program);
+
 }
 
 int main(int argc, char** argv) {
