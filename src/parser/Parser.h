@@ -37,5 +37,4 @@ private:
     Expression* primaryExpression();
 };
 
-
 #endif //MATURSKI_2_PARSER_H

@@ -7,5 +7,7 @@ add_executable(tests ../src/error/printer/ErrorPrinter.cpp ../src/lexer/Lexer.cp
         parser/ParserTest.cpp
         parser/ParserUnaryExpressionTest.cpp
         TestHelpers.h
-        parser/ParserBinaryExpressionTest.cpp)
+        parser/ParserBinaryExpressionTest.cpp
+        ../src/interpreter/Interpreter.cpp
+        ../src/interpreter/Interpreter.h)
 target_link_libraries(tests PRIVATE Catch2::Catch2WithMain)

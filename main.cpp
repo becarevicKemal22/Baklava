@@ -9,7 +9,7 @@
 #include "Parser.h"
 #include "Program.h"
 #include "PrettyPrint.h"
-
+#include "Interpreter.h"
 
 void runRepl(){
     std::wcout << "Running repl\n";
@@ -43,7 +43,12 @@ void runFile(const char* path){
     Parser parser(tokens);
     std::unique_ptr<Program> program = parser.parse();
     printAST(program);
-
+    Interpreter interpreter;
+    std::wcout << std::endl;
+    for(auto statement : program->statements){
+        RuntimeValue* val = interpreter.evaluate(statement);
+        std::wcout << val->stringify() << std::endl;
+    }
 }
 
 int main(int argc, char** argv) {
