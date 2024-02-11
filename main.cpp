@@ -4,6 +4,7 @@
 #include <fcntl.h>
 #include <codecvt>
 #include <format>
+#include <chrono>
 
 #include "Lexer.h"
 #include "Parser.h"
@@ -46,8 +47,15 @@ void runFile(const char* path){
     Interpreter interpreter;
     std::wcout << std::endl;
     for(auto statement : program->statements){
-        RuntimeValue* val = interpreter.evaluate(statement);
-        std::wcout << val->stringify() << std::endl;
+        auto start = std::chrono::high_resolution_clock::now();
+        for(int i = 0; i < 100000; i++){
+            interpreter.evaluate(statement);
+        }
+        auto end = std::chrono::high_resolution_clock::now();
+        std::chrono::duration<double> duration = end - start;
+        double duration_seconds = duration.count();
+        std::wcout << std::format(L"Elapsed time: {} seconds\n", duration_seconds);
+//        std::wcout << val->stringify() << std::endl;
     }
 }
 
