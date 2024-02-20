@@ -30,6 +30,7 @@ add_executable(Maturski_2 main.cpp
         src/parser/ast/PrettyPrint.cpp
         src/interpreter/Interpreter.cpp
         src/interpreter/Interpreter.h
+        src/interpreter/RuntimeValue.h
 )
 
 add_subdirectory(tests)

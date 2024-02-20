@@ -11,14 +11,14 @@
 
 class Interpreter {
 public :
-    RuntimeValue* evaluate(Statement* expr);
+    RuntimeValue evaluate(Statement* expr);
 private:
-    RuntimeValue* evaluateBinaryExpression(BinaryExpression* expr);
-    RuntimeValue* evaluateUnaryExpression(UnaryExpression* expr);
-    RuntimeValue* evaluateNumericLiteralExpression(NumericLiteralExpression* expr);
-    RuntimeValue* evaluateBooleanLiteralExpression(BooleanLiteralExpression* expr);
-    RuntimeValue* evaluateStringLiteralExpression(StringLiteralExpression* expr);
-    RuntimeValue* evaluateNullLiteralExpression(NullLiteralExpression* expr);
+    RuntimeValue evaluateBinaryExpression(BinaryExpression* expr);
+    RuntimeValue evaluateUnaryExpression(UnaryExpression* expr);
+    RuntimeValue evaluateNumericLiteralExpression(NumericLiteralExpression* expr);
+    RuntimeValue evaluateBooleanLiteralExpression(BooleanLiteralExpression* expr);
+//    RuntimeValue evaluateStringLiteralExpression(StringLiteralExpression* expr);
+    RuntimeValue evaluateNullLiteralExpression(NullLiteralExpression* expr);
 };
 
 

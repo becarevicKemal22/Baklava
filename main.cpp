@@ -48,7 +48,7 @@ void runFile(const char* path){
     std::wcout << std::endl;
     for(auto statement : program->statements){
         auto start = std::chrono::high_resolution_clock::now();
-        for(int i = 0; i < 100000; i++){
+        for(int i = 0; i < 10000; i++){
             interpreter.evaluate(statement);
         }
         auto end = std::chrono::high_resolution_clock::now();

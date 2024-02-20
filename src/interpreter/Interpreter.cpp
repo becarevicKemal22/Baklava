@@ -8,101 +8,54 @@
 #include "UnaryExpression.h"
 #include "NumericLiteralExpression.h"
 #include "BooleanLiteralExpression.h"
-#include "StringLiteralExpression.h"
 #include "NullLiteralExpression.h"
+#include "RuntimeValue.h"
 
-#include "NullValue.h"
-#include "BooleanValue.h"
-#include "StringValue.h"
-#include "NumericValue.h"
-
-RuntimeValue* Interpreter::evaluate(Statement* expr) {
-    switch (expr->type) {
+RuntimeValue Interpreter::evaluate(Statement *expr) {
+    switch(expr->type){
         case AstNodeType::BinaryExpression:
-            return evaluateBinaryExpression((BinaryExpression*)expr);
+            return evaluateBinaryExpression(static_cast<BinaryExpression*>(expr));
         case AstNodeType::UnaryExpression:
-            return evaluateUnaryExpression((UnaryExpression*)expr);
+            return evaluateUnaryExpression(static_cast<UnaryExpression*>(expr));
         case AstNodeType::NumericLiteralExpression:
-            return evaluateNumericLiteralExpression((NumericLiteralExpression*)expr);
+            return evaluateNumericLiteralExpression(static_cast<NumericLiteralExpression*>(expr));
         case AstNodeType::BooleanLiteralExpression:
-            return evaluateBooleanLiteralExpression((BooleanLiteralExpression*)expr);
-        case AstNodeType::StringLiteralExpression:
-            return evaluateStringLiteralExpression((StringLiteralExpression*)expr);
+            return evaluateBooleanLiteralExpression(static_cast<BooleanLiteralExpression*>(expr));
         case AstNodeType::NullLiteralExpression:
-            return evaluateNullLiteralExpression((NullLiteralExpression*)expr);
+            return evaluateNullLiteralExpression(static_cast<NullLiteralExpression*>(expr));
         default:
-            return nullptr;
+            throw std::runtime_error("Unknown expression type");
     }
 }
 
-RuntimeValue* Interpreter::evaluateNullLiteralExpression(NullLiteralExpression *expr) {
-    return new NullValue();
+RuntimeValue Interpreter::evaluateBinaryExpression(BinaryExpression *expr) {
+    RuntimeValue left = evaluate(expr->left);
+    RuntimeValue right = evaluate(expr->right);
+    switch(expr->op->type){
+        case TokenType::Plus:
+            return {ValueType::NUMBER, {.number = left.as.number + right.as.number}};
+        case TokenType::Minus:
+            return {ValueType::NUMBER, {.number = left.as.number - right.as.number}};
+        case TokenType::Star:
+            return {ValueType::NUMBER, {.number = left.as.number * right.as.number}};
+        case TokenType::Slash:
+            return {ValueType::NUMBER, {.number = left.as.number / right.as.number}};
+    }
+    throw "ERRRRRRR";
 }
 
-RuntimeValue* Interpreter::evaluateBooleanLiteralExpression(BooleanLiteralExpression *expr) {
-    return new BooleanValue(expr->value);
+RuntimeValue Interpreter::evaluateNumericLiteralExpression(NumericLiteralExpression *expr) {
+    return {ValueType::NUMBER, {.number = expr->value}};
 }
 
-RuntimeValue* Interpreter::evaluateNumericLiteralExpression(NumericLiteralExpression *expr) {
-    return new NumericValue(expr->value);
+RuntimeValue Interpreter::evaluateUnaryExpression(UnaryExpression *expr) {
+    RuntimeValue value = evaluate(expr->expr);
+    switch(expr->op->type){
+        case TokenType::Minus:
+            return {ValueType::NUMBER, {.number = -value.as.number}};
+    }
 }
 
-RuntimeValue* Interpreter::evaluateStringLiteralExpression(StringLiteralExpression *expr) {
-    return new StringValue(expr->value);
-}
+RuntimeValue Interpreter::evaluateBooleanLiteralExpression(BooleanLiteralExpression *expr) {}
 
-RuntimeValue* Interpreter::evaluateUnaryExpression(UnaryExpression *expr) {
-    auto operand = evaluate(expr->expr);
-    if (operand->type == ValueType::Null) {
-        return operand;
-    }
-    if (expr->op->type == TokenType::Minus) {
-        return new NumericValue(-((NumericValue*)operand)->value);
-    }
-    if (expr->op->type == TokenType::Bang) {
-        return new BooleanValue(!((BooleanValue*)operand)->value);
-    }
-    return nullptr;
-}
-
-RuntimeValue* Interpreter::evaluateBinaryExpression(BinaryExpression *expr) {
-    auto left = evaluate(expr->left);
-    auto right = evaluate(expr->right);
-    if (left->type == ValueType::Null || right->type == ValueType::Null) {
-        return new NullValue();
-    }
-    if (expr->op->type == TokenType::Plus) {
-        if (left->type == ValueType::String || right->type == ValueType::String) {
-            return new StringValue(((StringValue*)left)->value + ((StringValue*)right)->value);
-        }
-        return new NumericValue(((NumericValue*)left)->value + ((NumericValue*)right)->value);
-    }
-    if (expr->op->type == TokenType::Minus) {
-        return new NumericValue(((NumericValue*)left)->value - ((NumericValue*)right)->value);
-    }
-    if (expr->op->type == TokenType::Star) {
-        return new NumericValue(((NumericValue*)left)->value * ((NumericValue*)right)->value);
-    }
-    if (expr->op->type == TokenType::Slash) {
-        return new NumericValue(((NumericValue*)left)->value / ((NumericValue*)right)->value);
-    }
-    if (expr->op->type == TokenType::DoubleEqual) {
-        return new BooleanValue(((NumericValue*)left)->value == ((NumericValue*)right)->value);
-    }
-    if (expr->op->type == TokenType::BangEqual) {
-        return new BooleanValue(((NumericValue*)left)->value != ((NumericValue*)right)->value);
-    }
-    if (expr->op->type == TokenType::Greater) {
-        return new BooleanValue(((NumericValue*)left)->value > ((NumericValue*)right)->value);
-    }
-    if (expr->op->type == TokenType::GreaterEqual) {
-        return new BooleanValue(((NumericValue*)left)->value >= ((NumericValue*)right)->value);
-    }
-    if (expr->op->type == TokenType::Less) {
-        return new BooleanValue(((NumericValue*)left)->value < ((NumericValue*)right)->value);
-    }
-    if (expr->op->type == TokenType::LessEqual) {
-        return new BooleanValue(((NumericValue*)left)->value <= ((NumericValue*)right)->value);
-    }
-    throw "ERRROR";
-}
+RuntimeValue Interpreter::evaluateNullLiteralExpression(NullLiteralExpression *expr) {}
