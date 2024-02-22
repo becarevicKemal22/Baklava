@@ -16,4 +16,7 @@ T* getNode(Statement* node) {
     return castedNode;
 }
 
+std::unique_ptr<Program> parseSource(const std::wstring& source);
+Expression* parseSingleExpression(const std::wstring& source);
+
 #endif //MATURSKI_2_TESTHELPERS_H

@@ -11,7 +11,7 @@
 
 class Interpreter {
 public :
-    RuntimeValue evaluate(Statement* expr);
+    RuntimeValue evaluate(Expression* expr);
 private:
     RuntimeValue evaluateBinaryExpression(BinaryExpression* expr);
     RuntimeValue evaluateUnaryExpression(UnaryExpression* expr);

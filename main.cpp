@@ -48,6 +48,8 @@ void runFile(const char* path){
     std::wcout << std::endl;
     for(auto statement : program->statements){
         auto start = std::chrono::high_resolution_clock::now();
+//        RuntimeValue value = interpreter.evaluate(statement);
+//        std::wcout << "VALUE: " << value.as.number << "\n";
         for(int i = 0; i < 10000; i++){
             interpreter.evaluate(statement);
         }

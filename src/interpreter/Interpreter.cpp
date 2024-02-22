@@ -11,7 +11,7 @@
 #include "NullLiteralExpression.h"
 #include "RuntimeValue.h"
 
-RuntimeValue Interpreter::evaluate(Statement *expr) {
+RuntimeValue Interpreter::evaluate(Expression* expr) {
     switch(expr->type){
         case AstNodeType::BinaryExpression:
             return evaluateBinaryExpression(static_cast<BinaryExpression*>(expr));
@@ -33,29 +33,34 @@ RuntimeValue Interpreter::evaluateBinaryExpression(BinaryExpression *expr) {
     RuntimeValue right = evaluate(expr->right);
     switch(expr->op->type){
         case TokenType::Plus:
-            return {ValueType::NUMBER, {.number = left.as.number + right.as.number}};
+            return {ValueType::Number, {.number = left.as.number + right.as.number}};
         case TokenType::Minus:
-            return {ValueType::NUMBER, {.number = left.as.number - right.as.number}};
+            return {ValueType::Number, {.number = left.as.number - right.as.number}};
         case TokenType::Star:
-            return {ValueType::NUMBER, {.number = left.as.number * right.as.number}};
+            return {ValueType::Number, {.number = left.as.number * right.as.number}};
         case TokenType::Slash:
-            return {ValueType::NUMBER, {.number = left.as.number / right.as.number}};
+            return {ValueType::Number, {.number = left.as.number / right.as.number}};
     }
     throw "ERRRRRRR";
 }
 
 RuntimeValue Interpreter::evaluateNumericLiteralExpression(NumericLiteralExpression *expr) {
-    return {ValueType::NUMBER, {.number = expr->value}};
+    return {ValueType::Number, {.number = expr->value}};
 }
 
 RuntimeValue Interpreter::evaluateUnaryExpression(UnaryExpression *expr) {
     RuntimeValue value = evaluate(expr->expr);
     switch(expr->op->type){
         case TokenType::Minus:
-            return {ValueType::NUMBER, {.number = -value.as.number}};
+            if(value.type == ValueType::Number) return {ValueType::Number, {.number = -value.as.number}};
+
     }
 }
 
-RuntimeValue Interpreter::evaluateBooleanLiteralExpression(BooleanLiteralExpression *expr) {}
+RuntimeValue Interpreter::evaluateBooleanLiteralExpression(BooleanLiteralExpression *expr) {
+    return {ValueType::Boolean, {.boolean = expr->value}};
+}
 
-RuntimeValue Interpreter::evaluateNullLiteralExpression(NullLiteralExpression *expr) {}
+RuntimeValue Interpreter::evaluateNullLiteralExpression(NullLiteralExpression *expr) {
+    return {ValueType::Null};
+}

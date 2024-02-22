@@ -8,9 +8,9 @@
 #include <cstdint>
 
 enum class ValueType : uint8_t {
-    NUMBER,
-    BOOLEAN,
-    NIL,
+    Number,
+    Boolean,
+    Null,
 };
 
 typedef struct {

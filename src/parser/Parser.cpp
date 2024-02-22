@@ -83,7 +83,7 @@ ExprPtr Parser::primaryExpression() {
     if(match({TokenType::Null})) return new NullLiteralExpression(previous());
     if(match({TokenType::Number})) return new NumericLiteralExpression(previous());
     if(match({TokenType::String})) return new StringLiteralExpression(previous());
-    return nullptr;
+    throw "Expected expression";
 }
 
 bool Parser::match(std::vector<TokenType> types) {
