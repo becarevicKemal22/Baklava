@@ -11,6 +11,7 @@
 #include "Program.h"
 #include "PrettyPrint.h"
 #include "Interpreter.h"
+#include "Expression.h"
 
 void runRepl(){
     std::wcout << "Running repl\n";
@@ -48,11 +49,11 @@ void runFile(const char* path){
     std::wcout << std::endl;
     for(auto statement : program->statements){
         auto start = std::chrono::high_resolution_clock::now();
-//        RuntimeValue value = interpreter.evaluate(statement);
-//        std::wcout << "VALUE: " << value.as.number << "\n";
-        for(int i = 0; i < 10000; i++){
-            interpreter.evaluate(statement);
-        }
+        RuntimeValue value = interpreter.evaluate(static_cast<Expression*>(statement));
+        std::wcout << "VALUE: " << value.as.boolean << "\n";
+//        for(int i = 0; i < 10000; i++){
+//            interpreter.evaluate(statement);
+//        }
         auto end = std::chrono::high_resolution_clock::now();
         std::chrono::duration<double> duration = end - start;
         double duration_seconds = duration.count();

@@ -11,6 +11,8 @@
 #include "NullLiteralExpression.h"
 #include "RuntimeValue.h"
 
+#include <iostream>
+
 RuntimeValue Interpreter::evaluate(Expression* expr) {
     switch(expr->type){
         case AstNodeType::BinaryExpression:
@@ -51,9 +53,18 @@ RuntimeValue Interpreter::evaluateNumericLiteralExpression(NumericLiteralExpress
 RuntimeValue Interpreter::evaluateUnaryExpression(UnaryExpression *expr) {
     RuntimeValue value = evaluate(expr->expr);
     switch(expr->op->type){
-        case TokenType::Minus:
+        case TokenType::Minus: {
             if(value.type == ValueType::Number) return {ValueType::Number, {.number = -value.as.number}};
-
+            if(value.type == ValueType::Null) return {ValueType::Number, {.number = -0}};
+            if(value.type == ValueType::Boolean) return {ValueType::Number, {.number = static_cast<double>(-value.as.boolean)}};
+            break;
+        }
+        case TokenType::Bang: {
+            std::wcout << "Evaluating bang" << std::endl;
+            return {ValueType::Boolean, {.boolean = !isTruthy(value)}};
+        }
+        default:
+            throw "PARSER ERROR: Unknown unary operator type";
     }
 }
 
@@ -63,4 +74,17 @@ RuntimeValue Interpreter::evaluateBooleanLiteralExpression(BooleanLiteralExpress
 
 RuntimeValue Interpreter::evaluateNullLiteralExpression(NullLiteralExpression *expr) {
     return {ValueType::Null};
+}
+
+bool Interpreter::isTruthy(const RuntimeValue &value) {
+    switch(value.type){
+        case ValueType::Boolean:
+            return value.as.boolean;
+        case ValueType::Number:
+            return value.as.number != 0;
+        case ValueType::Null:
+            return false;
+        default:
+            return true;
+    }
 }

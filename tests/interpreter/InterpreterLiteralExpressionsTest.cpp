@@ -12,8 +12,8 @@
 TEST_CASE("Interprets true boolean literal", "[interpreter][literal]") {
     std::wstring source = L"istina";
     Interpreter interpreter;
-    Expression* expression = parseSingleExpression(source);
-    RuntimeValue result = interpreter.evaluate(expression);
+
+    RuntimeValue result = interpreter.evaluate(parseSingleExpression(source));
     REQUIRE(result.type == ValueType::Boolean);
     REQUIRE(result.as.boolean == true);
 }

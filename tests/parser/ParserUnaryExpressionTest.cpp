@@ -33,7 +33,7 @@ TEST_CASE("Parses unary expressions", "[parser][unary]") {
     REQUIRE(booleanLiteral->value == true);
 }
 
-TEST_CASE("Allows chaining of unary operators"){
+TEST_CASE("Allows chaining of unary operators", "[parser][unary]"){
     std::wstring source = L"--24";
     Lexer lexer(source);
     lexer.tokenize();

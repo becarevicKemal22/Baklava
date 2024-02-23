@@ -19,6 +19,8 @@ private:
     RuntimeValue evaluateBooleanLiteralExpression(BooleanLiteralExpression* expr);
 //    RuntimeValue evaluateStringLiteralExpression(StringLiteralExpression* expr);
     RuntimeValue evaluateNullLiteralExpression(NullLiteralExpression* expr);
+
+    bool isTruthy(const RuntimeValue& value);
 };
 
 
