@@ -12,5 +12,9 @@ add_executable(tests ../src/error/printer/ErrorPrinter.cpp ../src/lexer/Lexer.cp
         ../src/interpreter/Interpreter.h
         interpreter/InterpreterUnaryExpressionsTest.cpp
         TestHelpers.cpp
-        interpreter/InterpreterLiteralExpressionsTest.cpp)
+        interpreter/InterpreterLiteralExpressionsTest.cpp
+        ../src/error/exceptions/RuntimeError.h
+        ../src/error/ErrorMessageArgument.h
+        ../src/error/exceptions/WrongTypeError.h
+        ../src/interpreter/RuntimeValue.cpp)
 target_link_libraries(tests PRIVATE Catch2::Catch2WithMain)

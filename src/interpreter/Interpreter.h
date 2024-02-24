@@ -8,11 +8,19 @@
 
 #include "RuntimeValue.h"
 #include "Ast.h"
+#include "ErrorPrinter.h"
 
 class Interpreter {
-public :
+public:
+    Interpreter() : errorPrinter(nullptr) {}
+    explicit Interpreter(ErrorPrinter* errorPrinter) : errorPrinter(errorPrinter) {}
+
     RuntimeValue evaluate(Expression* expr);
+
+    bool hadError = false;
 private:
+    ErrorPrinter* errorPrinter;
+
     RuntimeValue evaluateBinaryExpression(BinaryExpression* expr);
     RuntimeValue evaluateUnaryExpression(UnaryExpression* expr);
     RuntimeValue evaluateNumericLiteralExpression(NumericLiteralExpression* expr);

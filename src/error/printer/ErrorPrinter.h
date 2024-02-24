@@ -11,8 +11,10 @@
 #include <variant>
 
 #include "ErrorCode.h"
+#include "ErrorMessageArgument.h"
+#include "RuntimeError.h"
+#include "WrongTypeError.h"
 
-typedef std::variant<std::wstring, std::string, const char*> ErrorMessageArgument;
 typedef std::pair<std::pair<int, int>, std::wstring> colorHighlight;
 
 /**
@@ -49,6 +51,10 @@ public:
      */
     void printLexerError(ErrorCode errorCode, unsigned int lineNumber, unsigned int offset, unsigned int currentChar);
 
+    void printRuntimeError(const RuntimeError* error);
+
+    void printWrongTypeError(const WrongTypeError* error);
+
 private:
     std::wstring source;
     std::vector<std::wstring> lines;
@@ -57,9 +63,10 @@ private:
     void makeLines();
 
     void printSourceLine(unsigned int line, std::vector<colorHighlight> colorHighlights);
-    static std::wstring formattedErrorMessage(ErrorCode errorCode, const std::vector<ErrorMessageArgument>& args);
+    static std::wstring formattedErrorMessage(ErrorCode errorCode, const std::vector<ErrorMessageArgument>& args, unsigned int line = 0);
     void printLineDivider(unsigned int lineNum);
     void printCaretSupportLine(unsigned int offset);
+    void printSquiggleSupportLine(unsigned int lineNum, std::vector<colorHighlight> colorHighlights);
 };
 
 

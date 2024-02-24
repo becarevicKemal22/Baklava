@@ -11,23 +11,32 @@
 #include "NullLiteralExpression.h"
 #include "RuntimeValue.h"
 
+#include "WrongTypeError.h"
+
 #include <iostream>
 
 RuntimeValue Interpreter::evaluate(Expression* expr) {
-    switch(expr->type){
-        case AstNodeType::BinaryExpression:
-            return evaluateBinaryExpression(static_cast<BinaryExpression*>(expr));
-        case AstNodeType::UnaryExpression:
-            return evaluateUnaryExpression(static_cast<UnaryExpression*>(expr));
-        case AstNodeType::NumericLiteralExpression:
-            return evaluateNumericLiteralExpression(static_cast<NumericLiteralExpression*>(expr));
-        case AstNodeType::BooleanLiteralExpression:
-            return evaluateBooleanLiteralExpression(static_cast<BooleanLiteralExpression*>(expr));
-        case AstNodeType::NullLiteralExpression:
-            return evaluateNullLiteralExpression(static_cast<NullLiteralExpression*>(expr));
-        default:
-            throw std::runtime_error("Unknown expression type");
+    try{
+        switch(expr->type){
+            case AstNodeType::BinaryExpression:
+                return evaluateBinaryExpression(static_cast<BinaryExpression*>(expr));
+            case AstNodeType::UnaryExpression:
+                return evaluateUnaryExpression(static_cast<UnaryExpression*>(expr));
+            case AstNodeType::NumericLiteralExpression:
+                return evaluateNumericLiteralExpression(static_cast<NumericLiteralExpression*>(expr));
+            case AstNodeType::BooleanLiteralExpression:
+                return evaluateBooleanLiteralExpression(static_cast<BooleanLiteralExpression*>(expr));
+            case AstNodeType::NullLiteralExpression:
+                return evaluateNullLiteralExpression(static_cast<NullLiteralExpression*>(expr));
+            default:
+                throw std::runtime_error("Unknown expression type");
+        }
+    } catch(RuntimeError& e){
+        if(errorPrinter != nullptr) errorPrinter->printRuntimeError(&e);
+        hadError = true;
+        return {ValueType::Null};
     }
+
 }
 
 RuntimeValue Interpreter::evaluateBinaryExpression(BinaryExpression *expr) {
@@ -56,11 +65,10 @@ RuntimeValue Interpreter::evaluateUnaryExpression(UnaryExpression *expr) {
         case TokenType::Minus: {
             if(value.type == ValueType::Number) return {ValueType::Number, {.number = -value.as.number}};
             if(value.type == ValueType::Null) return {ValueType::Number, {.number = -0}};
-            if(value.type == ValueType::Boolean) return {ValueType::Number, {.number = static_cast<double>(-value.as.boolean)}};
+            throw WrongTypeError(L"-", value, expr);
             break;
         }
         case TokenType::Bang: {
-            std::wcout << "Evaluating bang" << std::endl;
             return {ValueType::Boolean, {.boolean = !isTruthy(value)}};
         }
         default:

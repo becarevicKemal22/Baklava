@@ -9,8 +9,6 @@
 #include "RuntimeValue.h"
 #include "../TestHelpers.h"
 
-#include "Lexer.h"
-#include "Parser.h"
 
 TEST_CASE("Applies logical not to true boolean value", "[interpreter][unary]"){
     std::wstring source = L"!istina";
@@ -20,7 +18,6 @@ TEST_CASE("Applies logical not to true boolean value", "[interpreter][unary]"){
 //    lexer.tokenize();
 //    Parser parser(lexer.tokens);
 //    auto program = parser.parse();
-
 
     RuntimeValue result = interpreter.evaluate(parseSingleExpression(source));
     REQUIRE(result.type == ValueType::Boolean);

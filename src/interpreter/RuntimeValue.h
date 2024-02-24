@@ -6,6 +6,7 @@
 #define MATURSKI_2_RUNTIMEVALUE_H
 
 #include <cstdint>
+#include <string>
 
 enum class ValueType : uint8_t {
     Number,
@@ -20,5 +21,7 @@ typedef struct {
         double number;
     } as;
 } RuntimeValue;
+
+std::wstring valueTypeToString(ValueType type);
 
 #endif //MATURSKI_2_RUNTIMEVALUE_H

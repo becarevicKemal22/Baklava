@@ -25,6 +25,11 @@ const std::unordered_map<int , std::wstring> ERRORMESSAGES = {
         {ERROR_UNEXPECTED_CHARACTER, L"Pronađen nepoznat znak '{}' na liniji {}, pozicija {}."},
         {ERROR_UNTERMINATED_STRING, L"Neterminiran STRING pronađen na liniji {}, pozicija {}."},
 
+        // 3xx
+
+        // 4xx
+        {ERROR_WRONG_TYPE_OPERAND, L"Tip '{}' nije dozvoljen za operator '{}'."}
+
 };
 
 #endif //MATURSKI_2_ERRORMESSAGES_H

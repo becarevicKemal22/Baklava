@@ -41,18 +41,18 @@ void runFile(const char* path){
     }catch(std::exception& e){
         exit(0);
     }
-    std::vector<Token> tokens = lexer.tokens;
+    std::vector<Token*> tokens = lexer.tokens;
     Parser parser(tokens);
     std::unique_ptr<Program> program = parser.parse();
     printAST(program);
-    Interpreter interpreter;
+    Interpreter interpreter(&printer);
     std::wcout << std::endl;
     for(auto statement : program->statements){
         auto start = std::chrono::high_resolution_clock::now();
         RuntimeValue value = interpreter.evaluate(static_cast<Expression*>(statement));
-        std::wcout << "VALUE: " << value.as.boolean << "\n";
+//        std::wcout << "VALUE: " << value.as.boolean << "\n";
 //        for(int i = 0; i < 10000; i++){
-//            interpreter.evaluate(statement);
+//            interpreter.evaluate(static_cast<Expression*>(statement));
 //        }
         auto end = std::chrono::high_resolution_clock::now();
         std::chrono::duration<double> duration = end - start;

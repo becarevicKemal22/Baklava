@@ -5,6 +5,9 @@
 #include <iostream>
 #include "ErrorPrinter.h"
 #include "ErrorMessages.h"
+#include "RuntimeError.h"
+#include "RuntimeError.h"
+#include "WrongTypeError.h"
 
 using std::wcout;
 
@@ -16,6 +19,27 @@ const std::wstring ANSI_BLUE = L"\033[34m";
 void ErrorPrinter::printErrorMessage(ErrorCode errorCode, const std::vector<ErrorMessageArgument> &args) {
     std::wstring message = formattedErrorMessage(errorCode, args);
     wcout << message << "\n";
+}
+
+
+void ErrorPrinter::printRuntimeError(const RuntimeError *error) {
+    auto type = dynamic_cast<const WrongTypeError *>(error);
+    if (type != nullptr) {
+        printWrongTypeError(static_cast<const WrongTypeError *>(error));
+    }
+    std::wcout << "\n";
+}
+
+void ErrorPrinter::printWrongTypeError(const WrongTypeError *error) {
+    std::wstring message = formattedErrorMessage(error->code, error->messageArguments, error->token->line);
+    wcout << message << "\n";
+    printSourceLine(error->token->line, {
+            {
+                {error->token->offset, error->token->offset + error->token->value.size() - 1},
+                ANSI_RED}
+    });
+    printSquiggleSupportLine(error->token->line, {
+        {{error->token->offset, error->token->offset + error->token->value.size() - 1}, ANSI_RED}});
 }
 
 void
@@ -32,8 +56,23 @@ ErrorPrinter::printLexerError(ErrorCode errorCode, unsigned int line, unsigned i
     printCaretSupportLine(offset);
 }
 
-std::wstring ErrorPrinter::formattedErrorMessage(ErrorCode errorCode, const std::vector<ErrorMessageArgument> &args) {
-    std::wstring message = ANSI_RED + L"Greška: " + ANSI_RESET + ERRORMESSAGES.at(errorCode);
+
+
+// ***********************************************************************
+// ----------------------- PRIVATE SUPPORT METHODS -----------------------
+// ***********************************************************************
+
+
+
+std::wstring ErrorPrinter::formattedErrorMessage(ErrorCode errorCode, const std::vector<ErrorMessageArgument> &args,
+                                                 unsigned int line) {
+    std::wstring message = L"";
+    if (line != 0) {
+        message = ANSI_RED + L"Greška na liniji " + std::to_wstring(line) + L": " + ANSI_RESET +
+                  ERRORMESSAGES.at(errorCode);
+    } else {
+        message = ANSI_RED + L"Greška: " + ANSI_RESET + ERRORMESSAGES.at(errorCode);
+    }
 
     for (const auto &arg: args) {
         std::wstring argument;
@@ -105,6 +144,30 @@ void ErrorPrinter::printCaretSupportLine(unsigned int offset) {
         return;
     }
     std::wcout << ANSI_RED << L'^' << ANSI_RESET;
+}
+
+void ErrorPrinter::printSquiggleSupportLine(unsigned int lineNum, std::vector<colorHighlight> colorHighlights){
+    printLineDivider(0);
+
+    int currentHighlight = 0;
+    int index = 0;
+    int startIndex = colorHighlights[currentHighlight].first.first;
+    int endIndex = colorHighlights[currentHighlight].first.second;
+    std::wstring ANSI_COLOR = colorHighlights[currentHighlight].second;
+    for(const auto& highlight : colorHighlights){
+        if(index > endIndex){
+            currentHighlight++;
+            startIndex = colorHighlights[currentHighlight].first.first;
+            endIndex = colorHighlights[currentHighlight].first.second;
+            ANSI_COLOR = colorHighlights[currentHighlight].second;
+        }
+        if(index < startIndex){
+            wcout << std::wstring(startIndex - index, L' ');
+            index = startIndex;
+        }
+        wcout << ANSI_COLOR << std::wstring(endIndex - index + 1, L'~') << ANSI_RESET;
+        index = endIndex + 1;
+    }
 }
 
 void ErrorPrinter::makeLines() {
