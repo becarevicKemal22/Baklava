@@ -13,19 +13,19 @@
 
 class Parser {
 public:
-    Parser(std::vector<Token> tokens) : tokens(tokens) {}
+    explicit Parser(std::vector<Token*> tokens) : tokens(tokens) {}
 
-    std::vector<Token> tokens;
+    std::vector<Token*> tokens;
     std::unique_ptr<Program> parse();
 private:
     unsigned int current = 0;
     bool atType(TokenType type){
-        return tokens[current].type == type;
+        return tokens[current]->type == type;
     }
     void advance() { current++; }
-    Token* previous() { return &(tokens[current - 1]); }
+    Token* previous() { return tokens[current - 1]; }
     bool match(std::vector<TokenType> types);
-    Token* at() { return &(tokens[current]); }
+    Token* at() { return tokens[current]; }
 
     Statement* statement();
     Expression* expression();

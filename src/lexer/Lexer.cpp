@@ -168,18 +168,18 @@ void Lexer::tokenize() {
 }
 
 void Lexer::addToken(TokenType type, wchar_t character) {
-    tokens.emplace_back(type, std::wstring(1, character), line, charIndexOnLine);
+    tokens.push_back(new Token(type, std::wstring(1, character), line, charIndexOnLine));
 }
 
 void Lexer::addToken(TokenType type, const std::wstring& value, bool offsetIsStartOfToken) {
     if(offsetIsStartOfToken)
-        tokens.emplace_back(type, value, line, charIndexOnLine);
+        tokens.push_back(new Token(type, value, line, charIndexOnLine));
     else
-        tokens.emplace_back(type, value, line, (charIndexOnLine + 1) - value.length());
+        tokens.push_back(new Token(type, value, line, (charIndexOnLine + 1) - value.length()));
 }
 
 void Lexer::addStringToken(const std::wstring& value, unsigned int line, unsigned int offset){
-    tokens.emplace_back(TokenType::String, value, line, offset);
+    tokens.push_back(new Token(TokenType::String, value, line, offset));
 }
 
 void Lexer::handleTab(){

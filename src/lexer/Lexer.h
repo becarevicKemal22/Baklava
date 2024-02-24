@@ -15,7 +15,7 @@ class Lexer {
 public:
     Lexer(const std::wstring&  source) : source(source), printer(nullptr) {}
     Lexer(const std::wstring& source, ErrorPrinter* printer) : source(source), printer(printer) {}
-    std::vector<Token> tokens{};
+    std::vector<Token*> tokens{};
     void tokenize();
     void setPrinter(ErrorPrinter* printer){
         this->printer = printer;
