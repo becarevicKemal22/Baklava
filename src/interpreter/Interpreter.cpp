@@ -12,6 +12,7 @@
 #include "RuntimeValue.h"
 
 #include "WrongTypeError.h"
+#include "WrongBinaryOperandTypes.h"
 
 #include <iostream>
 
@@ -44,15 +45,30 @@ RuntimeValue Interpreter::evaluateBinaryExpression(BinaryExpression *expr) {
     RuntimeValue right = evaluate(expr->right);
     switch(expr->op->type){
         case TokenType::Plus:
-            return {ValueType::Number, {.number = left.as.number + right.as.number}};
+//            if(left.type == ValueType::String && right.type == ValueType::String){
+//                return {ValueType::String, {.string = left.as.string + right.as.string}};
+//            }
+            if(left.type == ValueType::Number && right.type == ValueType::Number){
+                return {ValueType::Number, {.number = left.as.number + right.as.number}};
+            }
+            throw WrongBinaryOperandTypes(L"+", left, right, expr);
         case TokenType::Minus:
+            if(left.type != ValueType::Number || right.type != ValueType::Number){
+                throw WrongBinaryOperandTypes(L"-", left, right, expr);
+            }
             return {ValueType::Number, {.number = left.as.number - right.as.number}};
         case TokenType::Star:
+            if(left.type != ValueType::Number || right.type != ValueType::Number){
+                throw WrongBinaryOperandTypes(L"*", left, right, expr);
+            }
             return {ValueType::Number, {.number = left.as.number * right.as.number}};
         case TokenType::Slash:
+            if(left.type != ValueType::Number || right.type != ValueType::Number){
+                throw WrongBinaryOperandTypes(L"/", left, right, expr);
+            }
             return {ValueType::Number, {.number = left.as.number / right.as.number}};
     }
-    throw "ERRRRRRR";
+    throw std::runtime_error("Unknown binary operator type - PARSING BUG!");
 }
 
 RuntimeValue Interpreter::evaluateNumericLiteralExpression(NumericLiteralExpression *expr) {

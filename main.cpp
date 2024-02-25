@@ -49,11 +49,11 @@ void runFile(const char* path){
     std::wcout << std::endl;
     for(auto statement : program->statements){
         auto start = std::chrono::high_resolution_clock::now();
-        RuntimeValue value = interpreter.evaluate(static_cast<Expression*>(statement));
+//        RuntimeValue value = interpreter.evaluate(static_cast<Expression*>(statement));
 //        std::wcout << "VALUE: " << value.as.boolean << "\n";
-//        for(int i = 0; i < 10000; i++){
-//            interpreter.evaluate(static_cast<Expression*>(statement));
-//        }
+        for(int i = 0; i < 1; i++){
+            interpreter.evaluate(static_cast<Expression*>(statement));
+        }
         auto end = std::chrono::high_resolution_clock::now();
         std::chrono::duration<double> duration = end - start;
         double duration_seconds = duration.count();

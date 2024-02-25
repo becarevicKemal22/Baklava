@@ -28,7 +28,8 @@ const std::unordered_map<int , std::wstring> ERRORMESSAGES = {
         // 3xx
 
         // 4xx
-        {ERROR_WRONG_TYPE_OPERAND, L"Tip '{}' nije dozvoljen za operator '{}'."}
+        {ERROR_WRONG_TYPE_OPERAND, L"Tip '{}' nije dozvoljen za operator '{}'."},
+        {ERROR_WRONG_TYPE_OPERAND_BINARY, L"Tipovi '{}' i '{}' nisu dozvoljeni za operator '{}'."}
 
 };
 

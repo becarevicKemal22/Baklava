@@ -14,11 +14,6 @@ TEST_CASE("Applies logical not to true boolean value", "[interpreter][unary]"){
     std::wstring source = L"!istina";
     Interpreter interpreter;
 
-//    Lexer lexer(source);
-//    lexer.tokenize();
-//    Parser parser(lexer.tokens);
-//    auto program = parser.parse();
-
     RuntimeValue result = interpreter.evaluate(parseSingleExpression(source));
     REQUIRE(result.type == ValueType::Boolean);
     REQUIRE(result.as.boolean == false);
@@ -96,20 +91,21 @@ TEST_CASE("Negates null value", "[interpreter][unary]"){
     REQUIRE(result.as.number == -0);
 }
 
-TEST_CASE("Negates true boolean value", "[interpreter][unary]"){
+TEST_CASE("Reports error on boolean value negation", "[interpreter][unary]"){
     std::wstring source = L"-istina";
     Interpreter interpreter;
-
-    RuntimeValue result = interpreter.evaluate(parseSingleExpression(source));
-    REQUIRE(result.type == ValueType::Number);
-    REQUIRE(result.as.number == -1);
+    RuntimeValue result;
+    REQUIRE_NOTHROW(result = interpreter.evaluate(parseSingleExpression(source)));
+    REQUIRE(result.type == ValueType::Null);
+    REQUIRE(interpreter.hadError);
 }
 
-TEST_CASE("Negates false boolean value", "[interpreter][unary]"){
+TEST_CASE("Reports error on false boolean value negation", "[interpreter][unary]"){
     std::wstring source = L"-neistina";
     Interpreter interpreter;
 
-    RuntimeValue result = interpreter.evaluate(parseSingleExpression(source));
-    REQUIRE(result.type == ValueType::Number);
-    REQUIRE(result.as.number == -0);
+    RuntimeValue result;
+    REQUIRE_NOTHROW(result = interpreter.evaluate(parseSingleExpression(source)));
+    REQUIRE(result.type == ValueType::Null);
+    REQUIRE(interpreter.hadError);
 }

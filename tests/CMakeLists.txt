@@ -16,5 +16,8 @@ add_executable(tests ../src/error/printer/ErrorPrinter.cpp ../src/lexer/Lexer.cp
         ../src/error/exceptions/RuntimeError.h
         ../src/error/ErrorMessageArgument.h
         ../src/error/exceptions/WrongTypeError.h
-        ../src/interpreter/RuntimeValue.cpp)
+        ../src/interpreter/RuntimeValue.cpp
+        ../src/error/exceptions/ExceptionHelpers.cpp
+        interpreter/InterpreterBinaryExpressionTest.cpp
+        ../src/error/exceptions/WrongBinaryOperandTypes.h)
 target_link_libraries(tests PRIVATE Catch2::Catch2WithMain)

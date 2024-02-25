@@ -189,6 +189,9 @@ void Lexer::handleTab(){
 
 void Lexer::handleNewLine() {
     line++;
+    if(source[currentChar] == '\r' && source[currentChar + 1] == '\n'){
+        currentChar++;
+    }
     currentChar++;
     charIndexOnLine = 0;
 }

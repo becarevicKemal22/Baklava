@@ -14,6 +14,7 @@
 #include "ErrorMessageArgument.h"
 #include "RuntimeError.h"
 #include "WrongTypeError.h"
+#include "WrongBinaryOperandTypes.h"
 
 typedef std::pair<std::pair<int, int>, std::wstring> colorHighlight;
 
@@ -54,6 +55,7 @@ public:
     void printRuntimeError(const RuntimeError* error);
 
     void printWrongTypeError(const WrongTypeError* error);
+    void printWrongBinaryOperandTypeError(const WrongBinaryOperandTypes* error);
 
 private:
     std::wstring source;

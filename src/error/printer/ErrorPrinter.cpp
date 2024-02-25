@@ -6,8 +6,8 @@
 #include "ErrorPrinter.h"
 #include "ErrorMessages.h"
 #include "RuntimeError.h"
-#include "RuntimeError.h"
 #include "WrongTypeError.h"
+#include "WrongBinaryOperandTypes.h"
 
 using std::wcout;
 
@@ -23,9 +23,11 @@ void ErrorPrinter::printErrorMessage(ErrorCode errorCode, const std::vector<Erro
 
 
 void ErrorPrinter::printRuntimeError(const RuntimeError *error) {
-    auto type = dynamic_cast<const WrongTypeError *>(error);
-    if (type != nullptr) {
+    if (dynamic_cast<const WrongTypeError *>(error) != nullptr) {
         printWrongTypeError(static_cast<const WrongTypeError *>(error));
+    }
+    if (dynamic_cast<const WrongBinaryOperandTypes *>(error) != nullptr) {
+        printWrongBinaryOperandTypeError(static_cast<const WrongBinaryOperandTypes *>(error));
     }
     std::wcout << "\n";
 }
@@ -40,6 +42,38 @@ void ErrorPrinter::printWrongTypeError(const WrongTypeError *error) {
     });
     printSquiggleSupportLine(error->token->line, {
         {{error->token->offset, error->token->offset + error->token->value.size() - 1}, ANSI_RED}});
+}
+
+void ErrorPrinter::printWrongBinaryOperandTypeError(const WrongBinaryOperandTypes *error) {
+    std::wstring message = formattedErrorMessage(error->code, error->messageArguments, error->token->line);
+    wcout << message << "\n";
+    colorHighlight leftTokenHighlight = {{error->leftToken->offset, error->leftToken->offset + error->leftToken->value.size() - 1}, ANSI_BLUE};
+    colorHighlight rightTokenHighlight = {{error->rightToken->offset, error->rightToken->offset + error->rightToken->value.size() - 1}, ANSI_GREEN};
+    colorHighlight operatorTokenHighlight = {{error->token->offset, error->token->offset + error->token->value.size() - 1}, ANSI_RED};
+    unsigned int leftLine = error->leftToken->line;
+    unsigned int rightLine = error->rightToken->line;
+    unsigned int operatorLine = error->token->line;
+    if(leftLine == rightLine){
+        printSourceLine(leftLine, {leftTokenHighlight, operatorTokenHighlight, rightTokenHighlight});
+        printSquiggleSupportLine(leftLine, {leftTokenHighlight, operatorTokenHighlight, rightTokenHighlight});
+    } else if(leftLine == operatorLine){
+        printSourceLine(leftLine, {leftTokenHighlight, operatorTokenHighlight});
+        printSquiggleSupportLine(leftLine, {leftTokenHighlight, operatorTokenHighlight});
+        printSourceLine(rightLine, {rightTokenHighlight});
+        printSquiggleSupportLine(rightLine, {rightTokenHighlight});
+    } else if(rightLine == operatorLine){
+        printSourceLine(leftLine, {leftTokenHighlight});
+        printSquiggleSupportLine(leftLine, {leftTokenHighlight});
+        printSourceLine(rightLine, {operatorTokenHighlight, rightTokenHighlight});
+        printSquiggleSupportLine(rightLine, {operatorTokenHighlight, rightTokenHighlight});
+    } else {
+        printSourceLine(leftLine, {leftTokenHighlight});
+        printSquiggleSupportLine(leftLine, {leftTokenHighlight});
+        printSourceLine(operatorLine, {operatorTokenHighlight});
+        printSquiggleSupportLine(operatorLine, {operatorTokenHighlight});
+        printSourceLine(rightLine, {rightTokenHighlight});
+        printSquiggleSupportLine(rightLine, {rightTokenHighlight});
+    }
 }
 
 void
@@ -165,9 +199,14 @@ void ErrorPrinter::printSquiggleSupportLine(unsigned int lineNum, std::vector<co
             wcout << std::wstring(startIndex - index, L' ');
             index = startIndex;
         }
-        wcout << ANSI_COLOR << std::wstring(endIndex - index + 1, L'~') << ANSI_RESET;
+        if(ANSI_COLOR == ANSI_RED){
+            wcout << ANSI_COLOR << std::wstring(endIndex - index + 1, L'^') << ANSI_RESET;
+        } else{
+            wcout << ANSI_COLOR << std::wstring(endIndex - index + 1, L'~') << ANSI_RESET;
+        }
         index = endIndex + 1;
     }
+    wcout << "\n";
 }
 
 void ErrorPrinter::makeLines() {
