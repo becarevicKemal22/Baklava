@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['errorprinter_0',['ErrorPrinter',['../class_error_printer.html',1,'']]]
+  ['binaryexpression_0',['BinaryExpression',['../class_binary_expression.html',1,'']]],
+  ['booleanliteralexpression_1',['BooleanLiteralExpression',['../class_boolean_literal_expression.html',1,'']]]
 ];

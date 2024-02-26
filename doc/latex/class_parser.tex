@@ -1,0 +1,75 @@
+\doxysection{Parser Class Reference}
+\hypertarget{class_parser}{}\label{class_parser}\index{Parser@{Parser}}
+
+
+The \doxylink{class_parser}{Parser} class is responsible for parsing tokens created by the \doxylink{class_lexer}{Lexer} into an AST.  
+
+
+
+
+{\ttfamily \#include $<$Parser.\+h$>$}
+
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_parser_a1e4bf9b925afdcb211f87662534da5e9}{Parser}} (const std\+::vector$<$ \mbox{\hyperlink{class_token}{Token}} \texorpdfstring{$\ast$}{*} $>$ \&\mbox{\hyperlink{class_parser_a249888403db5d3567b4369199c3128d9}{tokens}})
+\begin{DoxyCompactList}\small\item\em Only constructor for the \doxylink{class_parser}{Parser} class. \end{DoxyCompactList}\item 
+std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{class_program}{Program}} $>$ \mbox{\hyperlink{class_parser_aef4bb7c588f6908aa9a17b70397b2694}{parse}} ()
+\begin{DoxyCompactList}\small\item\em Parses the tokens into an AST. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+std\+::vector$<$ \mbox{\hyperlink{class_token}{Token}} \texorpdfstring{$\ast$}{*} $>$ \mbox{\hyperlink{class_parser_a249888403db5d3567b4369199c3128d9}{tokens}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+The \doxylink{class_parser}{Parser} class is responsible for parsing tokens created by the \doxylink{class_lexer}{Lexer} into an AST. 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{class_parser_a1e4bf9b925afdcb211f87662534da5e9}\label{class_parser_a1e4bf9b925afdcb211f87662534da5e9} 
+\index{Parser@{Parser}!Parser@{Parser}}
+\index{Parser@{Parser}!Parser@{Parser}}
+\doxysubsubsection{\texorpdfstring{Parser()}{Parser()}}
+{\footnotesize\ttfamily Parser\+::\+Parser (\begin{DoxyParamCaption}\item[{const std\+::vector$<$ \mbox{\hyperlink{class_token}{Token}} \texorpdfstring{$\ast$}{*} $>$ \&}]{tokens }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [explicit]}}
+
+
+
+Only constructor for the \doxylink{class_parser}{Parser} class. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em tokens} & Tokens created by the \doxylink{class_lexer}{Lexer}. \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_parser_aef4bb7c588f6908aa9a17b70397b2694}\label{class_parser_aef4bb7c588f6908aa9a17b70397b2694} 
+\index{Parser@{Parser}!parse@{parse}}
+\index{parse@{parse}!Parser@{Parser}}
+\doxysubsubsection{\texorpdfstring{parse()}{parse()}}
+{\footnotesize\ttfamily std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{class_program}{Program}} $>$ Parser\+::parse (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Parses the tokens into an AST. 
+
+\begin{DoxyReturn}{Returns}
+Unique pointer to the root "{}\+Program"{} node. 
+\end{DoxyReturn}
+
+
+\doxysubsection{Member Data Documentation}
+\Hypertarget{class_parser_a249888403db5d3567b4369199c3128d9}\label{class_parser_a249888403db5d3567b4369199c3128d9} 
+\index{Parser@{Parser}!tokens@{tokens}}
+\index{tokens@{tokens}!Parser@{Parser}}
+\doxysubsubsection{\texorpdfstring{tokens}{tokens}}
+{\footnotesize\ttfamily std\+::vector$<$\mbox{\hyperlink{class_token}{Token}}\texorpdfstring{$\ast$}{*}$>$ Parser\+::tokens}
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+src/parser/\mbox{\hyperlink{_parser_8h}{Parser.\+h}}\item 
+src/parser/\mbox{\hyperlink{_parser_8cpp}{Parser.\+cpp}}\end{DoxyCompactItemize}

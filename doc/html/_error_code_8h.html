@@ -85,7 +85,14 @@ $(function() {
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="enum-members" name="enum-members"></a>
 Enumerations</h2></td></tr>
-<tr class="memitem:a59e56af19e754a6aa26a612ebf91d05f" id="r_a59e56af19e754a6aa26a612ebf91d05f"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a59e56af19e754a6aa26a612ebf91d05f">ErrorCode</a> { <a class="el" href="#a59e56af19e754a6aa26a612ebf91d05fa2cfbedee4226e70e54cad70893f67d47">ERROR_CANNOT_OPEN_FILE</a> = 100
+<tr class="memitem:a59e56af19e754a6aa26a612ebf91d05f" id="r_a59e56af19e754a6aa26a612ebf91d05f"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a59e56af19e754a6aa26a612ebf91d05f">ErrorCode</a> { <br />
+&#160;&#160;<a class="el" href="#a59e56af19e754a6aa26a612ebf91d05fa2cfbedee4226e70e54cad70893f67d47">ERROR_CANNOT_OPEN_FILE</a> = 100
+, <a class="el" href="#a59e56af19e754a6aa26a612ebf91d05fa0808d39b709bff4c370987800c4713fa">ERROR_UNEXPECTED_CHARACTER</a> = 200
+, <a class="el" href="#a59e56af19e754a6aa26a612ebf91d05fadd419a657a311f11c4ac1c0efb3a35a0">ERROR_UNTERMINATED_STRING</a> = 201
+, <a class="el" href="#a59e56af19e754a6aa26a612ebf91d05fa2e1a626d0a665069b6c81d59b1787d25">ERROR_WRONG_TYPE_OPERAND</a> = 400
+, <br />
+&#160;&#160;<a class="el" href="#a59e56af19e754a6aa26a612ebf91d05fa105a71af2f532e023af49115dc047530">ERROR_WRONG_TYPE_OPERAND_BINARY</a> = 401
+<br />
  }</td></tr>
 <tr class="memdesc:a59e56af19e754a6aa26a612ebf91d05f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Standardized error codes for the interpreter that should be used by the entire project.  <a href="#a59e56af19e754a6aa26a612ebf91d05f">More...</a><br /></td></tr>
 <tr class="separator:a59e56af19e754a6aa26a612ebf91d05f"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -107,6 +114,10 @@ Enumerations</h2></td></tr>
 <p>Every single possible error is included in the enum, and no error reporting should be done without using the correct code. 1xx are general errors. 2xx are lexical errors. 3xx are parsing errors. 4xx are interpreter runtime errors. </p><dl class="section see"><dt>See also</dt><dd><a class="el" href="_error_messages_8h.html">ErrorMessages.h</a> for the error messages corresponding to each code. </dd></dl>
 <table class="fieldtable">
 <tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a59e56af19e754a6aa26a612ebf91d05fa2cfbedee4226e70e54cad70893f67d47" name="a59e56af19e754a6aa26a612ebf91d05fa2cfbedee4226e70e54cad70893f67d47"></a>ERROR_CANNOT_OPEN_FILE&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a59e56af19e754a6aa26a612ebf91d05fa0808d39b709bff4c370987800c4713fa" name="a59e56af19e754a6aa26a612ebf91d05fa0808d39b709bff4c370987800c4713fa"></a>ERROR_UNEXPECTED_CHARACTER&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a59e56af19e754a6aa26a612ebf91d05fadd419a657a311f11c4ac1c0efb3a35a0" name="a59e56af19e754a6aa26a612ebf91d05fadd419a657a311f11c4ac1c0efb3a35a0"></a>ERROR_UNTERMINATED_STRING&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a59e56af19e754a6aa26a612ebf91d05fa2e1a626d0a665069b6c81d59b1787d25" name="a59e56af19e754a6aa26a612ebf91d05fa2e1a626d0a665069b6c81d59b1787d25"></a>ERROR_WRONG_TYPE_OPERAND&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a59e56af19e754a6aa26a612ebf91d05fa105a71af2f532e023af49115dc047530" name="a59e56af19e754a6aa26a612ebf91d05fa105a71af2f532e023af49115dc047530"></a>ERROR_WRONG_TYPE_OPERAND_BINARY&#160;</td><td class="fielddoc"></td></tr>
 </table>
 
 </div>

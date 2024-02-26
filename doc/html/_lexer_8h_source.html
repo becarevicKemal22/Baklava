@@ -94,31 +94,61 @@ $(function() { codefold.init(0); });
 <div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="preprocessor">#include &lt;vector&gt;</span></div>
 <div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span> </div>
 <div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="preprocessor">#include &quot;<a class="code" href="_token_8h.html">Token.h</a>&quot;</span></div>
-<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span> </div>
-<div class="foldopen" id="foldopen00013" data-start="{" data-end="};">
-<div class="line"><a id="l00013" name="l00013"></a><span class="lineno"><a class="line" href="class_lexer.html">   13</a></span><span class="keyword">class </span><a class="code hl_class" href="class_lexer.html">Lexer</a> {</div>
-<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="keyword">public</span>:</div>
-<div class="line"><a id="l00015" name="l00015"></a><span class="lineno"><a class="line" href="class_lexer.html#ae3d94795aa1bc6570f7f8fe3882423aa">   15</a></span>    <span class="keyword">explicit</span> <a class="code hl_function" href="class_lexer.html#ae3d94795aa1bc6570f7f8fe3882423aa">Lexer</a>(<span class="keyword">const</span> std::string&amp;  source) : source(source) {}</div>
-<div class="line"><a id="l00016" name="l00016"></a><span class="lineno"><a class="line" href="class_lexer.html#adfc224cc460a688deb4655f88ccd1bbb">   16</a></span>    std::vector&lt;Token&gt; <a class="code hl_variable" href="class_lexer.html#adfc224cc460a688deb4655f88ccd1bbb">tokens</a>{};</div>
-<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="class_lexer.html#a8307e9de879e09ea9a336d19e949cf4d">tokenize</a>();</div>
-<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span> </div>
-<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span><span class="keyword">private</span>:</div>
-<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>    std::string source;</div>
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>    <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> currentChar = 0;</div>
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>    <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> line = 1;</div>
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>    <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> charIndexOnLine = 0;</div>
-<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>    <span class="keywordtype">void</span> addToken(<a class="code hl_enumeration" href="_token_type_8h.html#afa91e1934f818659a4e2b0c8ce1214b0">TokenType</a> type, <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> line, <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> offset);</div>
-<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>};</div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="preprocessor">#include &quot;<a class="code" href="_error_printer_8h.html">ErrorPrinter.h</a>&quot;</span></div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span> </div>
+<div class="foldopen" id="foldopen00019" data-start="{" data-end="};">
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno"><a class="line" href="class_lexer.html">   19</a></span><span class="keyword">class </span><a class="code hl_class" href="class_lexer.html">Lexer</a> {</div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span><span class="keyword">public</span>:</div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno"><a class="line" href="class_lexer.html#ab5ccbbf65093864a9b62906523daf63a">   27</a></span>    <a class="code hl_function" href="class_lexer.html#ab5ccbbf65093864a9b62906523daf63a">Lexer</a>(<span class="keyword">const</span> std::wstring&amp;  source) : source(source), printer(nullptr) {}</div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span> </div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno"><a class="line" href="class_lexer.html#a7201a02227b3a8135976187f653a9b42">   36</a></span>    <a class="code hl_function" href="class_lexer.html#a7201a02227b3a8135976187f653a9b42">Lexer</a>(<span class="keyword">const</span> std::wstring&amp; source, <a class="code hl_class" href="class_error_printer.html">ErrorPrinter</a>* printer) : source(source), printer(printer) {}</div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span> </div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno"><a class="line" href="class_lexer.html#a7a26f238ff21f31d754e5770d3501c71">   43</a></span>    <a class="code hl_function" href="class_lexer.html#a7a26f238ff21f31d754e5770d3501c71">~Lexer</a>() = <span class="keywordflow">default</span>;</div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span> </div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno"><a class="line" href="class_lexer.html#a67c5bb32cc0e7ce98e2554175ec6dc25">   45</a></span>    std::vector&lt;Token*&gt; <a class="code hl_variable" href="class_lexer.html#a67c5bb32cc0e7ce98e2554175ec6dc25">tokens</a>{}; </div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="class_lexer.html#a8307e9de879e09ea9a336d19e949cf4d">tokenize</a>();</div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span> </div>
+<div class="foldopen" id="foldopen00060" data-start="{" data-end="}">
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno"><a class="line" href="class_lexer.html#a919b2ac3e53a80b0c612ca511578eb37">   60</a></span>    <span class="keywordtype">void</span> <a class="code hl_function" href="class_lexer.html#a919b2ac3e53a80b0c612ca511578eb37">setPrinter</a>(<a class="code hl_class" href="class_error_printer.html">ErrorPrinter</a>* printer){</div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>        this-&gt;printer = printer;</div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>    }</div>
 </div>
-<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span> </div>
-<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span> </div>
-<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span><span class="preprocessor">#endif </span><span class="comment">//MATURSKI_2_LEXER_H</span></div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span><span class="keyword">private</span>:</div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>    std::wstring source;</div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>    <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> currentChar = 0;</div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>    <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> line = 1;</div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>    <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> charIndexOnLine = 0;</div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>    <a class="code hl_class" href="class_error_printer.html">ErrorPrinter</a>* printer;</div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span> </div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>    <span class="keywordtype">void</span> addToken(<a class="code hl_enumeration" href="_token_type_8h.html#afa91e1934f818659a4e2b0c8ce1214b0">TokenType</a> type, <span class="keywordtype">wchar_t</span> character);</div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span> </div>
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>    <span class="keywordtype">void</span> addToken(<a class="code hl_enumeration" href="_token_type_8h.html#afa91e1934f818659a4e2b0c8ce1214b0">TokenType</a> type, <span class="keyword">const</span> std::wstring&amp; value, <span class="keywordtype">bool</span> offsetIsStartOfToken = <span class="keyword">false</span>);</div>
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span> </div>
+<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span>    <span class="keywordtype">void</span> addStringToken(<span class="keyword">const</span> std::wstring&amp; value, <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> line, <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> offset);</div>
+<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span> </div>
+<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span>    <span class="keywordtype">void</span> advance() { currentChar++; charIndexOnLine++;}</div>
+<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span>    <span class="keywordtype">wchar_t</span> peek() { <span class="keywordflow">return</span> source[currentChar + 1];}</div>
+<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span>    <span class="keywordtype">void</span> handleTab();</div>
+<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span> </div>
+<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span>    <span class="keywordtype">void</span> handleNewLine();</div>
+<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span>    <span class="keywordtype">void</span> handleString();</div>
+<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span>    <span class="keywordtype">void</span> handleComment();</div>
+<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span>};</div>
+</div>
+<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span> </div>
+<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span> </div>
+<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span><span class="preprocessor">#endif </span><span class="comment">//MATURSKI_2_LEXER_H</span></div>
+<div class="ttc" id="a_error_printer_8h_html"><div class="ttname"><a href="_error_printer_8h.html">ErrorPrinter.h</a></div></div>
 <div class="ttc" id="a_token_8h_html"><div class="ttname"><a href="_token_8h.html">Token.h</a></div></div>
-<div class="ttc" id="a_token_type_8h_html_afa91e1934f818659a4e2b0c8ce1214b0"><div class="ttname"><a href="_token_type_8h.html#afa91e1934f818659a4e2b0c8ce1214b0">TokenType</a></div><div class="ttdeci">TokenType</div><div class="ttdef"><b>Definition</b> TokenType.h:10</div></div>
-<div class="ttc" id="aclass_lexer_html"><div class="ttname"><a href="class_lexer.html">Lexer</a></div><div class="ttdef"><b>Definition</b> Lexer.h:13</div></div>
-<div class="ttc" id="aclass_lexer_html_a8307e9de879e09ea9a336d19e949cf4d"><div class="ttname"><a href="class_lexer.html#a8307e9de879e09ea9a336d19e949cf4d">Lexer::tokenize</a></div><div class="ttdeci">void tokenize()</div><div class="ttdef"><b>Definition</b> Lexer.cpp:7</div></div>
-<div class="ttc" id="aclass_lexer_html_adfc224cc460a688deb4655f88ccd1bbb"><div class="ttname"><a href="class_lexer.html#adfc224cc460a688deb4655f88ccd1bbb">Lexer::tokens</a></div><div class="ttdeci">std::vector&lt; Token &gt; tokens</div><div class="ttdef"><b>Definition</b> Lexer.h:16</div></div>
-<div class="ttc" id="aclass_lexer_html_ae3d94795aa1bc6570f7f8fe3882423aa"><div class="ttname"><a href="class_lexer.html#ae3d94795aa1bc6570f7f8fe3882423aa">Lexer::Lexer</a></div><div class="ttdeci">Lexer(const std::string &amp;source)</div><div class="ttdef"><b>Definition</b> Lexer.h:15</div></div>
+<div class="ttc" id="a_token_type_8h_html_afa91e1934f818659a4e2b0c8ce1214b0"><div class="ttname"><a href="_token_type_8h.html#afa91e1934f818659a4e2b0c8ce1214b0">TokenType</a></div><div class="ttdeci">TokenType</div><div class="ttdoc">Holds all types of tokens that are valid.</div><div class="ttdef"><b>Definition</b> TokenType.h:13</div></div>
+<div class="ttc" id="aclass_error_printer_html"><div class="ttname"><a href="class_error_printer.html">ErrorPrinter</a></div><div class="ttdoc">Base class used for printing error messages to the console.</div><div class="ttdef"><b>Definition</b> ErrorPrinter.h:28</div></div>
+<div class="ttc" id="aclass_lexer_html"><div class="ttname"><a href="class_lexer.html">Lexer</a></div><div class="ttdoc">Class that is used to tokenize source code into tokens.</div><div class="ttdef"><b>Definition</b> Lexer.h:19</div></div>
+<div class="ttc" id="aclass_lexer_html_a67c5bb32cc0e7ce98e2554175ec6dc25"><div class="ttname"><a href="class_lexer.html#a67c5bb32cc0e7ce98e2554175ec6dc25">Lexer::tokens</a></div><div class="ttdeci">std::vector&lt; Token * &gt; tokens</div><div class="ttdef"><b>Definition</b> Lexer.h:45</div></div>
+<div class="ttc" id="aclass_lexer_html_a7201a02227b3a8135976187f653a9b42"><div class="ttname"><a href="class_lexer.html#a7201a02227b3a8135976187f653a9b42">Lexer::Lexer</a></div><div class="ttdeci">Lexer(const std::wstring &amp;source, ErrorPrinter *printer)</div><div class="ttdoc">Construct a new Lexer instance with an error printer.</div><div class="ttdef"><b>Definition</b> Lexer.h:36</div></div>
+<div class="ttc" id="aclass_lexer_html_a7a26f238ff21f31d754e5770d3501c71"><div class="ttname"><a href="class_lexer.html#a7a26f238ff21f31d754e5770d3501c71">Lexer::~Lexer</a></div><div class="ttdeci">~Lexer()=default</div><div class="ttdoc">Destroy the Lexer instance.</div></div>
+<div class="ttc" id="aclass_lexer_html_a8307e9de879e09ea9a336d19e949cf4d"><div class="ttname"><a href="class_lexer.html#a8307e9de879e09ea9a336d19e949cf4d">Lexer::tokenize</a></div><div class="ttdeci">void tokenize()</div><div class="ttdoc">Tokenizes the source code.</div><div class="ttdef"><b>Definition</b> Lexer.cpp:12</div></div>
+<div class="ttc" id="aclass_lexer_html_a919b2ac3e53a80b0c612ca511578eb37"><div class="ttname"><a href="class_lexer.html#a919b2ac3e53a80b0c612ca511578eb37">Lexer::setPrinter</a></div><div class="ttdeci">void setPrinter(ErrorPrinter *printer)</div><div class="ttdoc">Sets the error printer.</div><div class="ttdef"><b>Definition</b> Lexer.h:60</div></div>
+<div class="ttc" id="aclass_lexer_html_ab5ccbbf65093864a9b62906523daf63a"><div class="ttname"><a href="class_lexer.html#ab5ccbbf65093864a9b62906523daf63a">Lexer::Lexer</a></div><div class="ttdeci">Lexer(const std::wstring &amp;source)</div><div class="ttdoc">Construct a new Lexer instance.</div><div class="ttdef"><b>Definition</b> Lexer.h:27</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

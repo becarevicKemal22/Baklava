@@ -1,0 +1,50 @@
+\doxysection{Parser.\+h}
+\hypertarget{_parser_8h_source}{}\label{_parser_8h_source}\index{src/parser/Parser.h@{src/parser/Parser.h}}
+\mbox{\hyperlink{_parser_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{//}}
+\DoxyCodeLine{00002\ \textcolor{comment}{//\ Created\ by\ kemal\ on\ 2/4/2024.}}
+\DoxyCodeLine{00003\ \textcolor{comment}{//}}
+\DoxyCodeLine{00004\ }
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#ifndef\ MATURSKI\_2\_PARSER\_H}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#define\ MATURSKI\_2\_PARSER\_H}}
+\DoxyCodeLine{00007\ }
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#include\ <vector>}}
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#include\ <memory>}}
+\DoxyCodeLine{00010\ }
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_token_8h}{Token.h}}"{}}}
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_ast_8h}{Ast.h}}"{}}}
+\DoxyCodeLine{00013\ }
+\DoxyCodeLine{00017\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_parser}{Parser}}\ \{}
+\DoxyCodeLine{00018\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00023\ \ \ \ \ \textcolor{keyword}{explicit}\ \mbox{\hyperlink{class_parser_a1e4bf9b925afdcb211f87662534da5e9}{Parser}}(\textcolor{keyword}{const}\ std::vector<Token*>\&\ \mbox{\hyperlink{class_parser_a249888403db5d3567b4369199c3128d9}{tokens}})\ :\ \mbox{\hyperlink{class_parser_a249888403db5d3567b4369199c3128d9}{tokens}}(\mbox{\hyperlink{class_parser_a249888403db5d3567b4369199c3128d9}{tokens}})\ \{\}}
+\DoxyCodeLine{00024\ }
+\DoxyCodeLine{00025\ \ \ \ \ std::vector<Token*>\ \mbox{\hyperlink{class_parser_a249888403db5d3567b4369199c3128d9}{tokens}};}
+\DoxyCodeLine{00026\ }
+\DoxyCodeLine{00031\ \ \ \ \ std::unique\_ptr<Program>\ \mbox{\hyperlink{class_parser_aef4bb7c588f6908aa9a17b70397b2694}{parse}}();}
+\DoxyCodeLine{00032\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00033\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ current\ =\ 0;}
+\DoxyCodeLine{00034\ }
+\DoxyCodeLine{00035\ \ \ \ \ \textcolor{keywordtype}{void}\ advance()\ \{\ current++;\ \}}
+\DoxyCodeLine{00036\ \ \ \ \ \mbox{\hyperlink{class_token}{Token}}*\ at()\ \{\ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{class_parser_a249888403db5d3567b4369199c3128d9}{tokens}}[current];\ \}}
+\DoxyCodeLine{00037\ \ \ \ \ \mbox{\hyperlink{class_token}{Token}}*\ previous()\ \{\ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{class_parser_a249888403db5d3567b4369199c3128d9}{tokens}}[current\ -\/\ 1];\ \}}
+\DoxyCodeLine{00038\ }
+\DoxyCodeLine{00046\ \ \ \ \ \textcolor{keywordtype}{bool}\ match(std::vector<TokenType>\ types);}
+\DoxyCodeLine{00047\ }
+\DoxyCodeLine{00048\ \ \ \ \ \textcolor{keywordtype}{bool}\ atType(\mbox{\hyperlink{_token_type_8h_afa91e1934f818659a4e2b0c8ce1214b0}{TokenType}}\ type)\{}
+\DoxyCodeLine{00049\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{class_parser_a249888403db5d3567b4369199c3128d9}{tokens}}[current]-\/>type\ ==\ type;}
+\DoxyCodeLine{00050\ \ \ \ \ \}}
+\DoxyCodeLine{00051\ }
+\DoxyCodeLine{00052\ \ \ \ \ \mbox{\hyperlink{class_statement}{Statement}}*\ statement();}
+\DoxyCodeLine{00053\ \ \ \ \ \mbox{\hyperlink{class_expression}{Expression}}*\ expression();}
+\DoxyCodeLine{00054\ \ \ \ \ \mbox{\hyperlink{class_expression}{Expression}}*\ equalityExpression();}
+\DoxyCodeLine{00055\ \ \ \ \ \mbox{\hyperlink{class_expression}{Expression}}*\ comparisonExpression();}
+\DoxyCodeLine{00056\ \ \ \ \ \mbox{\hyperlink{class_expression}{Expression}}*\ termExpression();}
+\DoxyCodeLine{00057\ \ \ \ \ \mbox{\hyperlink{class_expression}{Expression}}*\ factorExpression();}
+\DoxyCodeLine{00058\ \ \ \ \ \mbox{\hyperlink{class_expression}{Expression}}*\ unaryExpression();}
+\DoxyCodeLine{00059\ \ \ \ \ \mbox{\hyperlink{class_expression}{Expression}}*\ primaryExpression();}
+\DoxyCodeLine{00060\ \};}
+\DoxyCodeLine{00061\ }
+\DoxyCodeLine{00062\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//MATURSKI\_2\_PARSER\_H}}
+
+\end{DoxyCode}

@@ -7,6 +7,11 @@
 
 #include "Ast.h"
 
+/**
+ * @brief Base class for all AST nodes. Not meant to be used aside from achieving polymorphism.
+ *
+ * All AST nodes must inherit from this class.
+ */
 class Statement {
 public:
     Statement() = default;

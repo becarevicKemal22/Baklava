@@ -7,6 +7,9 @@
 
 #include "Statement.h"
 
+/**
+ * @brief Base class for all expressions. Not meant to be used aside from achieving polymorphism.
+ */
 class Expression : public Statement {
 public:
     Expression() = default;

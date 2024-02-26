@@ -12,25 +12,36 @@ Base class used for printing error messages to the console.
 \doxysubsubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{class_error_printer_aee50c5084d181f2bf07d8cbd69fc959b}{Error\+Printer}} ()
+\mbox{\hyperlink{class_error_printer_a6d80ea428e5b9e6ca3be856ba2970324}{Error\+Printer}} (const std\+::wstring \&source)
 \item 
 \mbox{\hyperlink{class_error_printer_a962f248b48c52c988f1bcb815f2a9886}{\texorpdfstring{$\sim$}{\string~}\+Error\+Printer}} ()=default
 \item 
-void \mbox{\hyperlink{class_error_printer_a917eb0aee677b76e3843cebf54de4ec0}{print\+Error\+Message}} (\mbox{\hyperlink{_error_code_8h_a59e56af19e754a6aa26a612ebf91d05f}{Error\+Code}} error\+Code, const std\+::vector$<$ \mbox{\hyperlink{_error_printer_8h_a2ce8d7c0c01d40b6373946f75c36eee7}{Error\+Message\+Argument}} $>$ \&args)
+void \mbox{\hyperlink{class_error_printer_a54a5112127cf20b101c492be54d2d27f}{print\+Lexer\+Error}} (\mbox{\hyperlink{_error_code_8h_a59e56af19e754a6aa26a612ebf91d05f}{Error\+Code}} error\+Code, unsigned int line\+Number, unsigned int offset, unsigned int current\+Char)
+\begin{DoxyCompactList}\small\item\em Prints a lexer error message to the console. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_error_printer_a1fa3e12596c5085ed323dda469c9a526}{print\+Runtime\+Error}} (const \mbox{\hyperlink{class_runtime_error}{Runtime\+Error}} \texorpdfstring{$\ast$}{*}error)
+\item 
+void \mbox{\hyperlink{class_error_printer_ac49bb70f90a27376df012996981feb9f}{print\+Wrong\+Type\+Error}} (const \mbox{\hyperlink{class_wrong_type_error}{Wrong\+Type\+Error}} \texorpdfstring{$\ast$}{*}error)
+\item 
+void \mbox{\hyperlink{class_error_printer_a378609a66c3c9f4402289236022bcd8d}{print\+Wrong\+Binary\+Operand\+Type\+Error}} (const \mbox{\hyperlink{class_wrong_binary_operand_types}{Wrong\+Binary\+Operand\+Types}} \texorpdfstring{$\ast$}{*}error)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static void \mbox{\hyperlink{class_error_printer_a917eb0aee677b76e3843cebf54de4ec0}{print\+Error\+Message}} (\mbox{\hyperlink{_error_code_8h_a59e56af19e754a6aa26a612ebf91d05f}{Error\+Code}} error\+Code, const std\+::vector$<$ \mbox{\hyperlink{_error_message_argument_8h_a2ce8d7c0c01d40b6373946f75c36eee7}{Error\+Message\+Argument}} $>$ \&args)
 \begin{DoxyCompactList}\small\item\em Prints a simple error message to the console, without any source code or highlighting. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
 \doxysubsection{Detailed Description}
 Base class used for printing error messages to the console. 
 
-It is passed as a pointer to the lexer, parser and interpreter and is used to print all error messages. All error messages should go through the error printer. 
+Should be passed as a pointer to the lexer, parser and interpreter and is used to print all error messages. All error messages should go through the error printer or a class derived from it. 
 
 \doxysubsection{Constructor \& Destructor Documentation}
-\Hypertarget{class_error_printer_aee50c5084d181f2bf07d8cbd69fc959b}\label{class_error_printer_aee50c5084d181f2bf07d8cbd69fc959b} 
+\Hypertarget{class_error_printer_a6d80ea428e5b9e6ca3be856ba2970324}\label{class_error_printer_a6d80ea428e5b9e6ca3be856ba2970324} 
 \index{ErrorPrinter@{ErrorPrinter}!ErrorPrinter@{ErrorPrinter}}
 \index{ErrorPrinter@{ErrorPrinter}!ErrorPrinter@{ErrorPrinter}}
 \doxysubsubsection{\texorpdfstring{ErrorPrinter()}{ErrorPrinter()}}
-{\footnotesize\ttfamily Error\+Printer\+::\+Error\+Printer (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily Error\+Printer\+::\+Error\+Printer (\begin{DoxyParamCaption}\item[{const std\+::wstring \&}]{source }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
 \Hypertarget{class_error_printer_a962f248b48c52c988f1bcb815f2a9886}\label{class_error_printer_a962f248b48c52c988f1bcb815f2a9886} 
 \index{ErrorPrinter@{ErrorPrinter}!````~ErrorPrinter@{\texorpdfstring{$\sim$}{\string~}ErrorPrinter}}
@@ -45,7 +56,7 @@ It is passed as a pointer to the lexer, parser and interpreter and is used to pr
 \index{ErrorPrinter@{ErrorPrinter}!printErrorMessage@{printErrorMessage}}
 \index{printErrorMessage@{printErrorMessage}!ErrorPrinter@{ErrorPrinter}}
 \doxysubsubsection{\texorpdfstring{printErrorMessage()}{printErrorMessage()}}
-{\footnotesize\ttfamily void Error\+Printer\+::print\+Error\+Message (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{_error_code_8h_a59e56af19e754a6aa26a612ebf91d05f}{Error\+Code}}}]{error\+Code,  }\item[{const std\+::vector$<$ \mbox{\hyperlink{_error_printer_8h_a2ce8d7c0c01d40b6373946f75c36eee7}{Error\+Message\+Argument}} $>$ \&}]{args }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily void Error\+Printer\+::print\+Error\+Message (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{_error_code_8h_a59e56af19e754a6aa26a612ebf91d05f}{Error\+Code}}}]{error\+Code,  }\item[{const std\+::vector$<$ \mbox{\hyperlink{_error_message_argument_8h_a2ce8d7c0c01d40b6373946f75c36eee7}{Error\+Message\+Argument}} $>$ \&}]{args }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
 
 
 
@@ -58,6 +69,45 @@ Mainly used for errors that occur before the lexer is initialized, most likely 1
 {\em args} & vector of arguments that will be used to format the error message, according to the message definition in \doxylink{_error_messages_8h}{Error\+Messages.\+h} \\
 \hline
 \end{DoxyParams}
+\Hypertarget{class_error_printer_a54a5112127cf20b101c492be54d2d27f}\label{class_error_printer_a54a5112127cf20b101c492be54d2d27f} 
+\index{ErrorPrinter@{ErrorPrinter}!printLexerError@{printLexerError}}
+\index{printLexerError@{printLexerError}!ErrorPrinter@{ErrorPrinter}}
+\doxysubsubsection{\texorpdfstring{printLexerError()}{printLexerError()}}
+{\footnotesize\ttfamily void Error\+Printer\+::print\+Lexer\+Error (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{_error_code_8h_a59e56af19e754a6aa26a612ebf91d05f}{Error\+Code}}}]{error\+Code,  }\item[{unsigned int}]{line\+Number,  }\item[{unsigned int}]{offset,  }\item[{unsigned int}]{current\+Char }\end{DoxyParamCaption})}
+
+
+
+Prints a lexer error message to the console. 
+
+Prints source code line along with a red caret pointing to the exact position where the error occurred. 
+\begin{DoxyParams}{Parameters}
+{\em error\+Code} & one of the error codes defined in \doxylink{_error_code_8h}{Error\+Code.\+h} \\
+\hline
+{\em line} & line number where the error occurred \\
+\hline
+{\em offset} & offset on the line where the error occurred \\
+\hline
+{\em current\+Char} & index in source of character that caused the error \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_error_printer_a1fa3e12596c5085ed323dda469c9a526}\label{class_error_printer_a1fa3e12596c5085ed323dda469c9a526} 
+\index{ErrorPrinter@{ErrorPrinter}!printRuntimeError@{printRuntimeError}}
+\index{printRuntimeError@{printRuntimeError}!ErrorPrinter@{ErrorPrinter}}
+\doxysubsubsection{\texorpdfstring{printRuntimeError()}{printRuntimeError()}}
+{\footnotesize\ttfamily void Error\+Printer\+::print\+Runtime\+Error (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{class_runtime_error}{Runtime\+Error}} \texorpdfstring{$\ast$}{*}}]{error }\end{DoxyParamCaption})}
+
+\Hypertarget{class_error_printer_a378609a66c3c9f4402289236022bcd8d}\label{class_error_printer_a378609a66c3c9f4402289236022bcd8d} 
+\index{ErrorPrinter@{ErrorPrinter}!printWrongBinaryOperandTypeError@{printWrongBinaryOperandTypeError}}
+\index{printWrongBinaryOperandTypeError@{printWrongBinaryOperandTypeError}!ErrorPrinter@{ErrorPrinter}}
+\doxysubsubsection{\texorpdfstring{printWrongBinaryOperandTypeError()}{printWrongBinaryOperandTypeError()}}
+{\footnotesize\ttfamily void Error\+Printer\+::print\+Wrong\+Binary\+Operand\+Type\+Error (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{class_wrong_binary_operand_types}{Wrong\+Binary\+Operand\+Types}} \texorpdfstring{$\ast$}{*}}]{error }\end{DoxyParamCaption})}
+
+\Hypertarget{class_error_printer_ac49bb70f90a27376df012996981feb9f}\label{class_error_printer_ac49bb70f90a27376df012996981feb9f} 
+\index{ErrorPrinter@{ErrorPrinter}!printWrongTypeError@{printWrongTypeError}}
+\index{printWrongTypeError@{printWrongTypeError}!ErrorPrinter@{ErrorPrinter}}
+\doxysubsubsection{\texorpdfstring{printWrongTypeError()}{printWrongTypeError()}}
+{\footnotesize\ttfamily void Error\+Printer\+::print\+Wrong\+Type\+Error (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{class_wrong_type_error}{Wrong\+Type\+Error}} \texorpdfstring{$\ast$}{*}}]{error }\end{DoxyParamCaption})}
+
 
 
 The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}

@@ -5,6 +5,10 @@
 {\ttfamily \#include $<$vector$>$}\newline
 {\ttfamily \#include $<$variant$>$}\newline
 {\ttfamily \#include "{}Error\+Code.\+h"{}}\newline
+{\ttfamily \#include "{}Error\+Message\+Argument.\+h"{}}\newline
+{\ttfamily \#include "{}Runtime\+Error.\+h"{}}\newline
+{\ttfamily \#include "{}Wrong\+Type\+Error.\+h"{}}\newline
+{\ttfamily \#include "{}Wrong\+Binary\+Operand\+Types.\+h"{}}\newline
 \doxysubsubsection*{Classes}
 \begin{DoxyCompactItemize}
 \item 
@@ -13,14 +17,14 @@ class \mbox{\hyperlink{class_error_printer}{Error\+Printer}}
 \doxysubsubsection*{Typedefs}
 \begin{DoxyCompactItemize}
 \item 
-typedef std\+::variant$<$ std\+::wstring, std\+::string, const char \texorpdfstring{$\ast$}{*} $>$ \mbox{\hyperlink{_error_printer_8h_a2ce8d7c0c01d40b6373946f75c36eee7}{Error\+Message\+Argument}}
+typedef std\+::pair$<$ std\+::pair$<$ int, int $>$, std\+::wstring $>$ \mbox{\hyperlink{_error_printer_8h_a3068300149e83846a81e377fdcfdb5b6}{color\+Highlight}}
 \end{DoxyCompactItemize}
 
 
 \doxysubsection{Typedef Documentation}
-\Hypertarget{_error_printer_8h_a2ce8d7c0c01d40b6373946f75c36eee7}\label{_error_printer_8h_a2ce8d7c0c01d40b6373946f75c36eee7} 
-\index{ErrorPrinter.h@{ErrorPrinter.h}!ErrorMessageArgument@{ErrorMessageArgument}}
-\index{ErrorMessageArgument@{ErrorMessageArgument}!ErrorPrinter.h@{ErrorPrinter.h}}
-\doxysubsubsection{\texorpdfstring{ErrorMessageArgument}{ErrorMessageArgument}}
-{\footnotesize\ttfamily typedef std\+::variant$<$std\+::wstring, std\+::string, const char\texorpdfstring{$\ast$}{*}$>$ \mbox{\hyperlink{_error_printer_8h_a2ce8d7c0c01d40b6373946f75c36eee7}{Error\+Message\+Argument}}}
+\Hypertarget{_error_printer_8h_a3068300149e83846a81e377fdcfdb5b6}\label{_error_printer_8h_a3068300149e83846a81e377fdcfdb5b6} 
+\index{ErrorPrinter.h@{ErrorPrinter.h}!colorHighlight@{colorHighlight}}
+\index{colorHighlight@{colorHighlight}!ErrorPrinter.h@{ErrorPrinter.h}}
+\doxysubsubsection{\texorpdfstring{colorHighlight}{colorHighlight}}
+{\footnotesize\ttfamily typedef std\+::pair$<$std\+::pair$<$int, int$>$, std\+::wstring$>$ \mbox{\hyperlink{_error_printer_8h_a3068300149e83846a81e377fdcfdb5b6}{color\+Highlight}}}
 

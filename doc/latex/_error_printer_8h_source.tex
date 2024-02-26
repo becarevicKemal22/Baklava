@@ -15,21 +15,44 @@
 \DoxyCodeLine{00011\ \textcolor{preprocessor}{\#include\ <variant>}}
 \DoxyCodeLine{00012\ }
 \DoxyCodeLine{00013\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_error_code_8h}{ErrorCode.h}}"{}}}
-\DoxyCodeLine{00014\ }
-\DoxyCodeLine{00015\ \textcolor{keyword}{typedef}\ std::variant<std::wstring,\ std::string,\ const\ char*>\ \mbox{\hyperlink{_error_printer_8h_a2ce8d7c0c01d40b6373946f75c36eee7}{ErrorMessageArgument}};}
-\DoxyCodeLine{00016\ }
-\DoxyCodeLine{00024\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_error_printer}{ErrorPrinter}}\ \{}
-\DoxyCodeLine{00025\ \textcolor{keyword}{public}:}
-\DoxyCodeLine{00026\ \ \ \ \ \mbox{\hyperlink{class_error_printer_aee50c5084d181f2bf07d8cbd69fc959b}{ErrorPrinter}}();}
-\DoxyCodeLine{00027\ \ \ \ \ \mbox{\hyperlink{class_error_printer_a962f248b48c52c988f1bcb815f2a9886}{\string~ErrorPrinter}}()\ =\ \textcolor{keywordflow}{default};}
-\DoxyCodeLine{00028\ }
-\DoxyCodeLine{00036\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_error_printer_a917eb0aee677b76e3843cebf54de4ec0}{printErrorMessage}}(\mbox{\hyperlink{_error_code_8h_a59e56af19e754a6aa26a612ebf91d05f}{ErrorCode}}\ errorCode,\ \textcolor{keyword}{const}\ std::vector<ErrorMessageArgument>\&\ args);}
-\DoxyCodeLine{00037\ }
-\DoxyCodeLine{00038\ \textcolor{keyword}{private}:}
-\DoxyCodeLine{00039\ \ \ \ \ std::wstring\ formattedErrorMessage(\mbox{\hyperlink{_error_code_8h_a59e56af19e754a6aa26a612ebf91d05f}{ErrorCode}}\ errorCode,\ \textcolor{keyword}{const}\ std::vector<ErrorMessageArgument>\&\ args);}
-\DoxyCodeLine{00040\ \};}
-\DoxyCodeLine{00041\ }
-\DoxyCodeLine{00042\ }
-\DoxyCodeLine{00043\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//MATURSKI\_2\_ERRORPRINTER\_H}}
+\DoxyCodeLine{00014\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_error_message_argument_8h}{ErrorMessageArgument.h}}"{}}}
+\DoxyCodeLine{00015\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_runtime_error_8h}{RuntimeError.h}}"{}}}
+\DoxyCodeLine{00016\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_wrong_type_error_8h}{WrongTypeError.h}}"{}}}
+\DoxyCodeLine{00017\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_wrong_binary_operand_types_8h}{WrongBinaryOperandTypes.h}}"{}}}
+\DoxyCodeLine{00018\ }
+\DoxyCodeLine{00019\ \textcolor{keyword}{typedef}\ std::pair<std::pair<int,\ int>,\ std::wstring>\ \mbox{\hyperlink{_error_printer_8h_a3068300149e83846a81e377fdcfdb5b6}{colorHighlight}};}
+\DoxyCodeLine{00020\ }
+\DoxyCodeLine{00028\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_error_printer}{ErrorPrinter}}\ \{}
+\DoxyCodeLine{00029\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00030\ \ \ \ \ \mbox{\hyperlink{class_error_printer_a6d80ea428e5b9e6ca3be856ba2970324}{ErrorPrinter}}(\textcolor{keyword}{const}\ std::wstring\&\ source)\ :\ source(source)\ \{}
+\DoxyCodeLine{00031\ \ \ \ \ \ \ \ \ makeLines();}
+\DoxyCodeLine{00032\ \ \ \ \ \};}
+\DoxyCodeLine{00033\ \ \ \ \ \mbox{\hyperlink{class_error_printer_a962f248b48c52c988f1bcb815f2a9886}{\string~ErrorPrinter}}()\ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{00034\ }
+\DoxyCodeLine{00042\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_error_printer_a917eb0aee677b76e3843cebf54de4ec0}{printErrorMessage}}(\mbox{\hyperlink{_error_code_8h_a59e56af19e754a6aa26a612ebf91d05f}{ErrorCode}}\ errorCode,\ \textcolor{keyword}{const}\ std::vector<ErrorMessageArgument>\&\ args);}
+\DoxyCodeLine{00043\ }
+\DoxyCodeLine{00053\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_error_printer_a54a5112127cf20b101c492be54d2d27f}{printLexerError}}(\mbox{\hyperlink{_error_code_8h_a59e56af19e754a6aa26a612ebf91d05f}{ErrorCode}}\ errorCode,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ lineNumber,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ offset,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ currentChar);}
+\DoxyCodeLine{00054\ }
+\DoxyCodeLine{00055\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_error_printer_a1fa3e12596c5085ed323dda469c9a526}{printRuntimeError}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_runtime_error}{RuntimeError}}*\ error);}
+\DoxyCodeLine{00056\ }
+\DoxyCodeLine{00057\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_error_printer_ac49bb70f90a27376df012996981feb9f}{printWrongTypeError}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_wrong_type_error}{WrongTypeError}}*\ error);}
+\DoxyCodeLine{00058\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_error_printer_a378609a66c3c9f4402289236022bcd8d}{printWrongBinaryOperandTypeError}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_wrong_binary_operand_types}{WrongBinaryOperandTypes}}*\ error);}
+\DoxyCodeLine{00059\ }
+\DoxyCodeLine{00060\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00061\ \ \ \ \ std::wstring\ source;}
+\DoxyCodeLine{00062\ \ \ \ \ std::vector<std::wstring>\ lines;}
+\DoxyCodeLine{00063\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ DEFAULT\_MARGIN\_LEFT\ =\ 6;}
+\DoxyCodeLine{00064\ }
+\DoxyCodeLine{00065\ \ \ \ \ \textcolor{keywordtype}{void}\ makeLines();}
+\DoxyCodeLine{00066\ }
+\DoxyCodeLine{00067\ \ \ \ \ \textcolor{keywordtype}{void}\ printSourceLine(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ line,\ std::vector<colorHighlight>\ colorHighlights);}
+\DoxyCodeLine{00068\ \ \ \ \ \textcolor{keyword}{static}\ std::wstring\ formattedErrorMessage(\mbox{\hyperlink{_error_code_8h_a59e56af19e754a6aa26a612ebf91d05f}{ErrorCode}}\ errorCode,\ \textcolor{keyword}{const}\ std::vector<ErrorMessageArgument>\&\ args,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ line\ =\ 0);}
+\DoxyCodeLine{00069\ \ \ \ \ \textcolor{keywordtype}{void}\ printLineDivider(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ lineNum);}
+\DoxyCodeLine{00070\ \ \ \ \ \textcolor{keywordtype}{void}\ printCaretSupportLine(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ offset);}
+\DoxyCodeLine{00071\ \ \ \ \ \textcolor{keywordtype}{void}\ printSquiggleSupportLine(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ lineNum,\ std::vector<colorHighlight>\ colorHighlights);}
+\DoxyCodeLine{00072\ \};}
+\DoxyCodeLine{00073\ }
+\DoxyCodeLine{00074\ }
+\DoxyCodeLine{00075\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//MATURSKI\_2\_ERRORPRINTER\_H}}
 
 \end{DoxyCode}

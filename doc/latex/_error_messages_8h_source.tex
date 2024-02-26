@@ -15,9 +15,21 @@
 \DoxyCodeLine{00011\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_error_code_8h}{ErrorCode.h}}"{}}}
 \DoxyCodeLine{00012\ }
 \DoxyCodeLine{00020\ \textcolor{keyword}{const}\ std::unordered\_map<int\ ,\ std::wstring>\ \mbox{\hyperlink{_error_messages_8h_a669e63044a518d78e6f72946f5f3b8f9}{ERRORMESSAGES}}\ =\ \{}
-\DoxyCodeLine{00021\ \ \ \ \ \ \ \ \ \{\mbox{\hyperlink{_error_code_8h_a59e56af19e754a6aa26a612ebf91d05fa2cfbedee4226e70e54cad70893f67d47}{ERROR\_CANNOT\_OPEN\_FILE}},\ L\textcolor{stringliteral}{"{}Nemoguće\ otvoriti\ datoteku:\ \{\}"{}}\}}
-\DoxyCodeLine{00022\ \};}
+\DoxyCodeLine{00021\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 1xx}}
+\DoxyCodeLine{00022\ \ \ \ \ \ \ \ \ \{\mbox{\hyperlink{_error_code_8h_a59e56af19e754a6aa26a612ebf91d05fa2cfbedee4226e70e54cad70893f67d47}{ERROR\_CANNOT\_OPEN\_FILE}},\ L\textcolor{stringliteral}{"{}Nemoguće\ otvoriti\ datoteku:\ \{\}"{}}\},}
 \DoxyCodeLine{00023\ }
-\DoxyCodeLine{00024\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//MATURSKI\_2\_ERRORMESSAGES\_H}}
+\DoxyCodeLine{00024\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 2xx}}
+\DoxyCodeLine{00025\ \ \ \ \ \ \ \ \ \{\mbox{\hyperlink{_error_code_8h_a59e56af19e754a6aa26a612ebf91d05fa0808d39b709bff4c370987800c4713fa}{ERROR\_UNEXPECTED\_CHARACTER}},\ L\textcolor{stringliteral}{"{}Pronađen\ nepoznat\ znak\ '\{\}'\ na\ liniji\ \{\},\ pozicija\ \{\}."{}}\},}
+\DoxyCodeLine{00026\ \ \ \ \ \ \ \ \ \{\mbox{\hyperlink{_error_code_8h_a59e56af19e754a6aa26a612ebf91d05fadd419a657a311f11c4ac1c0efb3a35a0}{ERROR\_UNTERMINATED\_STRING}},\ L\textcolor{stringliteral}{"{}Neterminiran\ STRING\ pronađen\ na\ liniji\ \{\},\ pozicija\ \{\}."{}}\},}
+\DoxyCodeLine{00027\ }
+\DoxyCodeLine{00028\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 3xx}}
+\DoxyCodeLine{00029\ }
+\DoxyCodeLine{00030\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 4xx}}
+\DoxyCodeLine{00031\ \ \ \ \ \ \ \ \ \{\mbox{\hyperlink{_error_code_8h_a59e56af19e754a6aa26a612ebf91d05fa2e1a626d0a665069b6c81d59b1787d25}{ERROR\_WRONG\_TYPE\_OPERAND}},\ L\textcolor{stringliteral}{"{}Tip\ '\{\}'\ nije\ dozvoljen\ za\ operator\ '\{\}'."{}}\},}
+\DoxyCodeLine{00032\ \ \ \ \ \ \ \ \ \{\mbox{\hyperlink{_error_code_8h_a59e56af19e754a6aa26a612ebf91d05fa105a71af2f532e023af49115dc047530}{ERROR\_WRONG\_TYPE\_OPERAND\_BINARY}},\ L\textcolor{stringliteral}{"{}Tipovi\ '\{\}'\ i\ '\{\}'\ nisu\ dozvoljeni\ za\ operator\ '\{\}'."{}}\}}
+\DoxyCodeLine{00033\ }
+\DoxyCodeLine{00034\ \};}
+\DoxyCodeLine{00035\ }
+\DoxyCodeLine{00036\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//MATURSKI\_2\_ERRORMESSAGES\_H}}
 
 \end{DoxyCode}

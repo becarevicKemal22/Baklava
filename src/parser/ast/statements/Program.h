@@ -8,6 +8,11 @@
 #include <vector>
 #include "Statement.h"
 
+/**
+ * @brief Represents the entire program.
+ *
+ * Contains a vector of pointers to all statements in the program which are to be executed.
+ */
 class Program : public Statement {
 public:
     Program() {

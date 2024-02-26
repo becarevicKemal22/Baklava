@@ -9,6 +9,11 @@
 #include "Ast.h"
 #include "Token.h"
 
+/**
+ * @brief Represents a binary expression.
+ *
+ * Includes arithmetic and logical operations.
+ */
 class BinaryExpression : public Expression {
 public:
     BinaryExpression(ExprPtr left, Token* op, ExprPtr right) : left(left), op(op), right(right) {

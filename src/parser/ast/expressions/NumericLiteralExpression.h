@@ -8,6 +8,9 @@
 #include "Expression.h"
 #include "Token.h"
 
+/**
+ * @brief Represents a numeric literal expression.
+ */
 class NumericLiteralExpression : public Expression {
 public:
     NumericLiteralExpression(TokenPtr token) : token(token) {

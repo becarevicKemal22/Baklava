@@ -8,6 +8,9 @@
 #include "Expression.h"
 #include "Token.h"
 
+/**
+ * @brief Represents a boolean literal expression.
+ */
 class BooleanLiteralExpression : public Expression {
 public:
     BooleanLiteralExpression(TokenPtr token) : token(token) {

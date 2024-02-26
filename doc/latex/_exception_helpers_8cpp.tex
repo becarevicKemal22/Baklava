@@ -1,0 +1,35 @@
+\doxysection{src/error/exceptions/\+Exception\+Helpers.cpp File Reference}
+\hypertarget{_exception_helpers_8cpp}{}\label{_exception_helpers_8cpp}\index{src/error/exceptions/ExceptionHelpers.cpp@{src/error/exceptions/ExceptionHelpers.cpp}}
+{\ttfamily \#include "{}Exception\+Helpers.\+h"{}}\newline
+{\ttfamily \#include "{}Binary\+Expression.\+h"{}}\newline
+{\ttfamily \#include "{}Unary\+Expression.\+h"{}}\newline
+{\ttfamily \#include "{}Numeric\+Literal\+Expression.\+h"{}}\newline
+{\ttfamily \#include "{}Boolean\+Literal\+Expression.\+h"{}}\newline
+{\ttfamily \#include "{}String\+Literal\+Expression.\+h"{}}\newline
+{\ttfamily \#include "{}Null\+Literal\+Expression.\+h"{}}\newline
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_token}{Token}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{_exception_helpers_8cpp_a21dd8661b21077d61a64f924e346cecc}{get\+Most\+Relevant\+Token}} (const \mbox{\hyperlink{class_expression}{Expression}} \texorpdfstring{$\ast$}{*}expression)
+\begin{DoxyCompactList}\small\item\em Get the most relevant token to be highlighted from the given expression. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\Hypertarget{_exception_helpers_8cpp_a21dd8661b21077d61a64f924e346cecc}\label{_exception_helpers_8cpp_a21dd8661b21077d61a64f924e346cecc} 
+\index{ExceptionHelpers.cpp@{ExceptionHelpers.cpp}!getMostRelevantToken@{getMostRelevantToken}}
+\index{getMostRelevantToken@{getMostRelevantToken}!ExceptionHelpers.cpp@{ExceptionHelpers.cpp}}
+\doxysubsubsection{\texorpdfstring{getMostRelevantToken()}{getMostRelevantToken()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_token}{Token}} \texorpdfstring{$\ast$}{*} get\+Most\+Relevant\+Token (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{class_expression}{Expression}} \texorpdfstring{$\ast$}{*}}]{expression }\end{DoxyParamCaption})}
+
+
+
+Get the most relevant token to be highlighted from the given expression. 
+
+Used by the error printer to know what part of the code to highlight. "{}\+Most relevant"{} means that the function searches a bit deeper than the token of the expression itself. For example, a unary expression node holds a token of the operator, but the most relevant token to highlight is the token of the operand. 
+\begin{DoxyParams}{Parameters}
+{\em expression} & The expression to get the most relevant token from \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The most relevant token from the expression 
+\end{DoxyReturn}

@@ -1,0 +1,91 @@
+\doxysection{src/parser/ast/\+Pretty\+Print.cpp File Reference}
+\hypertarget{_pretty_print_8cpp}{}\label{_pretty_print_8cpp}\index{src/parser/ast/PrettyPrint.cpp@{src/parser/ast/PrettyPrint.cpp}}
+{\ttfamily \#include $<$iostream$>$}\newline
+{\ttfamily \#include "{}Pretty\+Print.\+h"{}}\newline
+{\ttfamily \#include "{}Program.\+h"{}}\newline
+{\ttfamily \#include "{}Binary\+Expression.\+h"{}}\newline
+{\ttfamily \#include "{}Statement.\+h"{}}\newline
+{\ttfamily \#include "{}Unary\+Expression.\+h"{}}\newline
+{\ttfamily \#include "{}Null\+Literal\+Expression.\+h"{}}\newline
+{\ttfamily \#include "{}Boolean\+Literal\+Expression.\+h"{}}\newline
+{\ttfamily \#include "{}Numeric\+Literal\+Expression.\+h"{}}\newline
+{\ttfamily \#include "{}String\+Literal\+Expression.\+h"{}}\newline
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{_pretty_print_8cpp_a40d8fd44082761d9863f376915a05a13}{print\+Statement}} (\mbox{\hyperlink{class_statement}{Statement}} \texorpdfstring{$\ast$}{*}statement, int depth)
+\item 
+void \mbox{\hyperlink{_pretty_print_8cpp_a55fd727dee8b0b9569300dfbfaec6fc9}{print\+AST}} (std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{class_program}{Program}} $>$ \&program)
+\begin{DoxyCompactList}\small\item\em Pretty prints entire AST to standard output. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{_pretty_print_8cpp_a95f74f132f2f197725cf73ee98a70120}{print\+Binary\+Expression}} (\mbox{\hyperlink{class_binary_expression}{Binary\+Expression}} \texorpdfstring{$\ast$}{*}expression, int depth)
+\item 
+void \mbox{\hyperlink{_pretty_print_8cpp_a1c4c914f242f6c5cb8e21ba10ca71ec1}{print\+Unary\+Expression}} (\mbox{\hyperlink{class_unary_expression}{Unary\+Expression}} \texorpdfstring{$\ast$}{*}expression, int depth)
+\item 
+void \mbox{\hyperlink{_pretty_print_8cpp_a3ddd4a6a76646e5a9f16820b17b7e171}{print\+Null\+Literal\+Expression}} (\mbox{\hyperlink{class_null_literal_expression}{Null\+Literal\+Expression}} \texorpdfstring{$\ast$}{*}expression, int depth)
+\item 
+void \mbox{\hyperlink{_pretty_print_8cpp_ae64a8f22140e761d91e6079a94f6eea7}{print\+Boolean\+Literal\+Expression}} (\mbox{\hyperlink{class_boolean_literal_expression}{Boolean\+Literal\+Expression}} \texorpdfstring{$\ast$}{*}expression, int depth)
+\item 
+void \mbox{\hyperlink{_pretty_print_8cpp_a4bf88a92cbfc29ca063fad48170d15d5}{print\+Numeric\+Literal\+Expression}} (\mbox{\hyperlink{class_numeric_literal_expression}{Numeric\+Literal\+Expression}} \texorpdfstring{$\ast$}{*}expression, int depth)
+\item 
+void \mbox{\hyperlink{_pretty_print_8cpp_a8cc04d78d8ee7610446a4b18dfcf8a64}{print\+String\+Literal\+Expression}} (\mbox{\hyperlink{class_string_literal_expression}{String\+Literal\+Expression}} \texorpdfstring{$\ast$}{*}expression, int depth)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\Hypertarget{_pretty_print_8cpp_a55fd727dee8b0b9569300dfbfaec6fc9}\label{_pretty_print_8cpp_a55fd727dee8b0b9569300dfbfaec6fc9} 
+\index{PrettyPrint.cpp@{PrettyPrint.cpp}!printAST@{printAST}}
+\index{printAST@{printAST}!PrettyPrint.cpp@{PrettyPrint.cpp}}
+\doxysubsubsection{\texorpdfstring{printAST()}{printAST()}}
+{\footnotesize\ttfamily void print\+AST (\begin{DoxyParamCaption}\item[{std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{class_program}{Program}} $>$ \&}]{program }\end{DoxyParamCaption})}
+
+
+
+Pretty prints entire AST to standard output. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em program} & unique pointer to the program to be printed. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{_pretty_print_8cpp_a95f74f132f2f197725cf73ee98a70120}\label{_pretty_print_8cpp_a95f74f132f2f197725cf73ee98a70120} 
+\index{PrettyPrint.cpp@{PrettyPrint.cpp}!printBinaryExpression@{printBinaryExpression}}
+\index{printBinaryExpression@{printBinaryExpression}!PrettyPrint.cpp@{PrettyPrint.cpp}}
+\doxysubsubsection{\texorpdfstring{printBinaryExpression()}{printBinaryExpression()}}
+{\footnotesize\ttfamily void print\+Binary\+Expression (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_binary_expression}{Binary\+Expression}} \texorpdfstring{$\ast$}{*}}]{expression,  }\item[{int}]{depth }\end{DoxyParamCaption})}
+
+\Hypertarget{_pretty_print_8cpp_ae64a8f22140e761d91e6079a94f6eea7}\label{_pretty_print_8cpp_ae64a8f22140e761d91e6079a94f6eea7} 
+\index{PrettyPrint.cpp@{PrettyPrint.cpp}!printBooleanLiteralExpression@{printBooleanLiteralExpression}}
+\index{printBooleanLiteralExpression@{printBooleanLiteralExpression}!PrettyPrint.cpp@{PrettyPrint.cpp}}
+\doxysubsubsection{\texorpdfstring{printBooleanLiteralExpression()}{printBooleanLiteralExpression()}}
+{\footnotesize\ttfamily void print\+Boolean\+Literal\+Expression (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_boolean_literal_expression}{Boolean\+Literal\+Expression}} \texorpdfstring{$\ast$}{*}}]{expression,  }\item[{int}]{depth }\end{DoxyParamCaption})}
+
+\Hypertarget{_pretty_print_8cpp_a3ddd4a6a76646e5a9f16820b17b7e171}\label{_pretty_print_8cpp_a3ddd4a6a76646e5a9f16820b17b7e171} 
+\index{PrettyPrint.cpp@{PrettyPrint.cpp}!printNullLiteralExpression@{printNullLiteralExpression}}
+\index{printNullLiteralExpression@{printNullLiteralExpression}!PrettyPrint.cpp@{PrettyPrint.cpp}}
+\doxysubsubsection{\texorpdfstring{printNullLiteralExpression()}{printNullLiteralExpression()}}
+{\footnotesize\ttfamily void print\+Null\+Literal\+Expression (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_null_literal_expression}{Null\+Literal\+Expression}} \texorpdfstring{$\ast$}{*}}]{expression,  }\item[{int}]{depth }\end{DoxyParamCaption})}
+
+\Hypertarget{_pretty_print_8cpp_a4bf88a92cbfc29ca063fad48170d15d5}\label{_pretty_print_8cpp_a4bf88a92cbfc29ca063fad48170d15d5} 
+\index{PrettyPrint.cpp@{PrettyPrint.cpp}!printNumericLiteralExpression@{printNumericLiteralExpression}}
+\index{printNumericLiteralExpression@{printNumericLiteralExpression}!PrettyPrint.cpp@{PrettyPrint.cpp}}
+\doxysubsubsection{\texorpdfstring{printNumericLiteralExpression()}{printNumericLiteralExpression()}}
+{\footnotesize\ttfamily void print\+Numeric\+Literal\+Expression (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_numeric_literal_expression}{Numeric\+Literal\+Expression}} \texorpdfstring{$\ast$}{*}}]{expression,  }\item[{int}]{depth }\end{DoxyParamCaption})}
+
+\Hypertarget{_pretty_print_8cpp_a40d8fd44082761d9863f376915a05a13}\label{_pretty_print_8cpp_a40d8fd44082761d9863f376915a05a13} 
+\index{PrettyPrint.cpp@{PrettyPrint.cpp}!printStatement@{printStatement}}
+\index{printStatement@{printStatement}!PrettyPrint.cpp@{PrettyPrint.cpp}}
+\doxysubsubsection{\texorpdfstring{printStatement()}{printStatement()}}
+{\footnotesize\ttfamily void print\+Statement (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_statement}{Statement}} \texorpdfstring{$\ast$}{*}}]{statement,  }\item[{int}]{depth }\end{DoxyParamCaption})}
+
+\Hypertarget{_pretty_print_8cpp_a8cc04d78d8ee7610446a4b18dfcf8a64}\label{_pretty_print_8cpp_a8cc04d78d8ee7610446a4b18dfcf8a64} 
+\index{PrettyPrint.cpp@{PrettyPrint.cpp}!printStringLiteralExpression@{printStringLiteralExpression}}
+\index{printStringLiteralExpression@{printStringLiteralExpression}!PrettyPrint.cpp@{PrettyPrint.cpp}}
+\doxysubsubsection{\texorpdfstring{printStringLiteralExpression()}{printStringLiteralExpression()}}
+{\footnotesize\ttfamily void print\+String\+Literal\+Expression (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_string_literal_expression}{String\+Literal\+Expression}} \texorpdfstring{$\ast$}{*}}]{expression,  }\item[{int}]{depth }\end{DoxyParamCaption})}
+
+\Hypertarget{_pretty_print_8cpp_a1c4c914f242f6c5cb8e21ba10ca71ec1}\label{_pretty_print_8cpp_a1c4c914f242f6c5cb8e21ba10ca71ec1} 
+\index{PrettyPrint.cpp@{PrettyPrint.cpp}!printUnaryExpression@{printUnaryExpression}}
+\index{printUnaryExpression@{printUnaryExpression}!PrettyPrint.cpp@{PrettyPrint.cpp}}
+\doxysubsubsection{\texorpdfstring{printUnaryExpression()}{printUnaryExpression()}}
+{\footnotesize\ttfamily void print\+Unary\+Expression (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_unary_expression}{Unary\+Expression}} \texorpdfstring{$\ast$}{*}}]{expression,  }\item[{int}]{depth }\end{DoxyParamCaption})}
+

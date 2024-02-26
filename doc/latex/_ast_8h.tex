@@ -1,0 +1,82 @@
+\doxysection{src/parser/ast/\+Ast.h File Reference}
+\hypertarget{_ast_8h}{}\label{_ast_8h}\index{src/parser/ast/Ast.h@{src/parser/ast/Ast.h}}
+{\ttfamily \#include $<$cstdint$>$}\newline
+\doxysubsubsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+typedef \mbox{\hyperlink{class_statement}{Statement}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{_ast_8h_ad591697d8b5c0c7de8add763ec2e67ef}{Stmt\+Ptr}}
+\item 
+typedef \mbox{\hyperlink{class_expression}{Expression}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{_ast_8h_a9d808314a4eefca35684489c8e2e4547}{Expr\+Ptr}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+enum class \mbox{\hyperlink{_ast_8h_abbed81ee894f251822f94201ef008817}{Ast\+Node\+Type}} \+: uint8\+\_\+t \{ \newline
+\mbox{\hyperlink{_ast_8h_abbed81ee894f251822f94201ef008817a95c50c7cc68e399ac5540898dfd06820}{Program}}
+, \mbox{\hyperlink{_ast_8h_abbed81ee894f251822f94201ef008817aef8bdf9ede229a64b3daf2724b5e45dc}{Binary\+Expression}}
+, \mbox{\hyperlink{_ast_8h_abbed81ee894f251822f94201ef008817af63d76d45aee45cf332a951650eedcb7}{Unary\+Expression}}
+, \mbox{\hyperlink{_ast_8h_abbed81ee894f251822f94201ef008817a02da156e47dc8b7bb0575d125b9dbe38}{Null\+Literal\+Expression}}
+, \newline
+\mbox{\hyperlink{_ast_8h_abbed81ee894f251822f94201ef008817a01f9552b9de59b58d97abcdbe885307f}{Boolean\+Literal\+Expression}}
+, \mbox{\hyperlink{_ast_8h_abbed81ee894f251822f94201ef008817a3b1f196eca8855434fe73958b8df7c9e}{Numeric\+Literal\+Expression}}
+, \mbox{\hyperlink{_ast_8h_abbed81ee894f251822f94201ef008817ac630f88540b8851ac6098772bb517e83}{String\+Literal\+Expression}}
+ \}
+\begin{DoxyCompactList}\small\item\em Enum class representing the type of the AST node. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Typedef Documentation}
+\Hypertarget{_ast_8h_a9d808314a4eefca35684489c8e2e4547}\label{_ast_8h_a9d808314a4eefca35684489c8e2e4547} 
+\index{Ast.h@{Ast.h}!ExprPtr@{ExprPtr}}
+\index{ExprPtr@{ExprPtr}!Ast.h@{Ast.h}}
+\doxysubsubsection{\texorpdfstring{ExprPtr}{ExprPtr}}
+{\footnotesize\ttfamily typedef \mbox{\hyperlink{class_expression}{Expression}}\texorpdfstring{$\ast$}{*} \mbox{\hyperlink{_ast_8h_a9d808314a4eefca35684489c8e2e4547}{Expr\+Ptr}}}
+
+\Hypertarget{_ast_8h_ad591697d8b5c0c7de8add763ec2e67ef}\label{_ast_8h_ad591697d8b5c0c7de8add763ec2e67ef} 
+\index{Ast.h@{Ast.h}!StmtPtr@{StmtPtr}}
+\index{StmtPtr@{StmtPtr}!Ast.h@{Ast.h}}
+\doxysubsubsection{\texorpdfstring{StmtPtr}{StmtPtr}}
+{\footnotesize\ttfamily typedef \mbox{\hyperlink{class_statement}{Statement}}\texorpdfstring{$\ast$}{*} \mbox{\hyperlink{_ast_8h_ad591697d8b5c0c7de8add763ec2e67ef}{Stmt\+Ptr}}}
+
+
+
+\doxysubsection{Enumeration Type Documentation}
+\Hypertarget{_ast_8h_abbed81ee894f251822f94201ef008817}\label{_ast_8h_abbed81ee894f251822f94201ef008817} 
+\index{Ast.h@{Ast.h}!AstNodeType@{AstNodeType}}
+\index{AstNodeType@{AstNodeType}!Ast.h@{Ast.h}}
+\doxysubsubsection{\texorpdfstring{AstNodeType}{AstNodeType}}
+{\footnotesize\ttfamily enum class \mbox{\hyperlink{_ast_8h_abbed81ee894f251822f94201ef008817}{Ast\+Node\+Type}} \+: uint8\+\_\+t\hspace{0.3cm}{\ttfamily [strong]}}
+
+
+
+Enum class representing the type of the AST node. 
+
+Used to determine the type of a node at runtime without doing dynamic casting. \begin{DoxyEnumFields}{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{Program@{Program}!Ast.h@{Ast.h}}\index{Ast.h@{Ast.h}!Program@{Program}}}\Hypertarget{_ast_8h_abbed81ee894f251822f94201ef008817a95c50c7cc68e399ac5540898dfd06820}\label{_ast_8h_abbed81ee894f251822f94201ef008817a95c50c7cc68e399ac5540898dfd06820} 
+Program&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{BinaryExpression@{BinaryExpression}!Ast.h@{Ast.h}}\index{Ast.h@{Ast.h}!BinaryExpression@{BinaryExpression}}}\Hypertarget{_ast_8h_abbed81ee894f251822f94201ef008817aef8bdf9ede229a64b3daf2724b5e45dc}\label{_ast_8h_abbed81ee894f251822f94201ef008817aef8bdf9ede229a64b3daf2724b5e45dc} 
+Binary\+Expression&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{UnaryExpression@{UnaryExpression}!Ast.h@{Ast.h}}\index{Ast.h@{Ast.h}!UnaryExpression@{UnaryExpression}}}\Hypertarget{_ast_8h_abbed81ee894f251822f94201ef008817af63d76d45aee45cf332a951650eedcb7}\label{_ast_8h_abbed81ee894f251822f94201ef008817af63d76d45aee45cf332a951650eedcb7} 
+Unary\+Expression&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{NullLiteralExpression@{NullLiteralExpression}!Ast.h@{Ast.h}}\index{Ast.h@{Ast.h}!NullLiteralExpression@{NullLiteralExpression}}}\Hypertarget{_ast_8h_abbed81ee894f251822f94201ef008817a02da156e47dc8b7bb0575d125b9dbe38}\label{_ast_8h_abbed81ee894f251822f94201ef008817a02da156e47dc8b7bb0575d125b9dbe38} 
+Null\+Literal\+Expression&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{BooleanLiteralExpression@{BooleanLiteralExpression}!Ast.h@{Ast.h}}\index{Ast.h@{Ast.h}!BooleanLiteralExpression@{BooleanLiteralExpression}}}\Hypertarget{_ast_8h_abbed81ee894f251822f94201ef008817a01f9552b9de59b58d97abcdbe885307f}\label{_ast_8h_abbed81ee894f251822f94201ef008817a01f9552b9de59b58d97abcdbe885307f} 
+Boolean\+Literal\+Expression&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{NumericLiteralExpression@{NumericLiteralExpression}!Ast.h@{Ast.h}}\index{Ast.h@{Ast.h}!NumericLiteralExpression@{NumericLiteralExpression}}}\Hypertarget{_ast_8h_abbed81ee894f251822f94201ef008817a3b1f196eca8855434fe73958b8df7c9e}\label{_ast_8h_abbed81ee894f251822f94201ef008817a3b1f196eca8855434fe73958b8df7c9e} 
+Numeric\+Literal\+Expression&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{StringLiteralExpression@{StringLiteralExpression}!Ast.h@{Ast.h}}\index{Ast.h@{Ast.h}!StringLiteralExpression@{StringLiteralExpression}}}\Hypertarget{_ast_8h_abbed81ee894f251822f94201ef008817ac630f88540b8851ac6098772bb517e83}\label{_ast_8h_abbed81ee894f251822f94201ef008817ac630f88540b8851ac6098772bb517e83} 
+String\+Literal\+Expression&\\
+\hline
+
+\end{DoxyEnumFields}

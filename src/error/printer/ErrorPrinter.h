@@ -21,7 +21,7 @@ typedef std::pair<std::pair<int, int>, std::wstring> colorHighlight;
 /**
  * @brief Base class used for printing error messages to the console.
  *
- * It is passed as a pointer to the lexer, parser and interpreter and is used to print all error messages.
+ * Should be passed as a pointer to the lexer, parser and interpreter and is used to print all error messages.
  * All error messages should go through the error printer or a class derived from it.
  */
 

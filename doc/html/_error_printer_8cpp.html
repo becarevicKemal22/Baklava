@@ -75,12 +75,87 @@ $(function() {
 </div>
 </div><!-- top -->
 <div class="header">
+  <div class="summary">
+<a href="#var-members">Variables</a>  </div>
   <div class="headertitle"><div class="title">ErrorPrinter.cpp File Reference</div></div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &quot;<a class="el" href="_error_printer_8h_source.html">ErrorPrinter.h</a>&quot;</code><br />
+<div class="textblock"><code>#include &lt;iostream&gt;</code><br />
+<code>#include &quot;<a class="el" href="_error_printer_8h_source.html">ErrorPrinter.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="_error_messages_8h_source.html">ErrorMessages.h</a>&quot;</code><br />
-</div></div><!-- contents -->
+<code>#include &quot;<a class="el" href="_runtime_error_8h_source.html">RuntimeError.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="_wrong_type_error_8h_source.html">WrongTypeError.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="_wrong_binary_operand_types_8h_source.html">WrongBinaryOperandTypes.h</a>&quot;</code><br />
+</div><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="var-members" name="var-members"></a>
+Variables</h2></td></tr>
+<tr class="memitem:aafd0cd6aae855b6242cb9ec4f47ab552" id="r_aafd0cd6aae855b6242cb9ec4f47ab552"><td class="memItemLeft" align="right" valign="top">const std::wstring&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aafd0cd6aae855b6242cb9ec4f47ab552">ANSI_RED</a> = L&quot;\033[31m&quot;</td></tr>
+<tr class="separator:aafd0cd6aae855b6242cb9ec4f47ab552"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a44a0ee71c8059f6dae973e95425f5096" id="r_a44a0ee71c8059f6dae973e95425f5096"><td class="memItemLeft" align="right" valign="top">const std::wstring&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a44a0ee71c8059f6dae973e95425f5096">ANSI_RESET</a> = L&quot;\033[0m&quot;</td></tr>
+<tr class="separator:a44a0ee71c8059f6dae973e95425f5096"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3654c0dce80eb0c16811b1661ebfd5ec" id="r_a3654c0dce80eb0c16811b1661ebfd5ec"><td class="memItemLeft" align="right" valign="top">const std::wstring&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a3654c0dce80eb0c16811b1661ebfd5ec">ANSI_GREEN</a> = L&quot;\033[32m&quot;</td></tr>
+<tr class="separator:a3654c0dce80eb0c16811b1661ebfd5ec"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8c4264c036de534eb0d24368cae7e089" id="r_a8c4264c036de534eb0d24368cae7e089"><td class="memItemLeft" align="right" valign="top">const std::wstring&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a8c4264c036de534eb0d24368cae7e089">ANSI_BLUE</a> = L&quot;\033[34m&quot;</td></tr>
+<tr class="separator:a8c4264c036de534eb0d24368cae7e089"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<h2 class="groupheader">Variable Documentation</h2>
+<a id="a8c4264c036de534eb0d24368cae7e089" name="a8c4264c036de534eb0d24368cae7e089"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8c4264c036de534eb0d24368cae7e089">&#9670;&#160;</a></span>ANSI_BLUE</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const std::wstring ANSI_BLUE = L&quot;\033[34m&quot;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a3654c0dce80eb0c16811b1661ebfd5ec" name="a3654c0dce80eb0c16811b1661ebfd5ec"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3654c0dce80eb0c16811b1661ebfd5ec">&#9670;&#160;</a></span>ANSI_GREEN</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const std::wstring ANSI_GREEN = L&quot;\033[32m&quot;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="aafd0cd6aae855b6242cb9ec4f47ab552" name="aafd0cd6aae855b6242cb9ec4f47ab552"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aafd0cd6aae855b6242cb9ec4f47ab552">&#9670;&#160;</a></span>ANSI_RED</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const std::wstring ANSI_RED = L&quot;\033[31m&quot;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a44a0ee71c8059f6dae973e95425f5096" name="a44a0ee71c8059f6dae973e95425f5096"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a44a0ee71c8059f6dae973e95425f5096">&#9670;&#160;</a></span>ANSI_RESET</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const std::wstring ANSI_RESET = L&quot;\033[0m&quot;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+</div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
 Generated by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.10.0

@@ -8,6 +8,11 @@
 #include "Expression.h"
 #include "Token.h"
 
+/**
+ * @brief Represents a unary expression.
+ *
+ * Includes unary ! and unary -.
+ */
 class UnaryExpression : public Expression {
 public:
     UnaryExpression(Token* op, ExprPtr expr) : op(op), expr(expr) {

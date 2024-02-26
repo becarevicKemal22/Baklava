@@ -1,0 +1,34 @@
+\doxysection{src/lexer/\+Keywords.h File Reference}
+\hypertarget{_keywords_8h}{}\label{_keywords_8h}\index{src/lexer/Keywords.h@{src/lexer/Keywords.h}}
+{\ttfamily \#include $<$unordered\+\_\+map$>$}\newline
+{\ttfamily \#include $<$string$>$}\newline
+{\ttfamily \#include "{}Token\+Type.\+h"{}}\newline
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+const std\+::unordered\+\_\+map$<$ std\+::wstring, \mbox{\hyperlink{_token_type_8h_afa91e1934f818659a4e2b0c8ce1214b0}{Token\+Type}} $>$ \mbox{\hyperlink{_keywords_8h_a8f2821841f1038b7f82c075dd79036da}{KEYWORDS}}
+\begin{DoxyCompactList}\small\item\em Map of all keywords in the language and their corresponding Token\+Type. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Variable Documentation}
+\Hypertarget{_keywords_8h_a8f2821841f1038b7f82c075dd79036da}\label{_keywords_8h_a8f2821841f1038b7f82c075dd79036da} 
+\index{Keywords.h@{Keywords.h}!KEYWORDS@{KEYWORDS}}
+\index{KEYWORDS@{KEYWORDS}!Keywords.h@{Keywords.h}}
+\doxysubsubsection{\texorpdfstring{KEYWORDS}{KEYWORDS}}
+{\footnotesize\ttfamily const std\+::unordered\+\_\+map$<$std\+::wstring, \mbox{\hyperlink{_token_type_8h_afa91e1934f818659a4e2b0c8ce1214b0}{Token\+Type}}$>$ KEYWORDS}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{=\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \{L\textcolor{stringliteral}{"{}ako"{}},\ \mbox{\hyperlink{_token_type_8h_afa91e1934f818659a4e2b0c8ce1214b0a786887572f6ef1c20f2d8177cb2f1639}{TokenType::If}}\},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \{L\textcolor{stringliteral}{"{}istina"{}},\ \mbox{\hyperlink{_token_type_8h_afa91e1934f818659a4e2b0c8ce1214b0af827cf462f62848df37c5e1e94a4da74}{TokenType::True}}\},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \{L\textcolor{stringliteral}{"{}neistina"{}},\ \mbox{\hyperlink{_token_type_8h_afa91e1934f818659a4e2b0c8ce1214b0af8320b26d30ab433c5a54546d21f414c}{TokenType::False}}\},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \{L\textcolor{stringliteral}{"{}nula"{}},\ \mbox{\hyperlink{_token_type_8h_afa91e1934f818659a4e2b0c8ce1214b0abbb93ef26e3c101ff11cdd21cab08a94}{TokenType::Null}}\},}
+\DoxyCodeLine{\}}
+
+\end{DoxyCode}
+
+
+Map of all keywords in the language and their corresponding Token\+Type. 
+
+Used by the \doxylink{class_lexer}{Lexer} when an identifier is found to check if it is a keyword. Changing this map enables easy modification of the language\textquotesingle{}s keywords without affecting any other code (except tests). 

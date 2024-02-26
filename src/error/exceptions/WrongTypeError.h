@@ -12,6 +12,9 @@
 #include "Expression.h"
 #include "ExceptionHelpers.h"
 
+/**
+ * @brief Exception thrown when an operator is used with an operand of the wrong type. Mainly used for unary operators.
+ */
 class WrongTypeError : public RuntimeError {
 public:
     WrongTypeError(const std::wstring& toWhat, const RuntimeValue& value, const Expression* expression) : RuntimeError(ErrorCode::ERROR_WRONG_TYPE_OPERAND) {

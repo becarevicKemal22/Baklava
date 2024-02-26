@@ -2,32 +2,99 @@
 \hypertarget{class_lexer}{}\label{class_lexer}\index{Lexer@{Lexer}}
 
 
+Class that is used to tokenize source code into tokens.  
+
+
+
+
 {\ttfamily \#include $<$Lexer.\+h$>$}
 
 \doxysubsubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{class_lexer_ae3d94795aa1bc6570f7f8fe3882423aa}{Lexer}} (const std\+::string \&source)
-\item 
+\mbox{\hyperlink{class_lexer_ab5ccbbf65093864a9b62906523daf63a}{Lexer}} (const std\+::wstring \&source)
+\begin{DoxyCompactList}\small\item\em Construct a new \doxylink{class_lexer}{Lexer} instance. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_lexer_a7201a02227b3a8135976187f653a9b42}{Lexer}} (const std\+::wstring \&source, \mbox{\hyperlink{class_error_printer}{Error\+Printer}} \texorpdfstring{$\ast$}{*}printer)
+\begin{DoxyCompactList}\small\item\em Construct a new \doxylink{class_lexer}{Lexer} instance with an error printer. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_lexer_a7a26f238ff21f31d754e5770d3501c71}{\texorpdfstring{$\sim$}{\string~}\+Lexer}} ()=default
+\begin{DoxyCompactList}\small\item\em Destroy the \doxylink{class_lexer}{Lexer} instance. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{class_lexer_a8307e9de879e09ea9a336d19e949cf4d}{tokenize}} ()
-\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em Tokenizes the source code. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_lexer_a919b2ac3e53a80b0c612ca511578eb37}{set\+Printer}} (\mbox{\hyperlink{class_error_printer}{Error\+Printer}} \texorpdfstring{$\ast$}{*}printer)
+\begin{DoxyCompactList}\small\item\em Sets the error printer. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsubsection*{Public Attributes}
 \begin{DoxyCompactItemize}
 \item 
-std\+::vector$<$ \mbox{\hyperlink{class_token}{Token}} $>$ \mbox{\hyperlink{class_lexer_adfc224cc460a688deb4655f88ccd1bbb}{tokens}} \{\}
+std\+::vector$<$ \mbox{\hyperlink{class_token}{Token}} \texorpdfstring{$\ast$}{*} $>$ \mbox{\hyperlink{class_lexer_a67c5bb32cc0e7ce98e2554175ec6dc25}{tokens}} \{\}
 \end{DoxyCompactItemize}
 
 
+\doxysubsection{Detailed Description}
+Class that is used to tokenize source code into tokens. 
+
+The tokens that this class produces are used not only by the parser, but are pointed to by AST nodes and are used in the interpreting stage too, so it is important that they are not deleted before the interpreter is finished or quits, or that the ownership of them is transferred to the AST nodes or the interpreter. 
+
 \doxysubsection{Constructor \& Destructor Documentation}
-\Hypertarget{class_lexer_ae3d94795aa1bc6570f7f8fe3882423aa}\label{class_lexer_ae3d94795aa1bc6570f7f8fe3882423aa} 
+\Hypertarget{class_lexer_ab5ccbbf65093864a9b62906523daf63a}\label{class_lexer_ab5ccbbf65093864a9b62906523daf63a} 
 \index{Lexer@{Lexer}!Lexer@{Lexer}}
 \index{Lexer@{Lexer}!Lexer@{Lexer}}
-\doxysubsubsection{\texorpdfstring{Lexer()}{Lexer()}}
-{\footnotesize\ttfamily Lexer\+::\+Lexer (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{source }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [explicit]}}
+\doxysubsubsection{\texorpdfstring{Lexer()}{Lexer()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily Lexer\+::\+Lexer (\begin{DoxyParamCaption}\item[{const std\+::wstring \&}]{source }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
 
+
+Construct a new \doxylink{class_lexer}{Lexer} instance. 
+
+This constructor is mostly made for testing purposes, when error printing is not needed. 
+\begin{DoxyParams}{Parameters}
+{\em source} & Source code to tokenize. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_lexer_a7201a02227b3a8135976187f653a9b42}\label{class_lexer_a7201a02227b3a8135976187f653a9b42} 
+\index{Lexer@{Lexer}!Lexer@{Lexer}}
+\index{Lexer@{Lexer}!Lexer@{Lexer}}
+\doxysubsubsection{\texorpdfstring{Lexer()}{Lexer()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily Lexer\+::\+Lexer (\begin{DoxyParamCaption}\item[{const std\+::wstring \&}]{source,  }\item[{\mbox{\hyperlink{class_error_printer}{Error\+Printer}} \texorpdfstring{$\ast$}{*}}]{printer }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Construct a new \doxylink{class_lexer}{Lexer} instance with an error printer. 
+
+This is the preferred constructor to use, as it allows for error reporting. 
+\begin{DoxyParams}{Parameters}
+{\em source} & reference to wstring source code to tokenize. \\
+\hline
+{\em printer} & \doxylink{class_error_printer}{Error\+Printer} pointer to be used for error printing. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_lexer_a7a26f238ff21f31d754e5770d3501c71}\label{class_lexer_a7a26f238ff21f31d754e5770d3501c71} 
+\index{Lexer@{Lexer}!````~Lexer@{\texorpdfstring{$\sim$}{\string~}Lexer}}
+\index{````~Lexer@{\texorpdfstring{$\sim$}{\string~}Lexer}!Lexer@{Lexer}}
+\doxysubsubsection{\texorpdfstring{\texorpdfstring{$\sim$}{\string~}Lexer()}{\string~Lexer()}}
+{\footnotesize\ttfamily Lexer\+::\texorpdfstring{$\sim$}{\string~}\+Lexer (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [default]}}
+
+
+
+Destroy the \doxylink{class_lexer}{Lexer} instance. 
+
+This destructor should currently not delete tokens, as that can crash the program if the lexer is not in the same environment as the interpreter. 
 
 \doxysubsection{Member Function Documentation}
+\Hypertarget{class_lexer_a919b2ac3e53a80b0c612ca511578eb37}\label{class_lexer_a919b2ac3e53a80b0c612ca511578eb37} 
+\index{Lexer@{Lexer}!setPrinter@{setPrinter}}
+\index{setPrinter@{setPrinter}!Lexer@{Lexer}}
+\doxysubsubsection{\texorpdfstring{setPrinter()}{setPrinter()}}
+{\footnotesize\ttfamily void Lexer\+::set\+Printer (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_error_printer}{Error\+Printer}} \texorpdfstring{$\ast$}{*}}]{printer }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Sets the error printer. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em printer} & \doxylink{class_error_printer}{Error\+Printer} pointer to be used for error printing. \\
+\hline
+\end{DoxyParams}
 \Hypertarget{class_lexer_a8307e9de879e09ea9a336d19e949cf4d}\label{class_lexer_a8307e9de879e09ea9a336d19e949cf4d} 
 \index{Lexer@{Lexer}!tokenize@{tokenize}}
 \index{tokenize@{tokenize}!Lexer@{Lexer}}
@@ -36,14 +103,23 @@ std\+::vector$<$ \mbox{\hyperlink{class_token}{Token}} $>$ \mbox{\hyperlink{clas
 
 
 
+Tokenizes the source code. 
+
+This function tokenizes the source code and populates the tokens vector with tokens. 
+\begin{DoxyExceptions}{Exceptions}
+{\em std\+::runtime\+\_\+error} & throws if an invalid character is found in the source code and prints error if printer is not nullptr. \\
+\hline
+\end{DoxyExceptions}
+
+
 \doxysubsection{Member Data Documentation}
-\Hypertarget{class_lexer_adfc224cc460a688deb4655f88ccd1bbb}\label{class_lexer_adfc224cc460a688deb4655f88ccd1bbb} 
+\Hypertarget{class_lexer_a67c5bb32cc0e7ce98e2554175ec6dc25}\label{class_lexer_a67c5bb32cc0e7ce98e2554175ec6dc25} 
 \index{Lexer@{Lexer}!tokens@{tokens}}
 \index{tokens@{tokens}!Lexer@{Lexer}}
 \doxysubsubsection{\texorpdfstring{tokens}{tokens}}
-{\footnotesize\ttfamily std\+::vector$<$\mbox{\hyperlink{class_token}{Token}}$>$ Lexer\+::tokens \{\}}
+{\footnotesize\ttfamily std\+::vector$<$\mbox{\hyperlink{class_token}{Token}}\texorpdfstring{$\ast$}{*}$>$ Lexer\+::tokens \{\}}
 
-
+Vector of token pointers that are dynamically allocated as the tokenize function is run. The tokens in this vector are being pointed to during the whole lifetime of the program, so it is important that they are not deleted before the interpreter is finished or quits. 
 
 The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
 \item 

@@ -1,0 +1,29 @@
+\doxysection{String\+Literal\+Expression.\+h}
+\hypertarget{_string_literal_expression_8h_source}{}\label{_string_literal_expression_8h_source}\index{src/parser/ast/expressions/StringLiteralExpression.h@{src/parser/ast/expressions/StringLiteralExpression.h}}
+\mbox{\hyperlink{_string_literal_expression_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{//}}
+\DoxyCodeLine{00002\ \textcolor{comment}{//\ Created\ by\ kemal\ on\ 2/5/2024.}}
+\DoxyCodeLine{00003\ \textcolor{comment}{//}}
+\DoxyCodeLine{00004\ }
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#ifndef\ MATURSKI\_2\_STRINGLITERALEXPRESSION\_H}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#define\ MATURSKI\_2\_STRINGLITERALEXPRESSION\_H}}
+\DoxyCodeLine{00007\ }
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#include\ <string>}}
+\DoxyCodeLine{00009\ }
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_token_8h}{Token.h}}"{}}}
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_expression_8h}{Expression.h}}"{}}}
+\DoxyCodeLine{00012\ }
+\DoxyCodeLine{00016\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_string_literal_expression}{StringLiteralExpression}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{class_expression}{Expression}}\ \{}
+\DoxyCodeLine{00017\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00018\ \ \ \ \ \mbox{\hyperlink{class_string_literal_expression_ad82b7bf5c7cbaf8f41141e7339dd156b}{StringLiteralExpression}}(\mbox{\hyperlink{class_token}{Token}}*\ \mbox{\hyperlink{class_string_literal_expression_a12a77c51d6639cd1dae8db68764c9228}{token}})\ :\ \mbox{\hyperlink{class_string_literal_expression_a12a77c51d6639cd1dae8db68764c9228}{token}}(\mbox{\hyperlink{class_string_literal_expression_a12a77c51d6639cd1dae8db68764c9228}{token}})\ \{}
+\DoxyCodeLine{00019\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_statement_af799a81c3fbd31e741cc01d09324df30}{type}}\ =\ \mbox{\hyperlink{_ast_8h_abbed81ee894f251822f94201ef008817ac630f88540b8851ac6098772bb517e83}{AstNodeType::StringLiteralExpression}};}
+\DoxyCodeLine{00020\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_string_literal_expression_a5dec0246f492d5f7f73faa24256c1598}{value}}\ =\ \mbox{\hyperlink{class_string_literal_expression_a12a77c51d6639cd1dae8db68764c9228}{token}}-\/>\mbox{\hyperlink{class_token_acfd9e64709c736211934e4b27ac20955}{value}};}
+\DoxyCodeLine{00021\ \ \ \ \ \}}
+\DoxyCodeLine{00022\ \ \ \ \ \mbox{\hyperlink{class_token}{Token}}*\ \mbox{\hyperlink{class_string_literal_expression_a12a77c51d6639cd1dae8db68764c9228}{token}};}
+\DoxyCodeLine{00023\ \ \ \ \ std::wstring\ \mbox{\hyperlink{class_string_literal_expression_a5dec0246f492d5f7f73faa24256c1598}{value}};}
+\DoxyCodeLine{00024\ \};}
+\DoxyCodeLine{00025\ }
+\DoxyCodeLine{00026\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//MATURSKI\_2\_STRINGLITERALEXPRESSION\_H}}
+
+\end{DoxyCode}

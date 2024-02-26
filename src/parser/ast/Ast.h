@@ -7,6 +7,11 @@
 
 #include <cstdint>
 
+/**
+ * @brief Enum class representing the type of the AST node.
+ *
+ * Used to determine the type of a node at runtime without doing dynamic casting.
+ */
 enum class AstNodeType : uint8_t {
     // Statements
     Program,
@@ -20,8 +25,6 @@ enum class AstNodeType : uint8_t {
     StringLiteralExpression,
 };
 
-typedef unsigned int NodeRef;
-
 class Statement;
 class Program;
 
@@ -33,6 +36,7 @@ class BooleanLiteralExpression;
 class NumericLiteralExpression;
 class StringLiteralExpression;
 
+typedef Statement* StmtPtr;
 typedef Expression* ExprPtr;
 
 #endif //MATURSKI_2_AST_H

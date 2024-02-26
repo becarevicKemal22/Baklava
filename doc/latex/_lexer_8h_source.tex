@@ -13,22 +13,45 @@
 \DoxyCodeLine{00009\ \textcolor{preprocessor}{\#include\ <vector>}}
 \DoxyCodeLine{00010\ }
 \DoxyCodeLine{00011\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_token_8h}{Token.h}}"{}}}
-\DoxyCodeLine{00012\ }
-\DoxyCodeLine{00013\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_lexer}{Lexer}}\ \{}
-\DoxyCodeLine{00014\ \textcolor{keyword}{public}:}
-\DoxyCodeLine{00015\ \ \ \ \ \textcolor{keyword}{explicit}\ \mbox{\hyperlink{class_lexer_ae3d94795aa1bc6570f7f8fe3882423aa}{Lexer}}(\textcolor{keyword}{const}\ std::string\&\ \ source)\ :\ source(source)\ \{\}}
-\DoxyCodeLine{00016\ \ \ \ \ std::vector<Token>\ \mbox{\hyperlink{class_lexer_adfc224cc460a688deb4655f88ccd1bbb}{tokens}}\{\};}
-\DoxyCodeLine{00017\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_lexer_a8307e9de879e09ea9a336d19e949cf4d}{tokenize}}();}
-\DoxyCodeLine{00018\ }
-\DoxyCodeLine{00019\ \textcolor{keyword}{private}:}
-\DoxyCodeLine{00020\ \ \ \ \ std::string\ source;}
-\DoxyCodeLine{00021\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ currentChar\ =\ 0;}
-\DoxyCodeLine{00022\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ line\ =\ 1;}
-\DoxyCodeLine{00023\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ charIndexOnLine\ =\ 0;}
-\DoxyCodeLine{00024\ \ \ \ \ \textcolor{keywordtype}{void}\ addToken(\mbox{\hyperlink{_token_type_8h_afa91e1934f818659a4e2b0c8ce1214b0}{TokenType}}\ type,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ line,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ offset);}
-\DoxyCodeLine{00025\ \};}
-\DoxyCodeLine{00026\ }
-\DoxyCodeLine{00027\ }
-\DoxyCodeLine{00028\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//MATURSKI\_2\_LEXER\_H}}
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_error_printer_8h}{ErrorPrinter.h}}"{}}}
+\DoxyCodeLine{00013\ }
+\DoxyCodeLine{00019\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_lexer}{Lexer}}\ \{}
+\DoxyCodeLine{00020\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00027\ \ \ \ \ \mbox{\hyperlink{class_lexer_ab5ccbbf65093864a9b62906523daf63a}{Lexer}}(\textcolor{keyword}{const}\ std::wstring\&\ \ source)\ :\ source(source),\ printer(nullptr)\ \{\}}
+\DoxyCodeLine{00028\ }
+\DoxyCodeLine{00036\ \ \ \ \ \mbox{\hyperlink{class_lexer_a7201a02227b3a8135976187f653a9b42}{Lexer}}(\textcolor{keyword}{const}\ std::wstring\&\ source,\ \mbox{\hyperlink{class_error_printer}{ErrorPrinter}}*\ printer)\ :\ source(source),\ printer(printer)\ \{\}}
+\DoxyCodeLine{00037\ }
+\DoxyCodeLine{00043\ \ \ \ \ \mbox{\hyperlink{class_lexer_a7a26f238ff21f31d754e5770d3501c71}{\string~Lexer}}()\ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{00044\ }
+\DoxyCodeLine{00045\ \ \ \ \ std::vector<Token*>\ \mbox{\hyperlink{class_lexer_a67c5bb32cc0e7ce98e2554175ec6dc25}{tokens}}\{\};\ }
+\DoxyCodeLine{00053\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_lexer_a8307e9de879e09ea9a336d19e949cf4d}{tokenize}}();}
+\DoxyCodeLine{00054\ }
+\DoxyCodeLine{00060\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_lexer_a919b2ac3e53a80b0c612ca511578eb37}{setPrinter}}(\mbox{\hyperlink{class_error_printer}{ErrorPrinter}}*\ printer)\{}
+\DoxyCodeLine{00061\ \ \ \ \ \ \ \ \ this-\/>printer\ =\ printer;}
+\DoxyCodeLine{00062\ \ \ \ \ \}}
+\DoxyCodeLine{00063\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00064\ \ \ \ \ std::wstring\ source;}
+\DoxyCodeLine{00065\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ currentChar\ =\ 0;}
+\DoxyCodeLine{00066\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ line\ =\ 1;}
+\DoxyCodeLine{00067\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ charIndexOnLine\ =\ 0;}
+\DoxyCodeLine{00068\ \ \ \ \ \mbox{\hyperlink{class_error_printer}{ErrorPrinter}}*\ printer;}
+\DoxyCodeLine{00069\ }
+\DoxyCodeLine{00076\ \ \ \ \ \textcolor{keywordtype}{void}\ addToken(\mbox{\hyperlink{_token_type_8h_afa91e1934f818659a4e2b0c8ce1214b0}{TokenType}}\ type,\ \textcolor{keywordtype}{wchar\_t}\ character);}
+\DoxyCodeLine{00077\ }
+\DoxyCodeLine{00085\ \ \ \ \ \textcolor{keywordtype}{void}\ addToken(\mbox{\hyperlink{_token_type_8h_afa91e1934f818659a4e2b0c8ce1214b0}{TokenType}}\ type,\ \textcolor{keyword}{const}\ std::wstring\&\ value,\ \textcolor{keywordtype}{bool}\ offsetIsStartOfToken\ =\ \textcolor{keyword}{false});}
+\DoxyCodeLine{00086\ }
+\DoxyCodeLine{00094\ \ \ \ \ \textcolor{keywordtype}{void}\ addStringToken(\textcolor{keyword}{const}\ std::wstring\&\ value,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ line,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ offset);}
+\DoxyCodeLine{00095\ }
+\DoxyCodeLine{00096\ \ \ \ \ \textcolor{keywordtype}{void}\ advance()\ \{\ currentChar++;\ charIndexOnLine++;\}}
+\DoxyCodeLine{00097\ \ \ \ \ \textcolor{keywordtype}{wchar\_t}\ peek()\ \{\ \textcolor{keywordflow}{return}\ source[currentChar\ +\ 1];\}}
+\DoxyCodeLine{00098\ \ \ \ \ \textcolor{keywordtype}{void}\ handleTab();}
+\DoxyCodeLine{00099\ }
+\DoxyCodeLine{00105\ \ \ \ \ \textcolor{keywordtype}{void}\ handleNewLine();}
+\DoxyCodeLine{00106\ \ \ \ \ \textcolor{keywordtype}{void}\ handleString();}
+\DoxyCodeLine{00107\ \ \ \ \ \textcolor{keywordtype}{void}\ handleComment();}
+\DoxyCodeLine{00108\ \};}
+\DoxyCodeLine{00109\ }
+\DoxyCodeLine{00110\ }
+\DoxyCodeLine{00111\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//MATURSKI\_2\_LEXER\_H}}
 
 \end{DoxyCode}

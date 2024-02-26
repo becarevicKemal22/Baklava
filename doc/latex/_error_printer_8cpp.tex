@@ -1,4 +1,46 @@
 \doxysection{src/error/printer/\+Error\+Printer.cpp File Reference}
 \hypertarget{_error_printer_8cpp}{}\label{_error_printer_8cpp}\index{src/error/printer/ErrorPrinter.cpp@{src/error/printer/ErrorPrinter.cpp}}
+{\ttfamily \#include $<$iostream$>$}\newline
 {\ttfamily \#include "{}Error\+Printer.\+h"{}}\newline
 {\ttfamily \#include "{}Error\+Messages.\+h"{}}\newline
+{\ttfamily \#include "{}Runtime\+Error.\+h"{}}\newline
+{\ttfamily \#include "{}Wrong\+Type\+Error.\+h"{}}\newline
+{\ttfamily \#include "{}Wrong\+Binary\+Operand\+Types.\+h"{}}\newline
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+const std\+::wstring \mbox{\hyperlink{_error_printer_8cpp_aafd0cd6aae855b6242cb9ec4f47ab552}{ANSI\+\_\+\+RED}} = L"{}\textbackslash{}033\mbox{[}31m"{}
+\item 
+const std\+::wstring \mbox{\hyperlink{_error_printer_8cpp_a44a0ee71c8059f6dae973e95425f5096}{ANSI\+\_\+\+RESET}} = L"{}\textbackslash{}033\mbox{[}0m"{}
+\item 
+const std\+::wstring \mbox{\hyperlink{_error_printer_8cpp_a3654c0dce80eb0c16811b1661ebfd5ec}{ANSI\+\_\+\+GREEN}} = L"{}\textbackslash{}033\mbox{[}32m"{}
+\item 
+const std\+::wstring \mbox{\hyperlink{_error_printer_8cpp_a8c4264c036de534eb0d24368cae7e089}{ANSI\+\_\+\+BLUE}} = L"{}\textbackslash{}033\mbox{[}34m"{}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Variable Documentation}
+\Hypertarget{_error_printer_8cpp_a8c4264c036de534eb0d24368cae7e089}\label{_error_printer_8cpp_a8c4264c036de534eb0d24368cae7e089} 
+\index{ErrorPrinter.cpp@{ErrorPrinter.cpp}!ANSI\_BLUE@{ANSI\_BLUE}}
+\index{ANSI\_BLUE@{ANSI\_BLUE}!ErrorPrinter.cpp@{ErrorPrinter.cpp}}
+\doxysubsubsection{\texorpdfstring{ANSI\_BLUE}{ANSI\_BLUE}}
+{\footnotesize\ttfamily const std\+::wstring ANSI\+\_\+\+BLUE = L"{}\textbackslash{}033\mbox{[}34m"{}}
+
+\Hypertarget{_error_printer_8cpp_a3654c0dce80eb0c16811b1661ebfd5ec}\label{_error_printer_8cpp_a3654c0dce80eb0c16811b1661ebfd5ec} 
+\index{ErrorPrinter.cpp@{ErrorPrinter.cpp}!ANSI\_GREEN@{ANSI\_GREEN}}
+\index{ANSI\_GREEN@{ANSI\_GREEN}!ErrorPrinter.cpp@{ErrorPrinter.cpp}}
+\doxysubsubsection{\texorpdfstring{ANSI\_GREEN}{ANSI\_GREEN}}
+{\footnotesize\ttfamily const std\+::wstring ANSI\+\_\+\+GREEN = L"{}\textbackslash{}033\mbox{[}32m"{}}
+
+\Hypertarget{_error_printer_8cpp_aafd0cd6aae855b6242cb9ec4f47ab552}\label{_error_printer_8cpp_aafd0cd6aae855b6242cb9ec4f47ab552} 
+\index{ErrorPrinter.cpp@{ErrorPrinter.cpp}!ANSI\_RED@{ANSI\_RED}}
+\index{ANSI\_RED@{ANSI\_RED}!ErrorPrinter.cpp@{ErrorPrinter.cpp}}
+\doxysubsubsection{\texorpdfstring{ANSI\_RED}{ANSI\_RED}}
+{\footnotesize\ttfamily const std\+::wstring ANSI\+\_\+\+RED = L"{}\textbackslash{}033\mbox{[}31m"{}}
+
+\Hypertarget{_error_printer_8cpp_a44a0ee71c8059f6dae973e95425f5096}\label{_error_printer_8cpp_a44a0ee71c8059f6dae973e95425f5096} 
+\index{ErrorPrinter.cpp@{ErrorPrinter.cpp}!ANSI\_RESET@{ANSI\_RESET}}
+\index{ANSI\_RESET@{ANSI\_RESET}!ErrorPrinter.cpp@{ErrorPrinter.cpp}}
+\doxysubsubsection{\texorpdfstring{ANSI\_RESET}{ANSI\_RESET}}
+{\footnotesize\ttfamily const std\+::wstring ANSI\+\_\+\+RESET = L"{}\textbackslash{}033\mbox{[}0m"{}}
+

@@ -10,6 +10,9 @@
 #include "Token.h"
 #include "Expression.h"
 
+/**
+ * @brief Represents a string literal expression.
+ */
 class StringLiteralExpression : public Expression {
 public:
     StringLiteralExpression(Token* token) : token(token) {

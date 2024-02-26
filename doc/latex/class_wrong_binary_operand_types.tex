@@ -1,0 +1,85 @@
+\doxysection{Wrong\+Binary\+Operand\+Types Class Reference}
+\hypertarget{class_wrong_binary_operand_types}{}\label{class_wrong_binary_operand_types}\index{WrongBinaryOperandTypes@{WrongBinaryOperandTypes}}
+
+
+Exception thrown when a binary operator is used with two operands of the wrong type. Mainly used for binary operators.  
+
+
+
+
+{\ttfamily \#include $<$Wrong\+Binary\+Operand\+Types.\+h$>$}
+
+Inheritance diagram for Wrong\+Binary\+Operand\+Types\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=3.000000cm]{class_wrong_binary_operand_types}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_wrong_binary_operand_types_a3d347867db1408da55425c91a33a29a5}{Wrong\+Binary\+Operand\+Types}} (const std\+::wstring \&to\+What, const \mbox{\hyperlink{struct_runtime_value}{Runtime\+Value}} \&left, const \mbox{\hyperlink{struct_runtime_value}{Runtime\+Value}} \&right, const \mbox{\hyperlink{class_binary_expression}{Binary\+Expression}} \texorpdfstring{$\ast$}{*}expression)
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{class_runtime_error}{Runtime\+Error}}}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_runtime_error_a4b2ece5f02f3de2b26c499a90fdc9488}{Runtime\+Error}} (\mbox{\hyperlink{_error_code_8h_a59e56af19e754a6aa26a612ebf91d05f}{Error\+Code}} \mbox{\hyperlink{class_runtime_error_a7f2ccd5c856bc880e4ee6b888f0f7256}{code}})
+\item 
+\mbox{\hyperlink{class_runtime_error_a85ba7b49af277d483e07d2b274da4697}{Runtime\+Error}} (\mbox{\hyperlink{_error_code_8h_a59e56af19e754a6aa26a612ebf91d05f}{Error\+Code}} \mbox{\hyperlink{class_runtime_error_a7f2ccd5c856bc880e4ee6b888f0f7256}{code}}, std\+::vector$<$ \mbox{\hyperlink{_error_message_argument_8h_a2ce8d7c0c01d40b6373946f75c36eee7}{Error\+Message\+Argument}} $>$ \mbox{\hyperlink{class_runtime_error_a5d005928ddf618703012ce4c1f8e3f03}{message\+Arguments}})
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_token}{Token}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{class_wrong_binary_operand_types_add7daadf5087e248c34fc330cc04ffea}{token}}
+\item 
+\mbox{\hyperlink{class_token}{Token}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{class_wrong_binary_operand_types_ae24e20ae247c161e457a2370a7f0dd47}{left\+Token}}
+\item 
+\mbox{\hyperlink{class_token}{Token}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{class_wrong_binary_operand_types_ade0f2781613dc56c291806bf86dec132}{right\+Token}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes inherited from \mbox{\hyperlink{class_runtime_error}{Runtime\+Error}}}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{_error_code_8h_a59e56af19e754a6aa26a612ebf91d05f}{Error\+Code}} \mbox{\hyperlink{class_runtime_error_a7f2ccd5c856bc880e4ee6b888f0f7256}{code}}
+\item 
+std\+::vector$<$ \mbox{\hyperlink{_error_message_argument_8h_a2ce8d7c0c01d40b6373946f75c36eee7}{Error\+Message\+Argument}} $>$ \mbox{\hyperlink{class_runtime_error_a5d005928ddf618703012ce4c1f8e3f03}{message\+Arguments}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Exception thrown when a binary operator is used with two operands of the wrong type. Mainly used for binary operators. 
+
+Also gets the most relevant tokens from the given incompatible expressions 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{class_wrong_binary_operand_types_a3d347867db1408da55425c91a33a29a5}\label{class_wrong_binary_operand_types_a3d347867db1408da55425c91a33a29a5} 
+\index{WrongBinaryOperandTypes@{WrongBinaryOperandTypes}!WrongBinaryOperandTypes@{WrongBinaryOperandTypes}}
+\index{WrongBinaryOperandTypes@{WrongBinaryOperandTypes}!WrongBinaryOperandTypes@{WrongBinaryOperandTypes}}
+\doxysubsubsection{\texorpdfstring{WrongBinaryOperandTypes()}{WrongBinaryOperandTypes()}}
+{\footnotesize\ttfamily Wrong\+Binary\+Operand\+Types\+::\+Wrong\+Binary\+Operand\+Types (\begin{DoxyParamCaption}\item[{const std\+::wstring \&}]{to\+What,  }\item[{const \mbox{\hyperlink{struct_runtime_value}{Runtime\+Value}} \&}]{left,  }\item[{const \mbox{\hyperlink{struct_runtime_value}{Runtime\+Value}} \&}]{right,  }\item[{const \mbox{\hyperlink{class_binary_expression}{Binary\+Expression}} \texorpdfstring{$\ast$}{*}}]{expression }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+\doxysubsection{Member Data Documentation}
+\Hypertarget{class_wrong_binary_operand_types_ae24e20ae247c161e457a2370a7f0dd47}\label{class_wrong_binary_operand_types_ae24e20ae247c161e457a2370a7f0dd47} 
+\index{WrongBinaryOperandTypes@{WrongBinaryOperandTypes}!leftToken@{leftToken}}
+\index{leftToken@{leftToken}!WrongBinaryOperandTypes@{WrongBinaryOperandTypes}}
+\doxysubsubsection{\texorpdfstring{leftToken}{leftToken}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_token}{Token}}\texorpdfstring{$\ast$}{*} Wrong\+Binary\+Operand\+Types\+::left\+Token}
+
+\Hypertarget{class_wrong_binary_operand_types_ade0f2781613dc56c291806bf86dec132}\label{class_wrong_binary_operand_types_ade0f2781613dc56c291806bf86dec132} 
+\index{WrongBinaryOperandTypes@{WrongBinaryOperandTypes}!rightToken@{rightToken}}
+\index{rightToken@{rightToken}!WrongBinaryOperandTypes@{WrongBinaryOperandTypes}}
+\doxysubsubsection{\texorpdfstring{rightToken}{rightToken}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_token}{Token}}\texorpdfstring{$\ast$}{*} Wrong\+Binary\+Operand\+Types\+::right\+Token}
+
+\Hypertarget{class_wrong_binary_operand_types_add7daadf5087e248c34fc330cc04ffea}\label{class_wrong_binary_operand_types_add7daadf5087e248c34fc330cc04ffea} 
+\index{WrongBinaryOperandTypes@{WrongBinaryOperandTypes}!token@{token}}
+\index{token@{token}!WrongBinaryOperandTypes@{WrongBinaryOperandTypes}}
+\doxysubsubsection{\texorpdfstring{token}{token}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_token}{Token}}\texorpdfstring{$\ast$}{*} Wrong\+Binary\+Operand\+Types\+::token}
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+src/error/exceptions/\mbox{\hyperlink{_wrong_binary_operand_types_8h}{Wrong\+Binary\+Operand\+Types.\+h}}\end{DoxyCompactItemize}

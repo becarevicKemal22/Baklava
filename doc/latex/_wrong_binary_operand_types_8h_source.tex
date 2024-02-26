@@ -1,0 +1,40 @@
+\doxysection{Wrong\+Binary\+Operand\+Types.\+h}
+\hypertarget{_wrong_binary_operand_types_8h_source}{}\label{_wrong_binary_operand_types_8h_source}\index{src/error/exceptions/WrongBinaryOperandTypes.h@{src/error/exceptions/WrongBinaryOperandTypes.h}}
+\mbox{\hyperlink{_wrong_binary_operand_types_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{//}}
+\DoxyCodeLine{00002\ \textcolor{comment}{//\ Created\ by\ kemal\ on\ 2/25/2024.}}
+\DoxyCodeLine{00003\ \textcolor{comment}{//}}
+\DoxyCodeLine{00004\ }
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#ifndef\ MATURSKI\_2\_WRONGBINARYOPERANDTYPES\_H}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#define\ MATURSKI\_2\_WRONGBINARYOPERANDTYPES\_H}}
+\DoxyCodeLine{00007\ }
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_runtime_error_8h}{RuntimeError.h}}"{}}}
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_runtime_value_8h}{RuntimeValue.h}}"{}}}
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_expression_8h}{Expression.h}}"{}}}
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_exception_helpers_8h}{ExceptionHelpers.h}}"{}}}
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_binary_expression_8h}{BinaryExpression.h}}"{}}}
+\DoxyCodeLine{00013\ }
+\DoxyCodeLine{00019\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_wrong_binary_operand_types}{WrongBinaryOperandTypes}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{class_runtime_error}{RuntimeError}}\ \{}
+\DoxyCodeLine{00020\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00021\ \ \ \ \ \mbox{\hyperlink{class_wrong_binary_operand_types_a3d347867db1408da55425c91a33a29a5}{WrongBinaryOperandTypes}}(\textcolor{keyword}{const}\ std::wstring\ \&toWhat,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{struct_runtime_value}{RuntimeValue}}\ \&left,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{struct_runtime_value}{RuntimeValue}}\ \&right,}
+\DoxyCodeLine{00022\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{class_binary_expression}{BinaryExpression}}\ *expression)\ :\ \mbox{\hyperlink{class_runtime_error}{RuntimeError}}(}
+\DoxyCodeLine{00023\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_error_code_8h_a59e56af19e754a6aa26a612ebf91d05f}{ErrorCode}}::\mbox{\hyperlink{_error_code_8h_a59e56af19e754a6aa26a612ebf91d05fa105a71af2f532e023af49115dc047530}{ERROR\_WRONG\_TYPE\_OPERAND\_BINARY}})\ \{}
+\DoxyCodeLine{00024\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_runtime_error_a5d005928ddf618703012ce4c1f8e3f03}{messageArguments}}.emplace\_back(\mbox{\hyperlink{_runtime_value_8cpp_ad8f1e3d398dd0b69ecf92d9923f58bb6}{valueTypeToString}}(left.\mbox{\hyperlink{struct_runtime_value_a55cfd70a0d575cfeb00067649c097f36}{type}}));}
+\DoxyCodeLine{00025\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_runtime_error_a5d005928ddf618703012ce4c1f8e3f03}{messageArguments}}.emplace\_back(\mbox{\hyperlink{_runtime_value_8cpp_ad8f1e3d398dd0b69ecf92d9923f58bb6}{valueTypeToString}}(right.\mbox{\hyperlink{struct_runtime_value_a55cfd70a0d575cfeb00067649c097f36}{type}}));}
+\DoxyCodeLine{00026\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_runtime_error_a5d005928ddf618703012ce4c1f8e3f03}{messageArguments}}.emplace\_back(toWhat);}
+\DoxyCodeLine{00027\ \ \ \ \ \ \ \ \ this-\/>\mbox{\hyperlink{class_wrong_binary_operand_types_add7daadf5087e248c34fc330cc04ffea}{token}}\ =\ \mbox{\hyperlink{_exception_helpers_8cpp_a21dd8661b21077d61a64f924e346cecc}{getMostRelevantToken}}(expression);}
+\DoxyCodeLine{00028\ }
+\DoxyCodeLine{00029\ \ \ \ \ \ \ \ \ this-\/>\mbox{\hyperlink{class_wrong_binary_operand_types_ae24e20ae247c161e457a2370a7f0dd47}{leftToken}}\ =\ \mbox{\hyperlink{_exception_helpers_8cpp_a21dd8661b21077d61a64f924e346cecc}{getMostRelevantToken}}(expression-\/>\mbox{\hyperlink{class_binary_expression_a10b156c09c5c7e344a0922f2b865c60d}{left}});}
+\DoxyCodeLine{00030\ \ \ \ \ \ \ \ \ this-\/>\mbox{\hyperlink{class_wrong_binary_operand_types_ade0f2781613dc56c291806bf86dec132}{rightToken}}\ =\ \mbox{\hyperlink{_exception_helpers_8cpp_a21dd8661b21077d61a64f924e346cecc}{getMostRelevantToken}}(expression-\/>\mbox{\hyperlink{class_binary_expression_afaac54e9347d5a49e8db04a2c7ba7501}{right}});}
+\DoxyCodeLine{00031\ }
+\DoxyCodeLine{00032\ \ \ \ \ \}}
+\DoxyCodeLine{00033\ }
+\DoxyCodeLine{00034\ \ \ \ \ \mbox{\hyperlink{class_token}{Token}}\ *\mbox{\hyperlink{class_wrong_binary_operand_types_add7daadf5087e248c34fc330cc04ffea}{token}};}
+\DoxyCodeLine{00035\ \ \ \ \ \mbox{\hyperlink{class_token}{Token}}\ *\mbox{\hyperlink{class_wrong_binary_operand_types_ae24e20ae247c161e457a2370a7f0dd47}{leftToken}};}
+\DoxyCodeLine{00036\ \ \ \ \ \mbox{\hyperlink{class_token}{Token}}\ *\mbox{\hyperlink{class_wrong_binary_operand_types_ade0f2781613dc56c291806bf86dec132}{rightToken}};}
+\DoxyCodeLine{00037\ \};}
+\DoxyCodeLine{00038\ }
+\DoxyCodeLine{00039\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//MATURSKI\_2\_WRONGBINARYOPERANDTYPES\_H}}
+
+\end{DoxyCode}

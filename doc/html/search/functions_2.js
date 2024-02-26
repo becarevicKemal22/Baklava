@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['main_0',['main',['../main_8cpp.html#a3c04138a5bfe5d72780bb7e82a18e627',1,'main.cpp']]]
+  ['getmostrelevanttoken_0',['getMostRelevantToken',['../_exception_helpers_8cpp.html#a21dd8661b21077d61a64f924e346cecc',1,'getMostRelevantToken(const Expression *expression):&#160;ExceptionHelpers.cpp'],['../_exception_helpers_8h.html#a21dd8661b21077d61a64f924e346cecc',1,'getMostRelevantToken(const Expression *expression):&#160;ExceptionHelpers.cpp']]]
 ];

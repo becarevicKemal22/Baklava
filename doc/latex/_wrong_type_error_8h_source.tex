@@ -1,0 +1,31 @@
+\doxysection{Wrong\+Type\+Error.\+h}
+\hypertarget{_wrong_type_error_8h_source}{}\label{_wrong_type_error_8h_source}\index{src/error/exceptions/WrongTypeError.h@{src/error/exceptions/WrongTypeError.h}}
+\mbox{\hyperlink{_wrong_type_error_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{//}}
+\DoxyCodeLine{00002\ \textcolor{comment}{//\ Created\ by\ kemal\ on\ 2/24/2024.}}
+\DoxyCodeLine{00003\ \textcolor{comment}{//}}
+\DoxyCodeLine{00004\ }
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#ifndef\ MATURSKI\_2\_WRONGTYPEERROR\_H}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#define\ MATURSKI\_2\_WRONGTYPEERROR\_H}}
+\DoxyCodeLine{00007\ }
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_runtime_error_8h}{RuntimeError.h}}"{}}}
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_token_8h}{Token.h}}"{}}}
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_error_code_8h}{ErrorCode.h}}"{}}}
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_runtime_value_8h}{RuntimeValue.h}}"{}}}
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_expression_8h}{Expression.h}}"{}}}
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_exception_helpers_8h}{ExceptionHelpers.h}}"{}}}
+\DoxyCodeLine{00014\ }
+\DoxyCodeLine{00018\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_wrong_type_error}{WrongTypeError}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{class_runtime_error}{RuntimeError}}\ \{}
+\DoxyCodeLine{00019\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00020\ \ \ \ \ \mbox{\hyperlink{class_wrong_type_error_ab7d1757d63ccba4f17030c7e441b52fd}{WrongTypeError}}(\textcolor{keyword}{const}\ std::wstring\&\ toWhat,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{struct_runtime_value}{RuntimeValue}}\&\ value,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{class_expression}{Expression}}*\ expression)\ :\ \mbox{\hyperlink{class_runtime_error}{RuntimeError}}(\mbox{\hyperlink{_error_code_8h_a59e56af19e754a6aa26a612ebf91d05f}{ErrorCode}}::\mbox{\hyperlink{_error_code_8h_a59e56af19e754a6aa26a612ebf91d05fa2e1a626d0a665069b6c81d59b1787d25}{ERROR\_WRONG\_TYPE\_OPERAND}})\ \{}
+\DoxyCodeLine{00021\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_runtime_error_a5d005928ddf618703012ce4c1f8e3f03}{messageArguments}}.emplace\_back(\mbox{\hyperlink{_runtime_value_8cpp_ad8f1e3d398dd0b69ecf92d9923f58bb6}{valueTypeToString}}(value.\mbox{\hyperlink{struct_runtime_value_a55cfd70a0d575cfeb00067649c097f36}{type}}));}
+\DoxyCodeLine{00022\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_runtime_error_a5d005928ddf618703012ce4c1f8e3f03}{messageArguments}}.emplace\_back(toWhat);}
+\DoxyCodeLine{00023\ \ \ \ \ \ \ \ \ this-\/>\mbox{\hyperlink{class_wrong_type_error_acbbcdb64f598cec8dc20dcee4ce90e0d}{token}}\ =\ \mbox{\hyperlink{_exception_helpers_8cpp_a21dd8661b21077d61a64f924e346cecc}{getMostRelevantToken}}(expression);}
+\DoxyCodeLine{00024\ \ \ \ \ \}}
+\DoxyCodeLine{00025\ \ \ \ \ \mbox{\hyperlink{class_token}{Token}}*\ \mbox{\hyperlink{class_wrong_type_error_acbbcdb64f598cec8dc20dcee4ce90e0d}{token}};}
+\DoxyCodeLine{00026\ \};}
+\DoxyCodeLine{00027\ }
+\DoxyCodeLine{00028\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//MATURSKI\_2\_WRONGTYPEERROR\_H}}
+
+\end{DoxyCode}

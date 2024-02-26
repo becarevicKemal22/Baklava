@@ -10,14 +10,32 @@
 #include "Ast.h"
 #include "ErrorPrinter.h"
 
+/**
+ * @brief Class that runs a program.
+ *
+ * The Interpreter class is responsible for evaluating the AST and running the program, as well as handling errors, keeping track of the environment, etc.
+ */
 class Interpreter {
 public:
+    /**
+     * @brief Constructor with no error printer. Should almost never be used, as it leaves the interpreter with no error printing capability.
+     */
     Interpreter() : errorPrinter(nullptr) {}
+    /**
+     * @brief Constructor with an error printer. Recommended constructor.
+     * @param errorPrinter Error printer to use for printing errors.
+     */
     explicit Interpreter(ErrorPrinter* errorPrinter) : errorPrinter(errorPrinter) {}
 
+    /**
+     * @brief Evaluates the given expression.
+     * @param expr Expression to evaluate.
+     * @return RuntimeValue that holds the result of the expression evaluation.
+     * @throws RuntimeError Throws RuntimeError and its derived classes if an error occurs during evaluation.
+     */
     RuntimeValue evaluate(Expression* expr);
 
-    bool hadError = false;
+    bool hadError = false; /**< Holds whether an error has occurred during the interpretation. Interpretation should stop if this is set to true. */
 private:
     ErrorPrinter* errorPrinter;
 

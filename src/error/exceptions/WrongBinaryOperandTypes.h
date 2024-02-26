@@ -11,24 +11,29 @@
 #include "ExceptionHelpers.h"
 #include "BinaryExpression.h"
 
+/**
+ * @brief Exception thrown when a binary operator is used with two operands of the wrong type. Mainly used for binary operators.
+ *
+ * Also gets the most relevant tokens from the given incompatible expressions
+ */
 class WrongBinaryOperandTypes : public RuntimeError {
 public:
-    WrongBinaryOperandTypes(const std::wstring& toWhat, const RuntimeValue& left, const RuntimeValue& right, const Expression* expression) : RuntimeError(ErrorCode::ERROR_WRONG_TYPE_OPERAND_BINARY) {
+    WrongBinaryOperandTypes(const std::wstring &toWhat, const RuntimeValue &left, const RuntimeValue &right,
+                            const BinaryExpression *expression) : RuntimeError(
+            ErrorCode::ERROR_WRONG_TYPE_OPERAND_BINARY) {
         messageArguments.emplace_back(valueTypeToString(left.type));
         messageArguments.emplace_back(valueTypeToString(right.type));
         messageArguments.emplace_back(toWhat);
         this->token = getMostRelevantToken(expression);
-        auto binaryExpr = dynamic_cast<const BinaryExpression*>(expression);
-        if(binaryExpr != nullptr) {
-            this->leftToken = getMostRelevantToken(binaryExpr->left);
-            this->rightToken = getMostRelevantToken(binaryExpr->right);
-        }else{
-            throw "INTERNAL EXCEPTION ERROR: Invalid expression type. Expected BinaryExpression.";
-        }
+
+        this->leftToken = getMostRelevantToken(expression->left);
+        this->rightToken = getMostRelevantToken(expression->right);
+
     }
-    Token* token;
-    Token* leftToken;
-    Token* rightToken;
+
+    Token *token;
+    Token *leftToken;
+    Token *rightToken;
 };
 
 #endif //MATURSKI_2_WRONGBINARYOPERANDTYPES_H

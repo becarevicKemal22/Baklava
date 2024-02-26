@@ -8,6 +8,9 @@
 #include "Expression.h"
 #include "Token.h"
 
+/**
+ * @brief Represents a null literal expression.
+ */
 class NullLiteralExpression : public Expression {
 public:
     NullLiteralExpression(TokenPtr token) : token(token) {

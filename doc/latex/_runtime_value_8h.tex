@@ -1,0 +1,70 @@
+\doxysection{src/interpreter/\+Runtime\+Value.h File Reference}
+\hypertarget{_runtime_value_8h}{}\label{_runtime_value_8h}\index{src/interpreter/RuntimeValue.h@{src/interpreter/RuntimeValue.h}}
+{\ttfamily \#include $<$cstdint$>$}\newline
+{\ttfamily \#include $<$string$>$}\newline
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{struct_runtime_value}{Runtime\+Value}}
+\begin{DoxyCompactList}\small\item\em Discriminated union representing a runtime value. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+enum class \mbox{\hyperlink{_runtime_value_8h_a374c860c922f0b389e0291d92c099c35}{Value\+Type}} \+: uint8\+\_\+t \{ \mbox{\hyperlink{_runtime_value_8h_a374c860c922f0b389e0291d92c099c35ab2ee912b91d69b435159c7c3f6df7f5f}{Number}}
+, \mbox{\hyperlink{_runtime_value_8h_a374c860c922f0b389e0291d92c099c35a27226c864bac7454a8504f8edb15d95b}{Boolean}}
+, \mbox{\hyperlink{_runtime_value_8h_a374c860c922f0b389e0291d92c099c35abbb93ef26e3c101ff11cdd21cab08a94}{Null}}
+ \}
+\begin{DoxyCompactList}\small\item\em Enum class which defines all types of runtime values in the language. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+std\+::wstring \mbox{\hyperlink{_runtime_value_8h_ad8f1e3d398dd0b69ecf92d9923f58bb6}{value\+Type\+To\+String}} (\mbox{\hyperlink{_runtime_value_8h_a374c860c922f0b389e0291d92c099c35}{Value\+Type}} type)
+\begin{DoxyCompactList}\small\item\em Converts a Value\+Type to a string. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Enumeration Type Documentation}
+\Hypertarget{_runtime_value_8h_a374c860c922f0b389e0291d92c099c35}\label{_runtime_value_8h_a374c860c922f0b389e0291d92c099c35} 
+\index{RuntimeValue.h@{RuntimeValue.h}!ValueType@{ValueType}}
+\index{ValueType@{ValueType}!RuntimeValue.h@{RuntimeValue.h}}
+\doxysubsubsection{\texorpdfstring{ValueType}{ValueType}}
+{\footnotesize\ttfamily enum class \mbox{\hyperlink{_runtime_value_8h_a374c860c922f0b389e0291d92c099c35}{Value\+Type}} \+: uint8\+\_\+t\hspace{0.3cm}{\ttfamily [strong]}}
+
+
+
+Enum class which defines all types of runtime values in the language. 
+
+\begin{DoxyEnumFields}{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{Number@{Number}!RuntimeValue.h@{RuntimeValue.h}}\index{RuntimeValue.h@{RuntimeValue.h}!Number@{Number}}}\Hypertarget{_runtime_value_8h_a374c860c922f0b389e0291d92c099c35ab2ee912b91d69b435159c7c3f6df7f5f}\label{_runtime_value_8h_a374c860c922f0b389e0291d92c099c35ab2ee912b91d69b435159c7c3f6df7f5f} 
+Number&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{Boolean@{Boolean}!RuntimeValue.h@{RuntimeValue.h}}\index{RuntimeValue.h@{RuntimeValue.h}!Boolean@{Boolean}}}\Hypertarget{_runtime_value_8h_a374c860c922f0b389e0291d92c099c35a27226c864bac7454a8504f8edb15d95b}\label{_runtime_value_8h_a374c860c922f0b389e0291d92c099c35a27226c864bac7454a8504f8edb15d95b} 
+Boolean&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{Null@{Null}!RuntimeValue.h@{RuntimeValue.h}}\index{RuntimeValue.h@{RuntimeValue.h}!Null@{Null}}}\Hypertarget{_runtime_value_8h_a374c860c922f0b389e0291d92c099c35abbb93ef26e3c101ff11cdd21cab08a94}\label{_runtime_value_8h_a374c860c922f0b389e0291d92c099c35abbb93ef26e3c101ff11cdd21cab08a94} 
+Null&\\
+\hline
+
+\end{DoxyEnumFields}
+
+
+\doxysubsection{Function Documentation}
+\Hypertarget{_runtime_value_8h_ad8f1e3d398dd0b69ecf92d9923f58bb6}\label{_runtime_value_8h_ad8f1e3d398dd0b69ecf92d9923f58bb6} 
+\index{RuntimeValue.h@{RuntimeValue.h}!valueTypeToString@{valueTypeToString}}
+\index{valueTypeToString@{valueTypeToString}!RuntimeValue.h@{RuntimeValue.h}}
+\doxysubsubsection{\texorpdfstring{valueTypeToString()}{valueTypeToString()}}
+{\footnotesize\ttfamily std\+::wstring value\+Type\+To\+String (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{_runtime_value_8h_a374c860c922f0b389e0291d92c099c35}{Value\+Type}}}]{type }\end{DoxyParamCaption})}
+
+
+
+Converts a Value\+Type to a string. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em type} & Value\+Type to convert. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+std\+::wstring representation of the given Value\+Type. 
+\end{DoxyReturn}

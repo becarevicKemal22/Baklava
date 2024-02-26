@@ -1,0 +1,32 @@
+\doxysection{Runtime\+Error.\+h}
+\hypertarget{_runtime_error_8h_source}{}\label{_runtime_error_8h_source}\index{src/error/exceptions/RuntimeError.h@{src/error/exceptions/RuntimeError.h}}
+\mbox{\hyperlink{_runtime_error_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{//}}
+\DoxyCodeLine{00002\ \textcolor{comment}{//\ Created\ by\ kemal\ on\ 2/24/2024.}}
+\DoxyCodeLine{00003\ \textcolor{comment}{//}}
+\DoxyCodeLine{00004\ }
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#ifndef\ MATURSKI\_2\_RUNTIMEERROR\_H}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#define\ MATURSKI\_2\_RUNTIMEERROR\_H}}
+\DoxyCodeLine{00007\ }
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#include\ <exception>}}
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#include\ <utility>}}
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#include\ <vector>}}
+\DoxyCodeLine{00011\ }
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_error_code_8h}{ErrorCode.h}}"{}}}
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_error_message_argument_8h}{ErrorMessageArgument.h}}"{}}}
+\DoxyCodeLine{00014\ }
+\DoxyCodeLine{00020\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_runtime_error}{RuntimeError}}\ :\ \textcolor{keyword}{public}\ std::exception\ \{}
+\DoxyCodeLine{00021\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00022\ \ \ \ \ \mbox{\hyperlink{class_runtime_error_a4b2ece5f02f3de2b26c499a90fdc9488}{RuntimeError}}(\mbox{\hyperlink{_error_code_8h_a59e56af19e754a6aa26a612ebf91d05f}{ErrorCode}}\ \mbox{\hyperlink{class_runtime_error_a7f2ccd5c856bc880e4ee6b888f0f7256}{code}})\ :\ \mbox{\hyperlink{class_runtime_error_a7f2ccd5c856bc880e4ee6b888f0f7256}{code}}(\mbox{\hyperlink{class_runtime_error_a7f2ccd5c856bc880e4ee6b888f0f7256}{code}})\ \{\}}
+\DoxyCodeLine{00023\ }
+\DoxyCodeLine{00024\ \ \ \ \ \mbox{\hyperlink{class_runtime_error_a85ba7b49af277d483e07d2b274da4697}{RuntimeError}}(\mbox{\hyperlink{_error_code_8h_a59e56af19e754a6aa26a612ebf91d05f}{ErrorCode}}\ \mbox{\hyperlink{class_runtime_error_a7f2ccd5c856bc880e4ee6b888f0f7256}{code}},\ std::vector<ErrorMessageArgument>\ \mbox{\hyperlink{class_runtime_error_a5d005928ddf618703012ce4c1f8e3f03}{messageArguments}})\ :\ \mbox{\hyperlink{class_runtime_error_a7f2ccd5c856bc880e4ee6b888f0f7256}{code}}(\mbox{\hyperlink{class_runtime_error_a7f2ccd5c856bc880e4ee6b888f0f7256}{code}}),}
+\DoxyCodeLine{00025\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_runtime_error_a5d005928ddf618703012ce4c1f8e3f03}{messageArguments}}(std::move(\mbox{\hyperlink{class_runtime_error_a5d005928ddf618703012ce4c1f8e3f03}{messageArguments}}))\ \{\}}
+\DoxyCodeLine{00026\ }
+\DoxyCodeLine{00027\ \ \ \ \ \mbox{\hyperlink{_error_code_8h_a59e56af19e754a6aa26a612ebf91d05f}{ErrorCode}}\ \mbox{\hyperlink{class_runtime_error_a7f2ccd5c856bc880e4ee6b888f0f7256}{code}};}
+\DoxyCodeLine{00028\ \ \ \ \ std::vector<ErrorMessageArgument>\ \mbox{\hyperlink{class_runtime_error_a5d005928ddf618703012ce4c1f8e3f03}{messageArguments}};}
+\DoxyCodeLine{00029\ \};}
+\DoxyCodeLine{00030\ }
+\DoxyCodeLine{00031\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//MATURSKI\_2\_RUNTIMEERROR\_H}}
+
+\end{DoxyCode}

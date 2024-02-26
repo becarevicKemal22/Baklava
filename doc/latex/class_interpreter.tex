@@ -1,0 +1,99 @@
+\doxysection{Interpreter Class Reference}
+\hypertarget{class_interpreter}{}\label{class_interpreter}\index{Interpreter@{Interpreter}}
+
+
+Class that runs a program.  
+
+
+
+
+{\ttfamily \#include $<$Interpreter.\+h$>$}
+
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_interpreter_a9faf0dca72cd27223e5c447b580de2a5}{Interpreter}} ()
+\begin{DoxyCompactList}\small\item\em Constructor with no error printer. Should almost never be used, as it leaves the interpreter with no error printing capability. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_interpreter_a619a2264f48541288bd7bf1eecc5248a}{Interpreter}} (\mbox{\hyperlink{class_error_printer}{Error\+Printer}} \texorpdfstring{$\ast$}{*}error\+Printer)
+\begin{DoxyCompactList}\small\item\em Constructor with an error printer. Recommended constructor. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{struct_runtime_value}{Runtime\+Value}} \mbox{\hyperlink{class_interpreter_a0d08edd5e92501d04c9cac6e01b126eb}{evaluate}} (\mbox{\hyperlink{class_expression}{Expression}} \texorpdfstring{$\ast$}{*}expr)
+\begin{DoxyCompactList}\small\item\em Evaluates the given expression. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+bool \mbox{\hyperlink{class_interpreter_a95ae7eb9c9fae9c61c7775a4974602dd}{had\+Error}} = false
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Class that runs a program. 
+
+The \doxylink{class_interpreter}{Interpreter} class is responsible for evaluating the AST and running the program, as well as handling errors, keeping track of the environment, etc. 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{class_interpreter_a9faf0dca72cd27223e5c447b580de2a5}\label{class_interpreter_a9faf0dca72cd27223e5c447b580de2a5} 
+\index{Interpreter@{Interpreter}!Interpreter@{Interpreter}}
+\index{Interpreter@{Interpreter}!Interpreter@{Interpreter}}
+\doxysubsubsection{\texorpdfstring{Interpreter()}{Interpreter()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily Interpreter\+::\+Interpreter (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Constructor with no error printer. Should almost never be used, as it leaves the interpreter with no error printing capability. 
+
+\Hypertarget{class_interpreter_a619a2264f48541288bd7bf1eecc5248a}\label{class_interpreter_a619a2264f48541288bd7bf1eecc5248a} 
+\index{Interpreter@{Interpreter}!Interpreter@{Interpreter}}
+\index{Interpreter@{Interpreter}!Interpreter@{Interpreter}}
+\doxysubsubsection{\texorpdfstring{Interpreter()}{Interpreter()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily Interpreter\+::\+Interpreter (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_error_printer}{Error\+Printer}} \texorpdfstring{$\ast$}{*}}]{error\+Printer }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [explicit]}}
+
+
+
+Constructor with an error printer. Recommended constructor. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em error\+Printer} & Error printer to use for printing errors. \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_interpreter_a0d08edd5e92501d04c9cac6e01b126eb}\label{class_interpreter_a0d08edd5e92501d04c9cac6e01b126eb} 
+\index{Interpreter@{Interpreter}!evaluate@{evaluate}}
+\index{evaluate@{evaluate}!Interpreter@{Interpreter}}
+\doxysubsubsection{\texorpdfstring{evaluate()}{evaluate()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{struct_runtime_value}{Runtime\+Value}} Interpreter\+::evaluate (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_expression}{Expression}} \texorpdfstring{$\ast$}{*}}]{expr }\end{DoxyParamCaption})}
+
+
+
+Evaluates the given expression. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em expr} & \doxylink{class_expression}{Expression} to evaluate. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\doxylink{struct_runtime_value}{Runtime\+Value} that holds the result of the expression evaluation. 
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em \doxylink{class_runtime_error}{Runtime\+Error}} & Throws \doxylink{class_runtime_error}{Runtime\+Error} and its derived classes if an error occurs during evaluation. \\
+\hline
+\end{DoxyExceptions}
+
+
+\doxysubsection{Member Data Documentation}
+\Hypertarget{class_interpreter_a95ae7eb9c9fae9c61c7775a4974602dd}\label{class_interpreter_a95ae7eb9c9fae9c61c7775a4974602dd} 
+\index{Interpreter@{Interpreter}!hadError@{hadError}}
+\index{hadError@{hadError}!Interpreter@{Interpreter}}
+\doxysubsubsection{\texorpdfstring{hadError}{hadError}}
+{\footnotesize\ttfamily bool Interpreter\+::had\+Error = false}
+
+Holds whether an error has occurred during the interpretation. Interpretation should stop if this is set to true. 
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+src/interpreter/\mbox{\hyperlink{_interpreter_8h}{Interpreter.\+h}}\item 
+src/interpreter/\mbox{\hyperlink{_interpreter_8cpp}{Interpreter.\+cpp}}\end{DoxyCompactItemize}

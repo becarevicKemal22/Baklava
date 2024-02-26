@@ -7,6 +7,9 @@
 
 #include <cstdint>
 
+/**
+ * @brief Holds all types of tokens that are valid.
+ */
 enum class TokenType : uint8_t {
     // Characters
     OpenParenthesis,

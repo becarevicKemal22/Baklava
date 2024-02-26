@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['offset_0',['offset',['../class_token.html#a314f74c21d849846dd9c7b82b14de97b',1,'Token']]]
+  ['code_0',['code',['../class_runtime_error.html#a7f2ccd5c856bc880e4ee6b888f0f7256',1,'RuntimeError']]]
 ];
