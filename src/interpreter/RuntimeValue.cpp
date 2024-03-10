@@ -3,14 +3,24 @@
 //
 
 #include "RuntimeValue.h"
+#include "Object.h"
 
-std::wstring valueTypeToString(ValueType type) {
-    switch (type) {
+std::wstring getRuntimeValueTypeString(const RuntimeValue& value) {
+    switch (value.type) {
         case ValueType::Number:
             return L"broj";
         case ValueType::Boolean:
             return L"boole";
         case ValueType::Null:
             return L"nula";
+        case ValueType::Object:
+            switch(value.as.object->type) {
+                case ObjectType::OBJECT_STRING:
+                    return L"string";
+                default:
+                    return L"nepoznat objekat";
+            }
+        default:
+            return L"nepoznat tip";
     }
 }

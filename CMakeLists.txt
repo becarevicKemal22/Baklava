@@ -38,6 +38,8 @@ add_executable(Maturski_2 main.cpp
         src/error/exceptions/ExceptionHelpers.h
         src/error/exceptions/ExceptionHelpers.cpp
         src/error/exceptions/WrongBinaryOperandTypes.h
+        src/interpreter/Object.h
+        src/interpreter/Object.cpp
 )
 
 add_subdirectory(tests)

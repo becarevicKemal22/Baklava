@@ -18,7 +18,7 @@
 class WrongTypeError : public RuntimeError {
 public:
     WrongTypeError(const std::wstring& toWhat, const RuntimeValue& value, const Expression* expression) : RuntimeError(ErrorCode::ERROR_WRONG_TYPE_OPERAND) {
-        messageArguments.emplace_back(valueTypeToString(value.type));
+        messageArguments.emplace_back(getRuntimeValueTypeString(value));
         messageArguments.emplace_back(toWhat);
         this->token = getMostRelevantToken(expression);
     }

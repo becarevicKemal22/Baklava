@@ -37,19 +37,19 @@ void ErrorPrinter::printWrongTypeError(const WrongTypeError *error) {
     wcout << message << "\n";
     printSourceLine(error->token->line, {
             {
-                {error->token->offset, error->token->offset + error->token->value.size() - 1},
+                {error->token->offset, error->token->offset + getTokenValue(error->token).size() - 1},
                 ANSI_RED}
     });
     printSquiggleSupportLine(error->token->line, {
-        {{error->token->offset, error->token->offset + error->token->value.size() - 1}, ANSI_RED}});
+        {{error->token->offset, error->token->offset + getTokenValue(error->token).size() - 1}, ANSI_RED}});
 }
 
 void ErrorPrinter::printWrongBinaryOperandTypeError(const WrongBinaryOperandTypes *error) {
     std::wstring message = formattedErrorMessage(error->code, error->messageArguments, error->token->line);
     wcout << message << "\n";
-    colorHighlight leftTokenHighlight = {{error->leftToken->offset, error->leftToken->offset + error->leftToken->value.size() - 1}, ANSI_BLUE};
-    colorHighlight rightTokenHighlight = {{error->rightToken->offset, error->rightToken->offset + error->rightToken->value.size() - 1}, ANSI_GREEN};
-    colorHighlight operatorTokenHighlight = {{error->token->offset, error->token->offset + error->token->value.size() - 1}, ANSI_RED};
+    colorHighlight leftTokenHighlight = {{error->leftToken->offset, error->leftToken->offset + getTokenValue(error->leftToken).size() - 1}, ANSI_BLUE};
+    colorHighlight rightTokenHighlight = {{error->rightToken->offset, error->rightToken->offset + getTokenValue(error->rightToken).size() - 1}, ANSI_GREEN};
+    colorHighlight operatorTokenHighlight = {{error->token->offset, error->token->offset + getTokenValue(error->token).size() - 1}, ANSI_RED};
     unsigned int leftLine = error->leftToken->line;
     unsigned int rightLine = error->rightToken->line;
     unsigned int operatorLine = error->token->line;
@@ -220,4 +220,11 @@ void ErrorPrinter::makeLines() {
         }
     }
     lines.push_back(line);
+}
+
+std::wstring ErrorPrinter::getTokenValue(Token *token) {
+    if(token->type == TokenType::String){
+        return L"\"" + token->value + L"\"";
+    }
+    return token->value;
 }

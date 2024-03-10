@@ -37,3 +37,17 @@ TEST_CASE("Parses literals", "[parser][literal]") {
 
     auto nullLiteral = getNode<NullLiteralExpression>(statements[4]);
 }
+
+TEST_CASE("Parses empty string", "[parser][literal]") {
+    std::wstring source = L"\"\"";
+    Lexer lexer(source);
+    lexer.tokenize();
+    Parser parser(lexer.tokens);
+    auto program = parser.parse();
+
+    REQUIRE(program->statements.size() == 1);
+    auto statements = program->statements;
+
+    auto stringLiteral = getNode<StringLiteralExpression>(statements[0]);
+    REQUIRE(stringLiteral->value == L"");
+}

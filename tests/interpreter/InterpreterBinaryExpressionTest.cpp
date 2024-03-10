@@ -51,25 +51,30 @@ TEST_CASE("Computes two number division", "[interpreter][binary]"){
     REQUIRE(result.as.number == 2.5);
 }
 
-//TEST_CASE("Computes two string concatenation", "[interpreter][binary]"){
-//    std::wstring source = L"\"hello\" + \"world\"";
-//    Interpreter interpreter;
-//
-//    RuntimeValue result = interpreter.evaluate(parseSingleExpression(source));
-//    REQUIRE(result.type == ValueType::String);
-//    REQUIRE(result.as.string == L"helloworld");
-//}
+TEST_CASE("Computes two string concatenation", "[interpreter][binary]"){
+    std::wstring source = L"\"hello\" + \"world\"";
+    Interpreter interpreter;
+
+    RuntimeValue result = interpreter.evaluate(parseSingleExpression(source));
+    REQUIRE(result.type == ValueType::Object);
+    REQUIRE(result.as.object->type == ObjectType::OBJECT_STRING);
+    auto *objectString = (ObjectString *) result.as.object;
+    REQUIRE(objectString->value == L"helloworld");
+}
 
 //*************************************
 // INVALID BINARY EXPRESSIONS
 //*************************************
 
-//TEST_CASE("Reports error on number + string", "[interpreter][binary]"){
-//    std::wstring source = L"5 + \"string\"";
-//    Interpreter interpreter;
-//
-//    REQUIRE_THROWS_AS(interpreter.evaluate(parseSingleExpression(source)), std::runtime_error);
-//}
+TEST_CASE("Reports error on number + string", "[interpreter][binary]"){
+    std::wstring source = L"5 + \"string\"";
+    Interpreter interpreter;
+
+    RuntimeValue result;
+
+    REQUIRE_NOTHROW(result = interpreter.evaluate(parseSingleExpression(source)));
+    REQUIRE(interpreter.hadError);
+}
 
 TEST_CASE("Reports error on number + boolean", "[interpreter][binary]"){
     std::wstring source = L"5 + istina";
@@ -121,15 +126,15 @@ TEST_CASE("Reports error on boolean value + boolean value", "[interpreter][binar
     REQUIRE(interpreter.hadError);
 }
 
-//TEST_CASE("Reports error on number - string", "[interpreter][binary]"){
-//    std::wstring source = L"5 - \"string\"";
-//    Interpreter interpreter;
-//
-//    RuntimeValue result;
-//
-//    REQUIRE_NOTHROW(result = interpreter.evaluate(parseSingleExpression(source)));
-//    REQUIRE(interpreter.hadError);
-//}
+TEST_CASE("Reports error on number - string", "[interpreter][binary]"){
+    std::wstring source = L"5 - \"string\"";
+    Interpreter interpreter;
+
+    RuntimeValue result;
+
+    REQUIRE_NOTHROW(result = interpreter.evaluate(parseSingleExpression(source)));
+    REQUIRE(interpreter.hadError);
+}
 
 TEST_CASE("Reports error on number - boolean", "[interpreter][binary]"){
     std::wstring source = L"5 - istina";
@@ -181,15 +186,15 @@ TEST_CASE("Reports error on boolean value - boolean value", "[interpreter][binar
     REQUIRE(interpreter.hadError);
 }
 
-//TEST_CASE("Reports error on number * string", "[interpreter][binary]"){
-//    std::wstring source = L"5 * \"string\"";
-//    Interpreter interpreter;
-//
-//    RuntimeValue result;
-//
-//    REQUIRE_NOTHROW(result = interpreter.evaluate(parseSingleExpression(source)));
-//    REQUIRE(interpreter.hadError);
-//}
+TEST_CASE("Reports error on number * string", "[interpreter][binary]"){
+    std::wstring source = L"5 * \"string\"";
+    Interpreter interpreter;
+
+    RuntimeValue result;
+
+    REQUIRE_NOTHROW(result = interpreter.evaluate(parseSingleExpression(source)));
+    REQUIRE(interpreter.hadError);
+}
 
 TEST_CASE("Reports error on number * boolean", "[interpreter][binary]"){
     std::wstring source = L"5 * istina";
@@ -241,16 +246,16 @@ TEST_CASE("Reports error on boolean value * boolean value", "[interpreter][binar
     REQUIRE(interpreter.hadError);
 }
 
-//TEST_CASE("Reports error on number / string", "[interpreter][binary]"){
+TEST_CASE("Reports error on number / string", "[interpreter][binary]"){
 
-//    std::wstring source = L"5 / \"string\"";
-//    Interpreter interpreter;
+    std::wstring source = L"5 / \"string\"";
+    Interpreter interpreter;
 
-//    RuntimeValue result;
+    RuntimeValue result;
 
-//    REQUIRE_NOTHROW(result = interpreter.evaluate(parseSingleExpression(source)));
-//    REQUIRE(interpreter.hadError);
-//}
+    REQUIRE_NOTHROW(result = interpreter.evaluate(parseSingleExpression(source)));
+    REQUIRE(interpreter.hadError);
+}
 
 TEST_CASE("Reports error on number / boolean", "[interpreter][binary]"){
     std::wstring source = L"5 / istina";

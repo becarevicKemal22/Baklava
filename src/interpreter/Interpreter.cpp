@@ -9,6 +9,7 @@
 #include "NumericLiteralExpression.h"
 #include "BooleanLiteralExpression.h"
 #include "NullLiteralExpression.h"
+#include "StringLiteralExpression.h"
 #include "RuntimeValue.h"
 
 #include "WrongTypeError.h"
@@ -16,24 +17,26 @@
 
 #include <iostream>
 
-RuntimeValue Interpreter::evaluate(Expression* expr) {
-    try{
-        switch(expr->type){
+RuntimeValue Interpreter::evaluate(Expression *expr) {
+    try {
+        switch (expr->type) {
             case AstNodeType::BinaryExpression:
-                return evaluateBinaryExpression(static_cast<BinaryExpression*>(expr));
+                return evaluateBinaryExpression(static_cast<BinaryExpression *>(expr));
             case AstNodeType::UnaryExpression:
-                return evaluateUnaryExpression(static_cast<UnaryExpression*>(expr));
+                return evaluateUnaryExpression(static_cast<UnaryExpression *>(expr));
             case AstNodeType::NumericLiteralExpression:
-                return evaluateNumericLiteralExpression(static_cast<NumericLiteralExpression*>(expr));
+                return evaluateNumericLiteralExpression(static_cast<NumericLiteralExpression *>(expr));
             case AstNodeType::BooleanLiteralExpression:
-                return evaluateBooleanLiteralExpression(static_cast<BooleanLiteralExpression*>(expr));
+                return evaluateBooleanLiteralExpression(static_cast<BooleanLiteralExpression *>(expr));
             case AstNodeType::NullLiteralExpression:
-                return evaluateNullLiteralExpression(static_cast<NullLiteralExpression*>(expr));
+                return evaluateNullLiteralExpression(static_cast<NullLiteralExpression *>(expr));
+            case AstNodeType::StringLiteralExpression:
+                return evaluateStringLiteralExpression(static_cast<StringLiteralExpression *>(expr));
             default:
                 throw std::runtime_error("Unknown expression type");
         }
-    } catch(RuntimeError& e){
-        if(errorPrinter != nullptr) errorPrinter->printRuntimeError(&e);
+    } catch (RuntimeError &e) {
+        if (errorPrinter != nullptr) errorPrinter->printRuntimeError(&e);
         hadError = true;
         return {ValueType::Null};
     }
@@ -43,27 +46,32 @@ RuntimeValue Interpreter::evaluate(Expression* expr) {
 RuntimeValue Interpreter::evaluateBinaryExpression(BinaryExpression *expr) {
     RuntimeValue left = evaluate(expr->left);
     RuntimeValue right = evaluate(expr->right);
-    switch(expr->op->type){
+    switch (expr->op->type) {
         case TokenType::Plus:
 //            if(left.type == ValueType::String && right.type == ValueType::String){
 //                return {ValueType::String, {.string = left.as.string + right.as.string}};
 //            }
-            if(left.type == ValueType::Number && right.type == ValueType::Number){
+            if (left.type == ValueType::Number && right.type == ValueType::Number) {
                 return {ValueType::Number, {.number = left.as.number + right.as.number}};
+            }
+            if(left.type == ValueType::Object && left.as.object->type == ObjectType::OBJECT_STRING){
+                if(right.type == ValueType::Object && right.as.object->type == ObjectType::OBJECT_STRING){
+                    return {ValueType::Object, {.object = (Object*) allocateStringObject(((ObjectString*) left.as.object)->value + ((ObjectString*) right.as.object)->value)}};
+                }
             }
             throw WrongBinaryOperandTypes(L"+", left, right, expr);
         case TokenType::Minus:
-            if(left.type != ValueType::Number || right.type != ValueType::Number){
+            if (left.type != ValueType::Number || right.type != ValueType::Number) {
                 throw WrongBinaryOperandTypes(L"-", left, right, expr);
             }
             return {ValueType::Number, {.number = left.as.number - right.as.number}};
         case TokenType::Star:
-            if(left.type != ValueType::Number || right.type != ValueType::Number){
+            if (left.type != ValueType::Number || right.type != ValueType::Number) {
                 throw WrongBinaryOperandTypes(L"*", left, right, expr);
             }
             return {ValueType::Number, {.number = left.as.number * right.as.number}};
         case TokenType::Slash:
-            if(left.type != ValueType::Number || right.type != ValueType::Number){
+            if (left.type != ValueType::Number || right.type != ValueType::Number) {
                 throw WrongBinaryOperandTypes(L"/", left, right, expr);
             }
             return {ValueType::Number, {.number = left.as.number / right.as.number}};
@@ -77,12 +85,11 @@ RuntimeValue Interpreter::evaluateNumericLiteralExpression(NumericLiteralExpress
 
 RuntimeValue Interpreter::evaluateUnaryExpression(UnaryExpression *expr) {
     RuntimeValue value = evaluate(expr->expr);
-    switch(expr->op->type){
+    switch (expr->op->type) {
         case TokenType::Minus: {
-            if(value.type == ValueType::Number) return {ValueType::Number, {.number = -value.as.number}};
-            if(value.type == ValueType::Null) return {ValueType::Number, {.number = -0}};
+            if (value.type == ValueType::Number) return {ValueType::Number, {.number = -value.as.number}};
+            if (value.type == ValueType::Null) return {ValueType::Number, {.number = -0}};
             throw WrongTypeError(L"-", value, expr);
-            break;
         }
         case TokenType::Bang: {
             return {ValueType::Boolean, {.boolean = !isTruthy(value)}};
@@ -100,8 +107,12 @@ RuntimeValue Interpreter::evaluateNullLiteralExpression(NullLiteralExpression *e
     return {ValueType::Null};
 }
 
+RuntimeValue Interpreter::evaluateStringLiteralExpression(StringLiteralExpression *expr) {
+    return {ValueType::Object, {.object = (Object *)(allocateStringObject(expr->value))}};
+}
+
 bool Interpreter::isTruthy(const RuntimeValue &value) {
-    switch(value.type){
+    switch (value.type) {
         case ValueType::Boolean:
             return value.as.boolean;
         case ValueType::Number:
@@ -111,4 +122,13 @@ bool Interpreter::isTruthy(const RuntimeValue &value) {
         default:
             return true;
     }
+}
+
+ObjectString* Interpreter::allocateStringObject(const std::wstring& value) {
+    auto* obj = new ObjectString();
+    obj->obj.type = ObjectType::OBJECT_STRING;
+    obj->value = value;
+    obj->obj.next = objects;
+    objects = (Object*) obj;
+    return obj;
 }

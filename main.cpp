@@ -1,6 +1,5 @@
 #include <iostream>
 #include <fstream>
-#include <io.h>
 #include <fcntl.h>
 #include <codecvt>
 #include <format>
@@ -51,7 +50,7 @@ void runFile(const char* path){
         auto start = std::chrono::high_resolution_clock::now();
 //        RuntimeValue value = interpreter.evaluate(static_cast<Expression*>(statement));
 //        std::wcout << "VALUE: " << value.as.boolean << "\n";
-        for(int i = 0; i < 1; i++){
+        for(int i = 0; i < 3; i++){
             interpreter.evaluate(static_cast<Expression*>(statement));
         }
         auto end = std::chrono::high_resolution_clock::now();
