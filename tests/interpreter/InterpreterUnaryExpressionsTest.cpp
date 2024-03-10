@@ -109,3 +109,22 @@ TEST_CASE("Reports error on false boolean value negation", "[interpreter][unary]
     REQUIRE(result.type == ValueType::Null);
     REQUIRE(interpreter.hadError);
 }
+
+TEST_CASE("Reports error on string value negation", "[interpreter][unary]"){
+    std::wstring source = L"-\"string\"";
+    Interpreter interpreter;
+
+    RuntimeValue result;
+    REQUIRE_NOTHROW(result = interpreter.evaluate( parseSingleExpression(source)));
+    REQUIRE(result.type == ValueType::Null);
+    REQUIRE(interpreter.hadError);
+}
+
+TEST_CASE("Returns false on logical not of string value", "[interpreter][unary]"){
+    std::wstring source = L"!\"string\"";
+    Interpreter interpreter;
+
+    RuntimeValue result = interpreter.evaluate(parseSingleExpression(source));
+    REQUIRE(result.type == ValueType::Boolean);
+    REQUIRE(result.as.boolean == false);
+}

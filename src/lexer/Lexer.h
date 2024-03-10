@@ -40,7 +40,9 @@ public:
      *
      * This destructor should currently not delete tokens, as that can crash the program if the lexer is not in the same environment as the interpreter.
      */
-    ~Lexer() = default;
+    ~Lexer(){
+
+    };
 
     std::vector<Token*> tokens{}; /**< Vector of token pointers that are dynamically allocated as the tokenize function is run. The tokens in this vector are being pointed to during the whole lifetime of the program, so it is important that they are not deleted before the interpreter is finished or quits. */
 

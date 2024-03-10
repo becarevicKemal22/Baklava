@@ -42,3 +42,13 @@ TEST_CASE("Interprets null literal", "[interpreter][literal]") {
     RuntimeValue result = interpreter.evaluate(parseSingleExpression(source));
     REQUIRE(result.type == ValueType::Null);
 }
+
+TEST_CASE("Interprets string literal", "[interpreter][literal]") {
+    std::wstring source = L"\"Hello, world!\"";
+    Interpreter interpreter;
+    RuntimeValue result = interpreter.evaluate(parseSingleExpression(source));
+    REQUIRE(result.type == ValueType::Object);
+    REQUIRE(result.as.object->type == ObjectType::OBJECT_STRING);
+    auto *objectString = (ObjectString *) result.as.object;
+    REQUIRE(objectString->value == L"Hello, world!");
+}

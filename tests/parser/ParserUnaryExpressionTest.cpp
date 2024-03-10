@@ -10,6 +10,7 @@
 #include "Program.h"
 #include "BooleanLiteralExpression.h"
 #include "NumericLiteralExpression.h"
+#include "StringLiteralExpression.h"
 #include "../TestHelpers.h"
 
 TEST_CASE("Parses unary expressions", "[parser][unary]") {
@@ -50,4 +51,20 @@ TEST_CASE("Allows chaining of unary operators", "[parser][unary]"){
     REQUIRE(unaryExpression->op->type == TokenType::Minus);
     auto numericLiteral = getNode<NumericLiteralExpression>(unaryExpression->expr);
     REQUIRE(numericLiteral->value == 24);
+}
+
+TEST_CASE("Parses string negation", "[parser][unary]"){
+    std::wstring source = L"-\"string\"";
+    Lexer lexer(source);
+    lexer.tokenize();
+    Parser parser(lexer.tokens);
+    auto program = parser.parse();
+
+    REQUIRE(program->statements.size() == 1);
+    auto statements = program->statements;
+
+    auto unaryExpression = getNode<UnaryExpression>(statements[0]);
+    REQUIRE(unaryExpression->op->type == TokenType::Minus);
+    auto stringLiteral = getNode<StringLiteralExpression>(unaryExpression->expr);
+    REQUIRE(stringLiteral->value == L"string");
 }

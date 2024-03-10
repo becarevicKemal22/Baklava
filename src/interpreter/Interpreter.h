@@ -35,6 +35,17 @@ public:
      */
     RuntimeValue evaluate(Expression* expr);
 
+//    ~Interpreter(){
+//        if(objects != nullptr){
+//            Object* object = objects;
+//            while(object != nullptr){
+//                Object* next = object->next;
+//                delete object;
+//                object = next;
+//            }
+//        }
+//    }
+
     bool hadError = false; /**< Holds whether an error has occurred during the interpretation. Interpretation should stop if this is set to true. */
 private:
     ErrorPrinter* errorPrinter;
@@ -43,10 +54,14 @@ private:
     RuntimeValue evaluateUnaryExpression(UnaryExpression* expr);
     RuntimeValue evaluateNumericLiteralExpression(NumericLiteralExpression* expr);
     RuntimeValue evaluateBooleanLiteralExpression(BooleanLiteralExpression* expr);
-//    RuntimeValue evaluateStringLiteralExpression(StringLiteralExpression* expr);
+    RuntimeValue evaluateStringLiteralExpression(StringLiteralExpression* expr);
     RuntimeValue evaluateNullLiteralExpression(NullLiteralExpression* expr);
 
     bool isTruthy(const RuntimeValue& value);
+
+    Object* objects = nullptr;
+
+    ObjectString* allocateStringObject(const std::wstring& value);
 };
 
 

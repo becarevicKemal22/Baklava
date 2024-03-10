@@ -21,8 +21,8 @@ public:
     WrongBinaryOperandTypes(const std::wstring &toWhat, const RuntimeValue &left, const RuntimeValue &right,
                             const BinaryExpression *expression) : RuntimeError(
             ErrorCode::ERROR_WRONG_TYPE_OPERAND_BINARY) {
-        messageArguments.emplace_back(valueTypeToString(left.type));
-        messageArguments.emplace_back(valueTypeToString(right.type));
+        messageArguments.emplace_back(getRuntimeValueTypeString(left));
+        messageArguments.emplace_back(getRuntimeValueTypeString(right));
         messageArguments.emplace_back(toWhat);
         this->token = getMostRelevantToken(expression);
 

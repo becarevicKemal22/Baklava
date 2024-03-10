@@ -8,6 +8,8 @@
 #include <cstdint>
 #include <string>
 
+#include "Object.h"
+
 /**
  * @brief Enum class which defines all types of runtime values in the language.
  */
@@ -15,6 +17,7 @@ enum class ValueType : uint8_t {
     Number,
     Boolean,
     Null,
+    Object,
 };
 
 /**
@@ -25,14 +28,15 @@ typedef struct {
     union {
         bool boolean;
         double number;
+        Object* object;
     } as;
 } RuntimeValue;
 
 /**
- * @brief Converts a ValueType to a string.
- * @param type ValueType to convert.
- * @return std::wstring representation of the given ValueType.
+ * @brief returns the type of a runtime value as a string.
+ * @param value RuntimeValue to extract type from.
+ * @return std::wstring stringified runtime value type.
  */
-std::wstring valueTypeToString(ValueType type);
+std::wstring getRuntimeValueTypeString(const RuntimeValue& value);
 
 #endif //MATURSKI_2_RUNTIMEVALUE_H

@@ -69,6 +69,7 @@ private:
     void printLineDivider(unsigned int lineNum);
     void printCaretSupportLine(unsigned int offset);
     void printSquiggleSupportLine(unsigned int lineNum, std::vector<colorHighlight> colorHighlights);
+    static std::wstring getTokenValue(Token *token);
 };
 
 
