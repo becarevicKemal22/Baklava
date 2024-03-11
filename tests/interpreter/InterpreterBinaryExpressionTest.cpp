@@ -4,7 +4,6 @@
 
 #include <catch2/catch_test_macros.hpp>
 
-#include <iostream>
 #include "Interpreter.h"
 #include "Program.h"
 #include "RuntimeValue.h"

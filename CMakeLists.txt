@@ -40,6 +40,7 @@ add_executable(Maturski_2 main.cpp
         src/error/exceptions/WrongBinaryOperandTypes.h
         src/interpreter/Object.h
         src/interpreter/Object.cpp
+        src/parser/ast/expressions/LogicalExpression.h
 )
 
 add_subdirectory(tests)
