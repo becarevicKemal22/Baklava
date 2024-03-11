@@ -18,6 +18,7 @@ enum class AstNodeType : uint8_t {
 
     // Expressions
     BinaryExpression,
+    LogicalExpression,
     UnaryExpression,
     NullLiteralExpression,
     BooleanLiteralExpression,
@@ -30,6 +31,7 @@ class Program;
 
 class Expression;
 class BinaryExpression;
+class LogicalExpression;
 class UnaryExpression;
 class NullLiteralExpression;
 class BooleanLiteralExpression;

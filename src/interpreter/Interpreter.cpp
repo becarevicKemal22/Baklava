@@ -11,6 +11,7 @@
 #include "NullLiteralExpression.h"
 #include "StringLiteralExpression.h"
 #include "RuntimeValue.h"
+#include "LogicalExpression.h"
 
 #include "WrongTypeError.h"
 #include "WrongBinaryOperandTypes.h"
@@ -22,6 +23,8 @@ RuntimeValue Interpreter::evaluate(Expression *expr) {
         switch (expr->type) {
             case AstNodeType::BinaryExpression:
                 return evaluateBinaryExpression(static_cast<BinaryExpression *>(expr));
+            case AstNodeType::LogicalExpression:
+                return evaluateLogicalExpression(static_cast<LogicalExpression *>(expr));
             case AstNodeType::UnaryExpression:
                 return evaluateUnaryExpression(static_cast<UnaryExpression *>(expr));
             case AstNodeType::NumericLiteralExpression:
@@ -43,14 +46,27 @@ RuntimeValue Interpreter::evaluate(Expression *expr) {
 
 }
 
+RuntimeValue Interpreter::evaluateLogicalExpression(LogicalExpression *expr) {
+    RuntimeValue left = evaluate(expr->left);
+
+    if(expr->op->type == TokenType::DoublePipe){
+        if(isTruthy(left)){
+            return left;
+        }
+    } else {
+        if(!isTruthy(left)){
+            return left;
+        }
+    }
+
+    return evaluate(expr->right);
+}
+
 RuntimeValue Interpreter::evaluateBinaryExpression(BinaryExpression *expr) {
     RuntimeValue left = evaluate(expr->left);
     RuntimeValue right = evaluate(expr->right);
     switch (expr->op->type) {
         case TokenType::Plus:
-//            if(left.type == ValueType::String && right.type == ValueType::String){
-//                return {ValueType::String, {.string = left.as.string + right.as.string}};
-//            }
             if (left.type == ValueType::Number && right.type == ValueType::Number) {
                 return {ValueType::Number, {.number = left.as.number + right.as.number}};
             }

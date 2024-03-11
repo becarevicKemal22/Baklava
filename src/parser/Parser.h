@@ -43,7 +43,7 @@ private:
      * @param types vector of types to check against.
      * @return True if the current token is of any of the given types, false otherwise.
      */
-    bool match(std::vector<TokenType> types);
+    bool match(const std::vector<TokenType>& types);
 
     bool atType(TokenType type){
         return tokens[current]->type == type;
@@ -51,6 +51,8 @@ private:
 
     Statement* statement();
     Expression* expression();
+    Expression* logicalOrExpression();
+    Expression* logicalAndExpression();
     Expression* equalityExpression();
     Expression* comparisonExpression();
     Expression* termExpression();

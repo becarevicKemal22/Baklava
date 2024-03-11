@@ -5,6 +5,7 @@
 #include "Parser.h"
 #include "Program.h"
 #include "BinaryExpression.h"
+#include "LogicalExpression.h"
 #include "UnaryExpression.h"
 #include "BooleanLiteralExpression.h"
 #include "NumericLiteralExpression.h"
@@ -25,7 +26,27 @@ Statement* Parser::statement() {
 }
 
 ExprPtr Parser::expression() {
-    return equalityExpression();
+    return logicalOrExpression();
+}
+
+ExprPtr Parser::logicalOrExpression() {
+    ExprPtr expr = logicalAndExpression();
+    while(match({TokenType::DoublePipe})){
+        Token* op = previous();
+        ExprPtr right = logicalAndExpression();
+        expr = new LogicalExpression(expr, op, right);
+    }
+    return expr;
+}
+
+ExprPtr Parser::logicalAndExpression() {
+    ExprPtr expr = equalityExpression();
+    while(match({TokenType::DoubleAmpersand})){
+        Token* op = previous();
+        ExprPtr right = equalityExpression();
+        expr = new LogicalExpression(expr, op, right);
+    }
+    return expr;
 }
 
 ExprPtr Parser::equalityExpression() {
@@ -86,7 +107,7 @@ ExprPtr Parser::primaryExpression() {
     throw "Expected expression";
 }
 
-bool Parser::match(std::vector<TokenType> types) {
+bool Parser::match(const std::vector<TokenType>& types) {
     for(auto type : types){
         if(atType(type)){
             advance();

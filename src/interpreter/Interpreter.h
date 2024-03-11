@@ -51,6 +51,7 @@ private:
     ErrorPrinter* errorPrinter;
 
     RuntimeValue evaluateBinaryExpression(BinaryExpression* expr);
+    RuntimeValue evaluateLogicalExpression(LogicalExpression* expr);
     RuntimeValue evaluateUnaryExpression(UnaryExpression* expr);
     RuntimeValue evaluateNumericLiteralExpression(NumericLiteralExpression* expr);
     RuntimeValue evaluateBooleanLiteralExpression(BooleanLiteralExpression* expr);
