@@ -9,5 +9,5 @@ var searchData=
   ['tokentype_6',['TokenType',['../_token_type_8h.html#afa91e1934f818659a4e2b0c8ce1214b0',1,'TokenType.h']]],
   ['tokentype_2eh_7',['TokenType.h',['../_token_type_8h.html',1,'']]],
   ['true_8',['True',['../_token_type_8h.html#afa91e1934f818659a4e2b0c8ce1214b0af827cf462f62848df37c5e1e94a4da74',1,'TokenType.h']]],
-  ['type_9',['type',['../struct_runtime_value.html#a55cfd70a0d575cfeb00067649c097f36',1,'RuntimeValue::type'],['../class_token.html#a67919af9f3a80dc0b28a0ab1e6d5bf8a',1,'Token::type'],['../class_statement.html#af799a81c3fbd31e741cc01d09324df30',1,'Statement::type']]]
+  ['type_9',['type',['../struct_object.html#a0075dcd793d09d14f5ff0b20ce4db4f7',1,'Object::type'],['../struct_runtime_value.html#a55cfd70a0d575cfeb00067649c097f36',1,'RuntimeValue::type'],['../class_token.html#a67919af9f3a80dc0b28a0ab1e6d5bf8a',1,'Token::type'],['../class_statement.html#af799a81c3fbd31e741cc01d09324df30',1,'Statement::type']]]
 ];

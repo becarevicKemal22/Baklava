@@ -14,12 +14,15 @@ typedef \mbox{\hyperlink{class_expression}{Expression}} \texorpdfstring{$\ast$}{
 enum class \mbox{\hyperlink{_ast_8h_abbed81ee894f251822f94201ef008817}{Ast\+Node\+Type}} \+: uint8\+\_\+t \{ \newline
 \mbox{\hyperlink{_ast_8h_abbed81ee894f251822f94201ef008817a95c50c7cc68e399ac5540898dfd06820}{Program}}
 , \mbox{\hyperlink{_ast_8h_abbed81ee894f251822f94201ef008817aef8bdf9ede229a64b3daf2724b5e45dc}{Binary\+Expression}}
+, \mbox{\hyperlink{_ast_8h_abbed81ee894f251822f94201ef008817aba040fffb921ae39cd6724a98a871210}{Logical\+Expression}}
 , \mbox{\hyperlink{_ast_8h_abbed81ee894f251822f94201ef008817af63d76d45aee45cf332a951650eedcb7}{Unary\+Expression}}
-, \mbox{\hyperlink{_ast_8h_abbed81ee894f251822f94201ef008817a02da156e47dc8b7bb0575d125b9dbe38}{Null\+Literal\+Expression}}
 , \newline
-\mbox{\hyperlink{_ast_8h_abbed81ee894f251822f94201ef008817a01f9552b9de59b58d97abcdbe885307f}{Boolean\+Literal\+Expression}}
+\mbox{\hyperlink{_ast_8h_abbed81ee894f251822f94201ef008817a02da156e47dc8b7bb0575d125b9dbe38}{Null\+Literal\+Expression}}
+, \mbox{\hyperlink{_ast_8h_abbed81ee894f251822f94201ef008817a01f9552b9de59b58d97abcdbe885307f}{Boolean\+Literal\+Expression}}
 , \mbox{\hyperlink{_ast_8h_abbed81ee894f251822f94201ef008817a3b1f196eca8855434fe73958b8df7c9e}{Numeric\+Literal\+Expression}}
 , \mbox{\hyperlink{_ast_8h_abbed81ee894f251822f94201ef008817ac630f88540b8851ac6098772bb517e83}{String\+Literal\+Expression}}
+, \newline
+\mbox{\hyperlink{_ast_8h_abbed81ee894f251822f94201ef008817ad9a47e9f7c52e88ca30bd69725b59aaf}{Grouping\+Expression}}
  \}
 \begin{DoxyCompactList}\small\item\em Enum class representing the type of the AST node. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
@@ -59,6 +62,10 @@ Program&\\
 Binary\+Expression&\\
 \hline
 
+\raisebox{\heightof{T}}[0pt][0pt]{\index{LogicalExpression@{LogicalExpression}!Ast.h@{Ast.h}}\index{Ast.h@{Ast.h}!LogicalExpression@{LogicalExpression}}}\Hypertarget{_ast_8h_abbed81ee894f251822f94201ef008817aba040fffb921ae39cd6724a98a871210}\label{_ast_8h_abbed81ee894f251822f94201ef008817aba040fffb921ae39cd6724a98a871210} 
+Logical\+Expression&\\
+\hline
+
 \raisebox{\heightof{T}}[0pt][0pt]{\index{UnaryExpression@{UnaryExpression}!Ast.h@{Ast.h}}\index{Ast.h@{Ast.h}!UnaryExpression@{UnaryExpression}}}\Hypertarget{_ast_8h_abbed81ee894f251822f94201ef008817af63d76d45aee45cf332a951650eedcb7}\label{_ast_8h_abbed81ee894f251822f94201ef008817af63d76d45aee45cf332a951650eedcb7} 
 Unary\+Expression&\\
 \hline
@@ -77,6 +84,10 @@ Numeric\+Literal\+Expression&\\
 
 \raisebox{\heightof{T}}[0pt][0pt]{\index{StringLiteralExpression@{StringLiteralExpression}!Ast.h@{Ast.h}}\index{Ast.h@{Ast.h}!StringLiteralExpression@{StringLiteralExpression}}}\Hypertarget{_ast_8h_abbed81ee894f251822f94201ef008817ac630f88540b8851ac6098772bb517e83}\label{_ast_8h_abbed81ee894f251822f94201ef008817ac630f88540b8851ac6098772bb517e83} 
 String\+Literal\+Expression&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{GroupingExpression@{GroupingExpression}!Ast.h@{Ast.h}}\index{Ast.h@{Ast.h}!GroupingExpression@{GroupingExpression}}}\Hypertarget{_ast_8h_abbed81ee894f251822f94201ef008817ad9a47e9f7c52e88ca30bd69725b59aaf}\label{_ast_8h_abbed81ee894f251822f94201ef008817ad9a47e9f7c52e88ca30bd69725b59aaf} 
+Grouping\+Expression&\\
 \hline
 
 \end{DoxyEnumFields}

@@ -1,0 +1,32 @@
+\doxysection{Parser\+Error.\+h}
+\hypertarget{_parser_error_8h_source}{}\label{_parser_error_8h_source}\index{src/error/exceptions/parser/ParserError.h@{src/error/exceptions/parser/ParserError.h}}
+\mbox{\hyperlink{_parser_error_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{//}}
+\DoxyCodeLine{00002\ \textcolor{comment}{//\ Created\ by\ kemal\ on\ 3/12/2024.}}
+\DoxyCodeLine{00003\ \textcolor{comment}{//}}
+\DoxyCodeLine{00004\ }
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#ifndef\ MATURSKI\_2\_PARSERERROR\_H}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#define\ MATURSKI\_2\_PARSERERROR\_H}}
+\DoxyCodeLine{00007\ }
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#include\ <exception>}}
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#include\ <utility>}}
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#include\ <vector>}}
+\DoxyCodeLine{00011\ }
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_error_code_8h}{ErrorCode.h}}"{}}}
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_error_message_argument_8h}{ErrorMessageArgument.h}}"{}}}
+\DoxyCodeLine{00014\ }
+\DoxyCodeLine{00020\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_parser_error}{ParserError}}\ :\ \textcolor{keyword}{public}\ std::exception\ \{}
+\DoxyCodeLine{00021\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00022\ \ \ \ \ \mbox{\hyperlink{class_parser_error_a04c2c577a5a638f50b7a340ebdd8a593}{ParserError}}(\mbox{\hyperlink{_error_code_8h_a59e56af19e754a6aa26a612ebf91d05f}{ErrorCode}}\ \mbox{\hyperlink{class_parser_error_a7923d1c9d18cc0996e3b1f875e548de3}{code}})\ :\ \mbox{\hyperlink{class_parser_error_a7923d1c9d18cc0996e3b1f875e548de3}{code}}(\mbox{\hyperlink{class_parser_error_a7923d1c9d18cc0996e3b1f875e548de3}{code}})\ \{\}}
+\DoxyCodeLine{00023\ }
+\DoxyCodeLine{00024\ \ \ \ \ \mbox{\hyperlink{class_parser_error_a58a4af6d0dfc0a5848cebbb7cf3788dc}{ParserError}}(\mbox{\hyperlink{_error_code_8h_a59e56af19e754a6aa26a612ebf91d05f}{ErrorCode}}\ \mbox{\hyperlink{class_parser_error_a7923d1c9d18cc0996e3b1f875e548de3}{code}},\ std::vector<ErrorMessageArgument>\ \mbox{\hyperlink{class_parser_error_afd3884bd1c9e5edf8321f7824a858657}{messageArguments}})\ :\ \mbox{\hyperlink{class_parser_error_a7923d1c9d18cc0996e3b1f875e548de3}{code}}(\mbox{\hyperlink{class_parser_error_a7923d1c9d18cc0996e3b1f875e548de3}{code}}),}
+\DoxyCodeLine{00025\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_parser_error_afd3884bd1c9e5edf8321f7824a858657}{messageArguments}}(std::move(\mbox{\hyperlink{class_parser_error_afd3884bd1c9e5edf8321f7824a858657}{messageArguments}}))\ \{\}}
+\DoxyCodeLine{00026\ }
+\DoxyCodeLine{00027\ \ \ \ \ \mbox{\hyperlink{_error_code_8h_a59e56af19e754a6aa26a612ebf91d05f}{ErrorCode}}\ \mbox{\hyperlink{class_parser_error_a7923d1c9d18cc0996e3b1f875e548de3}{code}};}
+\DoxyCodeLine{00028\ \ \ \ \ std::vector<ErrorMessageArgument>\ \mbox{\hyperlink{class_parser_error_afd3884bd1c9e5edf8321f7824a858657}{messageArguments}};}
+\DoxyCodeLine{00029\ \};}
+\DoxyCodeLine{00030\ }
+\DoxyCodeLine{00031\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//MATURSKI\_2\_PARSERERROR\_H}}
+
+\end{DoxyCode}

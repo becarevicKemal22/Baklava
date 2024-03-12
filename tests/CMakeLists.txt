@@ -28,5 +28,8 @@ add_executable(tests ../src/error/printer/ErrorPrinter.cpp ../src/lexer/Lexer.cp
         parser/ParserBinaryComparisonExpressionTest.cpp
         interpreter/InterpreterBinaryComparisonExpressionTest.cpp
         ../src/error/exceptions/parser/ParserError.h
-        ../src/error/exceptions/parser/ExpectedXBeforeY.h)
+        ../src/error/exceptions/parser/ExpectedXBeforeY.h
+        parser/ParserGroupingExpressionTest.cpp
+        ../src/parser/ast/expressions/GroupingExpression.h
+        interpreter/InterpreterGroupingExpressionTest.cpp)
 target_link_libraries(tests PRIVATE Catch2::Catch2WithMain)

@@ -12,22 +12,28 @@
 \DoxyCodeLine{00008\ \textcolor{preprocessor}{\#include\ <cstdint>}}
 \DoxyCodeLine{00009\ \textcolor{preprocessor}{\#include\ <string>}}
 \DoxyCodeLine{00010\ }
-\DoxyCodeLine{00014\ \textcolor{keyword}{enum\ class}\ \mbox{\hyperlink{_runtime_value_8h_a374c860c922f0b389e0291d92c099c35}{ValueType}}\ :\ uint8\_t\ \{}
-\DoxyCodeLine{00015\ \ \ \ \ \mbox{\hyperlink{_runtime_value_8h_a374c860c922f0b389e0291d92c099c35ab2ee912b91d69b435159c7c3f6df7f5f}{Number}},}
-\DoxyCodeLine{00016\ \ \ \ \ \mbox{\hyperlink{_runtime_value_8h_a374c860c922f0b389e0291d92c099c35a27226c864bac7454a8504f8edb15d95b}{Boolean}},}
-\DoxyCodeLine{00017\ \ \ \ \ \mbox{\hyperlink{_runtime_value_8h_a374c860c922f0b389e0291d92c099c35abbb93ef26e3c101ff11cdd21cab08a94}{Null}},}
-\DoxyCodeLine{00018\ \};}
-\DoxyCodeLine{00019\ }
-\DoxyCodeLine{00023\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\{}
-\DoxyCodeLine{00024\ \ \ \ \ \mbox{\hyperlink{_runtime_value_8h_a374c860c922f0b389e0291d92c099c35}{ValueType}}\ \mbox{\hyperlink{struct_runtime_value_a55cfd70a0d575cfeb00067649c097f36}{type}};}
-\DoxyCodeLine{00025\ \ \ \ \ \textcolor{keyword}{union\ }\{}
-\DoxyCodeLine{00026\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{struct_runtime_value_abba9e6b3ad6d13bed33b1c2f78a8f95a}{boolean}};}
-\DoxyCodeLine{00027\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{struct_runtime_value_a9ce23b8a61d22b2695b849499d5b65b1}{number}};}
-\DoxyCodeLine{00028\ \ \ \ \ \}\ as;}
-\DoxyCodeLine{00029\ \}\ \mbox{\hyperlink{struct_runtime_value}{RuntimeValue}};}
-\DoxyCodeLine{00030\ }
-\DoxyCodeLine{00036\ std::wstring\ \mbox{\hyperlink{_runtime_value_8h_ad8f1e3d398dd0b69ecf92d9923f58bb6}{valueTypeToString}}(\mbox{\hyperlink{_runtime_value_8h_a374c860c922f0b389e0291d92c099c35}{ValueType}}\ type);}
-\DoxyCodeLine{00037\ }
-\DoxyCodeLine{00038\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//MATURSKI\_2\_RUNTIMEVALUE\_H}}
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_object_8h}{Object.h}}"{}}}
+\DoxyCodeLine{00012\ }
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#define\ IS\_OBJ(value)\ ((value).type\ ==\ ValueType::Object)}}
+\DoxyCodeLine{00014\ }
+\DoxyCodeLine{00018\ \textcolor{keyword}{enum\ class}\ \mbox{\hyperlink{_runtime_value_8h_a374c860c922f0b389e0291d92c099c35}{ValueType}}\ :\ uint8\_t\ \{}
+\DoxyCodeLine{00019\ \ \ \ \ \mbox{\hyperlink{_runtime_value_8h_a374c860c922f0b389e0291d92c099c35ab2ee912b91d69b435159c7c3f6df7f5f}{Number}},}
+\DoxyCodeLine{00020\ \ \ \ \ \mbox{\hyperlink{_runtime_value_8h_a374c860c922f0b389e0291d92c099c35a27226c864bac7454a8504f8edb15d95b}{Boolean}},}
+\DoxyCodeLine{00021\ \ \ \ \ \mbox{\hyperlink{_runtime_value_8h_a374c860c922f0b389e0291d92c099c35abbb93ef26e3c101ff11cdd21cab08a94}{Null}},}
+\DoxyCodeLine{00022\ \ \ \ \ \mbox{\hyperlink{_runtime_value_8h_a374c860c922f0b389e0291d92c099c35a497031794414a552435f90151ac3b54b}{Object}},}
+\DoxyCodeLine{00023\ \};}
+\DoxyCodeLine{00024\ }
+\DoxyCodeLine{00028\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\{}
+\DoxyCodeLine{00029\ \ \ \ \ \mbox{\hyperlink{_runtime_value_8h_a374c860c922f0b389e0291d92c099c35}{ValueType}}\ \mbox{\hyperlink{struct_runtime_value_a55cfd70a0d575cfeb00067649c097f36}{type}};}
+\DoxyCodeLine{00030\ \ \ \ \ \textcolor{keyword}{union\ }\{}
+\DoxyCodeLine{00031\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{struct_runtime_value_abba9e6b3ad6d13bed33b1c2f78a8f95a}{boolean}};}
+\DoxyCodeLine{00032\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{struct_runtime_value_a9ce23b8a61d22b2695b849499d5b65b1}{number}};}
+\DoxyCodeLine{00033\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_object}{Object}}*\ \mbox{\hyperlink{struct_runtime_value_a85ce2db7e607276ee195a82dc3f7890d}{object}};}
+\DoxyCodeLine{00034\ \ \ \ \ \}\ as;}
+\DoxyCodeLine{00035\ \}\ \mbox{\hyperlink{struct_runtime_value}{RuntimeValue}};}
+\DoxyCodeLine{00036\ }
+\DoxyCodeLine{00042\ std::wstring\ \mbox{\hyperlink{_runtime_value_8h_adf30048625b9cbd3bc2c6ea783e7abe4}{getRuntimeValueTypeString}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{struct_runtime_value}{RuntimeValue}}\&\ value);}
+\DoxyCodeLine{00043\ }
+\DoxyCodeLine{00044\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//MATURSKI\_2\_RUNTIMEVALUE\_H}}
 
 \end{DoxyCode}

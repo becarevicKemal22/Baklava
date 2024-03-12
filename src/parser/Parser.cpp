@@ -12,6 +12,7 @@
 #include "StringLiteralExpression.h"
 #include "NullLiteralExpression.h"
 #include "TokenType.h"
+#include "GroupingExpression.h"
 
 #include "ExpectedXBeforeY.h"
 
@@ -106,6 +107,13 @@ ExprPtr Parser::primaryExpression() {
     if(match({TokenType::Null})) return new NullLiteralExpression(previous());
     if(match({TokenType::Number})) return new NumericLiteralExpression(previous());
     if(match({TokenType::String})) return new StringLiteralExpression(previous());
+    if(match({TokenType::OpenParenthesis})){
+        ExprPtr expr = expression();
+        if(match({TokenType::ClosedParenthesis})){
+            return new GroupingExpression(expr);
+        }
+        throw ExpectedXBeforeY(L"zatvorena zagrada", previous(), at());
+    }
     throw ExpectedXBeforeY(L"izraz", previous(), at());
 }
 

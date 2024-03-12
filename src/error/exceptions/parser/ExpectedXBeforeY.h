@@ -16,7 +16,7 @@ public:
             ERROR_EXPECTED_X_BEFORE_Y), expectedWhat(expectedWhat), found(std::move(found)),
                                                                                    before(std::move(before)) {
         messageArguments.push_back(expectedWhat);
-        if (before->type == TokenType::Eof) before->value = L"kraja fajla";
+        if (before->type == TokenType::Eof) before->value = L"kraj datoteke";
         messageArguments.push_back(before->value);
     }
 

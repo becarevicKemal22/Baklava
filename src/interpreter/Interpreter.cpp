@@ -15,6 +15,7 @@
 
 #include "WrongTypeError.h"
 #include "WrongBinaryOperandTypes.h"
+#include "GroupingExpression.h"
 
 #include <iostream>
 
@@ -35,6 +36,8 @@ RuntimeValue Interpreter::evaluate(Expression *expr) {
                 return evaluateNullLiteralExpression(static_cast<NullLiteralExpression *>(expr));
             case AstNodeType::StringLiteralExpression:
                 return evaluateStringLiteralExpression(static_cast<StringLiteralExpression *>(expr));
+            case AstNodeType::GroupingExpression:
+                return evaluate((static_cast<GroupingExpression *>(expr))->expr);
             default:
                 throw std::runtime_error("Unknown expression type");
         }
@@ -49,12 +52,12 @@ RuntimeValue Interpreter::evaluate(Expression *expr) {
 RuntimeValue Interpreter::evaluateLogicalExpression(LogicalExpression *expr) {
     RuntimeValue left = evaluate(expr->left);
 
-    if(expr->op->type == TokenType::DoublePipe){
-        if(isTruthy(left)){
+    if (expr->op->type == TokenType::DoublePipe) {
+        if (isTruthy(left)) {
             return left;
         }
     } else {
-        if(!isTruthy(left)){
+        if (!isTruthy(left)) {
             return left;
         }
     }
@@ -70,8 +73,10 @@ RuntimeValue Interpreter::evaluateBinaryExpression(BinaryExpression *expr) {
             if (left.type == ValueType::Number && right.type == ValueType::Number) {
                 return {ValueType::Number, {.number = left.as.number + right.as.number}};
             }
-            if(IS_OBJ(left) && IS_STRING_OBJ(left) && IS_OBJ(right) && IS_STRING_OBJ(right)){ // OVDJE ISPOD TREBA NEKI AS_STR MACRO
-                return {ValueType::Object, {.object = (Object*) allocateStringObject(GET_STRING_OBJ_VALUE(left) + GET_STRING_OBJ_VALUE(right))}};
+            if (IS_OBJ(left) && IS_STRING_OBJ(left) && IS_OBJ(right) &&
+                IS_STRING_OBJ(right)) { // OVDJE ISPOD TREBA NEKI AS_STR MACRO
+                return {ValueType::Object, {.object = (Object *) allocateStringObject(
+                        GET_STRING_OBJ_VALUE(left) + GET_STRING_OBJ_VALUE(right))}};
             }
             throw WrongBinaryOperandTypes(L"+", left, right, expr);
         case TokenType::Minus:
@@ -90,46 +95,46 @@ RuntimeValue Interpreter::evaluateBinaryExpression(BinaryExpression *expr) {
             }
             return {ValueType::Number, {.number = left.as.number / right.as.number}};
         case TokenType::Greater:
-            if(left.type == ValueType::Number && right.type == ValueType::Number){
+            if (left.type == ValueType::Number && right.type == ValueType::Number) {
                 return {ValueType::Boolean, {.boolean = left.as.number > right.as.number}};
             }
-            if(IS_OBJ(left) && IS_STRING_OBJ(left) && IS_OBJ(right) && IS_STRING_OBJ(right)){
+            if (IS_OBJ(left) && IS_STRING_OBJ(left) && IS_OBJ(right) && IS_STRING_OBJ(right)) {
                 return {ValueType::Boolean, {.boolean = GET_STRING_OBJ_VALUE(left) > GET_STRING_OBJ_VALUE(right)}};
             }
-            if(left.type == ValueType::Boolean && right.type == ValueType::Boolean){
+            if (left.type == ValueType::Boolean && right.type == ValueType::Boolean) {
                 return {ValueType::Boolean, {.boolean = left.as.boolean > right.as.boolean}};
             }
             throw WrongBinaryOperandTypes(L">", left, right, expr);
         case TokenType::GreaterEqual:
-            if(left.type == ValueType::Number && right.type == ValueType::Number){
+            if (left.type == ValueType::Number && right.type == ValueType::Number) {
                 return {ValueType::Boolean, {.boolean = left.as.number >= right.as.number}};
             }
-            if(IS_OBJ(left) && IS_STRING_OBJ(left) && IS_OBJ(right) && IS_STRING_OBJ(right)){
+            if (IS_OBJ(left) && IS_STRING_OBJ(left) && IS_OBJ(right) && IS_STRING_OBJ(right)) {
                 return {ValueType::Boolean, {.boolean = GET_STRING_OBJ_VALUE(left) >= GET_STRING_OBJ_VALUE(right)}};
             }
-            if(left.type == ValueType::Boolean && right.type == ValueType::Boolean){
+            if (left.type == ValueType::Boolean && right.type == ValueType::Boolean) {
                 return {ValueType::Boolean, {.boolean = left.as.boolean >= right.as.boolean}};
             }
             throw WrongBinaryOperandTypes(L">=", left, right, expr);
         case TokenType::Less:
-            if(left.type == ValueType::Number && right.type == ValueType::Number){
+            if (left.type == ValueType::Number && right.type == ValueType::Number) {
                 return {ValueType::Boolean, {.boolean = left.as.number < right.as.number}};
             }
-            if(IS_OBJ(left) && IS_STRING_OBJ(left) && IS_OBJ(right) && IS_STRING_OBJ(right)){
+            if (IS_OBJ(left) && IS_STRING_OBJ(left) && IS_OBJ(right) && IS_STRING_OBJ(right)) {
                 return {ValueType::Boolean, {.boolean = GET_STRING_OBJ_VALUE(left) < GET_STRING_OBJ_VALUE(right)}};
             }
-            if(left.type == ValueType::Boolean && right.type == ValueType::Boolean){
+            if (left.type == ValueType::Boolean && right.type == ValueType::Boolean) {
                 return {ValueType::Boolean, {.boolean = left.as.boolean < right.as.boolean}};
             }
             throw WrongBinaryOperandTypes(L"<", left, right, expr);
         case TokenType::LessEqual:
-            if(left.type == ValueType::Number && right.type == ValueType::Number){
+            if (left.type == ValueType::Number && right.type == ValueType::Number) {
                 return {ValueType::Boolean, {.boolean = left.as.number <= right.as.number}};
             }
-            if(IS_OBJ(left) && IS_STRING_OBJ(left) && IS_OBJ(right) && IS_STRING_OBJ(right)){
+            if (IS_OBJ(left) && IS_STRING_OBJ(left) && IS_OBJ(right) && IS_STRING_OBJ(right)) {
                 return {ValueType::Boolean, {.boolean = GET_STRING_OBJ_VALUE(left) <= GET_STRING_OBJ_VALUE(right)}};
             }
-            if(left.type == ValueType::Boolean && right.type == ValueType::Boolean){
+            if (left.type == ValueType::Boolean && right.type == ValueType::Boolean) {
                 return {ValueType::Boolean, {.boolean = left.as.boolean <= right.as.boolean}};
             }
             throw WrongBinaryOperandTypes(L"<=", left, right, expr);
@@ -170,7 +175,7 @@ RuntimeValue Interpreter::evaluateNullLiteralExpression(NullLiteralExpression *e
 }
 
 RuntimeValue Interpreter::evaluateStringLiteralExpression(StringLiteralExpression *expr) {
-    return {ValueType::Object, {.object = (Object *)(allocateStringObject(expr->value))}};
+    return {ValueType::Object, {.object = (Object *) (allocateStringObject(expr->value))}};
 }
 
 bool Interpreter::isTruthy(const RuntimeValue &value) {
@@ -196,7 +201,7 @@ bool Interpreter::isEqual(const RuntimeValue &left, const RuntimeValue &right) {
         case ValueType::Null:
             return true;
         case ValueType::Object:
-            if(IS_STRING_OBJ(left) && IS_STRING_OBJ(right)){
+            if (IS_STRING_OBJ(left) && IS_STRING_OBJ(right)) {
                 return GET_STRING_OBJ_VALUE(left) == GET_STRING_OBJ_VALUE(right);
             }
             throw "EQUALITY NOT YET IMPLEMENTED FOR NON STRING!";
@@ -206,11 +211,11 @@ bool Interpreter::isEqual(const RuntimeValue &left, const RuntimeValue &right) {
     }
 }
 
-ObjectString* Interpreter::allocateStringObject(const std::wstring& value) {
-    auto* obj = new ObjectString();
+ObjectString *Interpreter::allocateStringObject(const std::wstring &value) {
+    auto *obj = new ObjectString();
     obj->obj.type = ObjectType::OBJECT_STRING;
     obj->value = value;
     obj->obj.next = objects;
-    objects = (Object*) obj;
+    objects = (Object *) obj;
     return obj;
 }

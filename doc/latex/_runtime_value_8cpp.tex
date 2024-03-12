@@ -1,29 +1,30 @@
 \doxysection{src/interpreter/\+Runtime\+Value.cpp File Reference}
 \hypertarget{_runtime_value_8cpp}{}\label{_runtime_value_8cpp}\index{src/interpreter/RuntimeValue.cpp@{src/interpreter/RuntimeValue.cpp}}
 {\ttfamily \#include "{}Runtime\+Value.\+h"{}}\newline
+{\ttfamily \#include "{}Object.\+h"{}}\newline
 \doxysubsubsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
-std\+::wstring \mbox{\hyperlink{_runtime_value_8cpp_ad8f1e3d398dd0b69ecf92d9923f58bb6}{value\+Type\+To\+String}} (\mbox{\hyperlink{_runtime_value_8h_a374c860c922f0b389e0291d92c099c35}{Value\+Type}} type)
-\begin{DoxyCompactList}\small\item\em Converts a Value\+Type to a string. \end{DoxyCompactList}\end{DoxyCompactItemize}
+std\+::wstring \mbox{\hyperlink{_runtime_value_8cpp_adf30048625b9cbd3bc2c6ea783e7abe4}{get\+Runtime\+Value\+Type\+String}} (const \mbox{\hyperlink{struct_runtime_value}{Runtime\+Value}} \&value)
+\begin{DoxyCompactList}\small\item\em returns the type of a runtime value as a string. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
 \doxysubsection{Function Documentation}
-\Hypertarget{_runtime_value_8cpp_ad8f1e3d398dd0b69ecf92d9923f58bb6}\label{_runtime_value_8cpp_ad8f1e3d398dd0b69ecf92d9923f58bb6} 
-\index{RuntimeValue.cpp@{RuntimeValue.cpp}!valueTypeToString@{valueTypeToString}}
-\index{valueTypeToString@{valueTypeToString}!RuntimeValue.cpp@{RuntimeValue.cpp}}
-\doxysubsubsection{\texorpdfstring{valueTypeToString()}{valueTypeToString()}}
-{\footnotesize\ttfamily std\+::wstring value\+Type\+To\+String (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{_runtime_value_8h_a374c860c922f0b389e0291d92c099c35}{Value\+Type}}}]{type }\end{DoxyParamCaption})}
+\Hypertarget{_runtime_value_8cpp_adf30048625b9cbd3bc2c6ea783e7abe4}\label{_runtime_value_8cpp_adf30048625b9cbd3bc2c6ea783e7abe4} 
+\index{RuntimeValue.cpp@{RuntimeValue.cpp}!getRuntimeValueTypeString@{getRuntimeValueTypeString}}
+\index{getRuntimeValueTypeString@{getRuntimeValueTypeString}!RuntimeValue.cpp@{RuntimeValue.cpp}}
+\doxysubsubsection{\texorpdfstring{getRuntimeValueTypeString()}{getRuntimeValueTypeString()}}
+{\footnotesize\ttfamily std\+::wstring get\+Runtime\+Value\+Type\+String (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{struct_runtime_value}{Runtime\+Value}} \&}]{value }\end{DoxyParamCaption})}
 
 
 
-Converts a Value\+Type to a string. 
+returns the type of a runtime value as a string. 
 
 
 \begin{DoxyParams}{Parameters}
-{\em type} & Value\+Type to convert. \\
+{\em value} & \doxylink{struct_runtime_value}{Runtime\+Value} to extract type from. \\
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
-std\+::wstring representation of the given Value\+Type. 
+std\+::wstring stringified runtime value type. 
 \end{DoxyReturn}

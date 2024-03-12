@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['token_0',['Token',['../class_token.html',1,'']]]
+  ['runtimeerror_0',['RuntimeError',['../class_runtime_error.html',1,'']]],
+  ['runtimevalue_1',['RuntimeValue',['../struct_runtime_value.html',1,'']]]
 ];

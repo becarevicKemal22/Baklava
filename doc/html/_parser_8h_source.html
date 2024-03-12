@@ -103,32 +103,34 @@ $(function() { codefold.init(0); });
 <div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span> </div>
 <div class="line"><a id="l00025" name="l00025"></a><span class="lineno"><a class="line" href="class_parser.html#a249888403db5d3567b4369199c3128d9">   25</a></span>    std::vector&lt;Token*&gt; <a class="code hl_variable" href="class_parser.html#a249888403db5d3567b4369199c3128d9">tokens</a>;</div>
 <div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span> </div>
-<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>    std::unique_ptr&lt;Program&gt; <a class="code hl_function" href="class_parser.html#aef4bb7c588f6908aa9a17b70397b2694">parse</a>();</div>
-<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span><span class="keyword">private</span>:</div>
-<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>    <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> current = 0;</div>
-<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span> </div>
-<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>    <span class="keywordtype">void</span> advance() { current++; }</div>
-<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>    <a class="code hl_class" href="class_token.html">Token</a>* at() { <span class="keywordflow">return</span> <a class="code hl_variable" href="class_parser.html#a249888403db5d3567b4369199c3128d9">tokens</a>[current]; }</div>
-<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>    <a class="code hl_class" href="class_token.html">Token</a>* previous() { <span class="keywordflow">return</span> <a class="code hl_variable" href="class_parser.html#a249888403db5d3567b4369199c3128d9">tokens</a>[current - 1]; }</div>
-<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span> </div>
-<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>    <span class="keywordtype">bool</span> match(std::vector&lt;TokenType&gt; types);</div>
-<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span> </div>
-<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>    <span class="keywordtype">bool</span> atType(<a class="code hl_enumeration" href="_token_type_8h.html#afa91e1934f818659a4e2b0c8ce1214b0">TokenType</a> type){</div>
-<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>        <span class="keywordflow">return</span> <a class="code hl_variable" href="class_parser.html#a249888403db5d3567b4369199c3128d9">tokens</a>[current]-&gt;type == type;</div>
-<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>    }</div>
-<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span> </div>
-<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>    <a class="code hl_class" href="class_statement.html">Statement</a>* statement();</div>
-<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>    <a class="code hl_class" href="class_expression.html">Expression</a>* expression();</div>
-<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>    <a class="code hl_class" href="class_expression.html">Expression</a>* equalityExpression();</div>
-<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>    <a class="code hl_class" href="class_expression.html">Expression</a>* comparisonExpression();</div>
-<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>    <a class="code hl_class" href="class_expression.html">Expression</a>* termExpression();</div>
-<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>    <a class="code hl_class" href="class_expression.html">Expression</a>* factorExpression();</div>
-<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>    <a class="code hl_class" href="class_expression.html">Expression</a>* unaryExpression();</div>
-<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>    <a class="code hl_class" href="class_expression.html">Expression</a>* primaryExpression();</div>
-<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>};</div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>    std::unique_ptr&lt;Program&gt; <a class="code hl_function" href="class_parser.html#aef4bb7c588f6908aa9a17b70397b2694">parse</a>();</div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span><span class="keyword">private</span>:</div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>    <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> current = 0;</div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span> </div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>    <span class="keywordtype">void</span> advance() { current++; }</div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>    <a class="code hl_class" href="class_token.html">Token</a>* at() { <span class="keywordflow">return</span> <a class="code hl_variable" href="class_parser.html#a249888403db5d3567b4369199c3128d9">tokens</a>[current]; }</div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>    <a class="code hl_class" href="class_token.html">Token</a>* previous() { <span class="keywordflow">return</span> <a class="code hl_variable" href="class_parser.html#a249888403db5d3567b4369199c3128d9">tokens</a>[current - 1]; }</div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span> </div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>    <span class="keywordtype">bool</span> match(<span class="keyword">const</span> std::vector&lt;TokenType&gt;&amp; types);</div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span> </div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>    <span class="keywordtype">bool</span> atType(<a class="code hl_enumeration" href="_token_type_8h.html#afa91e1934f818659a4e2b0c8ce1214b0">TokenType</a> type){</div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>        <span class="keywordflow">return</span> <a class="code hl_variable" href="class_parser.html#a249888403db5d3567b4369199c3128d9">tokens</a>[current]-&gt;type == type;</div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>    }</div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span> </div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>    <a class="code hl_class" href="class_statement.html">Statement</a>* statement();</div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>    <a class="code hl_class" href="class_expression.html">Expression</a>* expression();</div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>    <a class="code hl_class" href="class_expression.html">Expression</a>* logicalOrExpression();</div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>    <a class="code hl_class" href="class_expression.html">Expression</a>* logicalAndExpression();</div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>    <a class="code hl_class" href="class_expression.html">Expression</a>* equalityExpression();</div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>    <a class="code hl_class" href="class_expression.html">Expression</a>* comparisonExpression();</div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>    <a class="code hl_class" href="class_expression.html">Expression</a>* termExpression();</div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>    <a class="code hl_class" href="class_expression.html">Expression</a>* factorExpression();</div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>    <a class="code hl_class" href="class_expression.html">Expression</a>* unaryExpression();</div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>    <a class="code hl_class" href="class_expression.html">Expression</a>* primaryExpression();</div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>};</div>
 </div>
-<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span> </div>
-<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span><span class="preprocessor">#endif </span><span class="comment">//MATURSKI_2_PARSER_H</span></div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span> </div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span><span class="preprocessor">#endif </span><span class="comment">//MATURSKI_2_PARSER_H</span></div>
 <div class="ttc" id="a_ast_8h_html"><div class="ttname"><a href="_ast_8h.html">Ast.h</a></div></div>
 <div class="ttc" id="a_token_8h_html"><div class="ttname"><a href="_token_8h.html">Token.h</a></div></div>
 <div class="ttc" id="a_token_type_8h_html_afa91e1934f818659a4e2b0c8ce1214b0"><div class="ttname"><a href="_token_type_8h.html#afa91e1934f818659a4e2b0c8ce1214b0">TokenType</a></div><div class="ttdeci">TokenType</div><div class="ttdoc">Holds all types of tokens that are valid.</div><div class="ttdef"><b>Definition</b> TokenType.h:13</div></div>
@@ -136,7 +138,7 @@ $(function() { codefold.init(0); });
 <div class="ttc" id="aclass_parser_html"><div class="ttname"><a href="class_parser.html">Parser</a></div><div class="ttdoc">The Parser class is responsible for parsing tokens created by the Lexer into an AST.</div><div class="ttdef"><b>Definition</b> Parser.h:17</div></div>
 <div class="ttc" id="aclass_parser_html_a1e4bf9b925afdcb211f87662534da5e9"><div class="ttname"><a href="class_parser.html#a1e4bf9b925afdcb211f87662534da5e9">Parser::Parser</a></div><div class="ttdeci">Parser(const std::vector&lt; Token * &gt; &amp;tokens)</div><div class="ttdoc">Only constructor for the Parser class.</div><div class="ttdef"><b>Definition</b> Parser.h:23</div></div>
 <div class="ttc" id="aclass_parser_html_a249888403db5d3567b4369199c3128d9"><div class="ttname"><a href="class_parser.html#a249888403db5d3567b4369199c3128d9">Parser::tokens</a></div><div class="ttdeci">std::vector&lt; Token * &gt; tokens</div><div class="ttdef"><b>Definition</b> Parser.h:25</div></div>
-<div class="ttc" id="aclass_parser_html_aef4bb7c588f6908aa9a17b70397b2694"><div class="ttname"><a href="class_parser.html#aef4bb7c588f6908aa9a17b70397b2694">Parser::parse</a></div><div class="ttdeci">std::unique_ptr&lt; Program &gt; parse()</div><div class="ttdoc">Parses the tokens into an AST.</div><div class="ttdef"><b>Definition</b> Parser.cpp:15</div></div>
+<div class="ttc" id="aclass_parser_html_aef4bb7c588f6908aa9a17b70397b2694"><div class="ttname"><a href="class_parser.html#aef4bb7c588f6908aa9a17b70397b2694">Parser::parse</a></div><div class="ttdeci">std::unique_ptr&lt; Program &gt; parse()</div><div class="ttdoc">Parses the tokens into an AST.</div><div class="ttdef"><b>Definition</b> Parser.cpp:19</div></div>
 <div class="ttc" id="aclass_statement_html"><div class="ttname"><a href="class_statement.html">Statement</a></div><div class="ttdoc">Base class for all AST nodes. Not meant to be used aside from achieving polymorphism.</div><div class="ttdef"><b>Definition</b> Statement.h:15</div></div>
 <div class="ttc" id="aclass_token_html"><div class="ttname"><a href="class_token.html">Token</a></div><div class="ttdoc">Represents a token in the source code.</div><div class="ttdef"><b>Definition</b> Token.h:16</div></div>
 </div><!-- fragment --></div><!-- contents -->

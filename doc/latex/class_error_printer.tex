@@ -18,11 +18,9 @@ Base class used for printing error messages to the console.
 \item 
 void \mbox{\hyperlink{class_error_printer_a54a5112127cf20b101c492be54d2d27f}{print\+Lexer\+Error}} (\mbox{\hyperlink{_error_code_8h_a59e56af19e754a6aa26a612ebf91d05f}{Error\+Code}} error\+Code, unsigned int line\+Number, unsigned int offset, unsigned int current\+Char)
 \begin{DoxyCompactList}\small\item\em Prints a lexer error message to the console. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_error_printer_aac05ec1fe434c60ed889497e5619429b}{print\+Parser\+Error}} (const \mbox{\hyperlink{class_parser_error}{Parser\+Error}} \texorpdfstring{$\ast$}{*}error)
+\item 
 void \mbox{\hyperlink{class_error_printer_a1fa3e12596c5085ed323dda469c9a526}{print\+Runtime\+Error}} (const \mbox{\hyperlink{class_runtime_error}{Runtime\+Error}} \texorpdfstring{$\ast$}{*}error)
-\item 
-void \mbox{\hyperlink{class_error_printer_ac49bb70f90a27376df012996981feb9f}{print\+Wrong\+Type\+Error}} (const \mbox{\hyperlink{class_wrong_type_error}{Wrong\+Type\+Error}} \texorpdfstring{$\ast$}{*}error)
-\item 
-void \mbox{\hyperlink{class_error_printer_a378609a66c3c9f4402289236022bcd8d}{print\+Wrong\+Binary\+Operand\+Type\+Error}} (const \mbox{\hyperlink{class_wrong_binary_operand_types}{Wrong\+Binary\+Operand\+Types}} \texorpdfstring{$\ast$}{*}error)
 \end{DoxyCompactItemize}
 \doxysubsubsection*{Static Public Member Functions}
 \begin{DoxyCompactItemize}
@@ -90,23 +88,17 @@ Prints source code line along with a red caret pointing to the exact position wh
 {\em current\+Char} & index in source of character that caused the error \\
 \hline
 \end{DoxyParams}
+\Hypertarget{class_error_printer_aac05ec1fe434c60ed889497e5619429b}\label{class_error_printer_aac05ec1fe434c60ed889497e5619429b} 
+\index{ErrorPrinter@{ErrorPrinter}!printParserError@{printParserError}}
+\index{printParserError@{printParserError}!ErrorPrinter@{ErrorPrinter}}
+\doxysubsubsection{\texorpdfstring{printParserError()}{printParserError()}}
+{\footnotesize\ttfamily void Error\+Printer\+::print\+Parser\+Error (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{class_parser_error}{Parser\+Error}} \texorpdfstring{$\ast$}{*}}]{error }\end{DoxyParamCaption})}
+
 \Hypertarget{class_error_printer_a1fa3e12596c5085ed323dda469c9a526}\label{class_error_printer_a1fa3e12596c5085ed323dda469c9a526} 
 \index{ErrorPrinter@{ErrorPrinter}!printRuntimeError@{printRuntimeError}}
 \index{printRuntimeError@{printRuntimeError}!ErrorPrinter@{ErrorPrinter}}
 \doxysubsubsection{\texorpdfstring{printRuntimeError()}{printRuntimeError()}}
 {\footnotesize\ttfamily void Error\+Printer\+::print\+Runtime\+Error (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{class_runtime_error}{Runtime\+Error}} \texorpdfstring{$\ast$}{*}}]{error }\end{DoxyParamCaption})}
-
-\Hypertarget{class_error_printer_a378609a66c3c9f4402289236022bcd8d}\label{class_error_printer_a378609a66c3c9f4402289236022bcd8d} 
-\index{ErrorPrinter@{ErrorPrinter}!printWrongBinaryOperandTypeError@{printWrongBinaryOperandTypeError}}
-\index{printWrongBinaryOperandTypeError@{printWrongBinaryOperandTypeError}!ErrorPrinter@{ErrorPrinter}}
-\doxysubsubsection{\texorpdfstring{printWrongBinaryOperandTypeError()}{printWrongBinaryOperandTypeError()}}
-{\footnotesize\ttfamily void Error\+Printer\+::print\+Wrong\+Binary\+Operand\+Type\+Error (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{class_wrong_binary_operand_types}{Wrong\+Binary\+Operand\+Types}} \texorpdfstring{$\ast$}{*}}]{error }\end{DoxyParamCaption})}
-
-\Hypertarget{class_error_printer_ac49bb70f90a27376df012996981feb9f}\label{class_error_printer_ac49bb70f90a27376df012996981feb9f} 
-\index{ErrorPrinter@{ErrorPrinter}!printWrongTypeError@{printWrongTypeError}}
-\index{printWrongTypeError@{printWrongTypeError}!ErrorPrinter@{ErrorPrinter}}
-\doxysubsubsection{\texorpdfstring{printWrongTypeError()}{printWrongTypeError()}}
-{\footnotesize\ttfamily void Error\+Printer\+::print\+Wrong\+Type\+Error (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{class_wrong_type_error}{Wrong\+Type\+Error}} \texorpdfstring{$\ast$}{*}}]{error }\end{DoxyParamCaption})}
 
 
 

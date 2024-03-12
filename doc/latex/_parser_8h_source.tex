@@ -21,30 +21,32 @@
 \DoxyCodeLine{00024\ }
 \DoxyCodeLine{00025\ \ \ \ \ std::vector<Token*>\ \mbox{\hyperlink{class_parser_a249888403db5d3567b4369199c3128d9}{tokens}};}
 \DoxyCodeLine{00026\ }
-\DoxyCodeLine{00031\ \ \ \ \ std::unique\_ptr<Program>\ \mbox{\hyperlink{class_parser_aef4bb7c588f6908aa9a17b70397b2694}{parse}}();}
-\DoxyCodeLine{00032\ \textcolor{keyword}{private}:}
-\DoxyCodeLine{00033\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ current\ =\ 0;}
-\DoxyCodeLine{00034\ }
-\DoxyCodeLine{00035\ \ \ \ \ \textcolor{keywordtype}{void}\ advance()\ \{\ current++;\ \}}
-\DoxyCodeLine{00036\ \ \ \ \ \mbox{\hyperlink{class_token}{Token}}*\ at()\ \{\ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{class_parser_a249888403db5d3567b4369199c3128d9}{tokens}}[current];\ \}}
-\DoxyCodeLine{00037\ \ \ \ \ \mbox{\hyperlink{class_token}{Token}}*\ previous()\ \{\ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{class_parser_a249888403db5d3567b4369199c3128d9}{tokens}}[current\ -\/\ 1];\ \}}
-\DoxyCodeLine{00038\ }
-\DoxyCodeLine{00046\ \ \ \ \ \textcolor{keywordtype}{bool}\ match(std::vector<TokenType>\ types);}
-\DoxyCodeLine{00047\ }
-\DoxyCodeLine{00048\ \ \ \ \ \textcolor{keywordtype}{bool}\ atType(\mbox{\hyperlink{_token_type_8h_afa91e1934f818659a4e2b0c8ce1214b0}{TokenType}}\ type)\{}
-\DoxyCodeLine{00049\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{class_parser_a249888403db5d3567b4369199c3128d9}{tokens}}[current]-\/>type\ ==\ type;}
-\DoxyCodeLine{00050\ \ \ \ \ \}}
-\DoxyCodeLine{00051\ }
-\DoxyCodeLine{00052\ \ \ \ \ \mbox{\hyperlink{class_statement}{Statement}}*\ statement();}
-\DoxyCodeLine{00053\ \ \ \ \ \mbox{\hyperlink{class_expression}{Expression}}*\ expression();}
-\DoxyCodeLine{00054\ \ \ \ \ \mbox{\hyperlink{class_expression}{Expression}}*\ equalityExpression();}
-\DoxyCodeLine{00055\ \ \ \ \ \mbox{\hyperlink{class_expression}{Expression}}*\ comparisonExpression();}
-\DoxyCodeLine{00056\ \ \ \ \ \mbox{\hyperlink{class_expression}{Expression}}*\ termExpression();}
-\DoxyCodeLine{00057\ \ \ \ \ \mbox{\hyperlink{class_expression}{Expression}}*\ factorExpression();}
-\DoxyCodeLine{00058\ \ \ \ \ \mbox{\hyperlink{class_expression}{Expression}}*\ unaryExpression();}
-\DoxyCodeLine{00059\ \ \ \ \ \mbox{\hyperlink{class_expression}{Expression}}*\ primaryExpression();}
-\DoxyCodeLine{00060\ \};}
-\DoxyCodeLine{00061\ }
-\DoxyCodeLine{00062\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//MATURSKI\_2\_PARSER\_H}}
+\DoxyCodeLine{00032\ \ \ \ \ std::unique\_ptr<Program>\ \mbox{\hyperlink{class_parser_aef4bb7c588f6908aa9a17b70397b2694}{parse}}();}
+\DoxyCodeLine{00033\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00034\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ current\ =\ 0;}
+\DoxyCodeLine{00035\ }
+\DoxyCodeLine{00036\ \ \ \ \ \textcolor{keywordtype}{void}\ advance()\ \{\ current++;\ \}}
+\DoxyCodeLine{00037\ \ \ \ \ \mbox{\hyperlink{class_token}{Token}}*\ at()\ \{\ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{class_parser_a249888403db5d3567b4369199c3128d9}{tokens}}[current];\ \}}
+\DoxyCodeLine{00038\ \ \ \ \ \mbox{\hyperlink{class_token}{Token}}*\ previous()\ \{\ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{class_parser_a249888403db5d3567b4369199c3128d9}{tokens}}[current\ -\/\ 1];\ \}}
+\DoxyCodeLine{00039\ }
+\DoxyCodeLine{00047\ \ \ \ \ \textcolor{keywordtype}{bool}\ match(\textcolor{keyword}{const}\ std::vector<TokenType>\&\ types);}
+\DoxyCodeLine{00048\ }
+\DoxyCodeLine{00049\ \ \ \ \ \textcolor{keywordtype}{bool}\ atType(\mbox{\hyperlink{_token_type_8h_afa91e1934f818659a4e2b0c8ce1214b0}{TokenType}}\ type)\{}
+\DoxyCodeLine{00050\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{class_parser_a249888403db5d3567b4369199c3128d9}{tokens}}[current]-\/>type\ ==\ type;}
+\DoxyCodeLine{00051\ \ \ \ \ \}}
+\DoxyCodeLine{00052\ }
+\DoxyCodeLine{00053\ \ \ \ \ \mbox{\hyperlink{class_statement}{Statement}}*\ statement();}
+\DoxyCodeLine{00054\ \ \ \ \ \mbox{\hyperlink{class_expression}{Expression}}*\ expression();}
+\DoxyCodeLine{00055\ \ \ \ \ \mbox{\hyperlink{class_expression}{Expression}}*\ logicalOrExpression();}
+\DoxyCodeLine{00056\ \ \ \ \ \mbox{\hyperlink{class_expression}{Expression}}*\ logicalAndExpression();}
+\DoxyCodeLine{00057\ \ \ \ \ \mbox{\hyperlink{class_expression}{Expression}}*\ equalityExpression();}
+\DoxyCodeLine{00058\ \ \ \ \ \mbox{\hyperlink{class_expression}{Expression}}*\ comparisonExpression();}
+\DoxyCodeLine{00059\ \ \ \ \ \mbox{\hyperlink{class_expression}{Expression}}*\ termExpression();}
+\DoxyCodeLine{00060\ \ \ \ \ \mbox{\hyperlink{class_expression}{Expression}}*\ factorExpression();}
+\DoxyCodeLine{00061\ \ \ \ \ \mbox{\hyperlink{class_expression}{Expression}}*\ unaryExpression();}
+\DoxyCodeLine{00062\ \ \ \ \ \mbox{\hyperlink{class_expression}{Expression}}*\ primaryExpression();}
+\DoxyCodeLine{00063\ \};}
+\DoxyCodeLine{00064\ }
+\DoxyCodeLine{00065\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//MATURSKI\_2\_PARSER\_H}}
 
 \end{DoxyCode}

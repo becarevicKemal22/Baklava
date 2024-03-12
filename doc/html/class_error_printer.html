@@ -93,12 +93,10 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a54a5112127cf20b101c492be54d2d27f" id="r_a54a5112127cf20b101c492be54d2d27f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a54a5112127cf20b101c492be54d2d27f">printLexerError</a> (<a class="el" href="_error_code_8h.html#a59e56af19e754a6aa26a612ebf91d05f">ErrorCode</a> errorCode, unsigned int lineNumber, unsigned int offset, unsigned int currentChar)</td></tr>
 <tr class="memdesc:a54a5112127cf20b101c492be54d2d27f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Prints a lexer error message to the console.  <br /></td></tr>
 <tr class="separator:a54a5112127cf20b101c492be54d2d27f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aac05ec1fe434c60ed889497e5619429b" id="r_aac05ec1fe434c60ed889497e5619429b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aac05ec1fe434c60ed889497e5619429b">printParserError</a> (const <a class="el" href="class_parser_error.html">ParserError</a> *error)</td></tr>
+<tr class="separator:aac05ec1fe434c60ed889497e5619429b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1fa3e12596c5085ed323dda469c9a526" id="r_a1fa3e12596c5085ed323dda469c9a526"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a1fa3e12596c5085ed323dda469c9a526">printRuntimeError</a> (const <a class="el" href="class_runtime_error.html">RuntimeError</a> *error)</td></tr>
 <tr class="separator:a1fa3e12596c5085ed323dda469c9a526"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac49bb70f90a27376df012996981feb9f" id="r_ac49bb70f90a27376df012996981feb9f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac49bb70f90a27376df012996981feb9f">printWrongTypeError</a> (const <a class="el" href="class_wrong_type_error.html">WrongTypeError</a> *error)</td></tr>
-<tr class="separator:ac49bb70f90a27376df012996981feb9f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a378609a66c3c9f4402289236022bcd8d" id="r_a378609a66c3c9f4402289236022bcd8d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a378609a66c3c9f4402289236022bcd8d">printWrongBinaryOperandTypeError</a> (const <a class="el" href="class_wrong_binary_operand_types.html">WrongBinaryOperandTypes</a> *error)</td></tr>
-<tr class="separator:a378609a66c3c9f4402289236022bcd8d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-static-methods" name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
@@ -241,6 +239,23 @@ Static Public Member Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="aac05ec1fe434c60ed889497e5619429b" name="aac05ec1fe434c60ed889497e5619429b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aac05ec1fe434c60ed889497e5619429b">&#9670;&#160;</a></span>printParserError()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void ErrorPrinter::printParserError </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="class_parser_error.html">ParserError</a> *</td>          <td class="paramname"><span class="paramname"><em>error</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="a1fa3e12596c5085ed323dda469c9a526" name="a1fa3e12596c5085ed323dda469c9a526"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a1fa3e12596c5085ed323dda469c9a526">&#9670;&#160;</a></span>printRuntimeError()</h2>
 
@@ -251,40 +266,6 @@ Static Public Member Functions</h2></td></tr>
           <td class="memname">void ErrorPrinter::printRuntimeError </td>
           <td>(</td>
           <td class="paramtype">const <a class="el" href="class_runtime_error.html">RuntimeError</a> *</td>          <td class="paramname"><span class="paramname"><em>error</em></span></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a378609a66c3c9f4402289236022bcd8d" name="a378609a66c3c9f4402289236022bcd8d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a378609a66c3c9f4402289236022bcd8d">&#9670;&#160;</a></span>printWrongBinaryOperandTypeError()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void ErrorPrinter::printWrongBinaryOperandTypeError </td>
-          <td>(</td>
-          <td class="paramtype">const <a class="el" href="class_wrong_binary_operand_types.html">WrongBinaryOperandTypes</a> *</td>          <td class="paramname"><span class="paramname"><em>error</em></span></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="ac49bb70f90a27376df012996981feb9f" name="ac49bb70f90a27376df012996981feb9f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac49bb70f90a27376df012996981feb9f">&#9670;&#160;</a></span>printWrongTypeError()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void ErrorPrinter::printWrongTypeError </td>
-          <td>(</td>
-          <td class="paramtype">const <a class="el" href="class_wrong_type_error.html">WrongTypeError</a> *</td>          <td class="paramname"><span class="paramname"><em>error</em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>

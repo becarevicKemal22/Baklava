@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['offset_0',['offset',['../class_token.html#a314f74c21d849846dd9c7b82b14de97b',1,'Token']]],
-  ['op_1',['op',['../class_binary_expression.html#a737ddafc2a22fa29b1830d4a21638bfa',1,'BinaryExpression::op'],['../class_unary_expression.html#a1c8a013bdf08c1ba4b14391721b974e9',1,'UnaryExpression::op']]]
+  ['next_0',['next',['../struct_object.html#a29524055e3b5fe5df2e3c41fa81ff1ff',1,'Object']]],
+  ['number_1',['number',['../struct_runtime_value.html#a9ce23b8a61d22b2695b849499d5b65b1',1,'RuntimeValue']]]
 ];

@@ -1,0 +1,62 @@
+\doxysection{src/interpreter/\+Object.h File Reference}
+\hypertarget{_object_8h}{}\label{_object_8h}\index{src/interpreter/Object.h@{src/interpreter/Object.h}}
+{\ttfamily \#include $<$cstdint$>$}\newline
+{\ttfamily \#include $<$string$>$}\newline
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{struct_object}{Object}}
+\item 
+struct \mbox{\hyperlink{struct_object_string}{Object\+String}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{_object_8h_ac9b6369d430651218b7315609898da08}{IS\+\_\+\+STRING\+\_\+\+OBJ}}(value)~((value).as.\+object-\/$>$type == \mbox{\hyperlink{_object_8h_ad77a2400b6233b221e23bc962da32b0da9fed860f78f69ed0723cd3588ef5267a}{Object\+Type\+::\+OBJECT\+\_\+\+STRING}})
+\item 
+\#define \mbox{\hyperlink{_object_8h_a4ad71079a6c6836e3dbf1f67e5a792fe}{AS\+\_\+\+STRING\+\_\+\+OBJ}}(value)~((\mbox{\hyperlink{struct_object_string}{Object\+String}}\texorpdfstring{$\ast$}{*})value.\+as.\+object)
+\item 
+\#define \mbox{\hyperlink{_object_8h_adb34b6eedffa62f2d9080d65c05b2a1d}{GET\+\_\+\+STRING\+\_\+\+OBJ\+\_\+\+VALUE}}(val)~(\mbox{\hyperlink{_object_8h_a4ad71079a6c6836e3dbf1f67e5a792fe}{AS\+\_\+\+STRING\+\_\+\+OBJ}}(val)-\/$>$value)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+enum class \mbox{\hyperlink{_object_8h_ad77a2400b6233b221e23bc962da32b0d}{Object\+Type}} \+: uint8\+\_\+t \{ \mbox{\hyperlink{_object_8h_ad77a2400b6233b221e23bc962da32b0da9fed860f78f69ed0723cd3588ef5267a}{OBJECT\+\_\+\+STRING}}
+ \}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Macro Definition Documentation}
+\Hypertarget{_object_8h_a4ad71079a6c6836e3dbf1f67e5a792fe}\label{_object_8h_a4ad71079a6c6836e3dbf1f67e5a792fe} 
+\index{Object.h@{Object.h}!AS\_STRING\_OBJ@{AS\_STRING\_OBJ}}
+\index{AS\_STRING\_OBJ@{AS\_STRING\_OBJ}!Object.h@{Object.h}}
+\doxysubsubsection{\texorpdfstring{AS\_STRING\_OBJ}{AS\_STRING\_OBJ}}
+{\footnotesize\ttfamily \#define AS\+\_\+\+STRING\+\_\+\+OBJ(\begin{DoxyParamCaption}\item[{}]{value }\end{DoxyParamCaption})~((\mbox{\hyperlink{struct_object_string}{Object\+String}}\texorpdfstring{$\ast$}{*})value.\+as.\+object)}
+
+\Hypertarget{_object_8h_adb34b6eedffa62f2d9080d65c05b2a1d}\label{_object_8h_adb34b6eedffa62f2d9080d65c05b2a1d} 
+\index{Object.h@{Object.h}!GET\_STRING\_OBJ\_VALUE@{GET\_STRING\_OBJ\_VALUE}}
+\index{GET\_STRING\_OBJ\_VALUE@{GET\_STRING\_OBJ\_VALUE}!Object.h@{Object.h}}
+\doxysubsubsection{\texorpdfstring{GET\_STRING\_OBJ\_VALUE}{GET\_STRING\_OBJ\_VALUE}}
+{\footnotesize\ttfamily \#define GET\+\_\+\+STRING\+\_\+\+OBJ\+\_\+\+VALUE(\begin{DoxyParamCaption}\item[{}]{val }\end{DoxyParamCaption})~(\mbox{\hyperlink{_object_8h_a4ad71079a6c6836e3dbf1f67e5a792fe}{AS\+\_\+\+STRING\+\_\+\+OBJ}}(val)-\/$>$value)}
+
+\Hypertarget{_object_8h_ac9b6369d430651218b7315609898da08}\label{_object_8h_ac9b6369d430651218b7315609898da08} 
+\index{Object.h@{Object.h}!IS\_STRING\_OBJ@{IS\_STRING\_OBJ}}
+\index{IS\_STRING\_OBJ@{IS\_STRING\_OBJ}!Object.h@{Object.h}}
+\doxysubsubsection{\texorpdfstring{IS\_STRING\_OBJ}{IS\_STRING\_OBJ}}
+{\footnotesize\ttfamily \#define IS\+\_\+\+STRING\+\_\+\+OBJ(\begin{DoxyParamCaption}\item[{}]{value }\end{DoxyParamCaption})~((value).as.\+object-\/$>$type == \mbox{\hyperlink{_object_8h_ad77a2400b6233b221e23bc962da32b0da9fed860f78f69ed0723cd3588ef5267a}{Object\+Type\+::\+OBJECT\+\_\+\+STRING}})}
+
+
+
+\doxysubsection{Enumeration Type Documentation}
+\Hypertarget{_object_8h_ad77a2400b6233b221e23bc962da32b0d}\label{_object_8h_ad77a2400b6233b221e23bc962da32b0d} 
+\index{Object.h@{Object.h}!ObjectType@{ObjectType}}
+\index{ObjectType@{ObjectType}!Object.h@{Object.h}}
+\doxysubsubsection{\texorpdfstring{ObjectType}{ObjectType}}
+{\footnotesize\ttfamily enum class \mbox{\hyperlink{_object_8h_ad77a2400b6233b221e23bc962da32b0d}{Object\+Type}} \+: uint8\+\_\+t\hspace{0.3cm}{\ttfamily [strong]}}
+
+\begin{DoxyEnumFields}{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{OBJECT\_STRING@{OBJECT\_STRING}!Object.h@{Object.h}}\index{Object.h@{Object.h}!OBJECT\_STRING@{OBJECT\_STRING}}}\Hypertarget{_object_8h_ad77a2400b6233b221e23bc962da32b0da9fed860f78f69ed0723cd3588ef5267a}\label{_object_8h_ad77a2400b6233b221e23bc962da32b0da9fed860f78f69ed0723cd3588ef5267a} 
+OBJECT\+\_\+\+STRING&\\
+\hline
+
+\end{DoxyEnumFields}

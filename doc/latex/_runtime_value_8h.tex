@@ -2,24 +2,40 @@
 \hypertarget{_runtime_value_8h}{}\label{_runtime_value_8h}\index{src/interpreter/RuntimeValue.h@{src/interpreter/RuntimeValue.h}}
 {\ttfamily \#include $<$cstdint$>$}\newline
 {\ttfamily \#include $<$string$>$}\newline
+{\ttfamily \#include "{}Object.\+h"{}}\newline
 \doxysubsubsection*{Classes}
 \begin{DoxyCompactItemize}
 \item 
 struct \mbox{\hyperlink{struct_runtime_value}{Runtime\+Value}}
 \begin{DoxyCompactList}\small\item\em Discriminated union representing a runtime value. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{_runtime_value_8h_a4da06c994a3591d379aca99d26b7e7f5}{IS\+\_\+\+OBJ}}(value)~((value).type == \mbox{\hyperlink{_runtime_value_8h_a374c860c922f0b389e0291d92c099c35a497031794414a552435f90151ac3b54b}{Value\+Type\+::\+Object}})
+\end{DoxyCompactItemize}
 \doxysubsubsection*{Enumerations}
 \begin{DoxyCompactItemize}
 \item 
 enum class \mbox{\hyperlink{_runtime_value_8h_a374c860c922f0b389e0291d92c099c35}{Value\+Type}} \+: uint8\+\_\+t \{ \mbox{\hyperlink{_runtime_value_8h_a374c860c922f0b389e0291d92c099c35ab2ee912b91d69b435159c7c3f6df7f5f}{Number}}
 , \mbox{\hyperlink{_runtime_value_8h_a374c860c922f0b389e0291d92c099c35a27226c864bac7454a8504f8edb15d95b}{Boolean}}
 , \mbox{\hyperlink{_runtime_value_8h_a374c860c922f0b389e0291d92c099c35abbb93ef26e3c101ff11cdd21cab08a94}{Null}}
+, \mbox{\hyperlink{_runtime_value_8h_a374c860c922f0b389e0291d92c099c35a497031794414a552435f90151ac3b54b}{Object}}
  \}
 \begin{DoxyCompactList}\small\item\em Enum class which defines all types of runtime values in the language. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsubsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
-std\+::wstring \mbox{\hyperlink{_runtime_value_8h_ad8f1e3d398dd0b69ecf92d9923f58bb6}{value\+Type\+To\+String}} (\mbox{\hyperlink{_runtime_value_8h_a374c860c922f0b389e0291d92c099c35}{Value\+Type}} type)
-\begin{DoxyCompactList}\small\item\em Converts a Value\+Type to a string. \end{DoxyCompactList}\end{DoxyCompactItemize}
+std\+::wstring \mbox{\hyperlink{_runtime_value_8h_adf30048625b9cbd3bc2c6ea783e7abe4}{get\+Runtime\+Value\+Type\+String}} (const \mbox{\hyperlink{struct_runtime_value}{Runtime\+Value}} \&value)
+\begin{DoxyCompactList}\small\item\em returns the type of a runtime value as a string. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Macro Definition Documentation}
+\Hypertarget{_runtime_value_8h_a4da06c994a3591d379aca99d26b7e7f5}\label{_runtime_value_8h_a4da06c994a3591d379aca99d26b7e7f5} 
+\index{RuntimeValue.h@{RuntimeValue.h}!IS\_OBJ@{IS\_OBJ}}
+\index{IS\_OBJ@{IS\_OBJ}!RuntimeValue.h@{RuntimeValue.h}}
+\doxysubsubsection{\texorpdfstring{IS\_OBJ}{IS\_OBJ}}
+{\footnotesize\ttfamily \#define IS\+\_\+\+OBJ(\begin{DoxyParamCaption}\item[{}]{value }\end{DoxyParamCaption})~((value).type == \mbox{\hyperlink{_runtime_value_8h_a374c860c922f0b389e0291d92c099c35a497031794414a552435f90151ac3b54b}{Value\+Type\+::\+Object}})}
+
 
 
 \doxysubsection{Enumeration Type Documentation}
@@ -46,25 +62,29 @@ Boolean&\\
 Null&\\
 \hline
 
+\raisebox{\heightof{T}}[0pt][0pt]{\index{Object@{Object}!RuntimeValue.h@{RuntimeValue.h}}\index{RuntimeValue.h@{RuntimeValue.h}!Object@{Object}}}\Hypertarget{_runtime_value_8h_a374c860c922f0b389e0291d92c099c35a497031794414a552435f90151ac3b54b}\label{_runtime_value_8h_a374c860c922f0b389e0291d92c099c35a497031794414a552435f90151ac3b54b} 
+Object&\\
+\hline
+
 \end{DoxyEnumFields}
 
 
 \doxysubsection{Function Documentation}
-\Hypertarget{_runtime_value_8h_ad8f1e3d398dd0b69ecf92d9923f58bb6}\label{_runtime_value_8h_ad8f1e3d398dd0b69ecf92d9923f58bb6} 
-\index{RuntimeValue.h@{RuntimeValue.h}!valueTypeToString@{valueTypeToString}}
-\index{valueTypeToString@{valueTypeToString}!RuntimeValue.h@{RuntimeValue.h}}
-\doxysubsubsection{\texorpdfstring{valueTypeToString()}{valueTypeToString()}}
-{\footnotesize\ttfamily std\+::wstring value\+Type\+To\+String (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{_runtime_value_8h_a374c860c922f0b389e0291d92c099c35}{Value\+Type}}}]{type }\end{DoxyParamCaption})}
+\Hypertarget{_runtime_value_8h_adf30048625b9cbd3bc2c6ea783e7abe4}\label{_runtime_value_8h_adf30048625b9cbd3bc2c6ea783e7abe4} 
+\index{RuntimeValue.h@{RuntimeValue.h}!getRuntimeValueTypeString@{getRuntimeValueTypeString}}
+\index{getRuntimeValueTypeString@{getRuntimeValueTypeString}!RuntimeValue.h@{RuntimeValue.h}}
+\doxysubsubsection{\texorpdfstring{getRuntimeValueTypeString()}{getRuntimeValueTypeString()}}
+{\footnotesize\ttfamily std\+::wstring get\+Runtime\+Value\+Type\+String (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{struct_runtime_value}{Runtime\+Value}} \&}]{value }\end{DoxyParamCaption})}
 
 
 
-Converts a Value\+Type to a string. 
+returns the type of a runtime value as a string. 
 
 
 \begin{DoxyParams}{Parameters}
-{\em type} & Value\+Type to convert. \\
+{\em value} & \doxylink{struct_runtime_value}{Runtime\+Value} to extract type from. \\
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
-std\+::wstring representation of the given Value\+Type. 
+std\+::wstring stringified runtime value type. 
 \end{DoxyReturn}

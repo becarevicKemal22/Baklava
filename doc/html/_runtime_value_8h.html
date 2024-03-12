@@ -77,6 +77,7 @@ $(function() {
 <div class="header">
   <div class="summary">
 <a href="#nested-classes">Classes</a> &#124;
+<a href="#define-members">Macros</a> &#124;
 <a href="#enum-members">Enumerations</a> &#124;
 <a href="#func-members">Functions</a>  </div>
   <div class="headertitle"><div class="title">RuntimeValue.h File Reference</div></div>
@@ -84,6 +85,7 @@ $(function() {
 <div class="contents">
 <div class="textblock"><code>#include &lt;cstdint&gt;</code><br />
 <code>#include &lt;string&gt;</code><br />
+<code>#include &quot;<a class="el" href="_object_8h_source.html">Object.h</a>&quot;</code><br />
 </div>
 <p><a href="_runtime_value_8h_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
@@ -93,21 +95,45 @@ Classes</h2></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Discriminated union representing a runtime value.  <a href="struct_runtime_value.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="define-members" name="define-members"></a>
+Macros</h2></td></tr>
+<tr class="memitem:a4da06c994a3591d379aca99d26b7e7f5" id="r_a4da06c994a3591d379aca99d26b7e7f5"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a4da06c994a3591d379aca99d26b7e7f5">IS_OBJ</a>(value)&#160;&#160;&#160;((value).type == <a class="el" href="#a374c860c922f0b389e0291d92c099c35a497031794414a552435f90151ac3b54b">ValueType::Object</a>)</td></tr>
+<tr class="separator:a4da06c994a3591d379aca99d26b7e7f5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="enum-members" name="enum-members"></a>
 Enumerations</h2></td></tr>
 <tr class="memitem:a374c860c922f0b389e0291d92c099c35" id="r_a374c860c922f0b389e0291d92c099c35"><td class="memItemLeft" align="right" valign="top">enum class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a374c860c922f0b389e0291d92c099c35">ValueType</a> : uint8_t { <a class="el" href="#a374c860c922f0b389e0291d92c099c35ab2ee912b91d69b435159c7c3f6df7f5f">Number</a>
 , <a class="el" href="#a374c860c922f0b389e0291d92c099c35a27226c864bac7454a8504f8edb15d95b">Boolean</a>
 , <a class="el" href="#a374c860c922f0b389e0291d92c099c35abbb93ef26e3c101ff11cdd21cab08a94">Null</a>
+, <a class="el" href="#a374c860c922f0b389e0291d92c099c35a497031794414a552435f90151ac3b54b">Object</a>
  }</td></tr>
 <tr class="memdesc:a374c860c922f0b389e0291d92c099c35"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enum class which defines all types of runtime values in the language.  <a href="#a374c860c922f0b389e0291d92c099c35">More...</a><br /></td></tr>
 <tr class="separator:a374c860c922f0b389e0291d92c099c35"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:ad8f1e3d398dd0b69ecf92d9923f58bb6" id="r_ad8f1e3d398dd0b69ecf92d9923f58bb6"><td class="memItemLeft" align="right" valign="top">std::wstring&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad8f1e3d398dd0b69ecf92d9923f58bb6">valueTypeToString</a> (<a class="el" href="#a374c860c922f0b389e0291d92c099c35">ValueType</a> type)</td></tr>
-<tr class="memdesc:ad8f1e3d398dd0b69ecf92d9923f58bb6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Converts a ValueType to a string.  <br /></td></tr>
-<tr class="separator:ad8f1e3d398dd0b69ecf92d9923f58bb6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adf30048625b9cbd3bc2c6ea783e7abe4" id="r_adf30048625b9cbd3bc2c6ea783e7abe4"><td class="memItemLeft" align="right" valign="top">std::wstring&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#adf30048625b9cbd3bc2c6ea783e7abe4">getRuntimeValueTypeString</a> (const <a class="el" href="struct_runtime_value.html">RuntimeValue</a> &amp;value)</td></tr>
+<tr class="memdesc:adf30048625b9cbd3bc2c6ea783e7abe4"><td class="mdescLeft">&#160;</td><td class="mdescRight">returns the type of a runtime value as a string.  <br /></td></tr>
+<tr class="separator:adf30048625b9cbd3bc2c6ea783e7abe4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<h2 class="groupheader">Macro Definition Documentation</h2>
+<a id="a4da06c994a3591d379aca99d26b7e7f5" name="a4da06c994a3591d379aca99d26b7e7f5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4da06c994a3591d379aca99d26b7e7f5">&#9670;&#160;</a></span>IS_OBJ</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define IS_OBJ</td>
+          <td>(</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname">value</span></td><td>)</td>
+          <td>&#160;&#160;&#160;((value).type == <a class="el" href="#a374c860c922f0b389e0291d92c099c35a497031794414a552435f90151ac3b54b">ValueType::Object</a>)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <h2 class="groupheader">Enumeration Type Documentation</h2>
 <a id="a374c860c922f0b389e0291d92c099c35" name="a374c860c922f0b389e0291d92c099c35"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a374c860c922f0b389e0291d92c099c35">&#9670;&#160;</a></span>ValueType</h2>
@@ -134,34 +160,35 @@ Functions</h2></td></tr>
 <tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a374c860c922f0b389e0291d92c099c35ab2ee912b91d69b435159c7c3f6df7f5f" name="a374c860c922f0b389e0291d92c099c35ab2ee912b91d69b435159c7c3f6df7f5f"></a>Number&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="a374c860c922f0b389e0291d92c099c35a27226c864bac7454a8504f8edb15d95b" name="a374c860c922f0b389e0291d92c099c35a27226c864bac7454a8504f8edb15d95b"></a>Boolean&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="a374c860c922f0b389e0291d92c099c35abbb93ef26e3c101ff11cdd21cab08a94" name="a374c860c922f0b389e0291d92c099c35abbb93ef26e3c101ff11cdd21cab08a94"></a>Null&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a374c860c922f0b389e0291d92c099c35a497031794414a552435f90151ac3b54b" name="a374c860c922f0b389e0291d92c099c35a497031794414a552435f90151ac3b54b"></a>Object&#160;</td><td class="fielddoc"></td></tr>
 </table>
 
 </div>
 </div>
 <h2 class="groupheader">Function Documentation</h2>
-<a id="ad8f1e3d398dd0b69ecf92d9923f58bb6" name="ad8f1e3d398dd0b69ecf92d9923f58bb6"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad8f1e3d398dd0b69ecf92d9923f58bb6">&#9670;&#160;</a></span>valueTypeToString()</h2>
+<a id="adf30048625b9cbd3bc2c6ea783e7abe4" name="adf30048625b9cbd3bc2c6ea783e7abe4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adf30048625b9cbd3bc2c6ea783e7abe4">&#9670;&#160;</a></span>getRuntimeValueTypeString()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">std::wstring valueTypeToString </td>
+          <td class="memname">std::wstring getRuntimeValueTypeString </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="#a374c860c922f0b389e0291d92c099c35">ValueType</a></td>          <td class="paramname"><span class="paramname"><em>type</em></span></td><td>)</td>
+          <td class="paramtype">const <a class="el" href="struct_runtime_value.html">RuntimeValue</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>value</em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Converts a ValueType to a string. </p>
+<p>returns the type of a runtime value as a string. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">type</td><td>ValueType to convert. </td></tr>
+    <tr><td class="paramname">value</td><td><a class="el" href="struct_runtime_value.html" title="Discriminated union representing a runtime value.">RuntimeValue</a> to extract type from. </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>std::wstring representation of the given ValueType. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>std::wstring stringified runtime value type. </dd></dl>
 
 </div>
 </div>

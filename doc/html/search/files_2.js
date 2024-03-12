@@ -7,5 +7,6 @@ var searchData=
   ['errorprinter_2eh_4',['ErrorPrinter.h',['../_error_printer_8h.html',1,'']]],
   ['exceptionhelpers_2ecpp_5',['ExceptionHelpers.cpp',['../_exception_helpers_8cpp.html',1,'']]],
   ['exceptionhelpers_2eh_6',['ExceptionHelpers.h',['../_exception_helpers_8h.html',1,'']]],
-  ['expression_2eh_7',['Expression.h',['../_expression_8h.html',1,'']]]
+  ['expectedxbeforey_2eh_7',['ExpectedXBeforeY.h',['../_expected_x_before_y_8h.html',1,'']]],
+  ['expression_2eh_8',['Expression.h',['../_expression_8h.html',1,'']]]
 ];

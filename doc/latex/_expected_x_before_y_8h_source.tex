@@ -1,0 +1,31 @@
+\doxysection{Expected\+XBefore\+Y.\+h}
+\hypertarget{_expected_x_before_y_8h_source}{}\label{_expected_x_before_y_8h_source}\index{src/error/exceptions/parser/ExpectedXBeforeY.h@{src/error/exceptions/parser/ExpectedXBeforeY.h}}
+\mbox{\hyperlink{_expected_x_before_y_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{//}}
+\DoxyCodeLine{00002\ \textcolor{comment}{//\ Created\ by\ kemal\ on\ 3/12/2024.}}
+\DoxyCodeLine{00003\ \textcolor{comment}{//}}
+\DoxyCodeLine{00004\ }
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#ifndef\ MATURSKI\_2\_EXPECTEDXBEFOREY\_H}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#define\ MATURSKI\_2\_EXPECTEDXBEFOREY\_H}}
+\DoxyCodeLine{00007\ }
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_parser_error_8h}{ParserError.h}}"{}}}
+\DoxyCodeLine{00009\ }
+\DoxyCodeLine{00013\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_expected_x_before_y}{ExpectedXBeforeY}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{class_parser_error}{ParserError}}\ \{}
+\DoxyCodeLine{00014\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00015\ \ \ \ \ \mbox{\hyperlink{class_expected_x_before_y_a958b68b1156bf9771b02cd80a22e1914}{ExpectedXBeforeY}}(std::wstring\ \mbox{\hyperlink{class_expected_x_before_y_a35f4c47f57ea32666aa591cf65be2101}{expectedWhat}},\ \mbox{\hyperlink{class_token}{TokenPtr}}\ \mbox{\hyperlink{class_expected_x_before_y_a48efc3ad763e64f3992e1f35da2697bf}{found}},\ \mbox{\hyperlink{class_token}{TokenPtr}}\ \mbox{\hyperlink{class_expected_x_before_y_abd0d7b21f135849426f0f2df17d0515f}{before}})\ :\ \mbox{\hyperlink{class_parser_error}{ParserError}}(}
+\DoxyCodeLine{00016\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_error_code_8h_a59e56af19e754a6aa26a612ebf91d05fae7bd9c309ae19bbfc14f515e11283557}{ERROR\_EXPECTED\_X\_BEFORE\_Y}}),\ \mbox{\hyperlink{class_expected_x_before_y_a35f4c47f57ea32666aa591cf65be2101}{expectedWhat}}(\mbox{\hyperlink{class_expected_x_before_y_a35f4c47f57ea32666aa591cf65be2101}{expectedWhat}}),\ \mbox{\hyperlink{class_expected_x_before_y_a48efc3ad763e64f3992e1f35da2697bf}{found}}(std::move(\mbox{\hyperlink{class_expected_x_before_y_a48efc3ad763e64f3992e1f35da2697bf}{found}})),}
+\DoxyCodeLine{00017\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_expected_x_before_y_abd0d7b21f135849426f0f2df17d0515f}{before}}(std::move(\mbox{\hyperlink{class_expected_x_before_y_abd0d7b21f135849426f0f2df17d0515f}{before}}))\ \{}
+\DoxyCodeLine{00018\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_parser_error_afd3884bd1c9e5edf8321f7824a858657}{messageArguments}}.push\_back(\mbox{\hyperlink{class_expected_x_before_y_a35f4c47f57ea32666aa591cf65be2101}{expectedWhat}});}
+\DoxyCodeLine{00019\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{class_expected_x_before_y_abd0d7b21f135849426f0f2df17d0515f}{before}}-\/>\mbox{\hyperlink{class_token_a67919af9f3a80dc0b28a0ab1e6d5bf8a}{type}}\ ==\ \mbox{\hyperlink{_token_type_8h_afa91e1934f818659a4e2b0c8ce1214b0a49650dcc55dc413da4032cbe44b15d37}{TokenType::Eof}})\ \mbox{\hyperlink{class_expected_x_before_y_abd0d7b21f135849426f0f2df17d0515f}{before}}-\/>\mbox{\hyperlink{class_token_acfd9e64709c736211934e4b27ac20955}{value}}\ =\ L\textcolor{stringliteral}{"{}kraj\ datoteke"{}};}
+\DoxyCodeLine{00020\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_parser_error_afd3884bd1c9e5edf8321f7824a858657}{messageArguments}}.push\_back(\mbox{\hyperlink{class_expected_x_before_y_abd0d7b21f135849426f0f2df17d0515f}{before}}-\/>\mbox{\hyperlink{class_token_acfd9e64709c736211934e4b27ac20955}{value}});}
+\DoxyCodeLine{00021\ \ \ \ \ \}}
+\DoxyCodeLine{00022\ }
+\DoxyCodeLine{00023\ \ \ \ \ std::wstring\ \mbox{\hyperlink{class_expected_x_before_y_a35f4c47f57ea32666aa591cf65be2101}{expectedWhat}};}
+\DoxyCodeLine{00024\ \ \ \ \ \mbox{\hyperlink{class_token}{TokenPtr}}\ \mbox{\hyperlink{class_expected_x_before_y_a48efc3ad763e64f3992e1f35da2697bf}{found}};}
+\DoxyCodeLine{00025\ \ \ \ \ \mbox{\hyperlink{class_token}{TokenPtr}}\ \mbox{\hyperlink{class_expected_x_before_y_abd0d7b21f135849426f0f2df17d0515f}{before}};}
+\DoxyCodeLine{00026\ \};}
+\DoxyCodeLine{00027\ }
+\DoxyCodeLine{00028\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//MATURSKI\_2\_EXPECTEDXBEFOREY\_H}}
+
+\end{DoxyCode}

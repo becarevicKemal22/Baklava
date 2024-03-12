@@ -24,6 +24,7 @@ enum class AstNodeType : uint8_t {
     BooleanLiteralExpression,
     NumericLiteralExpression,
     StringLiteralExpression,
+    GroupingExpression,
 };
 
 class Statement;
@@ -37,6 +38,7 @@ class NullLiteralExpression;
 class BooleanLiteralExpression;
 class NumericLiteralExpression;
 class StringLiteralExpression;
+class GroupingExpression;
 
 typedef Statement* StmtPtr;
 typedef Expression* ExprPtr;
