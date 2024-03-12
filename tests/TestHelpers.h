@@ -8,9 +8,13 @@
 #include <catch2/catch_test_macros.hpp>
 
 #include "Statement.h"
+#include "ExpressionStatement.h"
 
 template<typename T>
 T* getNode(Statement* node) {
+    if(dynamic_cast<ExpressionStatement*>(node) != nullptr) {
+        return getNode<T>(dynamic_cast<ExpressionStatement*>(node)->expr);
+    }
     T* castedNode = dynamic_cast<T*>(node);
     REQUIRE(castedNode != nullptr);
     return castedNode;

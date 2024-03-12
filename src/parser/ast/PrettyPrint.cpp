@@ -14,6 +14,9 @@
 #include "BooleanLiteralExpression.h"
 #include "NumericLiteralExpression.h"
 #include "StringLiteralExpression.h"
+#include "GroupingExpression.h"
+#include "ExpressionStatement.h"
+#include "PrintStatement.h"
 
 void printStatement(Statement *statement, int depth);
 
@@ -76,6 +79,21 @@ void printStatement(Statement *statement, int depth) {
             break;
         case AstNodeType::StringLiteralExpression:
             printStringLiteralExpression(static_cast<StringLiteralExpression*>(statement), depth);
+            break;
+        case AstNodeType::GroupingExpression:
+            std::wcout << L"GroupingExpr ( ";
+            printStatement(static_cast<GroupingExpression*>(statement)->expr, depth + 1);
+            std::wcout << L" ) ";
+            break;
+        case AstNodeType::ExpressionStatement:
+            std::wcout << L"ExpressionStatement ( ";
+            printStatement(static_cast<ExpressionStatement*>(statement)->expr, depth + 1);
+            std::wcout << L" ) ";
+            break;
+        case AstNodeType::PrintStatement:
+            std::wcout << L"PrintStatement ( ";
+            printStatement(static_cast<PrintStatement*>(statement)->expr, depth + 1);
+            std::wcout << L" ) ";
             break;
         default:
             std::wcout << L"Unknown statement type" << std::endl;

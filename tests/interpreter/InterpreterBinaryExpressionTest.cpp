@@ -9,12 +9,14 @@
 #include "RuntimeValue.h"
 #include "../TestHelpers.h"
 
+#include "WrongBinaryOperandTypes.h"
+
 
 //*************************************
 // VALID BINARY EXPRESSIONS
 //*************************************
 
-TEST_CASE("Computes two number addition", "[interpreter][binary]"){
+TEST_CASE("Computes two number addition", "[interpreter][binary]") {
     std::wstring source = L"5 + 2";
     Interpreter interpreter;
 
@@ -23,7 +25,7 @@ TEST_CASE("Computes two number addition", "[interpreter][binary]"){
     REQUIRE(result.as.number == 7);
 }
 
-TEST_CASE("Computes two number subtraction", "[interpreter][binary]"){
+TEST_CASE("Computes two number subtraction", "[interpreter][binary]") {
     std::wstring source = L"5 - 2";
     Interpreter interpreter;
 
@@ -32,7 +34,7 @@ TEST_CASE("Computes two number subtraction", "[interpreter][binary]"){
     REQUIRE(result.as.number == 3);
 }
 
-TEST_CASE("Computes two number multiplication", "[interpreter][binary]"){
+TEST_CASE("Computes two number multiplication", "[interpreter][binary]") {
     std::wstring source = L"5 * 2";
     Interpreter interpreter;
 
@@ -41,7 +43,7 @@ TEST_CASE("Computes two number multiplication", "[interpreter][binary]"){
     REQUIRE(result.as.number == 10);
 }
 
-TEST_CASE("Computes two number division", "[interpreter][binary]"){
+TEST_CASE("Computes two number division", "[interpreter][binary]") {
     std::wstring source = L"5 / 2";
     Interpreter interpreter;
 
@@ -50,7 +52,7 @@ TEST_CASE("Computes two number division", "[interpreter][binary]"){
     REQUIRE(result.as.number == 2.5);
 }
 
-TEST_CASE("Computes two string concatenation", "[interpreter][binary]"){
+TEST_CASE("Computes two string concatenation", "[interpreter][binary]") {
     std::wstring source = L"\"hello\" + \"world\"";
     Interpreter interpreter;
 
@@ -65,244 +67,220 @@ TEST_CASE("Computes two string concatenation", "[interpreter][binary]"){
 // INVALID BINARY EXPRESSIONS
 //*************************************
 
-TEST_CASE("Reports error on number + string", "[interpreter][binary]"){
+TEST_CASE("Throws on number + string", "[interpreter][binary]") {
     std::wstring source = L"5 + \"string\"";
     Interpreter interpreter;
 
     RuntimeValue result;
 
-    REQUIRE_NOTHROW(result = interpreter.evaluate(parseSingleExpression(source)));
-    REQUIRE(interpreter.hadError);
+    REQUIRE_THROWS_AS(result = interpreter.evaluate(parseSingleExpression(source)), WrongBinaryOperandTypes);
 }
 
-TEST_CASE("Reports error on number + boolean", "[interpreter][binary]"){
+TEST_CASE("Throws on number + boolean", "[interpreter][binary]") {
     std::wstring source = L"5 + istina";
     Interpreter interpreter;
 
     RuntimeValue result;
 
-    REQUIRE_NOTHROW(result = interpreter.evaluate(parseSingleExpression(source)));
-    REQUIRE(interpreter.hadError);
+    REQUIRE_THROWS_AS(result = interpreter.evaluate(parseSingleExpression(source)), WrongBinaryOperandTypes);
 }
 
-TEST_CASE("Reports error on number + nula", "[interpreter][binary]"){
+TEST_CASE("Throws on number + nula", "[interpreter][binary]") {
     std::wstring source = L"5 + nula";
     Interpreter interpreter;
 
     RuntimeValue result;
 
-    REQUIRE_NOTHROW(result = interpreter.evaluate(parseSingleExpression(source)));
-    REQUIRE(interpreter.hadError);
+    REQUIRE_THROWS_AS(result = interpreter.evaluate(parseSingleExpression(source)), WrongBinaryOperandTypes);
 }
 
-TEST_CASE("Reports error on nula + nula", "[interpreter][binary]"){
+TEST_CASE("Throws on nula + nula", "[interpreter][binary]") {
     std::wstring source = L"nula + nula";
     Interpreter interpreter;
 
     RuntimeValue result;
 
-    REQUIRE_NOTHROW(result = interpreter.evaluate(parseSingleExpression(source)));
-    REQUIRE(interpreter.hadError);
+    REQUIRE_THROWS_AS(result = interpreter.evaluate(parseSingleExpression(source)), WrongBinaryOperandTypes);
 }
 
-TEST_CASE("Reports error on nula + boolean value", "[interpreter][binary]"){
+TEST_CASE("Throws on nula + boolean value", "[interpreter][binary]") {
     std::wstring source = L"nula + istina";
     Interpreter interpreter;
 
     RuntimeValue result;
 
-    REQUIRE_NOTHROW(result = interpreter.evaluate(parseSingleExpression(source)));
-    REQUIRE(interpreter.hadError);
+    REQUIRE_THROWS_AS(result = interpreter.evaluate(parseSingleExpression(source)), WrongBinaryOperandTypes);
 }
 
-TEST_CASE("Reports error on boolean value + boolean value", "[interpreter][binary]"){
+TEST_CASE("Throws on boolean value + boolean value", "[interpreter][binary]") {
     std::wstring source = L"istina + neistina";
     Interpreter interpreter;
 
     RuntimeValue result;
 
-    REQUIRE_NOTHROW(result = interpreter.evaluate(parseSingleExpression(source)));
-    REQUIRE(interpreter.hadError);
+    REQUIRE_THROWS_AS(result = interpreter.evaluate(parseSingleExpression(source)), WrongBinaryOperandTypes);
 }
 
-TEST_CASE("Reports error on number - string", "[interpreter][binary]"){
+TEST_CASE("Throws on number - string", "[interpreter][binary]") {
     std::wstring source = L"5 - \"string\"";
     Interpreter interpreter;
 
     RuntimeValue result;
 
-    REQUIRE_NOTHROW(result = interpreter.evaluate(parseSingleExpression(source)));
-    REQUIRE(interpreter.hadError);
+    REQUIRE_THROWS_AS(result = interpreter.evaluate(parseSingleExpression(source)), WrongBinaryOperandTypes);
 }
 
-TEST_CASE("Reports error on number - boolean", "[interpreter][binary]"){
+TEST_CASE("Throws on number - boolean", "[interpreter][binary]") {
     std::wstring source = L"5 - istina";
     Interpreter interpreter;
 
     RuntimeValue result;
 
-    REQUIRE_NOTHROW(result = interpreter.evaluate(parseSingleExpression(source)));
-    REQUIRE(interpreter.hadError);
+    REQUIRE_THROWS_AS(result = interpreter.evaluate(parseSingleExpression(source)), WrongBinaryOperandTypes);
 }
 
-TEST_CASE("Reports error on number - nula", "[interpreter][binary]"){
+TEST_CASE("Throws on number - nula", "[interpreter][binary]") {
     std::wstring source = L"5 - nula";
     Interpreter interpreter;
 
     RuntimeValue result;
 
-    REQUIRE_NOTHROW(result = interpreter.evaluate(parseSingleExpression(source)));
-    REQUIRE(interpreter.hadError);
+    REQUIRE_THROWS_AS(result = interpreter.evaluate(parseSingleExpression(source)), WrongBinaryOperandTypes);
 }
 
-TEST_CASE("Reports error on nula - nula", "[interpreter][binary]"){
+TEST_CASE("Throws on nula - nula", "[interpreter][binary]") {
     std::wstring source = L"nula - nula";
     Interpreter interpreter;
 
     RuntimeValue result;
 
-    REQUIRE_NOTHROW(result = interpreter.evaluate(parseSingleExpression(source)));
-    REQUIRE(interpreter.hadError);
+    REQUIRE_THROWS_AS(result = interpreter.evaluate(parseSingleExpression(source)), WrongBinaryOperandTypes);
 }
 
-TEST_CASE("Reports error on nula - boolean value", "[interpreter][binary]"){
+TEST_CASE("Throws on nula - boolean value", "[interpreter][binary]") {
     std::wstring source = L"nula - istina";
     Interpreter interpreter;
 
     RuntimeValue result;
 
-    REQUIRE_NOTHROW(result = interpreter.evaluate(parseSingleExpression(source)));
-    REQUIRE(interpreter.hadError);
+    REQUIRE_THROWS_AS(result = interpreter.evaluate(parseSingleExpression(source)), WrongBinaryOperandTypes);
 }
 
-TEST_CASE("Reports error on boolean value - boolean value", "[interpreter][binary]"){
+TEST_CASE("Throws on boolean value - boolean value", "[interpreter][binary]") {
     std::wstring source = L"istina - neistina";
     Interpreter interpreter;
 
     RuntimeValue result;
 
-    REQUIRE_NOTHROW(result = interpreter.evaluate(parseSingleExpression(source)));
-    REQUIRE(interpreter.hadError);
+    REQUIRE_THROWS_AS(result = interpreter.evaluate(parseSingleExpression(source)), WrongBinaryOperandTypes);
 }
 
-TEST_CASE("Reports error on number * string", "[interpreter][binary]"){
+TEST_CASE("Throws on number * string", "[interpreter][binary]") {
     std::wstring source = L"5 * \"string\"";
     Interpreter interpreter;
 
     RuntimeValue result;
 
-    REQUIRE_NOTHROW(result = interpreter.evaluate(parseSingleExpression(source)));
-    REQUIRE(interpreter.hadError);
+    REQUIRE_THROWS_AS(result = interpreter.evaluate(parseSingleExpression(source)), WrongBinaryOperandTypes);
 }
 
-TEST_CASE("Reports error on number * boolean", "[interpreter][binary]"){
+TEST_CASE("Throws on number * boolean", "[interpreter][binary]") {
     std::wstring source = L"5 * istina";
     Interpreter interpreter;
 
     RuntimeValue result;
 
-    REQUIRE_NOTHROW(result = interpreter.evaluate(parseSingleExpression(source)));
-    REQUIRE(interpreter.hadError);
+    REQUIRE_THROWS_AS(result = interpreter.evaluate(parseSingleExpression(source)), WrongBinaryOperandTypes);
 }
 
-TEST_CASE("Reports error on number * nula", "[interpreter][binary]"){
+TEST_CASE("Throws on number * nula", "[interpreter][binary]") {
     std::wstring source = L"5 * nula";
     Interpreter interpreter;
 
     RuntimeValue result;
 
-    REQUIRE_NOTHROW(result = interpreter.evaluate(parseSingleExpression(source)));
-    REQUIRE(interpreter.hadError);
+    REQUIRE_THROWS_AS(result = interpreter.evaluate(parseSingleExpression(source)), WrongBinaryOperandTypes);
 }
 
-TEST_CASE("Reports error on nula * nula", "[interpreter][binary]"){
+TEST_CASE("Throws on nula * nula", "[interpreter][binary]") {
     std::wstring source = L"nula * nula";
     Interpreter interpreter;
 
     RuntimeValue result;
 
-    REQUIRE_NOTHROW(result = interpreter.evaluate(parseSingleExpression(source)));
-    REQUIRE(interpreter.hadError);
+    REQUIRE_THROWS_AS(result = interpreter.evaluate(parseSingleExpression(source)), WrongBinaryOperandTypes);
 }
 
-TEST_CASE("Reports error on nula * boolean value", "[interpreter][binary]"){
+TEST_CASE("Throws on nula * boolean value", "[interpreter][binary]") {
     std::wstring source = L"nula * istina";
     Interpreter interpreter;
 
     RuntimeValue result;
 
-    REQUIRE_NOTHROW(result = interpreter.evaluate(parseSingleExpression(source)));
-    REQUIRE(interpreter.hadError);
+    REQUIRE_THROWS_AS(result = interpreter.evaluate(parseSingleExpression(source)), WrongBinaryOperandTypes);
 }
 
-TEST_CASE("Reports error on boolean value * boolean value", "[interpreter][binary]"){
+TEST_CASE("Throws on boolean value * boolean value", "[interpreter][binary]") {
     std::wstring source = L"istina * neistina";
     Interpreter interpreter;
 
     RuntimeValue result;
 
-    REQUIRE_NOTHROW(result = interpreter.evaluate(parseSingleExpression(source)));
-    REQUIRE(interpreter.hadError);
+    REQUIRE_THROWS_AS(result = interpreter.evaluate(parseSingleExpression(source)), WrongBinaryOperandTypes);
 }
 
-TEST_CASE("Reports error on number / string", "[interpreter][binary]"){
+TEST_CASE("Throws on number / string", "[interpreter][binary]") {
 
     std::wstring source = L"5 / \"string\"";
     Interpreter interpreter;
 
     RuntimeValue result;
 
-    REQUIRE_NOTHROW(result = interpreter.evaluate(parseSingleExpression(source)));
-    REQUIRE(interpreter.hadError);
+    REQUIRE_THROWS_AS(result = interpreter.evaluate(parseSingleExpression(source)), WrongBinaryOperandTypes);
 }
 
-TEST_CASE("Reports error on number / boolean", "[interpreter][binary]"){
+TEST_CASE("Throws on number / boolean", "[interpreter][binary]") {
     std::wstring source = L"5 / istina";
     Interpreter interpreter;
 
     RuntimeValue result;
 
-    REQUIRE_NOTHROW(result = interpreter.evaluate(parseSingleExpression(source)));
-    REQUIRE(interpreter.hadError);
+    REQUIRE_THROWS_AS(result = interpreter.evaluate(parseSingleExpression(source)), WrongBinaryOperandTypes);
 }
 
-TEST_CASE("Reports error on number / nula", "[interpreter][binary]"){
+TEST_CASE("Throws on number / nula", "[interpreter][binary]") {
     std::wstring source = L"5 / nula";
     Interpreter interpreter;
 
     RuntimeValue result;
 
-    REQUIRE_NOTHROW(result = interpreter.evaluate(parseSingleExpression(source)));
-    REQUIRE(interpreter.hadError);
+    REQUIRE_THROWS_AS(result = interpreter.evaluate(parseSingleExpression(source)), WrongBinaryOperandTypes);
 }
 
-TEST_CASE("Reports error on nula / nula", "[interpreter][binary]"){
+TEST_CASE("Throws on nula / nula", "[interpreter][binary]") {
     std::wstring source = L"nula / nula";
     Interpreter interpreter;
 
     RuntimeValue result;
 
-    REQUIRE_NOTHROW(result = interpreter.evaluate(parseSingleExpression(source)));
-    REQUIRE(interpreter.hadError);
+    REQUIRE_THROWS_AS(result = interpreter.evaluate(parseSingleExpression(source)), WrongBinaryOperandTypes);
 }
 
-TEST_CASE("Reports error on nula / boolean value", "[interpreter][binary]"){
+TEST_CASE("Throws on nula / boolean value", "[interpreter][binary]") {
     std::wstring source = L"nula / istina";
     Interpreter interpreter;
 
     RuntimeValue result;
 
-    REQUIRE_NOTHROW(result = interpreter.evaluate(parseSingleExpression(source)));
-    REQUIRE(interpreter.hadError);
+    REQUIRE_THROWS_AS(result = interpreter.evaluate(parseSingleExpression(source)), WrongBinaryOperandTypes);
 }
 
 
-TEST_CASE("Reports error on boolean value / boolean value", "[interpreter][binary]"){
+TEST_CASE("Throws on boolean value / boolean value", "[interpreter][binary]") {
     std::wstring source = L"istina / neistina";
     Interpreter interpreter;
 
     RuntimeValue result;
 
-    REQUIRE_NOTHROW(result = interpreter.evaluate(parseSingleExpression(source)));
-    REQUIRE(interpreter.hadError);
+    REQUIRE_THROWS_AS(result = interpreter.evaluate(parseSingleExpression(source)), WrongBinaryOperandTypes);
 }

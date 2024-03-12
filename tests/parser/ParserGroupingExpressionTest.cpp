@@ -12,7 +12,7 @@
 #include "GroupingExpression.h"
 
 TEST_CASE("Groups basic expression", "[parser][grouping]"){
-    std::wstring source = L"(1 + 2)";
+    std::wstring source = L"(1 + 2);";
     Lexer lexer(source);
     lexer.tokenize();
     Parser parser(lexer.tokens);
@@ -31,7 +31,7 @@ TEST_CASE("Groups basic expression", "[parser][grouping]"){
 }
 
 TEST_CASE("Groups nested grouping", "[parser][grouping]"){
-    std::wstring source = L"(1 * (2 + 3))";
+    std::wstring source = L"(1 * (2 + 3));";
     Lexer lexer(source);
     lexer.tokenize();
     Parser parser(lexer.tokens);
@@ -55,7 +55,7 @@ TEST_CASE("Groups nested grouping", "[parser][grouping]"){
 }
 
 TEST_CASE("Groups part of expression", "[parser][grouping]"){
-    std::wstring source = L"1 + (2 * 3) + 4";
+    std::wstring source = L"1 + (2 * 3) + 4;";
     Lexer lexer(source);
     lexer.tokenize();
     Parser parser(lexer.tokens);
@@ -82,7 +82,7 @@ TEST_CASE("Groups part of expression", "[parser][grouping]"){
 }
 
 TEST_CASE("Throws on empty grouping expression", "[parser][grouping]") {
-    std::wstring source = L"()";
+    std::wstring source = L"();";
     Lexer lexer(source);
     lexer.tokenize();
     Parser parser(lexer.tokens);
@@ -90,7 +90,7 @@ TEST_CASE("Throws on empty grouping expression", "[parser][grouping]") {
 }
 
 TEST_CASE("Throws on invalid expression inside parenthesis", "[parser][grouping]") {
-    std::wstring source = L"(1 + )";
+    std::wstring source = L"(1 + );";
     Lexer lexer(source);
     lexer.tokenize();
     Parser parser(lexer.tokens);
@@ -98,7 +98,7 @@ TEST_CASE("Throws on invalid expression inside parenthesis", "[parser][grouping]
 }
 
 TEST_CASE("Throws on incomplete grouping expression", "[parser][grouping]") {
-    std::wstring source = L"(1";
+    std::wstring source = L"(1;";
     Lexer lexer(source);
     lexer.tokenize();
     Parser parser(lexer.tokens);
@@ -106,7 +106,7 @@ TEST_CASE("Throws on incomplete grouping expression", "[parser][grouping]") {
 }
 
 TEST_CASE("Throws on incomplete grouping expression with operator", "[parser][grouping]") {
-    std::wstring source = L"(1 +";
+    std::wstring source = L"(1 +;";
     Lexer lexer(source);
     lexer.tokenize();
     Parser parser(lexer.tokens);
@@ -114,7 +114,7 @@ TEST_CASE("Throws on incomplete grouping expression with operator", "[parser][gr
 }
 
 TEST_CASE("Throws on incomplete grouping expression with right operand", "[parser][grouping]") {
-    std::wstring source = L"(1 + 2";
+    std::wstring source = L"(1 + 2;";
     Lexer lexer(source);
     lexer.tokenize();
     Parser parser(lexer.tokens);

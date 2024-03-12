@@ -35,6 +35,19 @@ public:
      */
     RuntimeValue evaluate(Expression* expr);
 
+    /**
+     * @brief Executes the given statement.
+     * @param stmt Statement to execute.
+     * @throws RuntimeError Throws RuntimeError and its derived classes if an error occurs during execution.
+     */
+    void execute(Statement* stmt);
+
+    /**
+     * @brief Interprets the given program.
+     * @param program Program to interpret.
+     */
+    void interpret(Program* program);
+
 //    ~Interpreter(){
 //        if(objects != nullptr){
 //            Object* object = objects;
@@ -49,6 +62,9 @@ public:
     bool hadError = false; /**< Holds whether an error has occurred during the interpretation. Interpretation should stop if this is set to true. */
 private:
     ErrorPrinter* errorPrinter;
+
+    void executeExpressionStatement(ExpressionStatement* stmt);
+    void executePrintStatement(PrintStatement* stmt);
 
     RuntimeValue evaluateBinaryExpression(BinaryExpression* expr);
     RuntimeValue evaluateLogicalExpression(LogicalExpression* expr);

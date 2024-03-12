@@ -3,6 +3,7 @@
 //
 
 #include "Interpreter.h"
+#include "Program.h"
 #include "Expression.h"
 #include "BinaryExpression.h"
 #include "UnaryExpression.h"
@@ -12,6 +13,8 @@
 #include "StringLiteralExpression.h"
 #include "RuntimeValue.h"
 #include "LogicalExpression.h"
+#include "ExpressionStatement.h"
+#include "PrintStatement.h"
 
 #include "WrongTypeError.h"
 #include "WrongBinaryOperandTypes.h"
@@ -19,8 +22,59 @@
 
 #include <iostream>
 
+void Interpreter::interpret(Program *program) {
+    for (auto stmt : program->statements) {
+        try{
+            execute(stmt);
+        } catch (RuntimeError &e) {
+            if (errorPrinter != nullptr) errorPrinter->printRuntimeError(&e);
+            hadError = true;
+            return;
+        }
+    }
+}
+
+void Interpreter::execute(Statement *stmt) {
+    switch (stmt->type) {
+        case AstNodeType::ExpressionStatement:
+            executeExpressionStatement(static_cast<ExpressionStatement *>(stmt));
+            return;
+        case AstNodeType::PrintStatement:
+            executePrintStatement(static_cast<PrintStatement *>(stmt));
+            return;
+        default:
+            throw std::runtime_error("Unknown statement type");
+    }
+}
+
+void Interpreter::executeExpressionStatement(ExpressionStatement *stmt) {
+    evaluate(stmt->expr);
+}
+
+void Interpreter::executePrintStatement(PrintStatement *stmt) {
+    RuntimeValue value = evaluate(stmt->expr);
+    switch(value.type){
+        case ValueType::Number:
+            std::wcout << value.as.number << std::endl;
+            return;
+        case ValueType::Boolean:
+            std::wcout << (value.as.boolean ? L"tačno" : L"netačno") << std::endl;
+            return;
+        case ValueType::Null:
+            std::wcout << L"null" << std::endl;
+            return;
+        case ValueType::Object:
+            if(IS_STRING_OBJ(value)){
+                std::wcout << GET_STRING_OBJ_VALUE(value) << std::endl;
+                return;
+            }
+            throw "PRINT NOT YET IMPLEMENTED FOR NON STRING OBJECTS!";
+        default:
+            throw "UNKNOWN TYPE TO PRINT";
+    }
+}
+
 RuntimeValue Interpreter::evaluate(Expression *expr) {
-    try {
         switch (expr->type) {
             case AstNodeType::BinaryExpression:
                 return evaluateBinaryExpression(static_cast<BinaryExpression *>(expr));
@@ -41,12 +95,6 @@ RuntimeValue Interpreter::evaluate(Expression *expr) {
             default:
                 throw std::runtime_error("Unknown expression type");
         }
-    } catch (RuntimeError &e) {
-        if (errorPrinter != nullptr) errorPrinter->printRuntimeError(&e);
-        hadError = true;
-        return {ValueType::Null};
-    }
-
 }
 
 RuntimeValue Interpreter::evaluateLogicalExpression(LogicalExpression *expr) {

@@ -63,32 +63,29 @@ TEST_CASE("Computes not equal comparison", "[interpreter][binary][comparison]"){
     REQUIRE(result.as.boolean == false);
 }
 
-TEST_CASE("Reports error on comparison with different types", "[interpreter][binary][comparison]"){
+TEST_CASE("Throws on comparison with different types", "[interpreter][binary][comparison]"){
     std::wstring source = L"5 < \"string\"";
     Interpreter interpreter;
 
     RuntimeValue result;
 
-    REQUIRE_NOTHROW(result = interpreter.evaluate(parseSingleExpression(source)));
-    REQUIRE(interpreter.hadError);
+    REQUIRE_THROWS_AS(result = interpreter.evaluate(parseSingleExpression(source)), WrongBinaryOperandTypes);
 }
 
-TEST_CASE("Reports error on comparison with null", "[interpreter][binary][comparison]"){
+TEST_CASE("Throws on comparison with null", "[interpreter][binary][comparison]"){
     std::wstring source = L"5 < nula";
     Interpreter interpreter;
 
     RuntimeValue result;
 
-    REQUIRE_NOTHROW(result = interpreter.evaluate(parseSingleExpression(source)));
-    REQUIRE(interpreter.hadError);
+    REQUIRE_THROWS_AS(result = interpreter.evaluate(parseSingleExpression(source)), WrongBinaryOperandTypes);
 }
 
-TEST_CASE("Reports error on comparison with boolean", "[interpreter][binary][comparison]"){
+TEST_CASE("Throws on comparison with boolean", "[interpreter][binary][comparison]"){
     std::wstring source = L"5 < istina";
     Interpreter interpreter;
 
     RuntimeValue result;
 
-    REQUIRE_NOTHROW(result = interpreter.evaluate(parseSingleExpression(source)));
-    REQUIRE(interpreter.hadError);
+    REQUIRE_THROWS_AS(result = interpreter.evaluate(parseSingleExpression(source)), WrongBinaryOperandTypes);
 }

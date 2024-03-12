@@ -51,6 +51,9 @@ private:
     }
 
     Statement* statement();
+    Statement* expressionStatement();
+    Statement* printStatement();
+
     Expression* expression();
     Expression* logicalOrExpression();
     Expression* logicalAndExpression();

@@ -15,6 +15,8 @@
 enum class AstNodeType : uint8_t {
     // Statements
     Program,
+    ExpressionStatement,
+    PrintStatement,
 
     // Expressions
     BinaryExpression,
@@ -29,6 +31,8 @@ enum class AstNodeType : uint8_t {
 
 class Statement;
 class Program;
+class ExpressionStatement;
+class PrintStatement;
 
 class Expression;
 class BinaryExpression;

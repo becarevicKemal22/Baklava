@@ -44,6 +44,8 @@ add_executable(Maturski_2 main.cpp
         src/error/exceptions/parser/ParserError.h
         src/error/exceptions/parser/ExpectedXBeforeY.h
         src/parser/ast/expressions/GroupingExpression.h
+        src/parser/ast/statements/ExpressionStatement.h
+        src/parser/ast/statements/PrintStatement.h
 )
 
 add_subdirectory(tests)

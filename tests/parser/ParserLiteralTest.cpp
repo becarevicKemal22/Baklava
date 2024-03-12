@@ -14,7 +14,7 @@
 #include "../TestHelpers.h"
 
 TEST_CASE("Parses literals", "[parser][literal]") {
-    std::wstring source = L"24.2 istina neistina \"string\" nula";
+    std::wstring source = L"24.2; istina; neistina; \"string\"; nula;";
     Lexer lexer(source);
     lexer.tokenize();
     Parser parser(lexer.tokens);
@@ -39,7 +39,7 @@ TEST_CASE("Parses literals", "[parser][literal]") {
 }
 
 TEST_CASE("Parses empty string", "[parser][literal]") {
-    std::wstring source = L"\"\"";
+    std::wstring source = L"\"\";";
     Lexer lexer(source);
     lexer.tokenize();
     Parser parser(lexer.tokens);

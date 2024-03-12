@@ -8,6 +8,7 @@
 #include "Program.h"
 #include "RuntimeValue.h"
 #include "../TestHelpers.h"
+#include "WrongTypeError.h"
 
 
 TEST_CASE("Applies logical not to true boolean value", "[interpreter][unary]"){
@@ -91,33 +92,28 @@ TEST_CASE("Negates null value", "[interpreter][unary]"){
     REQUIRE(result.as.number == -0);
 }
 
-TEST_CASE("Reports error on boolean value negation", "[interpreter][unary]"){
+TEST_CASE("Throws on boolean value negation", "[interpreter][unary]"){
     std::wstring source = L"-istina";
     Interpreter interpreter;
     RuntimeValue result;
-    REQUIRE_NOTHROW(result = interpreter.evaluate(parseSingleExpression(source)));
-    REQUIRE(result.type == ValueType::Null);
-    REQUIRE(interpreter.hadError);
+    REQUIRE_THROWS_AS(result = interpreter.evaluate(parseSingleExpression(source)), WrongTypeError);
 }
 
-TEST_CASE("Reports error on false boolean value negation", "[interpreter][unary]"){
+TEST_CASE("Throws on false boolean value negation", "[interpreter][unary]"){
     std::wstring source = L"-neistina";
     Interpreter interpreter;
 
     RuntimeValue result;
-    REQUIRE_NOTHROW(result = interpreter.evaluate(parseSingleExpression(source)));
-    REQUIRE(result.type == ValueType::Null);
-    REQUIRE(interpreter.hadError);
+
+    REQUIRE_THROWS_AS(result = interpreter.evaluate(parseSingleExpression(source)), WrongTypeError);
 }
 
-TEST_CASE("Reports error on string value negation", "[interpreter][unary]"){
+TEST_CASE("Throws on string value negation", "[interpreter][unary]"){
     std::wstring source = L"-\"string\"";
     Interpreter interpreter;
 
     RuntimeValue result;
-    REQUIRE_NOTHROW(result = interpreter.evaluate( parseSingleExpression(source)));
-    REQUIRE(result.type == ValueType::Null);
-    REQUIRE(interpreter.hadError);
+    REQUIRE_THROWS_AS(result = interpreter.evaluate(parseSingleExpression(source)), WrongTypeError);
 }
 
 TEST_CASE("Returns false on logical not of string value", "[interpreter][unary]"){

@@ -10,6 +10,7 @@
 #include "Parser.h"
 #include "Program.h"
 #include "Expression.h"
+#include "ExpressionStatement.h"
 
 std::unique_ptr<Program> parseSource(const std::wstring& source){
     ErrorPrinter printer(source);
@@ -20,12 +21,24 @@ std::unique_ptr<Program> parseSource(const std::wstring& source){
     return program;
 }
 
-Expression* parseSingleExpression(const std::wstring& source){
-    auto program = parseSource(source);
+Expression* bypassExpressionStatement(Program* program){
     if(program->statements.size() != 1){
         throw std::runtime_error("Expected single expression");
     }
-    auto expression = dynamic_cast<Expression*>(program->statements[0]);
+    auto expression = dynamic_cast<Expression*>(((ExpressionStatement*)program->statements[0])->expr);
+    if(expression == nullptr){
+        throw std::runtime_error("Expected expression");
+    }
+    return expression;
+}
+
+Expression* parseSingleExpression(const std::wstring& source){
+    std::wstring sourceWithSemicolon = source + L";";
+    auto program = parseSource(sourceWithSemicolon);
+    if(program->statements.size() != 1){
+        throw std::runtime_error("Expected single expression");
+    }
+    auto expression = dynamic_cast<Expression*>(((ExpressionStatement*)program->statements[0])->expr);
     if(expression == nullptr){
         throw std::runtime_error("Expected expression");
     }

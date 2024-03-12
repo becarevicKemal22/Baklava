@@ -13,6 +13,8 @@
 #include "NullLiteralExpression.h"
 #include "TokenType.h"
 #include "GroupingExpression.h"
+#include "PrintStatement.h"
+#include "ExpressionStatement.h"
 
 #include "ExpectedXBeforeY.h"
 
@@ -25,7 +27,26 @@ std::unique_ptr<Program> Parser::parse() {
 }
 
 Statement* Parser::statement() {
-    return expression();
+    if(match({TokenType::Print})){
+        return printStatement();
+    }
+    return expressionStatement();
+}
+
+Statement* Parser::printStatement() {
+    ExprPtr value = expression();
+    if(match({TokenType::Semicolon})){
+        return new PrintStatement(value);
+    }
+    throw ExpectedXBeforeY(L"semicolon", previous(), at());
+}
+
+Statement* Parser::expressionStatement() {
+    ExprPtr value = expression();
+    if(match({TokenType::Semicolon})){
+        return new ExpressionStatement(value);
+    }
+    throw ExpectedXBeforeY(L"semicolon", previous(), at());
 }
 
 ExprPtr Parser::expression() {

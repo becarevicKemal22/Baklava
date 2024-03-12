@@ -11,7 +11,7 @@
 #include "NumericLiteralExpression.h"
 
 TEST_CASE("Parses logical and", "[parser][binary][logical]") {
-    std::wstring source = L"1 && 2";
+    std::wstring source = L"1 && 2;";
     Lexer lexer(source);
     lexer.tokenize();
     Parser parser(lexer.tokens);
@@ -29,7 +29,7 @@ TEST_CASE("Parses logical and", "[parser][binary][logical]") {
 }
 
 TEST_CASE("Parses logical or", "[parser][binary][logical]") {
-    std::wstring source = L"1 || 2";
+    std::wstring source = L"1 || 2;";
     Lexer lexer(source);
     lexer.tokenize();
     Parser parser(lexer.tokens);
@@ -47,7 +47,7 @@ TEST_CASE("Parses logical or", "[parser][binary][logical]") {
 }
 
 TEST_CASE("Follows logical operator precedence", "[parser][binary][logical]"){
-    std::wstring source = L"1 || 2 && 3";
+    std::wstring source = L"1 || 2 && 3;";
     Lexer lexer(source);
     lexer.tokenize();
     Parser parser(lexer.tokens);

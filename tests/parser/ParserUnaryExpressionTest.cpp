@@ -14,7 +14,7 @@
 #include "../TestHelpers.h"
 
 TEST_CASE("Parses unary expressions", "[parser][unary]") {
-    std::wstring source = L"-24 !istina";
+    std::wstring source = L"-24; !istina;";
     Lexer lexer(source);
     lexer.tokenize();
     Parser parser(lexer.tokens);
@@ -35,7 +35,7 @@ TEST_CASE("Parses unary expressions", "[parser][unary]") {
 }
 
 TEST_CASE("Allows chaining of unary operators", "[parser][unary]"){
-    std::wstring source = L"--24";
+    std::wstring source = L"--24;";
     Lexer lexer(source);
     lexer.tokenize();
     Parser parser(lexer.tokens);
@@ -54,7 +54,7 @@ TEST_CASE("Allows chaining of unary operators", "[parser][unary]"){
 }
 
 TEST_CASE("Parses string negation", "[parser][unary]"){
-    std::wstring source = L"-\"string\"";
+    std::wstring source = L"-\"string\";";
     Lexer lexer(source);
     lexer.tokenize();
     Parser parser(lexer.tokens);

@@ -46,6 +46,7 @@ enum class TokenType : uint8_t {
     False,
     Null,
     // Keywords
+    Print,
     If,
 
     Eof

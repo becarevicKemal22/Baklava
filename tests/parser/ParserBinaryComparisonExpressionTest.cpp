@@ -11,7 +11,7 @@
 #include "NumericLiteralExpression.h"
 
 TEST_CASE("Parses binary equality", "[parser][binary][comparison]") {
-    std::wstring source = L"1 == 2 != 3";
+    std::wstring source = L"1 == 2 != 3;";
     Lexer lexer(source);
     lexer.tokenize();
     Parser parser(lexer.tokens);
@@ -33,7 +33,7 @@ TEST_CASE("Parses binary equality", "[parser][binary][comparison]") {
 }
 
 TEST_CASE("Parses comparison operators", "[parser][binary][comparison]"){
-    std::wstring source = L"1 < 2 > 3 <= 4 >= 5";
+    std::wstring source = L"1 < 2 > 3 <= 4 >= 5;";
     Lexer lexer(source);
     lexer.tokenize();
     Parser parser(lexer.tokens);
@@ -63,7 +63,7 @@ TEST_CASE("Parses comparison operators", "[parser][binary][comparison]"){
 }
 
 TEST_CASE("Follows precedence for equality and comparison", "[parser][binary][comparison]"){
-    std::wstring source = L"1 < 2 == 3";
+    std::wstring source = L"1 < 2 == 3;";
     Lexer lexer(source);
     lexer.tokenize();
     Parser parser(lexer.tokens);

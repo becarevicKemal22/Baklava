@@ -31,5 +31,7 @@ add_executable(tests ../src/error/printer/ErrorPrinter.cpp ../src/lexer/Lexer.cp
         ../src/error/exceptions/parser/ExpectedXBeforeY.h
         parser/ParserGroupingExpressionTest.cpp
         ../src/parser/ast/expressions/GroupingExpression.h
-        interpreter/InterpreterGroupingExpressionTest.cpp)
+        interpreter/InterpreterGroupingExpressionTest.cpp
+        ../src/parser/ast/statements/ExpressionStatement.h
+        ../src/parser/ast/statements/PrintStatement.h)
 target_link_libraries(tests PRIVATE Catch2::Catch2WithMain)

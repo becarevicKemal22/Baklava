@@ -10,7 +10,6 @@
 #include "Program.h"
 #include "PrettyPrint.h"
 #include "Interpreter.h"
-#include "Expression.h"
 #include "ParserError.h"
 
 void runRepl() {
@@ -53,19 +52,27 @@ void runFile(const char *path) {
     printAST(program);
     Interpreter interpreter(&printer);
     std::wcout << std::endl;
-    for (auto statement: program->statements) {
-        auto start = std::chrono::high_resolution_clock::now();
-//        RuntimeValue value = interpreter.evaluate(static_cast<Expression*>(statement));
-//        std::wcout << "VALUE: " << ((ObjectString*)value.as.object)->value << "\n";
-        for (int i = 0; i < 3; i++) {
-            interpreter.evaluate(static_cast<Expression *>(statement));
-        }
-        auto end = std::chrono::high_resolution_clock::now();
-        std::chrono::duration<double> duration = end - start;
-        double duration_seconds = duration.count();
-        std::wcout << std::format(L"Elapsed time: {} seconds\n", duration_seconds);
+//    for (auto statement: program->statements) {
+//        auto start = std::chrono::high_resolution_clock::now();
+////        RuntimeValue value = interpreter.evaluate(static_cast<Expression*>(statement));
+////        std::wcout << "VALUE: " << ((ObjectString*)value.as.object)->value << "\n";
+////        for (int i = 0; i < 100; i++) {
+////            interpreter.evaluate(static_cast<Expression *>(statement));
+////        }
+//        auto end = std::chrono::high_resolution_clock::now();
+//        std::chrono::duration<double> duration = end - start;
+//        double duration_seconds = duration.count();
+//        std::wcout << std::format(L"Elapsed time: {} seconds\n", duration_seconds);
 //        std::wcout << val->stringify() << std::endl;
-    }
+//    }
+    auto start = std::chrono::high_resolution_clock::now();
+
+    interpreter.interpret(program.get());
+
+    auto end = std::chrono::high_resolution_clock::now();
+    std::chrono::duration<double> duration = end - start;
+    double duration_seconds = duration.count();
+    std::wcout << std::format(L"Elapsed time: {} seconds\n", duration_seconds);
 }
 
 int main(int argc, char **argv) {

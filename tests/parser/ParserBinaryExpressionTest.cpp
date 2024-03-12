@@ -11,7 +11,7 @@
 #include "NumericLiteralExpression.h"
 
 TEST_CASE("Parses binary expressions", "[parser][binary]") {
-    std::wstring source = L"1 + 2 - 3 * 4 / 5";
+    std::wstring source = L"1 + 2 - 3 * 4 / 5;";
     Lexer lexer(source);
     lexer.tokenize();
     Parser parser(lexer.tokens);
@@ -37,7 +37,7 @@ TEST_CASE("Parses binary expressions", "[parser][binary]") {
 }
 
 TEST_CASE("Follows precedence", "[parser][binary]"){
-    std::wstring source = L"1 + 2 * 3";
+    std::wstring source = L"1 + 2 * 3;";
     Lexer lexer(source);
     lexer.tokenize();
     Parser parser(lexer.tokens);
