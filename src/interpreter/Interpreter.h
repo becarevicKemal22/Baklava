@@ -59,6 +59,7 @@ private:
     RuntimeValue evaluateNullLiteralExpression(NullLiteralExpression* expr);
 
     bool isTruthy(const RuntimeValue& value);
+    bool isEqual(const RuntimeValue& left, const RuntimeValue& right);
 
     Object* objects = nullptr;
 

@@ -71,7 +71,7 @@ RuntimeValue Interpreter::evaluateBinaryExpression(BinaryExpression *expr) {
                 return {ValueType::Number, {.number = left.as.number + right.as.number}};
             }
             if(IS_OBJ(left) && IS_STRING_OBJ(left) && IS_OBJ(right) && IS_STRING_OBJ(right)){ // OVDJE ISPOD TREBA NEKI AS_STR MACRO
-                return {ValueType::Object, {.object = (Object*) allocateStringObject(((ObjectString*) left.as.object)->value + ((ObjectString*) right.as.object)->value)}};
+                return {ValueType::Object, {.object = (Object*) allocateStringObject(GET_STRING_OBJ_VALUE(left) + GET_STRING_OBJ_VALUE(right))}};
             }
             throw WrongBinaryOperandTypes(L"+", left, right, expr);
         case TokenType::Minus:
@@ -89,8 +89,56 @@ RuntimeValue Interpreter::evaluateBinaryExpression(BinaryExpression *expr) {
                 throw WrongBinaryOperandTypes(L"/", left, right, expr);
             }
             return {ValueType::Number, {.number = left.as.number / right.as.number}};
+        case TokenType::Greater:
+            if(left.type == ValueType::Number && right.type == ValueType::Number){
+                return {ValueType::Boolean, {.boolean = left.as.number > right.as.number}};
+            }
+            if(IS_OBJ(left) && IS_STRING_OBJ(left) && IS_OBJ(right) && IS_STRING_OBJ(right)){
+                return {ValueType::Boolean, {.boolean = GET_STRING_OBJ_VALUE(left) > GET_STRING_OBJ_VALUE(right)}};
+            }
+            if(left.type == ValueType::Boolean && right.type == ValueType::Boolean){
+                return {ValueType::Boolean, {.boolean = left.as.boolean > right.as.boolean}};
+            }
+            throw WrongBinaryOperandTypes(L">", left, right, expr);
+        case TokenType::GreaterEqual:
+            if(left.type == ValueType::Number && right.type == ValueType::Number){
+                return {ValueType::Boolean, {.boolean = left.as.number >= right.as.number}};
+            }
+            if(IS_OBJ(left) && IS_STRING_OBJ(left) && IS_OBJ(right) && IS_STRING_OBJ(right)){
+                return {ValueType::Boolean, {.boolean = GET_STRING_OBJ_VALUE(left) >= GET_STRING_OBJ_VALUE(right)}};
+            }
+            if(left.type == ValueType::Boolean && right.type == ValueType::Boolean){
+                return {ValueType::Boolean, {.boolean = left.as.boolean >= right.as.boolean}};
+            }
+            throw WrongBinaryOperandTypes(L">=", left, right, expr);
+        case TokenType::Less:
+            if(left.type == ValueType::Number && right.type == ValueType::Number){
+                return {ValueType::Boolean, {.boolean = left.as.number < right.as.number}};
+            }
+            if(IS_OBJ(left) && IS_STRING_OBJ(left) && IS_OBJ(right) && IS_STRING_OBJ(right)){
+                return {ValueType::Boolean, {.boolean = GET_STRING_OBJ_VALUE(left) < GET_STRING_OBJ_VALUE(right)}};
+            }
+            if(left.type == ValueType::Boolean && right.type == ValueType::Boolean){
+                return {ValueType::Boolean, {.boolean = left.as.boolean < right.as.boolean}};
+            }
+            throw WrongBinaryOperandTypes(L"<", left, right, expr);
+        case TokenType::LessEqual:
+            if(left.type == ValueType::Number && right.type == ValueType::Number){
+                return {ValueType::Boolean, {.boolean = left.as.number <= right.as.number}};
+            }
+            if(IS_OBJ(left) && IS_STRING_OBJ(left) && IS_OBJ(right) && IS_STRING_OBJ(right)){
+                return {ValueType::Boolean, {.boolean = GET_STRING_OBJ_VALUE(left) <= GET_STRING_OBJ_VALUE(right)}};
+            }
+            if(left.type == ValueType::Boolean && right.type == ValueType::Boolean){
+                return {ValueType::Boolean, {.boolean = left.as.boolean <= right.as.boolean}};
+            }
+            throw WrongBinaryOperandTypes(L"<=", left, right, expr);
+        case TokenType::DoubleEqual:
+            return {ValueType::Boolean, {.boolean = isEqual(left, right)}};
+        case TokenType::BangEqual:
+            return {ValueType::Boolean, {.boolean = !isEqual(left, right)}};
     }
-    throw std::runtime_error("Unknown binary operator type - PARSING BUG!");
+    throw std::runtime_error("Unknown binary operator type!");
 }
 
 RuntimeValue Interpreter::evaluateNumericLiteralExpression(NumericLiteralExpression *expr) {
@@ -135,6 +183,26 @@ bool Interpreter::isTruthy(const RuntimeValue &value) {
             return false;
         default:
             return true;
+    }
+}
+
+bool Interpreter::isEqual(const RuntimeValue &left, const RuntimeValue &right) {
+    if (left.type != right.type) return false;
+    switch (left.type) {
+        case ValueType::Boolean:
+            return left.as.boolean == right.as.boolean;
+        case ValueType::Number:
+            return left.as.number == right.as.number;
+        case ValueType::Null:
+            return true;
+        case ValueType::Object:
+            if(IS_STRING_OBJ(left) && IS_STRING_OBJ(right)){
+                return GET_STRING_OBJ_VALUE(left) == GET_STRING_OBJ_VALUE(right);
+            }
+            throw "EQUALITY NOT YET IMPLEMENTED FOR NON STRING!";
+//            return left.as.object == right.as.object;
+        default:
+            return false;
     }
 }
 
