@@ -8,6 +8,8 @@
 #include "RuntimeError.h"
 #include "WrongTypeError.h"
 #include "WrongBinaryOperandTypes.h"
+#include "ExpectedXBeforeY.h"
+#include "ParserError.h"
 
 using std::wcout;
 
@@ -30,6 +32,34 @@ void ErrorPrinter::printRuntimeError(const RuntimeError *error) {
         printWrongBinaryOperandTypeError(static_cast<const WrongBinaryOperandTypes *>(error));
     }
     std::wcout << "\n";
+}
+
+void ErrorPrinter::printParserError(const ParserError *error) {
+    if(dynamic_cast<const ExpectedXBeforeY*>(error) != nullptr){
+        printExpectedXBeforeYError(static_cast<const ExpectedXBeforeY*>(error));
+    }
+    std::wcout << "\n";
+}
+
+void ErrorPrinter::printExpectedXBeforeYError(const ExpectedXBeforeY *error) {
+    std::wstring message = formattedErrorMessage(error->code, error->messageArguments, error->found->line);
+    wcout << message << "\n";
+    TokenPtr found = error->found;
+    TokenPtr before = error->before;
+
+    std::wcout << "Nije jos implementiran highlighthing \n";
+
+//    if(found->line != before->line){
+//        printSourceLine(found->line, {{ {found->offset, found->offset + getTokenValue(found).size() - 1}, ANSI_RED}});
+//        printSquiggleSupportLine(found->line, {{ {found->offset, found->offset + getTokenValue(found).size() - 1}, ANSI_RED}});
+//        printSourceLine(before->line, {{ {before->offset, before->offset + getTokenValue(before).size() - 1}, ANSI_RED}});
+//        printSquiggleSupportLine(before->line, {{ {before->offset, before->offset + getTokenValue(before).size() - 1}, ANSI_RED}});
+//    } else {
+//        printSourceLine(found->line, {{ {found->offset, found->offset + getTokenValue(found).size() - 1}, ANSI_RED},
+//                                      { {before->offset, before->offset + getTokenValue(before).size() - 1}, ANSI_RED}});
+//        printSquiggleSupportLine(found->line, {{ {found->offset, found->offset + getTokenValue(found).size() - 1}, ANSI_RED},
+//                                              { {before->offset, before->offset + getTokenValue(before).size() - 1}, ANSI_RED}});
+//    }
 }
 
 void ErrorPrinter::printWrongTypeError(const WrongTypeError *error) {

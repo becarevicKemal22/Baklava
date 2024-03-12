@@ -15,7 +15,7 @@
 /**
  * @brief Base class for all runtime exceptions.
  *
- * Contains at least an error code and a list of message arguments so it can be printed.
+ * Contains at least an error code and a vector of message arguments so it can be printed.
  */
 class RuntimeError : public std::exception {
 public:

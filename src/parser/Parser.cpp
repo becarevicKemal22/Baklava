@@ -13,6 +13,8 @@
 #include "NullLiteralExpression.h"
 #include "TokenType.h"
 
+#include "ExpectedXBeforeY.h"
+
 std::unique_ptr<Program> Parser::parse() {
     std::unique_ptr<Program> program = std::make_unique<Program>();
     while(!atType(TokenType::Eof)) {
@@ -104,7 +106,7 @@ ExprPtr Parser::primaryExpression() {
     if(match({TokenType::Null})) return new NullLiteralExpression(previous());
     if(match({TokenType::Number})) return new NumericLiteralExpression(previous());
     if(match({TokenType::String})) return new StringLiteralExpression(previous());
-    throw "Expected expression";
+    throw ExpectedXBeforeY(L"izraz", previous(), at());
 }
 
 bool Parser::match(const std::vector<TokenType>& types) {

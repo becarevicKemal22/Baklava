@@ -27,6 +27,7 @@ public:
     /**
      * @brief Parses the tokens into an AST.
      * @return Unique pointer to the root "Program" node.
+     * @throws Throws ParserError or derived class if an error occurs during parsing. Expected to be caught by the caller.
      */
     std::unique_ptr<Program> parse();
 private:

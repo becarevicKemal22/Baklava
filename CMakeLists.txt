@@ -3,7 +3,7 @@ project(Maturski_2)
 
 set(CMAKE_CXX_STANDARD 20)
 
-include_directories("src/lexer" "src/error" "src/error/printer" "src/parser" "src/parser/ast/" "src/parser/ast/expressions" "src/parser/ast/statements" "src/interpreter/" "src/interpreter/runtimeValues" "src/error/exceptions" )
+include_directories("src/lexer" "src/error" "src/error/exceptions/parser" "src/error/printer" "src/parser" "src/parser/ast/" "src/parser/ast/expressions" "src/parser/ast/statements" "src/interpreter/" "src/interpreter/runtimeValues" "src/error/exceptions" )
 add_executable(Maturski_2 main.cpp
         src/lexer/Lexer.cpp
         src/lexer/Lexer.h
@@ -41,6 +41,8 @@ add_executable(Maturski_2 main.cpp
         src/interpreter/Object.h
         src/interpreter/Object.cpp
         src/parser/ast/expressions/LogicalExpression.h
+        src/error/exceptions/parser/ParserError.h
+        src/error/exceptions/parser/ExpectedXBeforeY.h
 )
 
 add_subdirectory(tests)

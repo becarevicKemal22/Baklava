@@ -26,6 +26,7 @@ const std::unordered_map<int , std::wstring> ERRORMESSAGES = {
         {ERROR_UNTERMINATED_STRING, L"Neterminiran STRING pronađen na liniji {}, pozicija {}."},
 
         // 3xx
+        {ERROR_EXPECTED_X_BEFORE_Y, L"Očekivano '{}' prije '{}'."},
 
         // 4xx
         {ERROR_WRONG_TYPE_OPERAND, L"Tip '{}' nije dozvoljen za operator '{}'."},

@@ -15,6 +15,8 @@
 #include "RuntimeError.h"
 #include "WrongTypeError.h"
 #include "WrongBinaryOperandTypes.h"
+#include "ParserError.h"
+#include "ExpectedXBeforeY.h"
 
 typedef std::pair<std::pair<int, int>, std::wstring> colorHighlight;
 
@@ -52,10 +54,11 @@ public:
      */
     void printLexerError(ErrorCode errorCode, unsigned int lineNumber, unsigned int offset, unsigned int currentChar);
 
+    void printParserError(const ParserError* error);
+
     void printRuntimeError(const RuntimeError* error);
 
-    void printWrongTypeError(const WrongTypeError* error);
-    void printWrongBinaryOperandTypeError(const WrongBinaryOperandTypes* error);
+
 
 private:
     std::wstring source;
@@ -70,6 +73,11 @@ private:
     void printCaretSupportLine(unsigned int offset);
     void printSquiggleSupportLine(unsigned int lineNum, std::vector<colorHighlight> colorHighlights);
     static std::wstring getTokenValue(Token *token);
+
+    void printWrongTypeError(const WrongTypeError* error);
+    void printWrongBinaryOperandTypeError(const WrongBinaryOperandTypes* error);
+
+    void printExpectedXBeforeYError(const ExpectedXBeforeY* error);
 };
 
 
