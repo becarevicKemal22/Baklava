@@ -8,6 +8,8 @@
 #include <cstdint>
 #include <string>
 
+#define IS_STRING_OBJ(value) ((value).as.object->type == ObjectType::OBJECT_STRING)
+
 enum class ObjectType : uint8_t{
   OBJECT_STRING,
 };

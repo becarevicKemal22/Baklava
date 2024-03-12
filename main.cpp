@@ -49,7 +49,7 @@ void runFile(const char* path){
     for(auto statement : program->statements){
         auto start = std::chrono::high_resolution_clock::now();
 //        RuntimeValue value = interpreter.evaluate(static_cast<Expression*>(statement));
-//        std::wcout << "VALUE: " << value.as.boolean << "\n";
+//        std::wcout << "VALUE: " << ((ObjectString*)value.as.object)->value << "\n";
         for(int i = 0; i < 3; i++){
             interpreter.evaluate(static_cast<Expression*>(statement));
         }

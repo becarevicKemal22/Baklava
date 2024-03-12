@@ -24,5 +24,7 @@ add_executable(tests ../src/error/printer/ErrorPrinter.cpp ../src/lexer/Lexer.cp
         ../src/interpreter/Object.cpp
         interpreter/InterpreterBinaryLogicalExpressionTest.cpp
         ../src/parser/ast/expressions/LogicalExpression.h
-        parser/ParserLogicalExpressionTest.cpp)
+        parser/ParserLogicalExpressionTest.cpp
+        parser/ParserBinaryComparisonExpressionTest.cpp
+        interpreter/InterpreterBinaryComparisonExpressionTest.cpp)
 target_link_libraries(tests PRIVATE Catch2::Catch2WithMain)

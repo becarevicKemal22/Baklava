@@ -70,10 +70,8 @@ RuntimeValue Interpreter::evaluateBinaryExpression(BinaryExpression *expr) {
             if (left.type == ValueType::Number && right.type == ValueType::Number) {
                 return {ValueType::Number, {.number = left.as.number + right.as.number}};
             }
-            if(left.type == ValueType::Object && left.as.object->type == ObjectType::OBJECT_STRING){
-                if(right.type == ValueType::Object && right.as.object->type == ObjectType::OBJECT_STRING){
-                    return {ValueType::Object, {.object = (Object*) allocateStringObject(((ObjectString*) left.as.object)->value + ((ObjectString*) right.as.object)->value)}};
-                }
+            if(IS_OBJ(left) && IS_STRING_OBJ(left) && IS_OBJ(right) && IS_STRING_OBJ(right)){ // OVDJE ISPOD TREBA NEKI AS_STR MACRO
+                return {ValueType::Object, {.object = (Object*) allocateStringObject(((ObjectString*) left.as.object)->value + ((ObjectString*) right.as.object)->value)}};
             }
             throw WrongBinaryOperandTypes(L"+", left, right, expr);
         case TokenType::Minus:

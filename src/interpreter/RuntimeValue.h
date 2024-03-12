@@ -10,6 +10,8 @@
 
 #include "Object.h"
 
+#define IS_OBJ(value) ((value).type == ValueType::Object)
+
 /**
  * @brief Enum class which defines all types of runtime values in the language.
  */
