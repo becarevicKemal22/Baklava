@@ -27,6 +27,8 @@ const std::unordered_map<int , std::wstring> ERRORMESSAGES = {
 
         // 3xx
         {ERROR_EXPECTED_X_BEFORE_Y, L"Očekivano '{}' prije '{}'."},
+        {ERROR_UNINITIALIZED_CONST, L"Konstanta '{}' mora biti inicijalizirana."},
+        {ERROR_EXPECTED_X_BEFORE_Y, L"Očekivano '{}' poslije '{}'."},
 
         // 4xx
         {ERROR_WRONG_TYPE_OPERAND, L"Tip '{}' nije dozvoljen za operator '{}'."},

@@ -15,15 +15,51 @@
 #include "GroupingExpression.h"
 #include "PrintStatement.h"
 #include "ExpressionStatement.h"
+#include "VarDeclarationStatement.h"
+#include "VariableExpression.h"
+#include "UninitializedConst.h"
 
 #include "ExpectedXBeforeY.h"
+#include "AssignmentExpression.h"
 
 std::unique_ptr<Program> Parser::parse() {
     std::unique_ptr<Program> program = std::make_unique<Program>();
     while(!atType(TokenType::Eof)) {
-        program->statements.push_back(statement());
+        program->statements.push_back(declaration());
     }
     return program;
+}
+
+Statement* Parser::declaration() {
+    if(match({TokenType::Var}) || match({TokenType::Const})){
+        return varDeclarationStatement();
+    }
+    return statement();
+}
+
+Statement* Parser::varDeclarationStatement() {
+    bool isConst = previous()->type == TokenType::Const;
+    if(isConst){
+        if(!match({TokenType::Var})){
+            throw ExpectedXBeforeY(L"var", previous(), at());
+        }
+    }
+    if(!atType(TokenType::Identifier)){
+        throw ExpectedXBeforeY(L"identifikator", previous(), at());
+    }
+    advance();
+    Token* name = previous();
+    ExprPtr initializer = nullptr;
+    if(match({TokenType::Equal})){
+        initializer = expression();
+    }
+    if(isConst && !initializer){
+        throw UninitializedConst(name);
+    }
+    if(match({TokenType::Semicolon})){
+        return new VarDeclarationStatement(name, initializer, isConst);
+    }
+    throw ExpectedXBeforeY(L";", previous(), at());
 }
 
 Statement* Parser::statement() {
@@ -38,7 +74,7 @@ Statement* Parser::printStatement() {
     if(match({TokenType::Semicolon})){
         return new PrintStatement(value);
     }
-    throw ExpectedXBeforeY(L"semicolon", previous(), at());
+    throw ExpectedXBeforeY(L";", previous(), at());
 }
 
 Statement* Parser::expressionStatement() {
@@ -46,11 +82,25 @@ Statement* Parser::expressionStatement() {
     if(match({TokenType::Semicolon})){
         return new ExpressionStatement(value);
     }
-    throw ExpectedXBeforeY(L"semicolon", previous(), at());
+    throw ExpectedXBeforeY(L";", previous(), at());
 }
 
 ExprPtr Parser::expression() {
-    return logicalOrExpression();
+    return assignmentExpression();
+}
+
+ExprPtr Parser::assignmentExpression() {
+    ExprPtr expr = logicalOrExpression();
+    if(match({TokenType::Equal})){
+        Token* equals = previous();
+        ExprPtr value = assignmentExpression();
+        if(expr->type == AstNodeType::VariableExpression){
+            auto* var = static_cast<VariableExpression*>(expr);
+            return new AssignmentExpression(var->name, value);
+        }
+        throw "INVALID L VALUE";
+    }
+    return expr;
 }
 
 ExprPtr Parser::logicalOrExpression() {
@@ -128,6 +178,7 @@ ExprPtr Parser::primaryExpression() {
     if(match({TokenType::Null})) return new NullLiteralExpression(previous());
     if(match({TokenType::Number})) return new NumericLiteralExpression(previous());
     if(match({TokenType::String})) return new StringLiteralExpression(previous());
+    if(match({TokenType::Identifier})) return new VariableExpression(previous());
     if(match({TokenType::OpenParenthesis})){
         ExprPtr expr = expression();
         if(match({TokenType::ClosedParenthesis})){

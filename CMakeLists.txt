@@ -46,6 +46,12 @@ add_executable(Maturski_2 main.cpp
         src/parser/ast/expressions/GroupingExpression.h
         src/parser/ast/statements/ExpressionStatement.h
         src/parser/ast/statements/PrintStatement.h
+        src/parser/ast/expressions/VariableExpression.h
+        src/parser/ast/statements/VarDeclarationStatement.h
+        src/error/exceptions/parser/UninitializedConst.h
+        src/interpreter/Environment.cpp
+        src/interpreter/Environment.h
+        src/parser/ast/expressions/AssignmentExpression.h
 )
 
 add_subdirectory(tests)

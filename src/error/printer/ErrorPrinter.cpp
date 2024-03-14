@@ -9,6 +9,8 @@
 #include "WrongTypeError.h"
 #include "WrongBinaryOperandTypes.h"
 #include "ExpectedXBeforeY.h"
+#include "ExpectedXAfterY.h"
+#include "UninitializedConst.h"
 #include "ParserError.h"
 
 using std::wcout;
@@ -38,6 +40,12 @@ void ErrorPrinter::printParserError(const ParserError *error) {
     if(dynamic_cast<const ExpectedXBeforeY*>(error) != nullptr){
         printExpectedXBeforeYError(static_cast<const ExpectedXBeforeY*>(error));
     }
+    if(dynamic_cast<const ExpectedXAfterY*>(error) != nullptr){
+        printExpectedXAfterYError(static_cast<const ExpectedXAfterY*>(error));
+    }
+    if(dynamic_cast<const UninitializedConst*>(error) != nullptr){
+        printUninitializedConstError(static_cast<const UninitializedConst*>(error));
+    }
     std::wcout << "\n";
 }
 
@@ -48,18 +56,22 @@ void ErrorPrinter::printExpectedXBeforeYError(const ExpectedXBeforeY *error) {
     TokenPtr before = error->before;
 
     std::wcout << "Nije jos implementiran highlighthing \n";
+}
 
-//    if(found->line != before->line){
-//        printSourceLine(found->line, {{ {found->offset, found->offset + getTokenValue(found).size() - 1}, ANSI_RED}});
-//        printSquiggleSupportLine(found->line, {{ {found->offset, found->offset + getTokenValue(found).size() - 1}, ANSI_RED}});
-//        printSourceLine(before->line, {{ {before->offset, before->offset + getTokenValue(before).size() - 1}, ANSI_RED}});
-//        printSquiggleSupportLine(before->line, {{ {before->offset, before->offset + getTokenValue(before).size() - 1}, ANSI_RED}});
-//    } else {
-//        printSourceLine(found->line, {{ {found->offset, found->offset + getTokenValue(found).size() - 1}, ANSI_RED},
-//                                      { {before->offset, before->offset + getTokenValue(before).size() - 1}, ANSI_RED}});
-//        printSquiggleSupportLine(found->line, {{ {found->offset, found->offset + getTokenValue(found).size() - 1}, ANSI_RED},
-//                                              { {before->offset, before->offset + getTokenValue(before).size() - 1}, ANSI_RED}});
-//    }
+void ErrorPrinter::printExpectedXAfterYError(const ExpectedXAfterY *error) {
+    std::wstring message = formattedErrorMessage(error->code, error->messageArguments, error->found->line);
+    wcout << message << "\n";
+    TokenPtr found = error->found;
+    TokenPtr after = error->after;
+
+    std::wcout << "AFTER Y! Nije jos implementiran highlighthing \n";
+}
+
+void ErrorPrinter::printUninitializedConstError(const UninitializedConst *error) {
+    std::wstring message = formattedErrorMessage(error->code, error->messageArguments, error->identifier->line);
+    wcout << message << "\n";
+    printSourceLine(error->identifier->line, {{ {error->identifier->offset, error->identifier->offset + getTokenValue(error->identifier).size() - 1}, ANSI_RED}});
+    printSquiggleSupportLine(error->identifier->line, {{ {error->identifier->offset, error->identifier->offset + getTokenValue(error->identifier).size() - 1}, ANSI_RED}});
 }
 
 void ErrorPrinter::printWrongTypeError(const WrongTypeError *error) {

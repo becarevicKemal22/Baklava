@@ -17,6 +17,8 @@
 #include "WrongBinaryOperandTypes.h"
 #include "ParserError.h"
 #include "ExpectedXBeforeY.h"
+#include "ExpectedXAfterY.h"
+#include "UninitializedConst.h"
 
 typedef std::pair<std::pair<int, int>, std::wstring> colorHighlight;
 
@@ -78,6 +80,8 @@ private:
     void printWrongBinaryOperandTypeError(const WrongBinaryOperandTypes* error);
 
     void printExpectedXBeforeYError(const ExpectedXBeforeY* error);
+    void printExpectedXAfterYError(const ExpectedXAfterY* error);
+    void printUninitializedConstError(const UninitializedConst* error);
 };
 
 

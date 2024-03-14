@@ -48,6 +48,8 @@ enum class TokenType : uint8_t {
     // Keywords
     Print,
     If,
+    Var,
+    Const,
 
     Eof
 };

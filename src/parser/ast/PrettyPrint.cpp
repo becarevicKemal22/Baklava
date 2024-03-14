@@ -17,6 +17,8 @@
 #include "GroupingExpression.h"
 #include "ExpressionStatement.h"
 #include "PrintStatement.h"
+#include "VariableExpression.h"
+#include "VarDeclarationStatement.h"
 
 void printStatement(Statement *statement, int depth);
 
@@ -59,6 +61,10 @@ void printStringLiteralExpression(StringLiteralExpression *expression, int depth
     std::wcout << L"StringLiteralExpr ( " << expression->value << L" ) ";
 }
 
+void printVariableExpression(VariableExpression *expression, int depth) {
+    std::wcout << L"VariableExpr ( " << expression->name->value << L" ) ";
+}
+
 void printStatement(Statement *statement, int depth) {
     AstNodeType type = statement->type;
     switch (type) {
@@ -93,6 +99,15 @@ void printStatement(Statement *statement, int depth) {
         case AstNodeType::PrintStatement:
             std::wcout << L"PrintStatement ( ";
             printStatement(static_cast<PrintStatement*>(statement)->expr, depth + 1);
+            std::wcout << L" ) ";
+            break;
+        case AstNodeType::VarDeclarationStatement:
+            if(static_cast<VarDeclarationStatement*>(statement)->isConst)
+                std::wcout << L"ConstDeclarationStatement ( ";
+            else
+                std::wcout << L"VarDeclarationStatement ( ";
+            std::wcout << static_cast<VarDeclarationStatement*>(statement)->name->value << L" ";
+            printStatement(static_cast<VarDeclarationStatement*>(statement)->initializer, depth + 1);
             std::wcout << L" ) ";
             break;
         default:

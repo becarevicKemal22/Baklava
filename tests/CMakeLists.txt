@@ -33,5 +33,13 @@ add_executable(tests ../src/error/printer/ErrorPrinter.cpp ../src/lexer/Lexer.cp
         ../src/parser/ast/expressions/GroupingExpression.h
         interpreter/InterpreterGroupingExpressionTest.cpp
         ../src/parser/ast/statements/ExpressionStatement.h
-        ../src/parser/ast/statements/PrintStatement.h)
+        ../src/parser/ast/statements/PrintStatement.h
+        ../src/parser/ast/expressions/VariableExpression.h
+        ../src/parser/ast/statements/VarDeclarationStatement.h
+        parser/ParserVariableDeclarationTest.cpp
+        ../src/error/exceptions/parser/UninitializedConst.h
+        ../src/interpreter/Environment.cpp
+        ../src/interpreter/Environment.h
+        ../src/parser/ast/expressions/AssignmentExpression.h
+)
 target_link_libraries(tests PRIVATE Catch2::Catch2WithMain)

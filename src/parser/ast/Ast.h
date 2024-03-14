@@ -17,8 +17,10 @@ enum class AstNodeType : uint8_t {
     Program,
     ExpressionStatement,
     PrintStatement,
+    VarDeclarationStatement,
 
     // Expressions
+    AssignmentExpression,
     BinaryExpression,
     LogicalExpression,
     UnaryExpression,
@@ -27,12 +29,14 @@ enum class AstNodeType : uint8_t {
     NumericLiteralExpression,
     StringLiteralExpression,
     GroupingExpression,
+    VariableExpression,
 };
 
 class Statement;
 class Program;
 class ExpressionStatement;
 class PrintStatement;
+class VarDeclarationStatement;
 
 class Expression;
 class BinaryExpression;
@@ -43,6 +47,7 @@ class BooleanLiteralExpression;
 class NumericLiteralExpression;
 class StringLiteralExpression;
 class GroupingExpression;
+class VariableExpression;
 
 typedef Statement* StmtPtr;
 typedef Expression* ExprPtr;
