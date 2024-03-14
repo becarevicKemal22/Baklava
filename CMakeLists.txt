@@ -52,6 +52,9 @@ add_executable(Maturski_2 main.cpp
         src/interpreter/Environment.cpp
         src/interpreter/Environment.h
         src/parser/ast/expressions/AssignmentExpression.h
+        src/error/exceptions/VariableRedeclaration.h
+        src/error/exceptions/UndeclaredVariable.h
+        src/error/exceptions/ConstReassignment.h
 )
 
 add_subdirectory(tests)

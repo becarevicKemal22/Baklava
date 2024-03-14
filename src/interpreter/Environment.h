@@ -15,7 +15,7 @@ public:
     Environment() : parent(nullptr) {};
     explicit Environment(Environment* parent) : parent(parent) {}
     std::unordered_map<std::wstring, std::pair<RuntimeValue, bool>> variables{}; // Holds a map of variable names bound to a std::pair that holds the runtime value and whether the variable is constant
-    Environment* parent; /** Holds the parent environment of the env. If this is nullptr, it means that the environment is the global one. */
+    Environment* parent; /** Points to the parent environment of the env. If this is nullptr, it means that the environment is the global one. */
 
     /**
      * Makes a new variable in the environment

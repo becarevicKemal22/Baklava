@@ -41,5 +41,9 @@ add_executable(tests ../src/error/printer/ErrorPrinter.cpp ../src/lexer/Lexer.cp
         ../src/interpreter/Environment.cpp
         ../src/interpreter/Environment.h
         ../src/parser/ast/expressions/AssignmentExpression.h
+        ../src/error/exceptions/VariableRedeclaration.h
+        ../src/error/exceptions/UndeclaredVariable.h
+        ../src/error/exceptions/ConstReassignment.h
+        environment/EnvironmentTest.cpp
 )
 target_link_libraries(tests PRIVATE Catch2::Catch2WithMain)

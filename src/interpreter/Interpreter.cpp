@@ -214,6 +214,9 @@ RuntimeValue Interpreter::evaluateBinaryExpression(BinaryExpression *expr) {
     throw std::runtime_error("Unknown binary operator type!");
 }
 
+//
+// Moguce ovo bez funkcije samo ubaciti return gore u switch ako se ne bude ovdje vise nista dodavalo
+//
 RuntimeValue Interpreter::evaluateVariableExpression(VariableExpression *expr) {
     return environment->get(expr->name);
 }

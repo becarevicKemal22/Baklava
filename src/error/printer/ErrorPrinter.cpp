@@ -12,6 +12,9 @@
 #include "ExpectedXAfterY.h"
 #include "UninitializedConst.h"
 #include "ParserError.h"
+#include "VariableRedeclaration.h"
+#include "UndeclaredVariable.h"
+#include "ConstReassignment.h"
 
 using std::wcout;
 
@@ -25,13 +28,21 @@ void ErrorPrinter::printErrorMessage(ErrorCode errorCode, const std::vector<Erro
     wcout << message << "\n";
 }
 
-
 void ErrorPrinter::printRuntimeError(const RuntimeError *error) {
     if (dynamic_cast<const WrongTypeError *>(error) != nullptr) {
         printWrongTypeError(static_cast<const WrongTypeError *>(error));
     }
     if (dynamic_cast<const WrongBinaryOperandTypes *>(error) != nullptr) {
         printWrongBinaryOperandTypeError(static_cast<const WrongBinaryOperandTypes *>(error));
+    }
+    if (dynamic_cast<const VariableRedeclaration *>(error) != nullptr) {
+        printVariableRedeclarationError(static_cast<const VariableRedeclaration *>(error));
+    }
+    if(dynamic_cast<const UndeclaredVariable*>(error) != nullptr){
+        printUndeclaredVariableError(static_cast<const UndeclaredVariable*>(error));
+    }
+    if(dynamic_cast<const ConstReassignment*>(error) != nullptr){
+        printConstReassignmentError(static_cast<const ConstReassignment*>(error));
     }
     std::wcout << "\n";
 }
@@ -72,6 +83,27 @@ void ErrorPrinter::printUninitializedConstError(const UninitializedConst *error)
     wcout << message << "\n";
     printSourceLine(error->identifier->line, {{ {error->identifier->offset, error->identifier->offset + getTokenValue(error->identifier).size() - 1}, ANSI_RED}});
     printSquiggleSupportLine(error->identifier->line, {{ {error->identifier->offset, error->identifier->offset + getTokenValue(error->identifier).size() - 1}, ANSI_RED}});
+}
+
+void ErrorPrinter::printConstReassignmentError(const ConstReassignment *error) {
+    std::wstring message = formattedErrorMessage(error->code, error->messageArguments, error->name->line);
+    wcout << message << "\n";
+    printSourceLine(error->name->line, {{ {error->name->offset, error->name->offset + getTokenValue(error->name).size() - 1}, ANSI_RED}});
+    printSquiggleSupportLine(error->name->line, {{ {error->name->offset, error->name->offset + getTokenValue(error->name).size() - 1}, ANSI_RED}});
+}
+
+void ErrorPrinter::printVariableRedeclarationError(const VariableRedeclaration *error) {
+    std::wstring message = formattedErrorMessage(error->code, error->messageArguments, error->token->line);
+    wcout << message << "\n";
+    printSourceLine(error->token->line, {{ {error->token->offset, error->token->offset + getTokenValue(error->token).size() - 1}, ANSI_RED}});
+    printSquiggleSupportLine(error->token->line, {{ {error->token->offset, error->token->offset + getTokenValue(error->token).size() - 1}, ANSI_RED}});
+}
+
+void ErrorPrinter::printUndeclaredVariableError(const UndeclaredVariable *error) {
+    std::wstring message = formattedErrorMessage(error->code, error->messageArguments, error->name->line);
+    wcout << message << "\n";
+    printSourceLine(error->name->line, {{ {error->name->offset, error->name->offset + getTokenValue(error->name).size() - 1}, ANSI_RED}});
+    printSquiggleSupportLine(error->name->line, {{ {error->name->offset, error->name->offset + getTokenValue(error->name).size() - 1}, ANSI_RED}});
 }
 
 void ErrorPrinter::printWrongTypeError(const WrongTypeError *error) {
