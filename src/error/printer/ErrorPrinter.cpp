@@ -51,11 +51,21 @@ void ErrorPrinter::printParserError(const ParserError *error) {
     if(dynamic_cast<const ExpectedXBeforeY*>(error) != nullptr){
         printExpectedXBeforeYError(static_cast<const ExpectedXBeforeY*>(error));
     }
-    if(dynamic_cast<const ExpectedXAfterY*>(error) != nullptr){
+    else if(dynamic_cast<const ExpectedXAfterY*>(error) != nullptr){
         printExpectedXAfterYError(static_cast<const ExpectedXAfterY*>(error));
     }
-    if(dynamic_cast<const UninitializedConst*>(error) != nullptr){
+    else if(dynamic_cast<const UninitializedConst*>(error) != nullptr){
         printUninitializedConstError(static_cast<const UninitializedConst*>(error));
+    }
+    else if(dynamic_cast<const InvalidLValue*>(error) != nullptr){
+        printInvalidLValue(static_cast<const InvalidLValue*>(error));
+    }
+
+    else{
+        std::wstring message = formattedErrorMessage(error->code, error->messageArguments, error->myToken->line);
+        wcout << message << "\n";
+        printSourceLine(error->myToken->line, {{ {error->myToken->offset, error->myToken->offset + getTokenValue(error->myToken).size() - 1}, ANSI_RED}});
+        printSquiggleSupportLine(error->myToken->line, {{ {error->myToken->offset, error->myToken->offset + getTokenValue(error->myToken).size() - 1}, ANSI_RED}});
     }
     std::wcout << "\n";
 }
@@ -104,6 +114,13 @@ void ErrorPrinter::printUndeclaredVariableError(const UndeclaredVariable *error)
     wcout << message << "\n";
     printSourceLine(error->name->line, {{ {error->name->offset, error->name->offset + getTokenValue(error->name).size() - 1}, ANSI_RED}});
     printSquiggleSupportLine(error->name->line, {{ {error->name->offset, error->name->offset + getTokenValue(error->name).size() - 1}, ANSI_RED}});
+}
+
+void ErrorPrinter::printInvalidLValue(const InvalidLValue *error) {
+    std::wstring message = formattedErrorMessage(error->code, error->messageArguments, error->token->line);
+    wcout << message << "\n";
+    printSourceLine(error->token->line, {{ {error->token->offset, error->token->offset + getTokenValue(error->token).size() - 1}, ANSI_RED}});
+    printSquiggleSupportLine(error->token->line, {{ {error->token->offset, error->token->offset + getTokenValue(error->token).size() - 1}, ANSI_RED}});
 }
 
 void ErrorPrinter::printWrongTypeError(const WrongTypeError *error) {

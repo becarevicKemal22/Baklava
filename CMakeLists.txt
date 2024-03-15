@@ -55,6 +55,7 @@ add_executable(Maturski_2 main.cpp
         src/error/exceptions/VariableRedeclaration.h
         src/error/exceptions/UndeclaredVariable.h
         src/error/exceptions/ConstReassignment.h
+        src/error/exceptions/parser/InvalidLValue.h
 )
 
 add_subdirectory(tests)

@@ -110,6 +110,9 @@ void printStatement(Statement *statement, int depth) {
             printStatement(static_cast<VarDeclarationStatement*>(statement)->initializer, depth + 1);
             std::wcout << L" ) ";
             break;
+        case AstNodeType::VariableExpression:
+            printVariableExpression(static_cast<VariableExpression*>(statement), depth);
+            break;
         default:
             std::wcout << L"Unknown statement type" << std::endl;
     }

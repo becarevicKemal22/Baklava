@@ -32,6 +32,8 @@ const std::unordered_map<int , std::wstring> ERRORMESSAGES = {
         {ERROR_VARIABLE_REDCLARATION, L"Varijabla '{}' je već deklarisana."},
         {ERROR_UNDECLARED_VARIABLE, L"Nepoznata varijabla '{}'."},
         {ERROR_CONST_REASSIGNMENT, L"Nedozvoljeno dodjeljivanje vrijednosti konstanti '{}'."},
+        {ERROR_EXPECTED_EXPRESSION_AT_START, L"Očekivan izraz prije '{}'."},
+        {ERROR_INVALID_LVALUE, L"Nedozvoljena l-vrijednost '{}'."},
 
         // 4xx
         {ERROR_WRONG_TYPE_OPERAND, L"Tip '{}' nije dozvoljen za operator '{}'."},

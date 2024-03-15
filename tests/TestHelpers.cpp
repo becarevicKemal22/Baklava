@@ -44,3 +44,7 @@ Expression* parseSingleExpression(const std::wstring& source){
     }
     return expression;
 }
+
+Token* makeToken(TokenType type, const std::wstring& lexeme){
+    return new Token(type, lexeme, 0, 0);
+}

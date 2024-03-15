@@ -21,6 +21,8 @@
 
 #include "ExpectedXBeforeY.h"
 #include "AssignmentExpression.h"
+#include "InvalidLValue.h"
+#include "ExceptionHelpers.h"
 
 std::unique_ptr<Program> Parser::parse() {
     std::unique_ptr<Program> program = std::make_unique<Program>();
@@ -92,13 +94,12 @@ ExprPtr Parser::expression() {
 ExprPtr Parser::assignmentExpression() {
     ExprPtr expr = logicalOrExpression();
     if(match({TokenType::Equal})){
-        Token* equals = previous();
         ExprPtr value = assignmentExpression();
         if(expr->type == AstNodeType::VariableExpression){
             auto* var = static_cast<VariableExpression*>(expr);
             return new AssignmentExpression(var->name, value);
         }
-        throw "INVALID L VALUE";
+        throw InvalidLValue(getMostRelevantToken(expr));
     }
     return expr;
 }
@@ -185,6 +186,9 @@ ExprPtr Parser::primaryExpression() {
             return new GroupingExpression(expr);
         }
         throw ExpectedXBeforeY(L"zatvorena zagrada", previous(), at());
+    }
+    if(current == 0){
+        throw ParserError(ERROR_EXPECTED_EXPRESSION_AT_START, at());
     }
     throw ExpectedXBeforeY(L"izraz", previous(), at());
 }

@@ -22,6 +22,7 @@
 #include "VariableRedeclaration.h"
 #include "UndeclaredVariable.h"
 #include "ConstReassignment.h"
+#include "InvalidLValue.h"
 
 typedef std::pair<std::pair<int, int>, std::wstring> colorHighlight;
 
@@ -88,6 +89,7 @@ private:
     void printUninitializedConstError(const UninitializedConst* error);
     void printUndeclaredVariableError(const UndeclaredVariable* error);
     void printConstReassignmentError(const ConstReassignment* error);
+    void printInvalidLValue(const InvalidLValue* error);
 };
 
 
