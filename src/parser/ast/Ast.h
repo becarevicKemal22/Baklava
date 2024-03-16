@@ -19,6 +19,8 @@ enum class AstNodeType : uint8_t {
     PrintStatement,
     VarDeclarationStatement,
     BlockStatement,
+    IfStatement,
+    WhileStatement,
 
     // Expressions
     AssignmentExpression,
@@ -39,6 +41,8 @@ class ExpressionStatement;
 class PrintStatement;
 class VarDeclarationStatement;
 class BlockStatement;
+class IfStatement;
+class WhileStatement;
 
 class Expression;
 class BinaryExpression;

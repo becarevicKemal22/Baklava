@@ -79,6 +79,7 @@ private:
     void executeVarDeclarationStatement(VarDeclarationStatement* stmt);
     void executeBlockStatement(BlockStatement* stmt);
     void executeBlock(const std::vector<StmtPtr>& statements, Environment* environment);
+    void executeIfStatement(IfStatement* stmt);
 
     RuntimeValue evaluateBinaryExpression(BinaryExpression* expr);
     RuntimeValue evaluateLogicalExpression(LogicalExpression* expr);

@@ -18,13 +18,14 @@
 #include "VarDeclarationStatement.h"
 #include "VariableExpression.h"
 #include "BlockStatement.h"
+#include "IfStatement.h"
 
 #include "WrongTypeError.h"
 #include "WrongBinaryOperandTypes.h"
 #include "GroupingExpression.h"
 
 #include <iostream>
-
+#include <cmath>
 
 void Interpreter::interpret(Program *program) {
     for (auto stmt: program->statements) {
@@ -54,6 +55,9 @@ void Interpreter::execute(Statement *stmt) {
             return;
         case AstNodeType::BlockStatement:
             executeBlockStatement(static_cast<BlockStatement *>(stmt));
+            return;
+        case AstNodeType::IfStatement:
+            executeIfStatement(static_cast<IfStatement *>(stmt));
             return;
         default:
             throw std::runtime_error("Unknown statement type");
@@ -117,6 +121,14 @@ void Interpreter::executeBlock(const std::vector<Statement*>& statements, Enviro
         throw e;
     }
     this->environment = previous;
+}
+
+void Interpreter::executeIfStatement(IfStatement *stmt) {
+    if (isTruthy(evaluate(stmt->condition))) {
+        execute(stmt->thenBranch);
+    } else if (stmt->elseBranch != nullptr) {
+        execute(stmt->elseBranch);
+    }
 }
 
 RuntimeValue Interpreter::evaluate(Expression *expr) {
@@ -191,6 +203,11 @@ RuntimeValue Interpreter::evaluateBinaryExpression(BinaryExpression *expr) {
                 throw WrongBinaryOperandTypes(L"/", left, right, expr);
             }
             return {ValueType::Number, {.number = left.as.number / right.as.number}};
+        case TokenType::Percent:
+            if (left.type != ValueType::Number || right.type != ValueType::Number) {
+                throw WrongBinaryOperandTypes(L"%", left, right, expr);
+            }
+            return {ValueType::Number, {.number = std::fmod(left.as.number, right.as.number)}};
         case TokenType::Greater:
             if (left.type == ValueType::Number && right.type == ValueType::Number) {
                 return {ValueType::Boolean, {.boolean = left.as.number > right.as.number}};

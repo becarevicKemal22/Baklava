@@ -24,6 +24,7 @@
 #include "InvalidLValue.h"
 #include "ExceptionHelpers.h"
 #include "BlockStatement.h"
+#include "IfStatement.h"
 
 std::unique_ptr<Program> Parser::parse() {
     std::unique_ptr<Program> program = std::make_unique<Program>();
@@ -72,6 +73,9 @@ Statement* Parser::statement() {
     if(match({TokenType::OpenBrace})){
         return new BlockStatement(block());
     }
+    if(match({TokenType::If})){
+        return ifStatement();
+    }
     return expressionStatement();
 }
 
@@ -94,6 +98,26 @@ std::vector<Statement*> Parser::block() {
     }
 
     throw ExpectedXBeforeY(L"}", previous(), at());
+}
+
+Statement* Parser::ifStatement(){
+    if(!atType(TokenType::OpenParenthesis)){
+        throw ExpectedXBeforeY(L"(", previous(), at());
+    }
+    advance();
+    ExprPtr condition = expression();
+    if(!atType(TokenType::ClosedParenthesis)){
+        throw ExpectedXBeforeY(L")", previous(), at());
+    }
+    advance();
+
+    StmtPtr thenBranch = statement();
+    StmtPtr elseBranch = nullptr;
+
+    if(match({TokenType::Else})){
+        elseBranch = statement();
+    }
+    return new IfStatement(condition, thenBranch, elseBranch);
 }
 
 Statement* Parser::expressionStatement() {
@@ -173,7 +197,7 @@ ExprPtr Parser::termExpression() {
 
 ExprPtr Parser::factorExpression() {
     ExprPtr expr = unaryExpression();
-    while(match({TokenType::Slash, TokenType::Star})){
+    while(match({TokenType::Slash, TokenType::Star, TokenType::Percent})){
         Token* op = previous();
         ExprPtr right = unaryExpression();
         expr = new BinaryExpression(expr, op, right);
