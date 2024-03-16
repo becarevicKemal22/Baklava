@@ -23,6 +23,7 @@
 #include "AssignmentExpression.h"
 #include "InvalidLValue.h"
 #include "ExceptionHelpers.h"
+#include "BlockStatement.h"
 
 std::unique_ptr<Program> Parser::parse() {
     std::unique_ptr<Program> program = std::make_unique<Program>();
@@ -68,6 +69,9 @@ Statement* Parser::statement() {
     if(match({TokenType::Print})){
         return printStatement();
     }
+    if(match({TokenType::OpenBrace})){
+        return new BlockStatement(block());
+    }
     return expressionStatement();
 }
 
@@ -77,6 +81,19 @@ Statement* Parser::printStatement() {
         return new PrintStatement(value);
     }
     throw ExpectedXBeforeY(L";", previous(), at());
+}
+
+std::vector<Statement*> Parser::block() {
+    std::vector<Statement *> statements;
+    while (!atType(TokenType::ClosedBrace) && !atType(TokenType::Eof)) {
+        statements.push_back(declaration());
+    }
+
+    if(match({TokenType::ClosedBrace})){
+        return statements;
+    }
+
+    throw ExpectedXBeforeY(L"}", previous(), at());
 }
 
 Statement* Parser::expressionStatement() {

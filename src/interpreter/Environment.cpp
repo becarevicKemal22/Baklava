@@ -22,7 +22,7 @@ RuntimeValue Environment::get(Token* name){
     if(it != variables.end()) {
         return it->second.first;
     }
-    else if(parent != nullptr) {
+    if(parent != nullptr) {
         return parent->get(name);
     }
     throw UndeclaredVariable(name);

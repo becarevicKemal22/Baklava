@@ -18,6 +18,7 @@ enum class AstNodeType : uint8_t {
     ExpressionStatement,
     PrintStatement,
     VarDeclarationStatement,
+    BlockStatement,
 
     // Expressions
     AssignmentExpression,
@@ -37,6 +38,7 @@ class Program;
 class ExpressionStatement;
 class PrintStatement;
 class VarDeclarationStatement;
+class BlockStatement;
 
 class Expression;
 class BinaryExpression;

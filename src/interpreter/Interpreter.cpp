@@ -17,12 +17,14 @@
 #include "PrintStatement.h"
 #include "VarDeclarationStatement.h"
 #include "VariableExpression.h"
+#include "BlockStatement.h"
 
 #include "WrongTypeError.h"
 #include "WrongBinaryOperandTypes.h"
 #include "GroupingExpression.h"
 
 #include <iostream>
+
 
 void Interpreter::interpret(Program *program) {
     for (auto stmt: program->statements) {
@@ -37,6 +39,9 @@ void Interpreter::interpret(Program *program) {
 }
 
 void Interpreter::execute(Statement *stmt) {
+#ifdef DEBUG_TRACK_EXECUTION
+    executedStatements.push_back(stmt);
+#endif
     switch (stmt->type) {
         case AstNodeType::ExpressionStatement:
             executeExpressionStatement(static_cast<ExpressionStatement *>(stmt));
@@ -46,6 +51,9 @@ void Interpreter::execute(Statement *stmt) {
             return;
         case AstNodeType::VarDeclarationStatement:
             executeVarDeclarationStatement(static_cast<VarDeclarationStatement *>(stmt));
+            return;
+        case AstNodeType::BlockStatement:
+            executeBlockStatement(static_cast<BlockStatement *>(stmt));
             return;
         default:
             throw std::runtime_error("Unknown statement type");
@@ -58,6 +66,9 @@ void Interpreter::executeExpressionStatement(ExpressionStatement *stmt) {
 
 void Interpreter::executePrintStatement(PrintStatement *stmt) {
     RuntimeValue value = evaluate(stmt->expr);
+#ifdef DEBUG_TRACK_PRINTING
+    printHistory.push_back(value);
+#endif
     switch (value.type) {
         case ValueType::Number:
             std::wcout << value.as.number << std::endl;
@@ -88,6 +99,24 @@ void Interpreter::executeVarDeclarationStatement(VarDeclarationStatement *stmt) 
     }
 
     environment->define(stmt->name, value, stmt->isConst);
+}
+
+void Interpreter::executeBlockStatement(BlockStatement *stmt) {
+    executeBlock(stmt->statements, new Environment(environment));
+}
+
+void Interpreter::executeBlock(const std::vector<Statement*>& statements, Environment* environment){
+    Environment* previous = this->environment;
+    this->environment = environment;
+    try{
+        for(auto s: statements){
+            execute(s);
+        }
+    } catch (RuntimeError& e){
+        this->environment = previous;
+        throw e;
+    }
+    this->environment = previous;
 }
 
 RuntimeValue Interpreter::evaluate(Expression *expr) {

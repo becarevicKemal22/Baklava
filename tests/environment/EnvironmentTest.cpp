@@ -88,3 +88,56 @@ TEST_CASE("Throws error on const reassignment", "[environment]") {
     env.define(token, {ValueType::Number, {.number = 5}}, true);
     REQUIRE_THROWS_AS(env.assign(token, {ValueType::Number, {.number = 10}}), ConstReassignment);
 }
+
+//****************************************
+// Parents environments and shadowing
+//****************************************
+
+TEST_CASE("Gets variable from parent scope", "[environment]"){
+    Environment global;
+    Environment local(&global);
+    Token *token = createMockToken(TokenType::Identifier, L"a");
+    global.define(token, {ValueType::Number, {.number = 5}}, false);
+    REQUIRE(local.get(token).as.number == 5);
+}
+
+TEST_CASE("Assigns variable from parent scope", "[environment]"){
+    Environment global;
+    Environment local(&global);
+    Token *token = createMockToken(TokenType::Identifier, L"a");
+    global.define(token, {ValueType::Number, {.number = 5}}, false);
+    local.assign(token, {ValueType::Number, {.number = 10}});
+    REQUIRE(global.get(token).as.number == 10);
+    REQUIRE(local.get(token).as.number == 10);
+}
+
+TEST_CASE("Shadowing variable", "[environment]"){
+    Environment global;
+    Environment local(&global);
+    Token *token = createMockToken(TokenType::Identifier, L"a");
+    global.define(token, {ValueType::Number, {.number = 5}}, false);
+    local.define(token, {ValueType::Number, {.number = 10}}, false);
+    REQUIRE(local.get(token).as.number == 10);
+    REQUIRE(global.get(token).as.number == 5);
+    global.assign(token, {ValueType::Number, {.number = 15}});
+    REQUIRE(local.get(token).as.number == 10);
+    REQUIRE(global.get(token).as.number == 15);
+    local.assign(token, {ValueType::Number, {.number = 20}});
+    REQUIRE(local.get(token).as.number == 20);
+    REQUIRE(global.get(token).as.number == 15);
+}
+
+TEST_CASE("Throws on parent const reassignment", "[environment]"){
+    Environment global;
+    Environment local(&global);
+    Token *token = createMockToken(TokenType::Identifier, L"a");
+    global.define(token, {ValueType::Number, {.number = 5}}, true);
+    REQUIRE_THROWS_AS(local.assign(token, {ValueType::Number, {.number = 10}}), ConstReassignment);
+}
+
+TEST_CASE("Throws on undefined variable in parent scopes", "[environment]"){
+    Environment global;
+    Environment local(&global);
+    Token *token = createMockToken(TokenType::Identifier, L"a");
+    REQUIRE_THROWS_AS(local.get(token), UndeclaredVariable);
+}

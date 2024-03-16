@@ -68,12 +68,17 @@ public:
 
     bool hadError = false; /**< Holds whether an error has occurred during the interpretation. Interpretation should stop if this is set to true. */
     Environment* environment;
+
+    std::vector<Statement*> executedStatements; /**< List of pointers to all statements that have been executed. Only written to when DEBUG_TRACK_EXECUTION is set */
+    std::vector<RuntimeValue> printHistory; /**< List of all values that have been printed. Only written to when DEBUG_TRACK_PRINTING is set */
 private:
     ErrorPrinter* errorPrinter;
 
     void executeExpressionStatement(ExpressionStatement* stmt);
     void executePrintStatement(PrintStatement* stmt);
     void executeVarDeclarationStatement(VarDeclarationStatement* stmt);
+    void executeBlockStatement(BlockStatement* stmt);
+    void executeBlock(const std::vector<StmtPtr>& statements, Environment* environment);
 
     RuntimeValue evaluateBinaryExpression(BinaryExpression* expr);
     RuntimeValue evaluateLogicalExpression(LogicalExpression* expr);

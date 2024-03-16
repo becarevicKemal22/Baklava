@@ -55,6 +55,7 @@ private:
     Statement* varDeclarationStatement();
     Statement* expressionStatement();
     Statement* printStatement();
+    std::vector<Statement*> block();
 
     Expression* expression();
     Expression* assignmentExpression();
