@@ -76,14 +76,68 @@ void ErrorPrinter::printExpectedXBeforeYError(const ExpectedXBeforeY *error) {
     TokenPtr found = error->found;
     TokenPtr before = error->before;
 
-    std::wcout << "Nije jos implementiran highlighthing \n";
+    if(found->line == before->line){
+        printSourceLine(found->line, {makeTokenHighlight(before, ANSI_RED)});
+
+        printLineDivider(0);
+        unsigned int missingLocation = found->offset + found->value.size();
+        std::wcout << std::wstring(missingLocation, L' ') << ANSI_GREEN << std::wstring(1, L'^') << ANSI_RESET;
+        if(before->offset != missingLocation){
+            std::wcout << std::wstring(before->offset - missingLocation - 1, L' ');
+            std::wcout << ANSI_RED << std::wstring(before->value.size(), L'~');
+        }
+        std::wcout << ANSI_RESET << "\n";
+        printLineDivider(0);
+        std::wcout << std::wstring(missingLocation, L' ') << ANSI_GREEN << error->expectedWhat << ANSI_RESET << "\n";
+    } else{
+        printSourceLine(found->line, {});
+        std::wcout << "\n";
+        printLineDivider(0);
+        unsigned int missingLocation = found->offset + found->value.size();
+        std::wcout << std::wstring(missingLocation, L' ') << ANSI_GREEN << std::wstring(1, L'^') << ANSI_RESET << "\n";
+        printLineDivider(0);
+        std::wcout << std::wstring(missingLocation, L' ') << ANSI_GREEN << error->expectedWhat << ANSI_RESET << "\n";
+        printSourceLine(before->line, {makeTokenHighlight(before, ANSI_RED)});
+        printLineDivider(0);
+        std::wcout << std::wstring(before->offset, L' ');
+        std::wcout << ANSI_RED << std::wstring(before->value.size(), L'~');
+        std::wcout << ANSI_RESET << "\n";
+    }
 }
 
 void ErrorPrinter::printExpectedXAfterYError(const ExpectedXAfterY *error) {
     std::wstring message = formattedErrorMessage(error->code, error->messageArguments, error->found->line);
     wcout << message << "\n";
-    TokenPtr found = error->found;
-    TokenPtr after = error->after;
+//    TokenPtr found = error->found;
+//    TokenPtr after = error->after;
+//
+//    if(found->line == after->line){
+//        printSourceLine(found->line, {makeTokenHighlight(after, ANSI_RED)});
+//
+//        printLineDivider(0);
+//        unsigned int missingLocation = found->offset + found->value.size();
+//        std::wcout << std::wstring(missingLocation, L' ') << ANSI_GREEN << std::wstring(1, L'^') << ANSI_RESET;
+//        if(after->offset != missingLocation){
+//            std::wcout << std::wstring(after->offset - missingLocation - 1, L' ');
+//            std::wcout << ANSI_RED << std::wstring(after->value.size(), L'~');
+//        }
+//        std::wcout << ANSI_RESET << "\n";
+//        printLineDivider(0);
+//        std::wcout << std::wstring(missingLocation, L' ') << ANSI_GREEN << error->expectedWhat << ANSI_RESET << "\n";
+//    } else{
+//        printSourceLine(found->line, {});
+//        std::wcout << "\n";
+//        printLineDivider(0);
+//        unsigned int missingLocation = found->offset + found->value.size();
+//        std::wcout << std::wstring(missingLocation, L' ') << ANSI_GREEN << std::wstring(1, L'^') << ANSI_RESET << "\n";
+//        printLineDivider(0);
+//        std::wcout << std::wstring(missingLocation, L' ') << ANSI_GREEN << error->expectedWhat << ANSI_RESET << "\n";
+//        printSourceLine(after->line, {makeTokenHighlight(after, ANSI_RED)});
+//        printLineDivider(0);
+//        std::wcout << std::wstring(after->offset, L' ');
+//        std::wcout << ANSI_RED << std::wstring(after->value.size(), L'~');
+//        std::wcout << ANSI_RESET << "\n";
+//    }
 
     std::wcout << "AFTER Y! Nije jos implementiran highlighthing \n";
 }
@@ -318,4 +372,8 @@ std::wstring ErrorPrinter::getTokenValue(Token *token) {
         return L"\"" + token->value + L"\"";
     }
     return token->value;
+}
+
+colorHighlight ErrorPrinter::makeTokenHighlight(Token *token, std::wstring color) {
+    return {{token->offset, token->offset + token->value.size() - 1}, color};
 }

@@ -79,6 +79,7 @@ private:
     void printCaretSupportLine(unsigned int offset);
     void printSquiggleSupportLine(unsigned int lineNum, std::vector<colorHighlight> colorHighlights);
     static std::wstring getTokenValue(Token *token);
+    colorHighlight makeTokenHighlight(Token *token, std::wstring color);
 
     void printWrongTypeError(const WrongTypeError* error);
     void printWrongBinaryOperandTypeError(const WrongBinaryOperandTypes* error);
