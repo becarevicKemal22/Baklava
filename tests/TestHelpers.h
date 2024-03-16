@@ -9,6 +9,7 @@
 
 #include "Statement.h"
 #include "ExpressionStatement.h"
+#include "Token.h"
 
 template<typename T>
 T* getNode(Statement* node) {
@@ -22,5 +23,6 @@ T* getNode(Statement* node) {
 
 std::unique_ptr<Program> parseSource(const std::wstring& source);
 Expression* parseSingleExpression(const std::wstring& source);
+Token* makeToken(TokenType type, const std::wstring& lexeme);
 
 #endif //MATURSKI_2_TESTHELPERS_H

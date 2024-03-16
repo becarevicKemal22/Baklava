@@ -9,6 +9,8 @@
 #include "RuntimeValue.h"
 #include "Ast.h"
 #include "ErrorPrinter.h"
+#include "Environment.h"
+#include "AssignmentExpression.h"
 
 /**
  * @brief Class that runs a program.
@@ -20,12 +22,28 @@ public:
     /**
      * @brief Constructor with no error printer. Should almost never be used, as it leaves the interpreter with no error printing capability.
      */
-    Interpreter() : errorPrinter(nullptr) {}
+    Interpreter() : errorPrinter(nullptr) {
+        environment = new Environment();
+    }
     /**
      * @brief Constructor with an error printer. Recommended constructor.
      * @param errorPrinter Error printer to use for printing errors.
      */
-    explicit Interpreter(ErrorPrinter* errorPrinter) : errorPrinter(errorPrinter) {}
+    explicit Interpreter(ErrorPrinter* errorPrinter) : errorPrinter(errorPrinter) {
+        environment = new Environment();
+    }
+
+    ~Interpreter(){
+//        if(objects != nullptr){
+//            Object* object = objects;
+//            while(object != nullptr){
+//                Object* next = object->next;
+//                delete object;
+//                object = next;
+//            }
+//        }
+        delete environment;
+    }
 
     /**
      * @brief Evaluates the given expression.
@@ -48,23 +66,14 @@ public:
      */
     void interpret(Program* program);
 
-//    ~Interpreter(){
-//        if(objects != nullptr){
-//            Object* object = objects;
-//            while(object != nullptr){
-//                Object* next = object->next;
-//                delete object;
-//                object = next;
-//            }
-//        }
-//    }
-
     bool hadError = false; /**< Holds whether an error has occurred during the interpretation. Interpretation should stop if this is set to true. */
+    Environment* environment;
 private:
     ErrorPrinter* errorPrinter;
 
     void executeExpressionStatement(ExpressionStatement* stmt);
     void executePrintStatement(PrintStatement* stmt);
+    void executeVarDeclarationStatement(VarDeclarationStatement* stmt);
 
     RuntimeValue evaluateBinaryExpression(BinaryExpression* expr);
     RuntimeValue evaluateLogicalExpression(LogicalExpression* expr);
@@ -73,6 +82,8 @@ private:
     RuntimeValue evaluateBooleanLiteralExpression(BooleanLiteralExpression* expr);
     RuntimeValue evaluateStringLiteralExpression(StringLiteralExpression* expr);
     RuntimeValue evaluateNullLiteralExpression(NullLiteralExpression* expr);
+    RuntimeValue evaluateVariableExpression(VariableExpression* expr);
+    RuntimeValue evaluateAssignmentExpression(AssignmentExpression* expr);
 
     bool isTruthy(const RuntimeValue& value);
     bool isEqual(const RuntimeValue& left, const RuntimeValue& right);

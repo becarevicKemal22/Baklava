@@ -15,6 +15,8 @@
 #include "LogicalExpression.h"
 #include "ExpressionStatement.h"
 #include "PrintStatement.h"
+#include "VarDeclarationStatement.h"
+#include "VariableExpression.h"
 
 #include "WrongTypeError.h"
 #include "WrongBinaryOperandTypes.h"
@@ -23,8 +25,8 @@
 #include <iostream>
 
 void Interpreter::interpret(Program *program) {
-    for (auto stmt : program->statements) {
-        try{
+    for (auto stmt: program->statements) {
+        try {
             execute(stmt);
         } catch (RuntimeError &e) {
             if (errorPrinter != nullptr) errorPrinter->printRuntimeError(&e);
@@ -42,6 +44,9 @@ void Interpreter::execute(Statement *stmt) {
         case AstNodeType::PrintStatement:
             executePrintStatement(static_cast<PrintStatement *>(stmt));
             return;
+        case AstNodeType::VarDeclarationStatement:
+            executeVarDeclarationStatement(static_cast<VarDeclarationStatement *>(stmt));
+            return;
         default:
             throw std::runtime_error("Unknown statement type");
     }
@@ -53,7 +58,7 @@ void Interpreter::executeExpressionStatement(ExpressionStatement *stmt) {
 
 void Interpreter::executePrintStatement(PrintStatement *stmt) {
     RuntimeValue value = evaluate(stmt->expr);
-    switch(value.type){
+    switch (value.type) {
         case ValueType::Number:
             std::wcout << value.as.number << std::endl;
             return;
@@ -64,7 +69,7 @@ void Interpreter::executePrintStatement(PrintStatement *stmt) {
             std::wcout << L"null" << std::endl;
             return;
         case ValueType::Object:
-            if(IS_STRING_OBJ(value)){
+            if (IS_STRING_OBJ(value)) {
                 std::wcout << GET_STRING_OBJ_VALUE(value) << std::endl;
                 return;
             }
@@ -74,27 +79,42 @@ void Interpreter::executePrintStatement(PrintStatement *stmt) {
     }
 }
 
+void Interpreter::executeVarDeclarationStatement(VarDeclarationStatement *stmt) {
+    RuntimeValue value;
+    if (stmt->initializer != nullptr) {
+        value = evaluate(stmt->initializer);
+    } else {
+        value = {ValueType::Null};
+    }
+
+    environment->define(stmt->name, value, stmt->isConst);
+}
+
 RuntimeValue Interpreter::evaluate(Expression *expr) {
-        switch (expr->type) {
-            case AstNodeType::BinaryExpression:
-                return evaluateBinaryExpression(static_cast<BinaryExpression *>(expr));
-            case AstNodeType::LogicalExpression:
-                return evaluateLogicalExpression(static_cast<LogicalExpression *>(expr));
-            case AstNodeType::UnaryExpression:
-                return evaluateUnaryExpression(static_cast<UnaryExpression *>(expr));
-            case AstNodeType::NumericLiteralExpression:
-                return evaluateNumericLiteralExpression(static_cast<NumericLiteralExpression *>(expr));
-            case AstNodeType::BooleanLiteralExpression:
-                return evaluateBooleanLiteralExpression(static_cast<BooleanLiteralExpression *>(expr));
-            case AstNodeType::NullLiteralExpression:
-                return evaluateNullLiteralExpression(static_cast<NullLiteralExpression *>(expr));
-            case AstNodeType::StringLiteralExpression:
-                return evaluateStringLiteralExpression(static_cast<StringLiteralExpression *>(expr));
-            case AstNodeType::GroupingExpression:
-                return evaluate((static_cast<GroupingExpression *>(expr))->expr);
-            default:
-                throw std::runtime_error("Unknown expression type");
-        }
+    switch (expr->type) {
+        case AstNodeType::BinaryExpression:
+            return evaluateBinaryExpression(static_cast<BinaryExpression *>(expr));
+        case AstNodeType::LogicalExpression:
+            return evaluateLogicalExpression(static_cast<LogicalExpression *>(expr));
+        case AstNodeType::UnaryExpression:
+            return evaluateUnaryExpression(static_cast<UnaryExpression *>(expr));
+        case AstNodeType::NumericLiteralExpression:
+            return evaluateNumericLiteralExpression(static_cast<NumericLiteralExpression *>(expr));
+        case AstNodeType::BooleanLiteralExpression:
+            return evaluateBooleanLiteralExpression(static_cast<BooleanLiteralExpression *>(expr));
+        case AstNodeType::NullLiteralExpression:
+            return evaluateNullLiteralExpression(static_cast<NullLiteralExpression *>(expr));
+        case AstNodeType::StringLiteralExpression:
+            return evaluateStringLiteralExpression(static_cast<StringLiteralExpression *>(expr));
+        case AstNodeType::GroupingExpression:
+            return evaluate((static_cast<GroupingExpression *>(expr))->expr);
+        case AstNodeType::VariableExpression:
+            return evaluateVariableExpression(static_cast<VariableExpression *>(expr));
+        case AstNodeType::AssignmentExpression:
+            return evaluateAssignmentExpression(static_cast<AssignmentExpression *>(expr));
+        default:
+            throw std::runtime_error("Unknown expression type");
+    }
 }
 
 RuntimeValue Interpreter::evaluateLogicalExpression(LogicalExpression *expr) {
@@ -192,6 +212,19 @@ RuntimeValue Interpreter::evaluateBinaryExpression(BinaryExpression *expr) {
             return {ValueType::Boolean, {.boolean = !isEqual(left, right)}};
     }
     throw std::runtime_error("Unknown binary operator type!");
+}
+
+//
+// Moguce ovo bez funkcije samo ubaciti return gore u switch ako se ne bude ovdje vise nista dodavalo
+//
+RuntimeValue Interpreter::evaluateVariableExpression(VariableExpression *expr) {
+    return environment->get(expr->name);
+}
+
+RuntimeValue Interpreter::evaluateAssignmentExpression(AssignmentExpression *expr) {
+    RuntimeValue value = evaluate(expr->value);
+    environment->assign(expr->name, value);
+    return value;
 }
 
 RuntimeValue Interpreter::evaluateNumericLiteralExpression(NumericLiteralExpression *expr) {

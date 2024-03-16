@@ -17,6 +17,12 @@
 #include "WrongBinaryOperandTypes.h"
 #include "ParserError.h"
 #include "ExpectedXBeforeY.h"
+#include "ExpectedXAfterY.h"
+#include "UninitializedConst.h"
+#include "VariableRedeclaration.h"
+#include "UndeclaredVariable.h"
+#include "ConstReassignment.h"
+#include "InvalidLValue.h"
 
 typedef std::pair<std::pair<int, int>, std::wstring> colorHighlight;
 
@@ -73,11 +79,18 @@ private:
     void printCaretSupportLine(unsigned int offset);
     void printSquiggleSupportLine(unsigned int lineNum, std::vector<colorHighlight> colorHighlights);
     static std::wstring getTokenValue(Token *token);
+    colorHighlight makeTokenHighlight(Token *token, std::wstring color);
 
     void printWrongTypeError(const WrongTypeError* error);
     void printWrongBinaryOperandTypeError(const WrongBinaryOperandTypes* error);
+    void printVariableRedeclarationError(const VariableRedeclaration* error);
 
     void printExpectedXBeforeYError(const ExpectedXBeforeY* error);
+    void printExpectedXAfterYError(const ExpectedXAfterY* error);
+    void printUninitializedConstError(const UninitializedConst* error);
+    void printUndeclaredVariableError(const UndeclaredVariable* error);
+    void printConstReassignmentError(const ConstReassignment* error);
+    void printInvalidLValue(const InvalidLValue* error);
 };
 
 

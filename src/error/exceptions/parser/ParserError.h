@@ -22,10 +22,16 @@ public:
     ParserError(ErrorCode code) : code(code) {}
 
     ParserError(ErrorCode code, std::vector<ErrorMessageArgument> messageArguments) : code(code),
-                                                                                       messageArguments(std::move(messageArguments)) {}
+                                                                                      messageArguments(std::move(
+                                                                                              messageArguments)) {}
+
+    ParserError(ErrorCode code, Token *token) : code(code), myToken(token) {
+        messageArguments.push_back(token->value);
+    }
 
     ErrorCode code;
     std::vector<ErrorMessageArgument> messageArguments;
+    Token *myToken = nullptr;
 };
 
 #endif //MATURSKI_2_PARSERERROR_H

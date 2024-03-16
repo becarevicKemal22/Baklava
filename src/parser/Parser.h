@@ -51,10 +51,13 @@ private:
     }
 
     Statement* statement();
+    Statement* declaration();
+    Statement* varDeclarationStatement();
     Statement* expressionStatement();
     Statement* printStatement();
 
     Expression* expression();
+    Expression* assignmentExpression();
     Expression* logicalOrExpression();
     Expression* logicalAndExpression();
     Expression* equalityExpression();

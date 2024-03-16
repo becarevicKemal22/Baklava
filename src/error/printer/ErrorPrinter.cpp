@@ -9,7 +9,12 @@
 #include "WrongTypeError.h"
 #include "WrongBinaryOperandTypes.h"
 #include "ExpectedXBeforeY.h"
+#include "ExpectedXAfterY.h"
+#include "UninitializedConst.h"
 #include "ParserError.h"
+#include "VariableRedeclaration.h"
+#include "UndeclaredVariable.h"
+#include "ConstReassignment.h"
 
 using std::wcout;
 
@@ -23,7 +28,6 @@ void ErrorPrinter::printErrorMessage(ErrorCode errorCode, const std::vector<Erro
     wcout << message << "\n";
 }
 
-
 void ErrorPrinter::printRuntimeError(const RuntimeError *error) {
     if (dynamic_cast<const WrongTypeError *>(error) != nullptr) {
         printWrongTypeError(static_cast<const WrongTypeError *>(error));
@@ -31,12 +35,37 @@ void ErrorPrinter::printRuntimeError(const RuntimeError *error) {
     if (dynamic_cast<const WrongBinaryOperandTypes *>(error) != nullptr) {
         printWrongBinaryOperandTypeError(static_cast<const WrongBinaryOperandTypes *>(error));
     }
+    if (dynamic_cast<const VariableRedeclaration *>(error) != nullptr) {
+        printVariableRedeclarationError(static_cast<const VariableRedeclaration *>(error));
+    }
+    if(dynamic_cast<const UndeclaredVariable*>(error) != nullptr){
+        printUndeclaredVariableError(static_cast<const UndeclaredVariable*>(error));
+    }
+    if(dynamic_cast<const ConstReassignment*>(error) != nullptr){
+        printConstReassignmentError(static_cast<const ConstReassignment*>(error));
+    }
     std::wcout << "\n";
 }
 
 void ErrorPrinter::printParserError(const ParserError *error) {
     if(dynamic_cast<const ExpectedXBeforeY*>(error) != nullptr){
         printExpectedXBeforeYError(static_cast<const ExpectedXBeforeY*>(error));
+    }
+    else if(dynamic_cast<const ExpectedXAfterY*>(error) != nullptr){
+        printExpectedXAfterYError(static_cast<const ExpectedXAfterY*>(error));
+    }
+    else if(dynamic_cast<const UninitializedConst*>(error) != nullptr){
+        printUninitializedConstError(static_cast<const UninitializedConst*>(error));
+    }
+    else if(dynamic_cast<const InvalidLValue*>(error) != nullptr){
+        printInvalidLValue(static_cast<const InvalidLValue*>(error));
+    }
+
+    else{
+        std::wstring message = formattedErrorMessage(error->code, error->messageArguments, error->myToken->line);
+        wcout << message << "\n";
+        printSourceLine(error->myToken->line, {{ {error->myToken->offset, error->myToken->offset + getTokenValue(error->myToken).size() - 1}, ANSI_RED}});
+        printSquiggleSupportLine(error->myToken->line, {{ {error->myToken->offset, error->myToken->offset + getTokenValue(error->myToken).size() - 1}, ANSI_RED}});
     }
     std::wcout << "\n";
 }
@@ -47,19 +76,105 @@ void ErrorPrinter::printExpectedXBeforeYError(const ExpectedXBeforeY *error) {
     TokenPtr found = error->found;
     TokenPtr before = error->before;
 
-    std::wcout << "Nije jos implementiran highlighthing \n";
+    if(found->line == before->line){
+        printSourceLine(found->line, {makeTokenHighlight(before, ANSI_RED)});
 
-//    if(found->line != before->line){
-//        printSourceLine(found->line, {{ {found->offset, found->offset + getTokenValue(found).size() - 1}, ANSI_RED}});
-//        printSquiggleSupportLine(found->line, {{ {found->offset, found->offset + getTokenValue(found).size() - 1}, ANSI_RED}});
-//        printSourceLine(before->line, {{ {before->offset, before->offset + getTokenValue(before).size() - 1}, ANSI_RED}});
-//        printSquiggleSupportLine(before->line, {{ {before->offset, before->offset + getTokenValue(before).size() - 1}, ANSI_RED}});
-//    } else {
-//        printSourceLine(found->line, {{ {found->offset, found->offset + getTokenValue(found).size() - 1}, ANSI_RED},
-//                                      { {before->offset, before->offset + getTokenValue(before).size() - 1}, ANSI_RED}});
-//        printSquiggleSupportLine(found->line, {{ {found->offset, found->offset + getTokenValue(found).size() - 1}, ANSI_RED},
-//                                              { {before->offset, before->offset + getTokenValue(before).size() - 1}, ANSI_RED}});
+        printLineDivider(0);
+        unsigned int missingLocation = found->offset + found->value.size();
+        std::wcout << std::wstring(missingLocation, L' ') << ANSI_GREEN << std::wstring(1, L'^') << ANSI_RESET;
+        if(before->offset != missingLocation){
+            std::wcout << std::wstring(before->offset - missingLocation - 1, L' ');
+            std::wcout << ANSI_RED << std::wstring(before->value.size(), L'~');
+        }
+        std::wcout << ANSI_RESET << "\n";
+        printLineDivider(0);
+        std::wcout << std::wstring(missingLocation, L' ') << ANSI_GREEN << error->expectedWhat << ANSI_RESET << "\n";
+    } else{
+        printSourceLine(found->line, {});
+        std::wcout << "\n";
+        printLineDivider(0);
+        unsigned int missingLocation = found->offset + found->value.size();
+        std::wcout << std::wstring(missingLocation, L' ') << ANSI_GREEN << std::wstring(1, L'^') << ANSI_RESET << "\n";
+        printLineDivider(0);
+        std::wcout << std::wstring(missingLocation, L' ') << ANSI_GREEN << error->expectedWhat << ANSI_RESET << "\n";
+        printSourceLine(before->line, {makeTokenHighlight(before, ANSI_RED)});
+        printLineDivider(0);
+        std::wcout << std::wstring(before->offset, L' ');
+        std::wcout << ANSI_RED << std::wstring(before->value.size(), L'~');
+        std::wcout << ANSI_RESET << "\n";
+    }
+}
+
+void ErrorPrinter::printExpectedXAfterYError(const ExpectedXAfterY *error) {
+    std::wstring message = formattedErrorMessage(error->code, error->messageArguments, error->found->line);
+    wcout << message << "\n";
+//    TokenPtr found = error->found;
+//    TokenPtr after = error->after;
+//
+//    if(found->line == after->line){
+//        printSourceLine(found->line, {makeTokenHighlight(after, ANSI_RED)});
+//
+//        printLineDivider(0);
+//        unsigned int missingLocation = found->offset + found->value.size();
+//        std::wcout << std::wstring(missingLocation, L' ') << ANSI_GREEN << std::wstring(1, L'^') << ANSI_RESET;
+//        if(after->offset != missingLocation){
+//            std::wcout << std::wstring(after->offset - missingLocation - 1, L' ');
+//            std::wcout << ANSI_RED << std::wstring(after->value.size(), L'~');
+//        }
+//        std::wcout << ANSI_RESET << "\n";
+//        printLineDivider(0);
+//        std::wcout << std::wstring(missingLocation, L' ') << ANSI_GREEN << error->expectedWhat << ANSI_RESET << "\n";
+//    } else{
+//        printSourceLine(found->line, {});
+//        std::wcout << "\n";
+//        printLineDivider(0);
+//        unsigned int missingLocation = found->offset + found->value.size();
+//        std::wcout << std::wstring(missingLocation, L' ') << ANSI_GREEN << std::wstring(1, L'^') << ANSI_RESET << "\n";
+//        printLineDivider(0);
+//        std::wcout << std::wstring(missingLocation, L' ') << ANSI_GREEN << error->expectedWhat << ANSI_RESET << "\n";
+//        printSourceLine(after->line, {makeTokenHighlight(after, ANSI_RED)});
+//        printLineDivider(0);
+//        std::wcout << std::wstring(after->offset, L' ');
+//        std::wcout << ANSI_RED << std::wstring(after->value.size(), L'~');
+//        std::wcout << ANSI_RESET << "\n";
 //    }
+
+    std::wcout << "AFTER Y! Nije jos implementiran highlighthing \n";
+}
+
+void ErrorPrinter::printUninitializedConstError(const UninitializedConst *error) {
+    std::wstring message = formattedErrorMessage(error->code, error->messageArguments, error->identifier->line);
+    wcout << message << "\n";
+    printSourceLine(error->identifier->line, {{ {error->identifier->offset, error->identifier->offset + getTokenValue(error->identifier).size() - 1}, ANSI_RED}});
+    printSquiggleSupportLine(error->identifier->line, {{ {error->identifier->offset, error->identifier->offset + getTokenValue(error->identifier).size() - 1}, ANSI_RED}});
+}
+
+void ErrorPrinter::printConstReassignmentError(const ConstReassignment *error) {
+    std::wstring message = formattedErrorMessage(error->code, error->messageArguments, error->name->line);
+    wcout << message << "\n";
+    printSourceLine(error->name->line, {{ {error->name->offset, error->name->offset + getTokenValue(error->name).size() - 1}, ANSI_RED}});
+    printSquiggleSupportLine(error->name->line, {{ {error->name->offset, error->name->offset + getTokenValue(error->name).size() - 1}, ANSI_RED}});
+}
+
+void ErrorPrinter::printVariableRedeclarationError(const VariableRedeclaration *error) {
+    std::wstring message = formattedErrorMessage(error->code, error->messageArguments, error->token->line);
+    wcout << message << "\n";
+    printSourceLine(error->token->line, {{ {error->token->offset, error->token->offset + getTokenValue(error->token).size() - 1}, ANSI_RED}});
+    printSquiggleSupportLine(error->token->line, {{ {error->token->offset, error->token->offset + getTokenValue(error->token).size() - 1}, ANSI_RED}});
+}
+
+void ErrorPrinter::printUndeclaredVariableError(const UndeclaredVariable *error) {
+    std::wstring message = formattedErrorMessage(error->code, error->messageArguments, error->name->line);
+    wcout << message << "\n";
+    printSourceLine(error->name->line, {{ {error->name->offset, error->name->offset + getTokenValue(error->name).size() - 1}, ANSI_RED}});
+    printSquiggleSupportLine(error->name->line, {{ {error->name->offset, error->name->offset + getTokenValue(error->name).size() - 1}, ANSI_RED}});
+}
+
+void ErrorPrinter::printInvalidLValue(const InvalidLValue *error) {
+    std::wstring message = formattedErrorMessage(error->code, error->messageArguments, error->token->line);
+    wcout << message << "\n";
+    printSourceLine(error->token->line, {{ {error->token->offset, error->token->offset + getTokenValue(error->token).size() - 1}, ANSI_RED}});
+    printSquiggleSupportLine(error->token->line, {{ {error->token->offset, error->token->offset + getTokenValue(error->token).size() - 1}, ANSI_RED}});
 }
 
 void ErrorPrinter::printWrongTypeError(const WrongTypeError *error) {
@@ -257,4 +372,8 @@ std::wstring ErrorPrinter::getTokenValue(Token *token) {
         return L"\"" + token->value + L"\"";
     }
     return token->value;
+}
+
+colorHighlight ErrorPrinter::makeTokenHighlight(Token *token, std::wstring color) {
+    return {{token->offset, token->offset + token->value.size() - 1}, color};
 }
