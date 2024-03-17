@@ -42,3 +42,19 @@ void Environment::assign(Token* name, RuntimeValue value) {
     }
     variables[name->value] = {value, false};
 }
+
+RuntimeValue Environment::getAt(int distance, const std::wstring& name){
+    return ancestor(distance)->variables[name].first;
+}
+
+Environment* Environment::ancestor(int distance) {
+    Environment *environment = this;
+    for (int i = 0; i < distance; i++) {
+        environment = environment->parent;
+    }
+    return environment;
+}
+
+void Environment::assignAt(int distance, const std::wstring& name, RuntimeValue value){
+    ancestor(distance)->variables[name].first = std::move(value);
+}

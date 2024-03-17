@@ -59,6 +59,8 @@ add_executable(Maturski_2 main.cpp
         src/parser/ast/statements/BlockStatement.h
         src/parser/ast/statements/IfStatement.h
         src/parser/ast/statements/WhileStatement.h
+        src/parser/ast/expressions/CallExpression.h
+        src/parser/ast/statements/FunctionDeclarationStatement.h
 )
 
 add_subdirectory(tests)

@@ -61,5 +61,9 @@ add_executable(tests ../src/error/printer/ErrorPrinter.cpp ../src/lexer/Lexer.cp
         parser/ParserWhileStatementTest.cpp
         interpreter/InterpreterWhileStatementTest.cpp
         parser/ParserForStatementTest.cpp
+        ../src/parser/ast/expressions/CallExpression.h
+        parser/ParserFunctionCallTest.cpp
+        ../src/parser/ast/statements/FunctionDeclarationStatement.h
+        parser/ParserFunctionDeclarationTest.cpp
 )
 target_link_libraries(tests PRIVATE Catch2::Catch2WithMain)

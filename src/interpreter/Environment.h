@@ -7,8 +7,9 @@
 
 #include <unordered_map>
 #include <algorithm>
-#include "RuntimeValue.h"
 #include "Token.h"
+
+typedef struct RuntimeValue RuntimeValue;
 
 class Environment {
 public:
@@ -42,20 +43,11 @@ public:
      */
     void assign(Token* name, RuntimeValue value);
 
-    RuntimeValue getAt(int distance, const std::wstring& name){
-        return ancestor(distance)->variables[name].first;
-    }
+    RuntimeValue getAt(int distance, const std::wstring& name);
 
-    Environment* ancestor(int distance) {
-        Environment *environment = this;
-        for (int i = 0; i < distance; i++) {
-            environment = environment->parent;
-        }
-        return environment;
-    }
-    void assignAt(int distance, const std::wstring& name, RuntimeValue value){
-        ancestor(distance)->variables[name].first = std::move(value);
-    }
+    Environment* ancestor(int distance);
+
+    void assignAt(int distance, const std::wstring& name, RuntimeValue value);
 };
 
 

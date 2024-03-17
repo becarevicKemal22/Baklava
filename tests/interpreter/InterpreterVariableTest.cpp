@@ -7,6 +7,7 @@
 #include "Interpreter.h"
 #include "Program.h"
 #include "RuntimeValue.h"
+#include "Object.h"
 #include "../TestHelpers.h"
 
 TEST_CASE("Declares variable and assigns value", "[interpreter][variable]") {

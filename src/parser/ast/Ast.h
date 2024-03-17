@@ -21,6 +21,7 @@ enum class AstNodeType : uint8_t {
     BlockStatement,
     IfStatement,
     WhileStatement,
+    FunctionDeclarationStatement,
 
     // Expressions
     AssignmentExpression,
@@ -33,6 +34,7 @@ enum class AstNodeType : uint8_t {
     StringLiteralExpression,
     GroupingExpression,
     VariableExpression,
+    CallExpression,
 };
 
 class Statement;
@@ -43,6 +45,7 @@ class VarDeclarationStatement;
 class BlockStatement;
 class IfStatement;
 class WhileStatement;
+class FunctionDeclarationStatement;
 
 class Expression;
 class BinaryExpression;
@@ -54,6 +57,7 @@ class NumericLiteralExpression;
 class StringLiteralExpression;
 class GroupingExpression;
 class VariableExpression;
+class CallExpression;
 
 typedef Statement* StmtPtr;
 typedef Expression* ExprPtr;

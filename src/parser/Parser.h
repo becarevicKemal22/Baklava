@@ -59,6 +59,7 @@ private:
     Statement* ifStatement();
     Statement* whileStatement();
     Statement* forStatement();
+    Statement* functionDeclarationStatement();
 
     Expression* expression();
     Expression* assignmentExpression();
@@ -69,6 +70,8 @@ private:
     Expression* termExpression();
     Expression* factorExpression();
     Expression* unaryExpression();
+    Expression* callExpression();
+    Expression* finishCallExpression(Expression* callee);
     Expression* primaryExpression();
 };
 

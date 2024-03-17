@@ -26,6 +26,7 @@ const std::unordered_map<std::wstring, TokenType> KEYWORDS = {
         {L"ispisi", TokenType::Print},
         {L"var", TokenType::Var},
         {L"konst", TokenType::Const},
+        {L"funkcija", TokenType::Function},
 };
 
 #endif //MATURSKI_2_KEYWORDS_H

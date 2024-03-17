@@ -7,8 +7,11 @@
 
 #include <cstdint>
 #include <string>
+#include <vector>
+#include <functional>
 
-#include "Object.h"
+class Interpreter;
+typedef struct Object Object;
 
 #define IS_OBJ(value) ((value).type == ValueType::Object)
 
@@ -22,17 +25,20 @@ enum class ValueType : uint8_t {
     Object,
 };
 
+typedef struct RuntimeValue RuntimeValue;
+typedef struct Callable Callable;
+
 /**
  * @brief Discriminated union representing a runtime value.
  */
-typedef struct {
+struct RuntimeValue{
     ValueType type;
     union {
         bool boolean;
         double number;
         Object* object;
     } as;
-} RuntimeValue;
+};
 
 /**
  * @brief returns the type of a runtime value as a string.

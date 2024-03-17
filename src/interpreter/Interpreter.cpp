@@ -20,10 +20,12 @@
 #include "BlockStatement.h"
 #include "IfStatement.h"
 #include "WhileStatement.h"
+#include "CallExpression.h"
 
 #include "WrongTypeError.h"
 #include "WrongBinaryOperandTypes.h"
 #include "GroupingExpression.h"
+#include "FunctionDeclarationStatement.h"
 
 #include <iostream>
 #include <cmath>
@@ -62,6 +64,9 @@ void Interpreter::execute(Statement *stmt) {
             return;
         case AstNodeType::WhileStatement:
             executeWhileStatement(static_cast<WhileStatement *>(stmt));
+            return;
+        case AstNodeType::FunctionDeclarationStatement:
+            executeFunctionDeclarationStatement(static_cast<FunctionDeclarationStatement *>(stmt));
             return;
         default:
             throw std::runtime_error("Unknown statement type");
@@ -122,7 +127,7 @@ void Interpreter::executeBlock(const std::vector<Statement*>& statements, Enviro
         }
     } catch (RuntimeError& e){
         this->environment = previous;
-        throw e;
+        throw;
     }
     this->environment = previous;
     delete environment;
@@ -140,6 +145,11 @@ void Interpreter::executeWhileStatement(WhileStatement *stmt) {
     while (isTruthy(evaluate(stmt->condition))) {
         execute(stmt->body);
     }
+}
+
+void Interpreter::executeFunctionDeclarationStatement(FunctionDeclarationStatement *stmt) {
+    auto* function = new ObjectFunction(stmt);
+    environment->define(stmt->name, {ValueType::Object, {.object = (Object*)function}}, false);
 }
 
 RuntimeValue Interpreter::evaluate(Expression *expr) {
@@ -164,6 +174,8 @@ RuntimeValue Interpreter::evaluate(Expression *expr) {
             return evaluateVariableExpression(static_cast<VariableExpression *>(expr));
         case AstNodeType::AssignmentExpression:
             return evaluateAssignmentExpression(static_cast<AssignmentExpression *>(expr));
+        case AstNodeType::CallExpression:
+            return evaluateCallExpression(static_cast<CallExpression *>(expr));
         default:
             throw std::runtime_error("Unknown expression type");
     }
@@ -314,6 +326,37 @@ RuntimeValue Interpreter::evaluateNullLiteralExpression(NullLiteralExpression *e
 
 RuntimeValue Interpreter::evaluateStringLiteralExpression(StringLiteralExpression *expr) {
     return {ValueType::Object, {.object = (Object *) (allocateStringObject(expr->value))}};
+}
+
+RuntimeValue Interpreter::evaluateCallExpression(CallExpression *expr) {
+    RuntimeValue callee = evaluate(expr->callee);
+
+    std::vector<RuntimeValue> arguments;
+    for(auto arg: expr->arguments){
+        arguments.push_back(evaluate(arg));
+    }
+
+    if(callee.type != ValueType::Object && callee.as.object->type != ObjectType::OBJECT_CALLABLE && callee.as.object->type != ObjectType::OBJECT_FUNCTION){
+        throw "Can only call functions and classes";
+    }
+
+    ObjectCallable* callable;
+    if(callee.as.object->type == ObjectType::OBJECT_CALLABLE){
+        callable = (ObjectCallable*)callee.as.object;
+        if(arguments.size() != callable->arity){
+            throw "Expected " + std::to_string(callable->arity) + " arguments but got " + std::to_string(arguments.size());
+        }
+
+        return callable->call(this, arguments);
+    } else {
+        (ObjectFunction*)callee.as.object;
+        if(arguments.size() != ((ObjectFunction*)callee.as.object)->arity){
+            throw "Expected " + std::to_string(((ObjectFunction*)callee.as.object)->arity) + " arguments but got " + std::to_string(arguments.size());
+        }
+        return ((ObjectFunction*)callee.as.object)->myCall(this, arguments);
+    }
+
+
 }
 
 bool Interpreter::isTruthy(const RuntimeValue &value) {

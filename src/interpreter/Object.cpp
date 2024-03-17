@@ -3,6 +3,15 @@
 //
 
 #include "Object.h"
+#include "Interpreter.h"
+#include "Environment.h"
 
-#include <stdexcept>
 
+RuntimeValue ObjectFunction::myCall(Interpreter* interpreter, const std::vector<RuntimeValue>& arguments){
+    auto environment = new Environment(interpreter->globals);
+    for (int i = 0; i < declaration->parameters.size(); i++) {
+        environment->define(declaration->parameters[i], arguments[i], false);
+    }
+    interpreter->executeBlock(declaration->body, environment);
+    return {ValueType::Null, {}};
+}

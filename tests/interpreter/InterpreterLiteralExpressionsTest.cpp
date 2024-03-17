@@ -6,7 +6,7 @@
 
 #include "Interpreter.h"
 #include "Program.h"
-#include "RuntimeValue.h"
+#include "Object.h"
 #include "../TestHelpers.h"
 
 TEST_CASE("Interprets true boolean literal", "[interpreter][literal]") {

@@ -22,6 +22,8 @@
 #include "BlockStatement.h"
 #include "WhileStatement.h"
 #include "AssignmentExpression.h"
+#include "CallExpression.h"
+#include "FunctionDeclarationStatement.h"
 
 void printStatement(Statement *statement, int depth);
 
@@ -66,6 +68,15 @@ void printStringLiteralExpression(StringLiteralExpression *expression, int depth
 
 void printVariableExpression(VariableExpression *expression, int depth) {
     std::wcout << L"VariableExpr ( " << expression->name->value << L" ) ";
+}
+
+void printCallExpression(CallExpression *expression, int depth) {
+    std::wcout << L"CallExpr ( ";
+    printStatement(expression->callee, depth + 1);
+    for (auto arg: expression->arguments) {
+        printStatement(arg, depth + 1);
+    }
+    std::wcout << L" ) ";
 }
 
 void printStatement(Statement *statement, int depth) {
@@ -133,6 +144,14 @@ void printStatement(Statement *statement, int depth) {
             printStatement(static_cast<WhileStatement *>(statement)->condition, depth + 1);
             std::wcout << L" ) ";
             printStatement(static_cast<WhileStatement *>(statement)->body, depth + 1);
+            break;
+        case AstNodeType::CallExpression:
+            printCallExpression(static_cast<CallExpression *>(statement), depth);
+            break;
+        case AstNodeType::FunctionDeclarationStatement:
+            std::wcout << L"FunctionDeclarationStatement ( ";
+            std::wcout << static_cast<FunctionDeclarationStatement *>(statement)->name->value << L" ";
+            std::wcout << L" ) ";
             break;
         default:
             std::wcout << L"Unknown statement type" << std::endl;

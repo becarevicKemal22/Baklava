@@ -18,7 +18,6 @@
 #include "VarDeclarationStatement.h"
 #include "VariableExpression.h"
 #include "UninitializedConst.h"
-
 #include "ExpectedXBeforeY.h"
 #include "AssignmentExpression.h"
 #include "InvalidLValue.h"
@@ -26,6 +25,8 @@
 #include "BlockStatement.h"
 #include "IfStatement.h"
 #include "WhileStatement.h"
+#include "CallExpression.h"
+#include "FunctionDeclarationStatement.h"
 
 std::unique_ptr<Program> Parser::parse() {
     std::unique_ptr<Program> program = std::make_unique<Program>();
@@ -82,6 +83,9 @@ Statement* Parser::statement() {
     }
     if(match({TokenType::For})){
         return forStatement();
+    }
+    if(match({TokenType::Function})){
+        return functionDeclarationStatement();
     }
     return expressionStatement();
 }
@@ -186,6 +190,39 @@ Statement* Parser::forStatement() {
     return body;
 }
 
+Statement* Parser::functionDeclarationStatement() {
+
+    if(!atType(TokenType::Identifier)){
+        throw ExpectedXBeforeY(L"identifikator", previous(), at());
+    }
+    advance();
+    Token* name = previous();
+    if(!atType(TokenType::OpenParenthesis)){
+        throw ExpectedXBeforeY(L"(", previous(), at());
+    }
+    advance();
+    std::vector<Token*> parameters;
+    if(!atType(TokenType::ClosedParenthesis)){
+        do {
+            if(!atType(TokenType::Identifier)){
+                throw ExpectedXBeforeY(L"identifikator", previous(), at());
+            }
+            advance();
+            parameters.push_back(previous());
+        } while(match({TokenType::Comma}));
+    }
+    if(!atType(TokenType::ClosedParenthesis)){
+        throw ExpectedXBeforeY(L")", previous(), at());
+    }
+    advance();
+    if(!atType(TokenType::OpenBrace)){
+        throw ExpectedXBeforeY(L"{", previous(), at());
+    }
+    advance();
+    std::vector<Statement*> body = block();
+    return new FunctionDeclarationStatement(name, parameters, body);
+}
+
 Statement* Parser::expressionStatement() {
     ExprPtr value = expression();
     if(match({TokenType::Semicolon})){
@@ -277,7 +314,34 @@ ExprPtr Parser::unaryExpression() {
         ExprPtr right = unaryExpression();
         return new UnaryExpression(op, right);
     }
-    return primaryExpression();
+    return callExpression();
+}
+
+ExprPtr Parser::callExpression() {
+    ExprPtr expr = primaryExpression();
+
+    while(true){
+        if(match({TokenType::OpenParenthesis})){
+            expr = finishCallExpression(expr);
+        } else {
+            break;
+        }
+    }
+    return expr;
+}
+
+ExprPtr Parser::finishCallExpression(Expression *callee) {
+    std::vector<ExprPtr> arguments;
+    if(!atType(TokenType::ClosedParenthesis)){
+        do {
+            arguments.push_back(expression());
+        } while(match({TokenType::Comma}));
+    }
+    if(!atType(TokenType::ClosedParenthesis)){
+        throw ExpectedXBeforeY(L")", previous(), at());
+    }
+    advance();
+    return new CallExpression(callee, previous(), arguments);
 }
 
 ExprPtr Parser::primaryExpression() {

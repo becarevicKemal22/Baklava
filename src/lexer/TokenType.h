@@ -53,6 +53,9 @@ enum class TokenType : uint8_t {
     Const,
     While,
     For,
+    Function,
+
+    // End of file
     Eof
 };
 
