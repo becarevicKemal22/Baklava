@@ -51,7 +51,8 @@ enum class TokenType : uint8_t {
     Else,
     Var,
     Const,
-
+    While,
+    For,
     Eof
 };
 

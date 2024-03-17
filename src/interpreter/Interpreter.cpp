@@ -19,6 +19,7 @@
 #include "VariableExpression.h"
 #include "BlockStatement.h"
 #include "IfStatement.h"
+#include "WhileStatement.h"
 
 #include "WrongTypeError.h"
 #include "WrongBinaryOperandTypes.h"
@@ -58,6 +59,9 @@ void Interpreter::execute(Statement *stmt) {
             return;
         case AstNodeType::IfStatement:
             executeIfStatement(static_cast<IfStatement *>(stmt));
+            return;
+        case AstNodeType::WhileStatement:
+            executeWhileStatement(static_cast<WhileStatement *>(stmt));
             return;
         default:
             throw std::runtime_error("Unknown statement type");
@@ -121,6 +125,7 @@ void Interpreter::executeBlock(const std::vector<Statement*>& statements, Enviro
         throw e;
     }
     this->environment = previous;
+    delete environment;
 }
 
 void Interpreter::executeIfStatement(IfStatement *stmt) {
@@ -128,6 +133,12 @@ void Interpreter::executeIfStatement(IfStatement *stmt) {
         execute(stmt->thenBranch);
     } else if (stmt->elseBranch != nullptr) {
         execute(stmt->elseBranch);
+    }
+}
+
+void Interpreter::executeWhileStatement(WhileStatement *stmt) {
+    while (isTruthy(evaluate(stmt->condition))) {
+        execute(stmt->body);
     }
 }
 

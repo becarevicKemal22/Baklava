@@ -80,6 +80,7 @@ private:
     void executeBlockStatement(BlockStatement* stmt);
     void executeBlock(const std::vector<StmtPtr>& statements, Environment* environment);
     void executeIfStatement(IfStatement* stmt);
+    void executeWhileStatement(WhileStatement* stmt);
 
     RuntimeValue evaluateBinaryExpression(BinaryExpression* expr);
     RuntimeValue evaluateLogicalExpression(LogicalExpression* expr);

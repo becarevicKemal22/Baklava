@@ -57,5 +57,9 @@ add_executable(tests ../src/error/printer/ErrorPrinter.cpp ../src/lexer/Lexer.cp
         ../src/parser/ast/statements/IfStatement.h
         parser/ParserIfStatementTest.cpp
         interpreter/InterpreterIfStatementTest.cpp
+        ../src/parser/ast/statements/WhileStatement.h
+        parser/ParserWhileStatementTest.cpp
+        interpreter/InterpreterWhileStatementTest.cpp
+        parser/ParserForStatementTest.cpp
 )
 target_link_libraries(tests PRIVATE Catch2::Catch2WithMain)

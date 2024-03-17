@@ -58,6 +58,7 @@ add_executable(Maturski_2 main.cpp
         src/error/exceptions/parser/InvalidLValue.h
         src/parser/ast/statements/BlockStatement.h
         src/parser/ast/statements/IfStatement.h
+        src/parser/ast/statements/WhileStatement.h
 )
 
 add_subdirectory(tests)

@@ -25,6 +25,7 @@
 #include "ExceptionHelpers.h"
 #include "BlockStatement.h"
 #include "IfStatement.h"
+#include "WhileStatement.h"
 
 std::unique_ptr<Program> Parser::parse() {
     std::unique_ptr<Program> program = std::make_unique<Program>();
@@ -76,6 +77,12 @@ Statement* Parser::statement() {
     if(match({TokenType::If})){
         return ifStatement();
     }
+    if(match({TokenType::While})){
+        return whileStatement();
+    }
+    if(match({TokenType::For})){
+        return forStatement();
+    }
     return expressionStatement();
 }
 
@@ -118,6 +125,65 @@ Statement* Parser::ifStatement(){
         elseBranch = statement();
     }
     return new IfStatement(condition, thenBranch, elseBranch);
+}
+
+Statement* Parser::whileStatement() {
+    if(!atType(TokenType::OpenParenthesis)){
+        throw ExpectedXBeforeY(L"(", previous(), at());
+    }
+    advance();
+    ExprPtr condition = expression();
+    if(!atType(TokenType::ClosedParenthesis)){
+        throw ExpectedXBeforeY(L")", previous(), at());
+    }
+    advance();
+    StmtPtr body = statement();
+    return new WhileStatement(condition, body);
+}
+
+Statement* Parser::forStatement() {
+    if(!atType(TokenType::OpenParenthesis)){
+        throw ExpectedXBeforeY(L"(", previous(), at());
+    }
+    advance();
+    StmtPtr initializer = nullptr;
+    if(match({TokenType::Var})){
+        initializer = varDeclarationStatement();
+    } else if(match({TokenType::Semicolon})){
+        initializer = nullptr;
+    } else {
+        initializer = expressionStatement();
+    }
+    ExprPtr condition = nullptr;
+    if(!atType(TokenType::Semicolon)){
+        condition = expression();
+    }
+    if(!atType(TokenType::Semicolon)){
+        throw ExpectedXBeforeY(L";", previous(), at());
+    }
+    advance();
+    ExprPtr increment = nullptr;
+    if(!atType(TokenType::ClosedParenthesis)){
+        increment = expression();
+    }
+    if(!atType(TokenType::ClosedParenthesis)){
+        throw ExpectedXBeforeY(L")", previous(), at());
+    }
+    advance();
+    StmtPtr body = statement();
+
+    if(increment != nullptr){
+        body = new BlockStatement({body, new ExpressionStatement(increment)});
+    }
+    if(condition == nullptr){
+        condition = new BooleanLiteralExpression(new Token(TokenType::True, L"istina", 0, 0));
+    }
+    body = new WhileStatement(condition, body);
+    if(initializer != nullptr){
+        body = new BlockStatement({initializer, body});
+    }
+
+    return body;
 }
 
 Statement* Parser::expressionStatement() {
