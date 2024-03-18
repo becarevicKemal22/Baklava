@@ -53,15 +53,6 @@ public:
         auto clockToken = new Token(TokenType::Identifier, L"clock", 0, 0);
         globals->define(clockToken, clockFunction, true);
 
-//        RuntimeValue emptyFunction;
-//        emptyFunction.type = ValueType::Callable;
-//        emptyFunction.as.callable.arity = 0;
-//        emptyFunction.as.callable.call = [](Interpreter* interpreter, const std::vector<RuntimeValue>& arguments) -> RuntimeValue {
-//            return RuntimeValue{ValueType::Null, {}};
-//        };
-//        auto emptyToken = new Token(TokenType::Identifier, L"mockFunkcija", 0, 0);
-//        globals->define(emptyToken, emptyFunction, true);
-
         RuntimeValue emptyFunction;
         emptyFunction.type = ValueType::Object;
         ObjectCallable *emptyCallable = new ObjectCallable();
@@ -75,6 +66,7 @@ public:
 
         auto emptyToken = new Token(TokenType::Identifier, L"mockFunkcija", 0, 0);
         globals->define(emptyToken, emptyFunction, true);
+
     }
 
     ~Interpreter() {

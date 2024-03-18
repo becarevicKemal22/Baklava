@@ -341,19 +341,19 @@ RuntimeValue Interpreter::evaluateCallExpression(CallExpression *expr) {
     }
 
     ObjectCallable* callable;
+
     if(callee.as.object->type == ObjectType::OBJECT_CALLABLE){
         callable = (ObjectCallable*)callee.as.object;
         if(arguments.size() != callable->arity){
             throw "Expected " + std::to_string(callable->arity) + " arguments but got " + std::to_string(arguments.size());
         }
-
         return callable->call(this, arguments);
     } else {
         (ObjectFunction*)callee.as.object;
         if(arguments.size() != ((ObjectFunction*)callee.as.object)->arity){
             throw "Expected " + std::to_string(((ObjectFunction*)callee.as.object)->arity) + " arguments but got " + std::to_string(arguments.size());
         }
-        return ((ObjectFunction*)callee.as.object)->myCall(this, arguments);
+        return ((ObjectFunction*)callee.as.object)->functionCall(this, arguments);
     }
 
 

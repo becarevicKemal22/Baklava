@@ -7,7 +7,7 @@
 #include "Environment.h"
 
 
-RuntimeValue ObjectFunction::myCall(Interpreter* interpreter, const std::vector<RuntimeValue>& arguments){
+RuntimeValue ObjectFunction::functionCall(Interpreter* interpreter, const std::vector<RuntimeValue>& arguments){
     auto environment = new Environment(interpreter->globals);
     for (int i = 0; i < declaration->parameters.size(); i++) {
         environment->define(declaration->parameters[i], arguments[i], false);

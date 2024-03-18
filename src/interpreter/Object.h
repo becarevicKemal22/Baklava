@@ -39,11 +39,11 @@ struct ObjectCallable {
 
 struct ObjectFunction : public ObjectCallable {
     FunctionDeclarationStatement* declaration;
-    RuntimeValue myCall(Interpreter* interpreter, const std::vector<RuntimeValue>& arguments);
-    ObjectFunction(FunctionDeclarationStatement* declaration) : declaration(declaration){
+    RuntimeValue functionCall(Interpreter* interpreter, const std::vector<RuntimeValue>& arguments);
+    explicit ObjectFunction(FunctionDeclarationStatement* declaration) : declaration(declaration){
         obj.type = ObjectType::OBJECT_FUNCTION;
         arity = declaration->parameters.size();
-        call = [this](auto && PH1, auto && PH2) { return myCall(std::forward<decltype(PH1)>(PH1), std::forward<decltype(PH2)>(PH2)); };
+        call = [this](auto && PH1, auto && PH2) { return functionCall(std::forward<decltype(PH1)>(PH1), std::forward<decltype(PH2)>(PH2)); };
     }
 };
 
