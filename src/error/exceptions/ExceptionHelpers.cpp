@@ -9,6 +9,11 @@
 #include "BooleanLiteralExpression.h"
 #include "StringLiteralExpression.h"
 #include "NullLiteralExpression.h"
+#include "VariableExpression.h"
+#include "CallExpression.h"
+#include "LogicalExpression.h"
+#include "GroupingExpression.h"
+#include "AssignmentExpression.h"
 
 Token* getMostRelevantToken(const Expression* expression) {
     if (expression->type == AstNodeType::BinaryExpression) {
@@ -19,26 +24,42 @@ Token* getMostRelevantToken(const Expression* expression) {
         auto unaryExpression = dynamic_cast<const UnaryExpression*>(expression);
         return getMostRelevantToken(unaryExpression->expr);
     }
-
     if (expression->type == AstNodeType::NumericLiteralExpression) {
         auto numericLiteralExpression = static_cast<const NumericLiteralExpression*>(expression);
         return numericLiteralExpression->token;
     }
-
     if (expression->type == AstNodeType::BooleanLiteralExpression) {
         auto booleanLiteralExpression = static_cast<const BooleanLiteralExpression*>(expression);
         return booleanLiteralExpression->token;
     }
-
     if (expression->type == AstNodeType::StringLiteralExpression) {
         auto stringLiteralExpression = static_cast<const StringLiteralExpression*>(expression);
         return stringLiteralExpression->token;
     }
-
     if (expression->type == AstNodeType::NullLiteralExpression) {
         auto nullLiteralExpression = static_cast<const NullLiteralExpression*>(expression);
         return nullLiteralExpression->token;
     }
-    throw std::runtime_error("GET MOST RELEVANT TOKEN: Unknown expression type");
+    if(expression->type == AstNodeType::VariableExpression) {
+        auto variableExpression = static_cast<const VariableExpression*>(expression);
+        return variableExpression->name;
+    }
+    if(expression->type == AstNodeType::CallExpression) {
+        auto callExpression = static_cast<const CallExpression*>(expression);
+        return getMostRelevantToken(callExpression->callee);
+    }
+    if(expression->type == AstNodeType::LogicalExpression) {
+        auto logicalExpression = static_cast<const LogicalExpression*>(expression);
+        return logicalExpression->op;
+    }
+    if(expression->type == AstNodeType::GroupingExpression) {
+        auto groupingExpression = static_cast<const GroupingExpression*>(expression);
+        return getMostRelevantToken(groupingExpression->expr);
+    }
+    if(expression->type == AstNodeType::AssignmentExpression) {
+        auto assignmentExpression = static_cast<const AssignmentExpression*>(expression);
+        return assignmentExpression->name;
+    }
+    throw std::runtime_error("INTERNAL ERROR IN GET MOST RELEVANT TOKEN: Unknown expression type");
 }
 

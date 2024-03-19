@@ -60,6 +60,7 @@ private:
     Statement* whileStatement();
     Statement* forStatement();
     Statement* functionDeclarationStatement();
+    Statement* returnStatement();
 
     Expression* expression();
     Expression* assignmentExpression();

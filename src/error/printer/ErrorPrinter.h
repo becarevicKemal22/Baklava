@@ -23,6 +23,8 @@
 #include "UndeclaredVariable.h"
 #include "ConstReassignment.h"
 #include "InvalidLValue.h"
+#include "InvalidCall.h"
+#include "InvalidArgumentCount.h"
 
 typedef std::pair<std::pair<int, int>, std::wstring> colorHighlight;
 
@@ -64,8 +66,6 @@ public:
 
     void printRuntimeError(const RuntimeError* error);
 
-
-
 private:
     std::wstring source;
     std::vector<std::wstring> lines;
@@ -91,6 +91,8 @@ private:
     void printUndeclaredVariableError(const UndeclaredVariable* error);
     void printConstReassignmentError(const ConstReassignment* error);
     void printInvalidLValue(const InvalidLValue* error);
+    void printInvalidCallError(const InvalidCall* error);
+    void printInvalidArgumentCountError(const InvalidArgumentCount* error);
 };
 
 

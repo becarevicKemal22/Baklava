@@ -10,6 +10,7 @@
 #include "Statement.h"
 #include "ExpressionStatement.h"
 #include "Token.h"
+#include "Interpreter.h"
 
 template<typename T>
 T* getNode(Statement* node) {
@@ -19,6 +20,13 @@ T* getNode(Statement* node) {
     T* castedNode = dynamic_cast<T*>(node);
     REQUIRE(castedNode != nullptr);
     return castedNode;
+}
+
+template<typename T>
+void checkHandledError(Interpreter* interpreter){
+    REQUIRE(interpreter->handledError != nullptr);
+    auto error = dynamic_cast<T*>(interpreter->handledError);
+    REQUIRE(error != nullptr);
 }
 
 std::unique_ptr<Program> parseSource(const std::wstring& source);

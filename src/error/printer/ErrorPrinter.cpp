@@ -28,6 +28,10 @@ void ErrorPrinter::printErrorMessage(ErrorCode errorCode, const std::vector<Erro
     wcout << message << "\n";
 }
 
+// ***********************************************************************
+// ----------------------- RUNTIME ERROR PRINTING METHODS -----------------------
+// ***********************************************************************
+
 void ErrorPrinter::printRuntimeError(const RuntimeError *error) {
     if (dynamic_cast<const WrongTypeError *>(error) != nullptr) {
         printWrongTypeError(static_cast<const WrongTypeError *>(error));
@@ -44,8 +48,100 @@ void ErrorPrinter::printRuntimeError(const RuntimeError *error) {
     if(dynamic_cast<const ConstReassignment*>(error) != nullptr){
         printConstReassignmentError(static_cast<const ConstReassignment*>(error));
     }
+    if(dynamic_cast<const InvalidCall*>(error) != nullptr){
+        printInvalidCallError(static_cast<const InvalidCall*>(error));
+    }
+    if(dynamic_cast<const InvalidArgumentCount*>(error) != nullptr){
+        printInvalidArgumentCountError(static_cast<const InvalidArgumentCount*>(error));
+    }
     std::wcout << "\n";
 }
+
+void ErrorPrinter::printConstReassignmentError(const ConstReassignment *error) {
+    std::wstring message = formattedErrorMessage(error->code, error->messageArguments, error->name->line);
+    wcout << message << "\n";
+    printSourceLine(error->name->line, {{ {error->name->offset, error->name->offset + getTokenValue(error->name).size() - 1}, ANSI_RED}});
+    printSquiggleSupportLine(error->name->line, {{ {error->name->offset, error->name->offset + getTokenValue(error->name).size() - 1}, ANSI_RED}});
+}
+
+void ErrorPrinter::printVariableRedeclarationError(const VariableRedeclaration *error) {
+    std::wstring message = formattedErrorMessage(error->code, error->messageArguments, error->token->line);
+    wcout << message << "\n";
+    printSourceLine(error->token->line, {{ {error->token->offset, error->token->offset + getTokenValue(error->token).size() - 1}, ANSI_RED}});
+    printSquiggleSupportLine(error->token->line, {{ {error->token->offset, error->token->offset + getTokenValue(error->token).size() - 1}, ANSI_RED}});
+}
+
+void ErrorPrinter::printUndeclaredVariableError(const UndeclaredVariable *error) {
+    std::wstring message = formattedErrorMessage(error->code, error->messageArguments, error->name->line);
+    wcout << message << "\n";
+    printSourceLine(error->name->line, {{ {error->name->offset, error->name->offset + getTokenValue(error->name).size() - 1}, ANSI_RED}});
+    printSquiggleSupportLine(error->name->line, {{ {error->name->offset, error->name->offset + getTokenValue(error->name).size() - 1}, ANSI_RED}});
+}
+
+void ErrorPrinter::printWrongTypeError(const WrongTypeError *error) {
+    std::wstring message = formattedErrorMessage(error->code, error->messageArguments, error->token->line);
+    wcout << message << "\n";
+    printSourceLine(error->token->line, {
+            {
+                    {error->token->offset, error->token->offset + getTokenValue(error->token).size() - 1},
+                    ANSI_RED}
+    });
+    printSquiggleSupportLine(error->token->line, {
+            {{error->token->offset, error->token->offset + getTokenValue(error->token).size() - 1}, ANSI_RED}});
+}
+
+void ErrorPrinter::printWrongBinaryOperandTypeError(const WrongBinaryOperandTypes *error) {
+    std::wstring message = formattedErrorMessage(error->code, error->messageArguments, error->token->line);
+    wcout << message << "\n";
+    colorHighlight leftTokenHighlight = {{error->leftToken->offset, error->leftToken->offset + getTokenValue(error->leftToken).size() - 1}, ANSI_BLUE};
+    colorHighlight rightTokenHighlight = {{error->rightToken->offset, error->rightToken->offset + getTokenValue(error->rightToken).size() - 1}, ANSI_GREEN};
+    colorHighlight operatorTokenHighlight = {{error->token->offset, error->token->offset + getTokenValue(error->token).size() - 1}, ANSI_RED};
+    unsigned int leftLine = error->leftToken->line;
+    unsigned int rightLine = error->rightToken->line;
+    unsigned int operatorLine = error->token->line;
+    if(leftLine == rightLine){
+        printSourceLine(leftLine, {leftTokenHighlight, operatorTokenHighlight, rightTokenHighlight});
+        printSquiggleSupportLine(leftLine, {leftTokenHighlight, operatorTokenHighlight, rightTokenHighlight});
+    } else if(leftLine == operatorLine){
+        printSourceLine(leftLine, {leftTokenHighlight, operatorTokenHighlight});
+        printSquiggleSupportLine(leftLine, {leftTokenHighlight, operatorTokenHighlight});
+        printSourceLine(rightLine, {rightTokenHighlight});
+        printSquiggleSupportLine(rightLine, {rightTokenHighlight});
+    } else if(rightLine == operatorLine){
+        printSourceLine(leftLine, {leftTokenHighlight});
+        printSquiggleSupportLine(leftLine, {leftTokenHighlight});
+        printSourceLine(rightLine, {operatorTokenHighlight, rightTokenHighlight});
+        printSquiggleSupportLine(rightLine, {operatorTokenHighlight, rightTokenHighlight});
+    } else {
+        printSourceLine(leftLine, {leftTokenHighlight});
+        printSquiggleSupportLine(leftLine, {leftTokenHighlight});
+        printSourceLine(operatorLine, {operatorTokenHighlight});
+        printSquiggleSupportLine(operatorLine, {operatorTokenHighlight});
+        printSourceLine(rightLine, {rightTokenHighlight});
+        printSquiggleSupportLine(rightLine, {rightTokenHighlight});
+    }
+}
+
+void ErrorPrinter::printInvalidCallError(const InvalidCall *error) {
+    std::wstring message = formattedErrorMessage(error->code, error->messageArguments, error->name->line);
+    wcout << message << "\n";
+    printSourceLine(error->name->line, {{ {error->name->offset, error->name->offset + getTokenValue(error->name).size() - 1}, ANSI_RED}});
+    printSquiggleSupportLine(error->name->line, {{ {error->name->offset, error->name->offset + getTokenValue(error->name).size() - 1}, ANSI_RED}});
+}
+
+void ErrorPrinter::printInvalidArgumentCountError(const InvalidArgumentCount *error) {
+    std::wstring message = formattedErrorMessage(error->code, error->messageArguments, error->token->line);
+    wcout << message << "\n";
+    printSourceLine(error->token->line, {{ {error->token->offset, error->token->offset + getTokenValue(error->token).size() - 1}, ANSI_BLUE},
+                                         { {error->paren->offset, error->paren->offset + getTokenValue(error->paren).size() - 1}, ANSI_RED}});
+    printSquiggleSupportLine(error->token->line, {{ {error->token->offset, error->token->offset + getTokenValue(error->token).size() - 1}, ANSI_BLUE},
+                                                  { {error->paren->offset, error->paren->offset + getTokenValue(error->paren).size() - 1}, ANSI_RED}});
+}
+
+
+// ***********************************************************************
+// ----------------------- PARSER ERROR PRINTING METHODS -----------------------
+// ***********************************************************************
 
 void ErrorPrinter::printParserError(const ParserError *error) {
     if(dynamic_cast<const ExpectedXBeforeY*>(error) != nullptr){
@@ -149,27 +245,6 @@ void ErrorPrinter::printUninitializedConstError(const UninitializedConst *error)
     printSquiggleSupportLine(error->identifier->line, {{ {error->identifier->offset, error->identifier->offset + getTokenValue(error->identifier).size() - 1}, ANSI_RED}});
 }
 
-void ErrorPrinter::printConstReassignmentError(const ConstReassignment *error) {
-    std::wstring message = formattedErrorMessage(error->code, error->messageArguments, error->name->line);
-    wcout << message << "\n";
-    printSourceLine(error->name->line, {{ {error->name->offset, error->name->offset + getTokenValue(error->name).size() - 1}, ANSI_RED}});
-    printSquiggleSupportLine(error->name->line, {{ {error->name->offset, error->name->offset + getTokenValue(error->name).size() - 1}, ANSI_RED}});
-}
-
-void ErrorPrinter::printVariableRedeclarationError(const VariableRedeclaration *error) {
-    std::wstring message = formattedErrorMessage(error->code, error->messageArguments, error->token->line);
-    wcout << message << "\n";
-    printSourceLine(error->token->line, {{ {error->token->offset, error->token->offset + getTokenValue(error->token).size() - 1}, ANSI_RED}});
-    printSquiggleSupportLine(error->token->line, {{ {error->token->offset, error->token->offset + getTokenValue(error->token).size() - 1}, ANSI_RED}});
-}
-
-void ErrorPrinter::printUndeclaredVariableError(const UndeclaredVariable *error) {
-    std::wstring message = formattedErrorMessage(error->code, error->messageArguments, error->name->line);
-    wcout << message << "\n";
-    printSourceLine(error->name->line, {{ {error->name->offset, error->name->offset + getTokenValue(error->name).size() - 1}, ANSI_RED}});
-    printSquiggleSupportLine(error->name->line, {{ {error->name->offset, error->name->offset + getTokenValue(error->name).size() - 1}, ANSI_RED}});
-}
-
 void ErrorPrinter::printInvalidLValue(const InvalidLValue *error) {
     std::wstring message = formattedErrorMessage(error->code, error->messageArguments, error->token->line);
     wcout << message << "\n";
@@ -177,49 +252,9 @@ void ErrorPrinter::printInvalidLValue(const InvalidLValue *error) {
     printSquiggleSupportLine(error->token->line, {{ {error->token->offset, error->token->offset + getTokenValue(error->token).size() - 1}, ANSI_RED}});
 }
 
-void ErrorPrinter::printWrongTypeError(const WrongTypeError *error) {
-    std::wstring message = formattedErrorMessage(error->code, error->messageArguments, error->token->line);
-    wcout << message << "\n";
-    printSourceLine(error->token->line, {
-            {
-                {error->token->offset, error->token->offset + getTokenValue(error->token).size() - 1},
-                ANSI_RED}
-    });
-    printSquiggleSupportLine(error->token->line, {
-        {{error->token->offset, error->token->offset + getTokenValue(error->token).size() - 1}, ANSI_RED}});
-}
-
-void ErrorPrinter::printWrongBinaryOperandTypeError(const WrongBinaryOperandTypes *error) {
-    std::wstring message = formattedErrorMessage(error->code, error->messageArguments, error->token->line);
-    wcout << message << "\n";
-    colorHighlight leftTokenHighlight = {{error->leftToken->offset, error->leftToken->offset + getTokenValue(error->leftToken).size() - 1}, ANSI_BLUE};
-    colorHighlight rightTokenHighlight = {{error->rightToken->offset, error->rightToken->offset + getTokenValue(error->rightToken).size() - 1}, ANSI_GREEN};
-    colorHighlight operatorTokenHighlight = {{error->token->offset, error->token->offset + getTokenValue(error->token).size() - 1}, ANSI_RED};
-    unsigned int leftLine = error->leftToken->line;
-    unsigned int rightLine = error->rightToken->line;
-    unsigned int operatorLine = error->token->line;
-    if(leftLine == rightLine){
-        printSourceLine(leftLine, {leftTokenHighlight, operatorTokenHighlight, rightTokenHighlight});
-        printSquiggleSupportLine(leftLine, {leftTokenHighlight, operatorTokenHighlight, rightTokenHighlight});
-    } else if(leftLine == operatorLine){
-        printSourceLine(leftLine, {leftTokenHighlight, operatorTokenHighlight});
-        printSquiggleSupportLine(leftLine, {leftTokenHighlight, operatorTokenHighlight});
-        printSourceLine(rightLine, {rightTokenHighlight});
-        printSquiggleSupportLine(rightLine, {rightTokenHighlight});
-    } else if(rightLine == operatorLine){
-        printSourceLine(leftLine, {leftTokenHighlight});
-        printSquiggleSupportLine(leftLine, {leftTokenHighlight});
-        printSourceLine(rightLine, {operatorTokenHighlight, rightTokenHighlight});
-        printSquiggleSupportLine(rightLine, {operatorTokenHighlight, rightTokenHighlight});
-    } else {
-        printSourceLine(leftLine, {leftTokenHighlight});
-        printSquiggleSupportLine(leftLine, {leftTokenHighlight});
-        printSourceLine(operatorLine, {operatorTokenHighlight});
-        printSquiggleSupportLine(operatorLine, {operatorTokenHighlight});
-        printSourceLine(rightLine, {rightTokenHighlight});
-        printSquiggleSupportLine(rightLine, {rightTokenHighlight});
-    }
-}
+// ***********************************************************************
+// ----------------------- LEXER ERROR PRINTING METHODS -----------------------
+// ***********************************************************************
 
 void
 ErrorPrinter::printLexerError(ErrorCode errorCode, unsigned int line, unsigned int offset, unsigned int currentChar) {

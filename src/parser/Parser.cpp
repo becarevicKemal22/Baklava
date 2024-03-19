@@ -27,6 +27,7 @@
 #include "WhileStatement.h"
 #include "CallExpression.h"
 #include "FunctionDeclarationStatement.h"
+#include "ReturnStatement.h"
 
 std::unique_ptr<Program> Parser::parse() {
     std::unique_ptr<Program> program = std::make_unique<Program>();
@@ -86,6 +87,9 @@ Statement* Parser::statement() {
     }
     if(match({TokenType::Function})){
         return functionDeclarationStatement();
+    }
+    if(match({TokenType::Return})){
+        return returnStatement();
     }
     return expressionStatement();
 }
@@ -227,6 +231,18 @@ Statement* Parser::expressionStatement() {
     ExprPtr value = expression();
     if(match({TokenType::Semicolon})){
         return new ExpressionStatement(value);
+    }
+    throw ExpectedXBeforeY(L";", previous(), at());
+}
+
+Statement* Parser::returnStatement() {
+    Token* keyword = previous();
+    ExprPtr value = nullptr;
+    if(!atType(TokenType::Semicolon)){
+        value = expression();
+    }
+    if(match({TokenType::Semicolon})){
+        return new ReturnStatement(keyword, value);
     }
     throw ExpectedXBeforeY(L";", previous(), at());
 }

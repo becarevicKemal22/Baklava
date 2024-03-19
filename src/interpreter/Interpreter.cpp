@@ -26,6 +26,11 @@
 #include "WrongBinaryOperandTypes.h"
 #include "GroupingExpression.h"
 #include "FunctionDeclarationStatement.h"
+#include "InvalidCall.h"
+#include "InvalidArgumentCount.h"
+#include "RuntimeValue.h"
+#include "ReturnStatement.h"
+#include "Return.h"
 
 #include <iostream>
 #include <cmath>
@@ -37,6 +42,7 @@ void Interpreter::interpret(Program *program) {
         } catch (RuntimeError &e) {
             if (errorPrinter != nullptr) errorPrinter->printRuntimeError(&e);
             hadError = true;
+            handledError = reallocateError(&e);
             return;
         }
     }
@@ -67,6 +73,9 @@ void Interpreter::execute(Statement *stmt) {
             return;
         case AstNodeType::FunctionDeclarationStatement:
             executeFunctionDeclarationStatement(static_cast<FunctionDeclarationStatement *>(stmt));
+            return;
+        case AstNodeType::ReturnStatement:
+            executeReturnStatement(static_cast<ReturnStatement *>(stmt));
             return;
         default:
             throw std::runtime_error("Unknown statement type");
@@ -148,8 +157,15 @@ void Interpreter::executeWhileStatement(WhileStatement *stmt) {
 }
 
 void Interpreter::executeFunctionDeclarationStatement(FunctionDeclarationStatement *stmt) {
-    auto* function = new ObjectFunction(stmt);
-    environment->define(stmt->name, {ValueType::Object, {.object = (Object*)function}}, false);
+    environment->define(stmt->name, {ValueType::Object, {.object = (Object*)allocateFunctionObject(stmt)}}, false);
+}
+
+void Interpreter::executeReturnStatement(ReturnStatement *stmt) {
+    RuntimeValue value = {ValueType::Null};
+    if(stmt->value != nullptr){
+        value = evaluate(stmt->value);
+    }
+    throw Return(value);
 }
 
 RuntimeValue Interpreter::evaluate(Expression *expr) {
@@ -336,27 +352,27 @@ RuntimeValue Interpreter::evaluateCallExpression(CallExpression *expr) {
         arguments.push_back(evaluate(arg));
     }
 
-    if(callee.type != ValueType::Object && callee.as.object->type != ObjectType::OBJECT_CALLABLE && callee.as.object->type != ObjectType::OBJECT_FUNCTION){
-        throw "Can only call functions and classes";
+    if(!IS_OBJ(callee)){
+        throw InvalidCall(callee, getMostRelevantToken(expr->callee));
+    }
+    if(!IS_CALLABLE_OBJ(callee) && !IS_FUNCTION_OBJ(callee)){
+        throw InvalidCall(callee, getMostRelevantToken(expr->callee));
     }
 
-    ObjectCallable* callable;
-
-    if(callee.as.object->type == ObjectType::OBJECT_CALLABLE){
-        callable = (ObjectCallable*)callee.as.object;
-        if(arguments.size() != callable->arity){
-            throw "Expected " + std::to_string(callable->arity) + " arguments but got " + std::to_string(arguments.size());
-        }
-        return callable->call(this, arguments);
-    } else {
-        (ObjectFunction*)callee.as.object;
-        if(arguments.size() != ((ObjectFunction*)callee.as.object)->arity){
-            throw "Expected " + std::to_string(((ObjectFunction*)callee.as.object)->arity) + " arguments but got " + std::to_string(arguments.size());
-        }
-        return ((ObjectFunction*)callee.as.object)->functionCall(this, arguments);
+    ObjectCallable* callable = AS_CALLABLE_OBJ(callee);
+    if(arguments.size() != callable->arity){
+        throw InvalidArgumentCount(callable->arity, arguments.size(), getMostRelevantToken(expr->callee), expr->paren);
     }
-
-
+    return callable->call(this, arguments);
+//    if(callee.as.object->type == ObjectType::OBJECT_CALLABLE){
+//    bilo ovjde ovo iznad sto je sad ovo callable = .... do returna, ali izgleda da radi sa castom onim na objectcallable
+//    } else {
+//        (ObjectFunction*)callee.as.object;
+//        if(arguments.size() != ((ObjectFunction*)callee.as.object)->arity){
+//            throw "Expected " + std::to_string(((ObjectFunction*)callee.as.object)->arity) + " arguments but got " + std::to_string(arguments.size());
+//        }
+//        return ((ObjectFunction*)callee.as.object)->functionCall(this, arguments);
+//    }
 }
 
 bool Interpreter::isTruthy(const RuntimeValue &value) {
@@ -399,4 +415,36 @@ ObjectString *Interpreter::allocateStringObject(const std::wstring &value) {
     obj->obj.next = objects;
     objects = (Object *) obj;
     return obj;
+}
+
+ObjectFunction *Interpreter::allocateFunctionObject(FunctionDeclarationStatement *declaration) {
+    auto *obj = new ObjectFunction(declaration);
+    obj->obj.next = objects;
+    objects = (Object *) obj;
+    return obj;
+}
+
+RuntimeError* Interpreter::reallocateError(RuntimeError* error){
+
+    delete handledError; // In case one was already allocated
+
+
+    if(dynamic_cast<WrongTypeError*>(error) != nullptr){
+        handledError = new WrongTypeError(*dynamic_cast<WrongTypeError*>(error));
+    } else if(dynamic_cast<WrongBinaryOperandTypes*>(error) != nullptr){
+        handledError = new WrongBinaryOperandTypes(*dynamic_cast<WrongBinaryOperandTypes*>(error));
+    } else if(dynamic_cast<InvalidCall*>(error) != nullptr){
+        handledError = new InvalidCall(*dynamic_cast<InvalidCall*>(error));
+    } else if(dynamic_cast<InvalidArgumentCount*>(error) != nullptr){
+        handledError = new InvalidArgumentCount(*dynamic_cast<InvalidArgumentCount*>(error));
+    } else if(dynamic_cast<UndeclaredVariable*>(error) != nullptr){
+        handledError = new UndeclaredVariable(*dynamic_cast<UndeclaredVariable*>(error));
+    } else if(dynamic_cast<VariableRedeclaration*>(error) != nullptr){
+        handledError = new VariableRedeclaration(*dynamic_cast<VariableRedeclaration*>(error));
+    } else if(dynamic_cast<ConstReassignment*>(error) != nullptr){
+        handledError = new ConstReassignment(*dynamic_cast<ConstReassignment*>(error));
+    } else {
+        throw std::runtime_error("ERROR REALLOCATION ERROR: Unknown error type");
+    }
+    return handledError;
 }

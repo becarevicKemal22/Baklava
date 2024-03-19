@@ -1,7 +1,7 @@
 project(tests)
 add_subdirectory(lib/Catch2)
 
-add_definitions(-DDEBUG_TRACK_EXECUTION -DDEBUG_TRACK_PRINTING)
+add_definitions(-DDEBUG_TRACK_EXECUTION -DDEBUG_TRACK_PRINTING -DDEBUG_TRACK_ERRORS)
 
 add_executable(tests ../src/error/printer/ErrorPrinter.cpp ../src/lexer/Lexer.cpp ../src/parser/Parser.cpp
         lexer/LexerTest.cpp
@@ -65,5 +65,10 @@ add_executable(tests ../src/error/printer/ErrorPrinter.cpp ../src/lexer/Lexer.cp
         parser/ParserFunctionCallTest.cpp
         ../src/parser/ast/statements/FunctionDeclarationStatement.h
         parser/ParserFunctionDeclarationTest.cpp
+        ../src/error/exceptions/InvalidCall.h
+        ../src/error/exceptions/InvalidArgumentCount.h
+        interpreter/InterpreterFunctionTest.cpp
+        ../src/parser/ast/statements/ReturnStatement.h
+        ../src/interpreter/controlFlowExceptions/Return.h
 )
 target_link_libraries(tests PRIVATE Catch2::Catch2WithMain)

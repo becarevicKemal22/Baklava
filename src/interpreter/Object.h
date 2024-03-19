@@ -15,6 +15,12 @@
 #define AS_STRING_OBJ(value) ((ObjectString*)value.as.object)
 #define GET_STRING_OBJ_VALUE(val) (AS_STRING_OBJ(val)->value)
 
+#define IS_CALLABLE_OBJ(value) ((value).as.object->type == ObjectType::OBJECT_CALLABLE)
+#define AS_CALLABLE_OBJ(value) ((ObjectCallable*)value.as.object)
+
+#define IS_FUNCTION_OBJ(value) ((value).as.object->type == ObjectType::OBJECT_FUNCTION)
+#define AS_FUNCTION_OBJ(value) ((ObjectFunction*)value.as.object)
+
 enum class ObjectType : uint8_t{
   OBJECT_STRING,
   OBJECT_CALLABLE,

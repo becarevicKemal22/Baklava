@@ -108,6 +108,7 @@ public:
 
     std::vector<Statement *> executedStatements; /**< List of pointers to all statements that have been executed. Only written to when DEBUG_TRACK_EXECUTION is set */
     std::vector<RuntimeValue> printHistory; /**< List of all values that have been printed. Only written to when DEBUG_TRACK_PRINTING is set */
+    RuntimeError* handledError = nullptr; /**< Holds the last error that has been handled. No flags needed as this is only done when the program has to quit so performance is not an issue.*/
 
     void executeBlock(const std::vector<StmtPtr> &statements, Environment *environment);
 private:
@@ -126,6 +127,8 @@ private:
     void executeWhileStatement(WhileStatement *stmt);
 
     void executeFunctionDeclarationStatement(FunctionDeclarationStatement *stmt);
+
+    void executeReturnStatement(ReturnStatement *stmt);
 
     RuntimeValue evaluateBinaryExpression(BinaryExpression *expr);
 
@@ -154,6 +157,11 @@ private:
     Object *objects = nullptr;
 
     ObjectString *allocateStringObject(const std::wstring &value);
+    ObjectFunction *allocateFunctionObject(FunctionDeclarationStatement *declaration);
+
+    // Used to ensure that errors don't go out of scope when running tests, since the type needs to be checked on the handledError field.
+    // This function just dynamically allocates a new error of the same type and returns it (so that handledError can be set and checked in tests).
+    RuntimeError* reallocateError(RuntimeError* error);
 };
 
 

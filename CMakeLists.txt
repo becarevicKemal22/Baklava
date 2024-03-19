@@ -3,7 +3,7 @@ project(Maturski_2)
 
 set(CMAKE_CXX_STANDARD 20)
 
-include_directories("src/lexer" "src/error" "src/error/exceptions/parser" "src/error/printer" "src/parser" "src/parser/ast/" "src/parser/ast/expressions" "src/parser/ast/statements" "src/interpreter/" "src/interpreter/runtimeValues" "src/error/exceptions" )
+include_directories("src/interpreter/controlFlowExceptions" "src/lexer" "src/error" "src/error/exceptions/parser" "src/error/printer" "src/parser" "src/parser/ast/" "src/parser/ast/expressions" "src/parser/ast/statements" "src/interpreter/" "src/interpreter/runtimeValues" "src/error/exceptions" )
 add_executable(Maturski_2 main.cpp
         src/lexer/Lexer.cpp
         src/lexer/Lexer.h
@@ -61,6 +61,10 @@ add_executable(Maturski_2 main.cpp
         src/parser/ast/statements/WhileStatement.h
         src/parser/ast/expressions/CallExpression.h
         src/parser/ast/statements/FunctionDeclarationStatement.h
+        src/error/exceptions/InvalidCall.h
+        src/error/exceptions/InvalidArgumentCount.h
+        src/parser/ast/statements/ReturnStatement.h
+        src/interpreter/controlFlowExceptions/Return.h
 )
 
 add_subdirectory(tests)

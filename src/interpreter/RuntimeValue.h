@@ -16,7 +16,7 @@ typedef struct Object Object;
 #define IS_OBJ(value) ((value).type == ValueType::Object)
 
 /**
- * @brief Enum class which defines all types of runtime values in the language.
+ * @brief Enum class which defines all types of runtime values in the language, excluding specific object types.
  */
 enum class ValueType : uint8_t {
     Number,
@@ -26,7 +26,6 @@ enum class ValueType : uint8_t {
 };
 
 typedef struct RuntimeValue RuntimeValue;
-typedef struct Callable Callable;
 
 /**
  * @brief Discriminated union representing a runtime value.
