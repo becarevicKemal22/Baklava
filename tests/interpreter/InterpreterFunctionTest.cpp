@@ -8,6 +8,7 @@
 #include "Program.h"
 #include "RuntimeValue.h"
 #include "../TestHelpers.h"
+#include "Resolver.h"
 
 TEST_CASE("Declares and calls basic function", "[interpreter][function]") {
     std::wstring source = L"funkcija f() { ispisi 5; } f();";
@@ -21,8 +22,10 @@ TEST_CASE("Declares and calls basic function", "[interpreter][function]") {
 TEST_CASE("Declares and calls function with parameters", "[interpreter][function]") {
     std::wstring source = L"funkcija f(x) { ispisi x; } f(5);";
     Interpreter interpreter;
-
-    interpreter.interpret(parseSource(source).get());
+    std::unique_ptr<Program> program = parseSource(source);
+    Resolver resolver(&interpreter);
+    resolver.resolve(program);
+    interpreter.interpret(program.get());
     REQUIRE(interpreter.printHistory.size() == 1);
     REQUIRE(interpreter.printHistory[0].as.number == 5);
 }
@@ -30,8 +33,10 @@ TEST_CASE("Declares and calls function with parameters", "[interpreter][function
 TEST_CASE("Declares and calls function with multiple parameters", "[interpreter][function]") {
     std::wstring source = L"funkcija f(x, y) { ispisi x; ispisi y; } f(5, 10);";
     Interpreter interpreter;
-
-    interpreter.interpret(parseSource(source).get());
+    std::unique_ptr<Program> program = parseSource(source);
+    Resolver resolver(&interpreter);
+    resolver.resolve(program);
+    interpreter.interpret(program.get());
     REQUIRE(interpreter.printHistory.size() == 2);
     REQUIRE(interpreter.printHistory[0].as.number == 5);
     REQUIRE(interpreter.printHistory[1].as.number == 10);
@@ -40,8 +45,10 @@ TEST_CASE("Declares and calls function with multiple parameters", "[interpreter]
 TEST_CASE("Declares and calls function with return statement", "[interpreter][function]") {
     std::wstring source = L"funkcija f() { vrati 5; } ispisi f();";
     Interpreter interpreter;
-
-    interpreter.interpret(parseSource(source).get());
+    std::unique_ptr<Program> program = parseSource(source);
+    Resolver resolver(&interpreter);
+    resolver.resolve(program);
+    interpreter.interpret(program.get());
     REQUIRE(interpreter.printHistory.size() == 1);
     REQUIRE(interpreter.printHistory[0].as.number == 5);
 }
@@ -49,8 +56,10 @@ TEST_CASE("Declares and calls function with return statement", "[interpreter][fu
 TEST_CASE("Declares and calls function with return statement and parameters", "[interpreter][function]") {
     std::wstring source = L"funkcija f(x, y) { vrati x + y; } ispisi f(5, 10);";
     Interpreter interpreter;
-
-    interpreter.interpret(parseSource(source).get());
+    std::unique_ptr<Program> program = parseSource(source);
+    Resolver resolver(&interpreter);
+    resolver.resolve(program);
+    interpreter.interpret(program.get());
     REQUIRE(interpreter.printHistory.size() == 1);
     REQUIRE(interpreter.printHistory[0].as.number == 15);
 }
@@ -58,8 +67,10 @@ TEST_CASE("Declares and calls function with return statement and parameters", "[
 TEST_CASE("Declares and calls function with return statement and nested function call", "[interpreter][function]") {
     std::wstring source = L"funkcija f(x, y) { vrati x + y; } ispisi f(5, f(5, 5));";
     Interpreter interpreter;
-
-    interpreter.interpret(parseSource(source).get());
+    std::unique_ptr<Program> program = parseSource(source);
+    Resolver resolver(&interpreter);
+    resolver.resolve(program);
+    interpreter.interpret(program.get());
     REQUIRE(interpreter.printHistory.size() == 1);
     REQUIRE(interpreter.printHistory[0].as.number == 15);
 }
@@ -67,8 +78,10 @@ TEST_CASE("Declares and calls function with return statement and nested function
 TEST_CASE("Declares and calls function inside a block", "[interpreter][function]") {
     std::wstring source = L"{ funkcija f() { ispisi 5; } f(); }";
     Interpreter interpreter;
-
-    interpreter.interpret(parseSource(source).get());
+    std::unique_ptr<Program> program = parseSource(source);
+    Resolver resolver(&interpreter);
+    resolver.resolve(program);
+    interpreter.interpret(program.get());
     REQUIRE(interpreter.printHistory.size() == 1);
     REQUIRE(interpreter.printHistory[0].as.number == 5);
 }
@@ -76,8 +89,10 @@ TEST_CASE("Declares and calls function inside a block", "[interpreter][function]
 TEST_CASE("Declares and calls function inside a block with shadowing", "[interpreter][function]") {
     std::wstring source = L"var x = 10; { funkcija f() { ispisi x; } f(); }";
     Interpreter interpreter;
-
-    interpreter.interpret(parseSource(source).get());
+    std::unique_ptr<Program> program = parseSource(source);
+    Resolver resolver(&interpreter);
+    resolver.resolve(program);
+    interpreter.interpret(program.get());
     REQUIRE(interpreter.printHistory.size() == 1);
     REQUIRE(interpreter.printHistory[0].as.number == 10);
 }
@@ -89,6 +104,52 @@ TEST_CASE("Declares function outside block and calls inside block", "[interprete
     interpreter.interpret(parseSource(source).get());
     REQUIRE(interpreter.printHistory.size() == 1);
     REQUIRE(interpreter.printHistory[0].as.number == 5);
+}
+
+TEST_CASE("Closure test", "[interpreter][function]") {
+    std::wstring source = L"funkcija makeCounter(){\n"
+                          "    var i = 0;\n"
+                          "    funkcija count(){\n"
+                          "        i = i + 1;\n"
+                          "        vrati i;\n"
+                          "    }\n"
+                          "    vrati count;\n"
+                          "}\n"
+                          "\n"
+                          "var counter = makeCounter();\n"
+                          "\n"
+                          "ispisi counter(); // 1\n"
+                          "ispisi counter(); // 2";
+    Interpreter interpreter;
+    std::unique_ptr<Program> program = parseSource(source);
+    Resolver resolver(&interpreter);
+    resolver.resolve(program);
+    interpreter.interpret(program.get());
+    REQUIRE(interpreter.printHistory.size() == 2);
+    REQUIRE(interpreter.printHistory[0].as.number == 1);
+    REQUIRE(interpreter.printHistory[1].as.number == 2);
+}
+
+TEST_CASE("Closure edge case test", "[interpreter][function]") {
+    std::wstring source = L"var a = \"global\";\n"
+                          "{\n"
+                          "    funkcija fn(){\n"
+                          "        ispisi a;\n"
+                          "    }\n"
+                          "    fn();\n"
+                          "    var a = \"local\";\n"
+                          "    fn();\n"
+                          "}";
+    Interpreter interpreter;
+    std::unique_ptr<Program> program = parseSource(source);
+    Resolver resolver(&interpreter);
+    resolver.resolve(program);
+    interpreter.interpret(program.get());
+    REQUIRE(interpreter.printHistory.size() == 2);
+    REQUIRE(IS_STRING_OBJ(interpreter.printHistory[0]));
+    REQUIRE(GET_STRING_OBJ_VALUE(interpreter.printHistory[0]) == L"global");
+    REQUIRE(IS_STRING_OBJ(interpreter.printHistory[1]));
+    REQUIRE(GET_STRING_OBJ_VALUE(interpreter.printHistory[1]) == L"global");
 }
 
 TEST_CASE("Has error on string call", "[interpreter][function]") {

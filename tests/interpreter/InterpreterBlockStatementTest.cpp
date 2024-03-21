@@ -8,6 +8,7 @@
 #include "Program.h"
 #include "Object.h"
 #include "../TestHelpers.h"
+#include "Resolver.h"
 
 TEST_CASE("Interprets block statement", "[interpreter][block]") {
     std::wstring source = L"{ var x = 10; }";
@@ -49,7 +50,10 @@ TEST_CASE("Nesting and shadowing test", "[interpreter][block]") {
                           "ispisi b;\n"
                           "ispisi c;";
     Interpreter interpreter;
-    interpreter.interpret(parseSource(source).get());
+    std::unique_ptr<Program> program = parseSource(source);
+    Resolver resolver(&interpreter);
+    resolver.resolve(program);
+    interpreter.interpret(program.get());
     REQUIRE(interpreter.printHistory.size() == 9);
     REQUIRE(GET_STRING_OBJ_VALUE(interpreter.printHistory[0]) == L"inner a");
     REQUIRE(GET_STRING_OBJ_VALUE(interpreter.printHistory[1]) == L"outer b");

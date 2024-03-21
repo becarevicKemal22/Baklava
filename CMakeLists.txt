@@ -65,6 +65,8 @@ add_executable(Maturski_2 main.cpp
         src/error/exceptions/InvalidArgumentCount.h
         src/parser/ast/statements/ReturnStatement.h
         src/interpreter/controlFlowExceptions/Return.h
+        src/parser/Resolver.cpp
+        src/parser/Resolver.h
 )
 
 add_subdirectory(tests)

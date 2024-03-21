@@ -20,7 +20,7 @@
 class Interpreter {
 public:
     /**
-     * @brief Constructor with no error printer. Should almost never be used, as it leaves the interpreter with no error printing capability.
+     * @brief Constructor with no error printer. Should almost never be used, as it leaves the interpreter with no error printing capability. Useful for testing.
      */
     Interpreter() : errorPrinter(nullptr) {
         globals = new Environment();
@@ -102,6 +102,10 @@ public:
      */
     void interpret(Program *program);
 
+    void resolve(const Expression *expr, int depth){
+        locals[expr] = depth;
+    }
+
     bool hadError = false; /**< Holds whether an error has occurred during the interpretation. Interpretation should stop if this is set to true. */
     Environment *globals;
     Environment *environment;
@@ -112,7 +116,11 @@ public:
 
     void executeBlock(const std::vector<StmtPtr> &statements, Environment *environment);
 private:
+    std::unordered_map<const Expression*, int> locals;
+
     ErrorPrinter *errorPrinter;
+
+    RuntimeValue lookUpVariable(const VariableExpression *expr);
 
     void executeExpressionStatement(ExpressionStatement *stmt);
 

@@ -10,6 +10,7 @@
 
 #include "RuntimeValue.h"
 #include "FunctionDeclarationStatement.h"
+#include "Environment.h"
 
 #define IS_STRING_OBJ(value) ((value).as.object->type == ObjectType::OBJECT_STRING)
 #define AS_STRING_OBJ(value) ((ObjectString*)value.as.object)
@@ -43,12 +44,16 @@ struct ObjectCallable {
     std::function<RuntimeValue(Interpreter*, const std::vector<RuntimeValue>&)> call;
 };
 
+class Environment;
+
 struct ObjectFunction : public ObjectCallable {
     FunctionDeclarationStatement* declaration;
+    Environment closure;
     RuntimeValue functionCall(Interpreter* interpreter, const std::vector<RuntimeValue>& arguments);
-    explicit ObjectFunction(FunctionDeclarationStatement* declaration) : declaration(declaration){
+    explicit ObjectFunction(FunctionDeclarationStatement* declaration, Environment* closure) : declaration(declaration){
         obj.type = ObjectType::OBJECT_FUNCTION;
         arity = declaration->parameters.size();
+        this->closure = *closure;
         call = [this](auto && PH1, auto && PH2) { return functionCall(std::forward<decltype(PH1)>(PH1), std::forward<decltype(PH2)>(PH2)); };
     }
 };

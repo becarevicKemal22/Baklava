@@ -9,6 +9,8 @@
 #include <algorithm>
 #include "Token.h"
 
+#include <iostream>
+
 typedef struct RuntimeValue RuntimeValue;
 
 class Environment {

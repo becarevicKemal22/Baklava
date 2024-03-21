@@ -70,5 +70,7 @@ add_executable(tests ../src/error/printer/ErrorPrinter.cpp ../src/lexer/Lexer.cp
         interpreter/InterpreterFunctionTest.cpp
         ../src/parser/ast/statements/ReturnStatement.h
         ../src/interpreter/controlFlowExceptions/Return.h
+        ../src/parser/Resolver.cpp
+        ../src/parser/Resolver.h
 )
 target_link_libraries(tests PRIVATE Catch2::Catch2WithMain)

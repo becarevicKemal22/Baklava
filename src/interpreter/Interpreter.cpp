@@ -31,6 +31,7 @@
 #include "RuntimeValue.h"
 #include "ReturnStatement.h"
 #include "Return.h"
+#include "Resolver.h"
 
 #include <iostream>
 #include <cmath>
@@ -134,8 +135,9 @@ void Interpreter::executeBlock(const std::vector<Statement*>& statements, Enviro
         for(auto s: statements){
             execute(s);
         }
-    } catch (RuntimeError& e){
+    } catch (Return& e){
         this->environment = previous;
+        delete environment;
         throw;
     }
     this->environment = previous;
@@ -303,12 +305,19 @@ RuntimeValue Interpreter::evaluateBinaryExpression(BinaryExpression *expr) {
 // Moguce ovo bez funkcije samo ubaciti return gore u switch ako se ne bude ovdje vise nista dodavalo
 //
 RuntimeValue Interpreter::evaluateVariableExpression(VariableExpression *expr) {
-    return environment->get(expr->name);
+    return lookUpVariable(expr);
 }
 
 RuntimeValue Interpreter::evaluateAssignmentExpression(AssignmentExpression *expr) {
     RuntimeValue value = evaluate(expr->value);
-    environment->assign(expr->name, value);
+
+    auto distance = locals.find(expr);
+    if(distance != locals.end()){
+        environment->assignAt(distance->second, expr->name->value, value);
+    } else {
+        globals->assign(expr->name, value);
+    }
+
     return value;
 }
 
@@ -418,7 +427,7 @@ ObjectString *Interpreter::allocateStringObject(const std::wstring &value) {
 }
 
 ObjectFunction *Interpreter::allocateFunctionObject(FunctionDeclarationStatement *declaration) {
-    auto *obj = new ObjectFunction(declaration);
+    auto *obj = new ObjectFunction(declaration, environment);
     obj->obj.next = objects;
     objects = (Object *) obj;
     return obj;
@@ -427,7 +436,6 @@ ObjectFunction *Interpreter::allocateFunctionObject(FunctionDeclarationStatement
 RuntimeError* Interpreter::reallocateError(RuntimeError* error){
 
     delete handledError; // In case one was already allocated
-
 
     if(dynamic_cast<WrongTypeError*>(error) != nullptr){
         handledError = new WrongTypeError(*dynamic_cast<WrongTypeError*>(error));
@@ -447,4 +455,13 @@ RuntimeError* Interpreter::reallocateError(RuntimeError* error){
         throw std::runtime_error("ERROR REALLOCATION ERROR: Unknown error type");
     }
     return handledError;
+}
+
+RuntimeValue Interpreter::lookUpVariable(const VariableExpression *expr) {
+    auto distance = locals.find(expr);
+    if(distance != locals.end()){
+        return environment->getAt(distance->second, expr->name->value);
+    } else {
+        return globals->get(expr->name);
+    }
 }

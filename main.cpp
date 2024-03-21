@@ -11,6 +11,7 @@
 #include "PrettyPrint.h"
 #include "Interpreter.h"
 #include "ParserError.h"
+#include "Resolver.h"
 
 void runRepl() {
     std::wcout << "Running repl\n";
@@ -51,6 +52,8 @@ void runFile(const char *path) {
     }
     printAST(program);
     Interpreter interpreter(&printer);
+    Resolver resolver(&interpreter);
+    resolver.resolve(program);
     std::wcout << std::endl;
 //    for (auto statement: program->statements) {
 //        auto start = std::chrono::high_resolution_clock::now();
