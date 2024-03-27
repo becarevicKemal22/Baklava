@@ -30,7 +30,6 @@
 #include "InvalidArgumentCount.h"
 #include "RuntimeValue.h"
 #include "ReturnStatement.h"
-#include "Return.h"
 #include "Resolver.h"
 
 #include <iostream>
@@ -134,10 +133,12 @@ void Interpreter::executeBlock(const std::vector<Statement*>& statements, Enviro
     try{
         for(auto s: statements){
             execute(s);
+            if(isReturning){
+                break;
+            }
         }
-    } catch (Return& e){
+    } catch (RuntimeError& e){
         this->environment = previous;
-        delete environment;
         throw;
     }
     this->environment = previous;
@@ -153,7 +154,7 @@ void Interpreter::executeIfStatement(IfStatement *stmt) {
 }
 
 void Interpreter::executeWhileStatement(WhileStatement *stmt) {
-    while (isTruthy(evaluate(stmt->condition))) {
+    while (isTruthy(evaluate(stmt->condition)) && !isReturning) {
         execute(stmt->body);
     }
 }
@@ -167,7 +168,8 @@ void Interpreter::executeReturnStatement(ReturnStatement *stmt) {
     if(stmt->value != nullptr){
         value = evaluate(stmt->value);
     }
-    throw Return(value);
+    returnedValue = value;
+    isReturning = true;
 }
 
 RuntimeValue Interpreter::evaluate(Expression *expr) {

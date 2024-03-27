@@ -69,7 +69,6 @@ add_executable(tests ../src/error/printer/ErrorPrinter.cpp ../src/lexer/Lexer.cp
         ../src/error/exceptions/InvalidArgumentCount.h
         interpreter/InterpreterFunctionTest.cpp
         ../src/parser/ast/statements/ReturnStatement.h
-        ../src/interpreter/controlFlowExceptions/Return.h
         ../src/parser/Resolver.cpp
         ../src/parser/Resolver.h
         ../src/error/exceptions/parser/InvalidReturnPosition.h

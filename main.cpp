@@ -51,7 +51,6 @@ void runFile(const char *path) {
         exit(0);
     }
     printAST(program);
-    std::wcout << std::endl;
     Interpreter interpreter(&printer);
     try {
         Resolver resolver(&interpreter);

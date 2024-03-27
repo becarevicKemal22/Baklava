@@ -115,6 +115,9 @@ public:
     RuntimeError* handledError = nullptr; /**< Holds the last error that has been handled. No flags needed as this is only done when the program has to quit so performance is not an issue.*/
 
     void executeBlock(const std::vector<StmtPtr> &statements, Environment *environment);
+
+    RuntimeValue returnedValue;
+    bool isReturning = false;
 private:
     std::unordered_map<const Expression*, int> locals;
 

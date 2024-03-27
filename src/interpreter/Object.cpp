@@ -5,18 +5,16 @@
 #include "Object.h"
 #include "Interpreter.h"
 #include "Environment.h"
-#include "Return.h"
-
 
 RuntimeValue ObjectFunction::functionCall(Interpreter* interpreter, const std::vector<RuntimeValue>& arguments){
     auto environment = new Environment(&closure);
     for (int i = 0; i < declaration->parameters.size(); i++) {
         environment->define(declaration->parameters[i], arguments[i], false);
     }
-    try{
-        interpreter->executeBlock(declaration->body, environment);
-    }catch(Return& returnValue){
-        return returnValue.value;
+    interpreter->executeBlock(declaration->body, environment);
+    if(interpreter->isReturning){
+        interpreter->isReturning = false;
+        return interpreter->returnedValue;
     }
     return {ValueType::Null, {}};
 }
