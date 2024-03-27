@@ -120,16 +120,15 @@ void Interpreter::executeVarDeclarationStatement(VarDeclarationStatement *stmt) 
         value = {ValueType::Null};
     }
 
-    environment->define(stmt->name, value, stmt->isConst);
+    environments.top().define(stmt->name, value, stmt->isConst);
 }
 
 void Interpreter::executeBlockStatement(BlockStatement *stmt) {
-    executeBlock(stmt->statements, new Environment(environment));
+    executeBlock(stmt->statements, &environments.top());
 }
 
 void Interpreter::executeBlock(const std::vector<Statement*>& statements, Environment* environment){
-    Environment* previous = this->environment;
-    this->environment = environment;
+    environments.push(Environment(environment));
     try{
         for(auto s: statements){
             execute(s);
@@ -138,11 +137,10 @@ void Interpreter::executeBlock(const std::vector<Statement*>& statements, Enviro
             }
         }
     } catch (RuntimeError& e){
-        this->environment = previous;
+        environments.pop();
         throw;
     }
-    this->environment = previous;
-    delete environment;
+    environments.pop();
 }
 
 void Interpreter::executeIfStatement(IfStatement *stmt) {
@@ -160,7 +158,7 @@ void Interpreter::executeWhileStatement(WhileStatement *stmt) {
 }
 
 void Interpreter::executeFunctionDeclarationStatement(FunctionDeclarationStatement *stmt) {
-    environment->define(stmt->name, {ValueType::Object, {.object = (Object*)allocateFunctionObject(stmt)}}, false);
+    environments.top().define(stmt->name, {ValueType::Object, {.object = (Object*)allocateFunctionObject(stmt)}}, false);
 }
 
 void Interpreter::executeReturnStatement(ReturnStatement *stmt) {
@@ -315,7 +313,7 @@ RuntimeValue Interpreter::evaluateAssignmentExpression(AssignmentExpression *exp
 
     auto distance = locals.find(expr);
     if(distance != locals.end()){
-        environment->assignAt(distance->second, expr->name->value, value);
+        environments.top().assignAt(distance->second, expr->name->value, value);
     } else {
         globals->assign(expr->name, value);
     }
@@ -429,7 +427,7 @@ ObjectString *Interpreter::allocateStringObject(const std::wstring &value) {
 }
 
 ObjectFunction *Interpreter::allocateFunctionObject(FunctionDeclarationStatement *declaration) {
-    auto *obj = new ObjectFunction(declaration, environment);
+    auto *obj = new ObjectFunction(declaration, &environments.top());
     obj->obj.next = objects;
     objects = (Object *) obj;
     return obj;
@@ -462,7 +460,7 @@ RuntimeError* Interpreter::reallocateError(RuntimeError* error){
 RuntimeValue Interpreter::lookUpVariable(const VariableExpression *expr) {
     auto distance = locals.find(expr);
     if(distance != locals.end()){
-        return environment->getAt(distance->second, expr->name->value);
+        return environments.top().getAt(distance->second, expr->name->value);
     } else {
         return globals->get(expr->name);
     }

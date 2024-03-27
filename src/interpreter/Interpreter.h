@@ -5,6 +5,7 @@
 #ifndef MATURSKI_2_INTERPRETER_H
 #define MATURSKI_2_INTERPRETER_H
 
+#include <stack>
 
 #include "Object.h"
 #include "Ast.h"
@@ -23,9 +24,9 @@ public:
      * @brief Constructor with no error printer. Should almost never be used, as it leaves the interpreter with no error printing capability. Useful for testing.
      */
     Interpreter() : errorPrinter(nullptr) {
-        globals = new Environment();
+        environments.emplace();
+        globals = &environments.top();
         defineNativeFunctions();
-        environment = globals;
     }
 
     /**
@@ -33,9 +34,9 @@ public:
      * @param errorPrinter Error printer to use for printing errors.
      */
     explicit Interpreter(ErrorPrinter *errorPrinter) : errorPrinter(errorPrinter) {
-        globals = new Environment();
+        environments.emplace();
+        globals = &environments.top();
         defineNativeFunctions();
-        environment = globals;
     }
 
     void defineNativeFunctions() {
@@ -78,7 +79,6 @@ public:
 //                object = next;
 //            }
 //        }
-        delete environment;
     }
 
     /**
@@ -108,7 +108,6 @@ public:
 
     bool hadError = false; /**< Holds whether an error has occurred during the interpretation. Interpretation should stop if this is set to true. */
     Environment *globals;
-    Environment *environment;
 
     std::vector<Statement *> executedStatements; /**< List of pointers to all statements that have been executed. Only written to when DEBUG_TRACK_EXECUTION is set */
     std::vector<RuntimeValue> printHistory; /**< List of all values that have been printed. Only written to when DEBUG_TRACK_PRINTING is set */
@@ -118,6 +117,8 @@ public:
 
     RuntimeValue returnedValue;
     bool isReturning = false;
+
+    std::stack<Environment> environments;
 private:
     std::unordered_map<const Expression*, int> locals;
 

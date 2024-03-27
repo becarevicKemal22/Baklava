@@ -15,7 +15,7 @@ TEST_CASE("Declares variable and assigns value", "[interpreter][variable]") {
     Interpreter interpreter;
 
     interpreter.interpret(parseSource(source).get());
-    REQUIRE(interpreter.environment->get(makeToken(TokenType::Identifier, L"x")).as.number == 5);
+    REQUIRE(interpreter.environments.top().get(makeToken(TokenType::Identifier, L"x")).as.number == 5);
 }
 
 TEST_CASE("Declares variable and assigns string value", "[interpreter][variable]") {
@@ -23,7 +23,7 @@ TEST_CASE("Declares variable and assigns string value", "[interpreter][variable]
     Interpreter interpreter;
 
     interpreter.interpret(parseSource(source).get());
-    REQUIRE(GET_STRING_OBJ_VALUE(interpreter.environment->get(makeToken(TokenType::Identifier, L"x"))) == L"hello");
+    REQUIRE(GET_STRING_OBJ_VALUE(interpreter.environments.top().get(makeToken(TokenType::Identifier, L"x"))) == L"hello");
 }
 
 TEST_CASE("Declares variable and reassigns value", "[interpreter][variable]") {
@@ -31,7 +31,7 @@ TEST_CASE("Declares variable and reassigns value", "[interpreter][variable]") {
     Interpreter interpreter;
 
     interpreter.interpret(parseSource(source).get());
-    REQUIRE(interpreter.environment->get(makeToken(TokenType::Identifier, L"x")).as.number == 10);
+    REQUIRE(interpreter.environments.top().get(makeToken(TokenType::Identifier, L"x")).as.number == 10);
 }
 
 TEST_CASE("Copies value on variable-to-variable assignment", "[interpreter][variable]") {
@@ -39,8 +39,8 @@ TEST_CASE("Copies value on variable-to-variable assignment", "[interpreter][vari
     Interpreter interpreter;
 
     interpreter.interpret(parseSource(source).get());
-    REQUIRE(interpreter.environment->get(makeToken(TokenType::Identifier, L"y")).as.number == 5);
-    REQUIRE(interpreter.environment->get(makeToken(TokenType::Identifier, L"x")).as.number == 10);
+    REQUIRE(interpreter.environments.top().get(makeToken(TokenType::Identifier, L"y")).as.number == 5);
+    REQUIRE(interpreter.environments.top().get(makeToken(TokenType::Identifier, L"x")).as.number == 10);
 }
 
 TEST_CASE("Copies value on variable-to-variable string assignment", "[interpreter][variable]") {
@@ -48,6 +48,6 @@ TEST_CASE("Copies value on variable-to-variable string assignment", "[interprete
     Interpreter interpreter;
 
     interpreter.interpret(parseSource(source).get());
-    REQUIRE(GET_STRING_OBJ_VALUE(interpreter.environment->get(makeToken(TokenType::Identifier, L"y"))) == L"hello");
-    REQUIRE(GET_STRING_OBJ_VALUE(interpreter.environment->get(makeToken(TokenType::Identifier, L"x"))) == L"world");
+    REQUIRE(GET_STRING_OBJ_VALUE(interpreter.environments.top().get(makeToken(TokenType::Identifier, L"y"))) == L"hello");
+    REQUIRE(GET_STRING_OBJ_VALUE(interpreter.environments.top().get(makeToken(TokenType::Identifier, L"x"))) == L"world");
 }
