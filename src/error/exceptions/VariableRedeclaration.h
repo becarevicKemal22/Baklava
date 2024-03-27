@@ -10,7 +10,7 @@
 
 class VariableRedeclaration : public RuntimeError {
 public:
-    explicit VariableRedeclaration(TokenPtr token) : RuntimeError(ERROR_VARIABLE_REDCLARATION), token(token) {
+    explicit VariableRedeclaration(TokenPtr token) : RuntimeError(ERROR_VARIABLE_REDECLARATION), token(token) {
         messageArguments.push_back(token->value);
     }
     TokenPtr token;

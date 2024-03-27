@@ -51,10 +51,19 @@ void runFile(const char *path) {
         exit(0);
     }
     printAST(program);
-    Interpreter interpreter(&printer);
-    Resolver resolver(&interpreter);
-    resolver.resolve(program);
     std::wcout << std::endl;
+    Interpreter interpreter(&printer);
+    try {
+        Resolver resolver(&interpreter);
+        resolver.resolve(program);
+        std::wcout << std::endl;
+    } catch (ParserError& e) {
+        printer.printParserError(&e);
+        exit(0);
+    } catch (RuntimeError& e) {
+        printer.printRuntimeError(&e);
+        exit(0);
+    }
 //    for (auto statement: program->statements) {
 //        auto start = std::chrono::high_resolution_clock::now();
 ////        RuntimeValue value = interpreter.evaluate(static_cast<Expression*>(statement));
@@ -88,4 +97,6 @@ int main(int argc, char **argv) {
     if (argc == 2) {
         runFile(argv[1]);
     }
+    // Moze se dodati ovdje kao proces zavrsio sa kodom 0, a gore dodati u catch blokovima da se exita sa drugim kodoom,
+    // koji se moze spasiti u errorprinteru, jer svakako svaki kroz njega prolazi.
 }

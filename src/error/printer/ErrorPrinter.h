@@ -25,6 +25,8 @@
 #include "InvalidLValue.h"
 #include "InvalidCall.h"
 #include "InvalidArgumentCount.h"
+#include "InvalidReturnPosition.h"
+#include "SelfReferencingInitializer.h"
 
 typedef std::pair<std::pair<int, int>, std::wstring> colorHighlight;
 
@@ -83,8 +85,8 @@ private:
 
     void printWrongTypeError(const WrongTypeError* error);
     void printWrongBinaryOperandTypeError(const WrongBinaryOperandTypes* error);
-    void printVariableRedeclarationError(const VariableRedeclaration* error);
 
+    void printVariableRedeclarationError(const VariableRedeclaration* error);
     void printExpectedXBeforeYError(const ExpectedXBeforeY* error);
     void printExpectedXAfterYError(const ExpectedXAfterY* error);
     void printUninitializedConstError(const UninitializedConst* error);
@@ -93,6 +95,8 @@ private:
     void printInvalidLValue(const InvalidLValue* error);
     void printInvalidCallError(const InvalidCall* error);
     void printInvalidArgumentCountError(const InvalidArgumentCount* error);
+    void printInvalidReturnPositionError(const InvalidReturnPosition* error);
+    void printSelfReferencingInitializerError(const SelfReferencingInitializer* error);
 };
 
 

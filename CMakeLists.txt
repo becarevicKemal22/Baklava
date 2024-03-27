@@ -67,6 +67,8 @@ add_executable(Maturski_2 main.cpp
         src/interpreter/controlFlowExceptions/Return.h
         src/parser/Resolver.cpp
         src/parser/Resolver.h
+        src/error/exceptions/parser/InvalidReturnPosition.h
+        src/error/exceptions/parser/SelfReferencingInitializer.h
 )
 
 add_subdirectory(tests)

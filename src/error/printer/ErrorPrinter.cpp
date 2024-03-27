@@ -156,8 +156,13 @@ void ErrorPrinter::printParserError(const ParserError *error) {
     else if(dynamic_cast<const InvalidLValue*>(error) != nullptr){
         printInvalidLValue(static_cast<const InvalidLValue*>(error));
     }
-
-    else{
+    else if(dynamic_cast<const InvalidReturnPosition*>(error) != nullptr){
+        printInvalidReturnPositionError(static_cast<const InvalidReturnPosition*>(error));
+    }
+    else if(dynamic_cast<const SelfReferencingInitializer*>(error) != nullptr) {
+        printSelfReferencingInitializerError(static_cast<const SelfReferencingInitializer *>(error));
+    }
+    else{ // Generic parser error, ne moze se koristiti ni sa cim drugim, jer samo bazni ima ovaj myToken atribut
         std::wstring message = formattedErrorMessage(error->code, error->messageArguments, error->myToken->line);
         wcout << message << "\n";
         printSourceLine(error->myToken->line, {{ {error->myToken->offset, error->myToken->offset + getTokenValue(error->myToken).size() - 1}, ANSI_RED}});
@@ -246,6 +251,20 @@ void ErrorPrinter::printUninitializedConstError(const UninitializedConst *error)
 }
 
 void ErrorPrinter::printInvalidLValue(const InvalidLValue *error) {
+    std::wstring message = formattedErrorMessage(error->code, error->messageArguments, error->token->line);
+    wcout << message << "\n";
+    printSourceLine(error->token->line, {{ {error->token->offset, error->token->offset + getTokenValue(error->token).size() - 1}, ANSI_RED}});
+    printSquiggleSupportLine(error->token->line, {{ {error->token->offset, error->token->offset + getTokenValue(error->token).size() - 1}, ANSI_RED}});
+}
+
+void ErrorPrinter::printInvalidReturnPositionError(const InvalidReturnPosition *error) {
+    std::wstring message = formattedErrorMessage(error->code, error->messageArguments, error->token->line);
+    wcout << message << "\n";
+    printSourceLine(error->token->line, {{ {error->token->offset, error->token->offset + getTokenValue(error->token).size() - 1}, ANSI_RED}});
+    printSquiggleSupportLine(error->token->line, {{ {error->token->offset, error->token->offset + getTokenValue(error->token).size() - 1}, ANSI_RED}});
+}
+
+void ErrorPrinter::printSelfReferencingInitializerError(const SelfReferencingInitializer *error) {
     std::wstring message = formattedErrorMessage(error->code, error->messageArguments, error->token->line);
     wcout << message << "\n";
     printSourceLine(error->token->line, {{ {error->token->offset, error->token->offset + getTokenValue(error->token).size() - 1}, ANSI_RED}});

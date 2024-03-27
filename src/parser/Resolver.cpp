@@ -24,6 +24,7 @@
 #include "BooleanLiteralExpression.h"
 #include "StringLiteralExpression.h"
 #include "NullLiteralExpression.h"
+#include "InvalidReturnPosition.h"
 
 void Resolver::resolve(std::unique_ptr<Program>& program) {
     for (auto& statement : program->statements) {
@@ -108,6 +109,9 @@ void Resolver::declare(Token* name) {
     if (scopes.empty()) return;
 
     auto &scope = scopes.top();
+    if(scope.find(name->value) != scope.end()){
+        throw VariableRedeclaration(name);
+    }
     scope.insert({name->value, false});
 }
 
@@ -130,7 +134,10 @@ void Resolver::resolveLocal(const Expression* expr, const std::wstring& name) {
     }
 }
 
-void Resolver::resolveFunction(const FunctionDeclarationStatement* function) {
+void Resolver::resolveFunction(const FunctionDeclarationStatement* function, FunctionType type) {
+    FunctionType enclosingFunction = currentFunction;
+    currentFunction = type;
+
     beginScope();
     for (auto &param : function->parameters) {
         declare(param);
@@ -138,6 +145,7 @@ void Resolver::resolveFunction(const FunctionDeclarationStatement* function) {
     }
     resolve(function->body);
     endScope();
+    currentFunction = enclosingFunction;
 }
 
 void Resolver::resolveBlockStatement(BlockStatement *statement) {
@@ -158,7 +166,7 @@ void Resolver::resolveVariableExpression(VariableExpression *expression) {
     if(!scopes.empty()){
         auto &scope = scopes.top();
         if(scope.find(expression->name->value) != scope.end() && !scope[expression->name->value]){
-            throw UndeclaredVariable(expression->name);
+            throw SelfReferencingInitializer(expression->name);
         }
     }
     resolveLocal(expression, expression->name->value);
@@ -172,7 +180,7 @@ void Resolver::resolveAssignmentExpression(AssignmentExpression *expression) {
 void Resolver::resolveFunctionDeclarationStatement(FunctionDeclarationStatement *statement) {
     declare(statement->name);
     define(statement->name);
-    resolveFunction(statement);
+    resolveFunction(statement, FunctionType::FUNCTION);
 }
 
 void Resolver::resolveExpressionStatement(ExpressionStatement *statement) {
@@ -199,6 +207,9 @@ void Resolver::resolveWhileStatement(WhileStatement *statement) {
 }
 
 void Resolver::resolveReturnStatement(ReturnStatement *statement) {
+    if(currentFunction == FunctionType::NONE){
+        throw InvalidReturnPosition(statement->keyword);
+    }
     if(statement->value != nullptr){
         resolve(statement->value);
     }
