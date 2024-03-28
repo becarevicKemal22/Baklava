@@ -11,7 +11,7 @@ RuntimeValue ObjectFunction::functionCall(Interpreter* interpreter, const std::v
     for (int i = 0; i < declaration->parameters.size(); i++) {
         environment.define(declaration->parameters[i], arguments[i], false);
     }
-    interpreter->executeBlock(declaration->body, &environment);
+    interpreter->executeBlock(declaration->body, environment);
     if(interpreter->isReturning){
         interpreter->isReturning = false;
         return interpreter->returnedValue;

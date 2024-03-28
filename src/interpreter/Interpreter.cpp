@@ -124,11 +124,11 @@ void Interpreter::executeVarDeclarationStatement(VarDeclarationStatement *stmt) 
 }
 
 void Interpreter::executeBlockStatement(BlockStatement *stmt) {
-    executeBlock(stmt->statements, &environments.top());
+    executeBlock(stmt->statements, Environment(&environments.top()));
 }
 
-void Interpreter::executeBlock(const std::vector<Statement*>& statements, Environment* environment){
-    environments.push(Environment(environment));
+void Interpreter::executeBlock(const std::vector<Statement*>& statements, const Environment& environment){
+    environments.push(environment);
     try{
         for(auto s: statements){
             execute(s);

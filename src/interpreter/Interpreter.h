@@ -113,7 +113,7 @@ public:
     std::vector<RuntimeValue> printHistory; /**< List of all values that have been printed. Only written to when DEBUG_TRACK_PRINTING is set */
     RuntimeError* handledError = nullptr; /**< Holds the last error that has been handled. No flags needed as this is only done when the program has to quit so performance is not an issue.*/
 
-    void executeBlock(const std::vector<StmtPtr> &statements, Environment *environment);
+    void executeBlock(const std::vector<StmtPtr> &statements, const Environment& environment);
 
     RuntimeValue returnedValue;
     bool isReturning = false;
