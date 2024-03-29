@@ -159,7 +159,7 @@ TEST_CASE("Tokenizes operators", "[lexer]"){
 }
 
 TEST_CASE("Tokenizes keywords", "[lexer]"){
-    std::wstring source = L"ako";
+    std::wstring source = L"ako inace dok za istina neistina nula ispisi var konst funkcija vrati";
 
     Lexer lexer(source);
     lexer.tokenize();
