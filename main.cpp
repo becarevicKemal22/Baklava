@@ -31,7 +31,7 @@ void loadFile(const char *path, std::wstring &source) {
 }
 
 void runFile(const char *path) {
-    std::wcout << "Running file: " << path << "\n";
+    std::wcout << L"Pokreće se datoteka: " << path << "\n";
     std::wstring source;
     loadFile(path, source);
     ErrorPrinter printer(source);
@@ -50,7 +50,7 @@ void runFile(const char *path) {
         printer.printParserError(&e);
         exit(0);
     }
-    printAST(program);
+    //printAST(program);
     Interpreter interpreter(&printer);
     try {
         Resolver resolver(&interpreter);
@@ -83,7 +83,7 @@ void runFile(const char *path) {
     auto end = std::chrono::high_resolution_clock::now();
     std::chrono::duration<double> duration = end - start;
     double duration_seconds = duration.count();
-    std::wcout << std::format(L"Elapsed time: {} seconds\n", duration_seconds);
+//    std::wcout << std::format(L"Elapsed time: {} seconds\n", duration_seconds);
 }
 
 int main(int argc, char **argv) {
@@ -91,7 +91,8 @@ int main(int argc, char **argv) {
     _setmode(_fileno(stdout), _O_U8TEXT);
 
     if (argc == 1) {
-        runRepl();
+        std::wcout << "Nije proslijeđen program!\n";
+        //runRepl();
     }
     if (argc == 2) {
         runFile(argv[1]);

@@ -35,6 +35,92 @@
 #include <iostream>
 #include <cmath>
 
+void Interpreter::defineNativeFunctions() {
+    RuntimeValue clockFunction;
+    clockFunction.type = ValueType::Object;
+    auto *clockCallable = new ObjectCallable();
+    clockCallable->obj.type = ObjectType::OBJECT_CALLABLE;
+    clockCallable->arity = 0;
+    clockCallable->call = [](Interpreter *interpreter, const std::vector<RuntimeValue> &arguments) -> RuntimeValue {
+        return {ValueType::Number, {.number = (double) clock() / CLOCKS_PER_SEC}};
+    };
+
+    clockFunction.as.object = (Object *) clockCallable;
+
+    auto clockToken = new Token(TokenType::Identifier, L"clock", 0, 0);
+    globals->define(clockToken, clockFunction, true);
+
+    RuntimeValue emptyFunction;
+    emptyFunction.type = ValueType::Object;
+    ObjectCallable *emptyCallable = new ObjectCallable();
+    emptyCallable->obj.type = ObjectType::OBJECT_CALLABLE;
+    emptyCallable->arity = 0;
+    emptyCallable->call = [](Interpreter *interpreter, const std::vector<RuntimeValue> &arguments) -> RuntimeValue {
+        return {ValueType::Null};
+    };
+
+    emptyFunction.as.object = (Object *) emptyCallable;
+
+    auto emptyToken = new Token(TokenType::Identifier, L"mockFunkcija", 0, 0);
+    globals->define(emptyToken, emptyFunction, true);
+
+    RuntimeValue inputFunction;
+    inputFunction.type = ValueType::Object;
+    ObjectCallable *inputCallable = new ObjectCallable();
+    inputCallable->obj.type = ObjectType::OBJECT_CALLABLE;
+    inputCallable->arity = 1;
+    inputCallable->call = [this](Interpreter *interpreter, const std::vector<RuntimeValue> &arguments) -> RuntimeValue {
+        RuntimeValue message = arguments[0];
+        if (message.type != ValueType::Object) {
+            std::wcout << "Unos: ";
+        }
+        else if(IS_OBJ(message) && !IS_STRING_OBJ(message)){
+            std::wcout << "Unos: ";
+        }else std::wcout << GET_STRING_OBJ_VALUE(message);
+        std::wstring input;
+        std::wcin >> input;
+        return {ValueType::Object, {.object = (Object*)allocateStringObject(input)}};
+    };
+
+    inputFunction.as.object = (Object *) inputCallable;
+
+    auto inputToken = new Token(TokenType::Identifier, L"unos", 0, 0);
+    globals->define(inputToken, inputFunction, true);
+
+    RuntimeValue numConversionFunction;
+    numConversionFunction.type = ValueType::Object;
+    ObjectCallable *numConversionCallable = new ObjectCallable();
+    numConversionCallable->obj.type = ObjectType::OBJECT_CALLABLE;
+    numConversionCallable->arity = 1;
+    numConversionCallable->call = [this](Interpreter *interpreter, const std::vector<RuntimeValue> &arguments) -> RuntimeValue {
+        RuntimeValue value = arguments[0];
+        if(value.type == ValueType::Number){
+            return value;
+        }
+        if(value.type == ValueType::Object && IS_STRING_OBJ(value)){
+            try{
+                return {ValueType::Number, {.number = std::stod(GET_STRING_OBJ_VALUE(value))}};
+            } catch (std::invalid_argument& e){
+                throw WrongTypeError(L"konverzija u broj", value, nullptr);
+            }
+        }
+        if(value.type == ValueType::Null || value.type == ValueType::Boolean){
+            return {ValueType::Number, {.number = 0}};
+        }
+        if(value.type == ValueType::Boolean){
+            return {ValueType::Number, {.number = value.as.boolean ? 1. : 0.}};
+        }
+        throw WrongTypeError(L"konverzija u broj", value, nullptr);
+    };
+
+    numConversionFunction.as.object = (Object *) numConversionCallable;
+
+    auto numConversionToken = new Token(TokenType::Identifier, L"broj", 0, 0);
+    globals->define(numConversionToken, numConversionFunction, true);
+
+
+}
+
 void Interpreter::interpret(Program *program) {
     for (auto stmt: program->statements) {
         try {
@@ -372,7 +458,15 @@ RuntimeValue Interpreter::evaluateCallExpression(CallExpression *expr) {
     if(arguments.size() != callable->arity){
         throw InvalidArgumentCount(callable->arity, arguments.size(), getMostRelevantToken(expr->callee), expr->paren);
     }
-    return callable->call(this, arguments);
+    try{
+        return callable->call(this, arguments);
+    } catch (RuntimeError& e){
+        if(dynamic_cast<WrongTypeError*>(&e) != nullptr){
+            auto err = dynamic_cast<WrongTypeError*>(&e);
+            err->token = getMostRelevantToken(expr->callee);
+        }
+        throw;
+    }
 //    if(callee.as.object->type == ObjectType::OBJECT_CALLABLE){
 //    bilo ovjde ovo iznad sto je sad ovo callable = .... do returna, ali izgleda da radi sa castom onim na objectcallable
 //    } else {

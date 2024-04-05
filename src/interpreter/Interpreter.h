@@ -39,36 +39,7 @@ public:
         defineNativeFunctions();
     }
 
-    void defineNativeFunctions() {
-        RuntimeValue clockFunction;
-        clockFunction.type = ValueType::Object;
-        auto *clockCallable = new ObjectCallable();
-        clockCallable->obj.type = ObjectType::OBJECT_CALLABLE;
-        clockCallable->arity = 0;
-        clockCallable->call = [](Interpreter *interpreter, const std::vector<RuntimeValue> &arguments) -> RuntimeValue {
-            return {ValueType::Number, {.number = (double) clock() / CLOCKS_PER_SEC}};
-        };
-
-        clockFunction.as.object = (Object *) clockCallable;
-
-        auto clockToken = new Token(TokenType::Identifier, L"clock", 0, 0);
-        globals->define(clockToken, clockFunction, true);
-
-        RuntimeValue emptyFunction;
-        emptyFunction.type = ValueType::Object;
-        ObjectCallable *emptyCallable = new ObjectCallable();
-        emptyCallable->obj.type = ObjectType::OBJECT_CALLABLE;
-        emptyCallable->arity = 0;
-        emptyCallable->call = [](Interpreter *interpreter, const std::vector<RuntimeValue> &arguments) -> RuntimeValue {
-            return {ValueType::Null};
-        };
-
-        emptyFunction.as.object = (Object *) emptyCallable;
-
-        auto emptyToken = new Token(TokenType::Identifier, L"mockFunkcija", 0, 0);
-        globals->define(emptyToken, emptyFunction, true);
-
-    }
+    void defineNativeFunctions();
 
     ~Interpreter() {
 //        if(objects != nullptr){
