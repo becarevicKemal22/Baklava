@@ -336,6 +336,14 @@ RuntimeValue Interpreter::evaluateUnaryExpression(UnaryExpression *expr) {
         case TokenType::Bang: {
             return {ValueType::Boolean, {.boolean = !isTruthy(value)}};
         }
+        case TokenType::DoublePlus: {
+            if (value.type != ValueType::Number) throw WrongTypeError(L"++", value, expr);
+            return {ValueType::Number, {.number = value.as.number + 1}};
+        }
+        case TokenType::DoubleMinus: {
+            if (value.type != ValueType::Number) throw WrongTypeError(L"--", value, expr);
+            return {ValueType::Number, {.number = value.as.number - 1}};
+        } // PROBLEM JE STO KOD UNARNIH SE PRVO EVALUIRA VRIJEDNOST A ONDA DODJELJUJE AKO JE VARIJABLA TO NE VALJA
         default:
             throw "PARSER ERROR: Unknown unary operator type";
     }

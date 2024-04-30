@@ -74,14 +74,14 @@ TEST_CASE("Negates numeric value", "[interpreter][unary]"){
     REQUIRE(result.as.number == -5);
 }
 
-TEST_CASE("Negates chained numeric value", "[interpreter][unary]"){
-    std::wstring source = L"--5";
-    Interpreter interpreter;
-
-    RuntimeValue result = interpreter.evaluate(parseSingleExpression(source));
-    REQUIRE(result.type == ValueType::Number);
-    REQUIRE(result.as.number == 5);
-}
+//TEST_CASE("Negates chained numeric value", "[interpreter][unary]"){
+//    std::wstring source = L"--5";
+//    Interpreter interpreter;
+//
+//    RuntimeValue result = interpreter.evaluate(parseSingleExpression(source));
+//    REQUIRE(result.type == ValueType::Number);
+//    REQUIRE(result.as.number == 5);
+//} ovo bi trebalo raditi kada se dodaju prefix operatori, ali ovako ce se interpretirati kao double minus u lexeru, sto trenutno i jeste greska, samo se mogu nizati ! operatori
 
 TEST_CASE("Negates null value", "[interpreter][unary]"){
     std::wstring source = L"-nula";

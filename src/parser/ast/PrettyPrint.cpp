@@ -103,23 +103,23 @@ void printStatement(Statement *statement, int depth) {
         case AstNodeType::GroupingExpression:
             std::wcout << L"GroupingExpr ( ";
             printStatement(static_cast<GroupingExpression *>(statement)->expr, depth + 1);
-            std::wcout << L" ) ";
+            std::wcout << L" ) \n";
             break;
         case AstNodeType::ExpressionStatement:
             std::wcout << L"ExpressionStatement ( ";
             printStatement(static_cast<ExpressionStatement *>(statement)->expr, depth + 1);
-            std::wcout << L" ) ";
+            std::wcout << L" ) \n";
             break;
         case AstNodeType::PrintStatement:
             std::wcout << L"PrintStatement ( ";
             printStatement(static_cast<PrintStatement *>(statement)->expr, depth + 1);
-            std::wcout << L" ) ";
+            std::wcout << L" ) \n";
             break;
         case AstNodeType::AssignmentExpression:
             std::wcout << L"AssignmentExpression ( ";
             std::wcout << static_cast<AssignmentExpression *>(statement)->name->value << L" ";
             printStatement(static_cast<AssignmentExpression *>(statement)->value, depth + 1);
-            std::wcout << L" ) ";
+            std::wcout << L" ) \n";
             break;
         case AstNodeType::VarDeclarationStatement:
             if (static_cast<VarDeclarationStatement *>(statement)->isConst)
@@ -128,7 +128,7 @@ void printStatement(Statement *statement, int depth) {
                 std::wcout << L"VarDeclarationStatement ( ";
             std::wcout << static_cast<VarDeclarationStatement *>(statement)->name->value << L" ";
             printStatement(static_cast<VarDeclarationStatement *>(statement)->initializer, depth + 1);
-            std::wcout << L" ) ";
+            std::wcout << L" ) \n";
             break;
         case AstNodeType::VariableExpression:
             printVariableExpression(static_cast<VariableExpression *>(statement), depth);
@@ -142,7 +142,7 @@ void printStatement(Statement *statement, int depth) {
         case AstNodeType::WhileStatement:
             std::wcout << L"WhileStatement ( ";
             printStatement(static_cast<WhileStatement *>(statement)->condition, depth + 1);
-            std::wcout << L" ) ";
+            std::wcout << L" ) \n";
             printStatement(static_cast<WhileStatement *>(statement)->body, depth + 1);
             break;
         case AstNodeType::CallExpression:
@@ -151,7 +151,7 @@ void printStatement(Statement *statement, int depth) {
         case AstNodeType::FunctionDeclarationStatement:
             std::wcout << L"FunctionDeclarationStatement ( ";
             std::wcout << static_cast<FunctionDeclarationStatement *>(statement)->name->value << L" ";
-            std::wcout << L" ) ";
+            std::wcout << L" ) \n";
             break;
         default:
             std::wcout << L"Unknown statement type" << std::endl;

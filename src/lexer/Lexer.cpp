@@ -45,10 +45,20 @@ void Lexer::tokenize() {
             addToken(TokenType::Dot, c);
             advance();
         } else if(c == '+'){
-            addToken(TokenType::Plus, c);
+            if(peek() == '+'){
+                addToken(TokenType::DoublePlus, L"++", true);
+                advance();
+            }else{
+                addToken(TokenType::Plus, c);
+            }
             advance();
         } else if(c == '-'){
-            addToken(TokenType::Minus, c);
+            if(peek() == '-'){
+                addToken(TokenType::DoubleMinus, L"--", true);
+                advance();
+            }else{
+                addToken(TokenType::Minus, c);
+            }
             advance();
         } else if(c == '*'){
             addToken(TokenType::Star, c);

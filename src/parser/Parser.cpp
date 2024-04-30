@@ -330,12 +330,22 @@ ExprPtr Parser::unaryExpression() {
         ExprPtr right = unaryExpression();
         return new UnaryExpression(op, right);
     }
-    return callExpression();
+    return postfixExpression();
+}
+// ma treba svakom ovom ustvari kao u callExpression da ima expr = primary nekako da se stavi jer svaki zahtijeva nesto prije njega, mada mi nije jasno kako je ovaj primary u callexpr prije ovih zagrada, jer valjda na call dolazi kada dodje do zagrade.
+ExprPtr Parser::postfixExpression() {
+    ExprPtr expr = primaryExpression();
+    if(atType(TokenType::OpenParenthesis)){
+        return callExpression(expr);
+    }
+    if(match({TokenType::DoublePlus, TokenType::DoubleMinus})){
+        Token* op = previous();
+        return new UnaryExpression(op, expr);// PROBLEM JE STO KOD UNARNIH SE PRVO EVALUIRA VRIJEDNOST A ONDA DODJELJUJE AKO JE VARIJABLA TO NE VALJA
+    }
+    return expr;
 }
 
-ExprPtr Parser::callExpression() {
-    ExprPtr expr = primaryExpression();
-
+ExprPtr Parser::callExpression(ExprPtr expr) {
     while(true){
         if(match({TokenType::OpenParenthesis})){
             expr = finishCallExpression(expr);

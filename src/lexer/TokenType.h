@@ -24,7 +24,9 @@ enum class TokenType : uint8_t {
     Dot,
     // Operators
     Plus,
+    DoublePlus,
     Minus,
+    DoubleMinus,
     Star,
     Slash,
     Percent,
