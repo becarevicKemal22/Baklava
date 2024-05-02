@@ -76,6 +76,8 @@ private:
     Expression* callExpression(ExprPtr callee);
     Expression* finishCallExpression(Expression* callee);
     Expression* primaryExpression();
+
+    Expression* parseArrayLiteral();
 };
 
 #endif //MATURSKI_2_PARSER_H

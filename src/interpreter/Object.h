@@ -22,10 +22,15 @@
 #define IS_FUNCTION_OBJ(value) ((value).as.object->type == ObjectType::OBJECT_FUNCTION)
 #define AS_FUNCTION_OBJ(value) ((ObjectFunction*)value.as.object)
 
+#define IS_ARRAY_OBJ(value) ((value).as.object->type == ObjectType::OBJECT_ARRAY)
+#define AS_ARRAY_OBJ(value) ((ObjectArray*)value.as.object)
+#define GET_ARRAY_OBJ_ELEMENTS(val) (AS_ARRAY_OBJ(val)->elements)
+
 enum class ObjectType : uint8_t{
   OBJECT_STRING,
   OBJECT_CALLABLE,
   OBJECT_FUNCTION,
+  OBJECT_ARRAY
 };
 
 struct Object {

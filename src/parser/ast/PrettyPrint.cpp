@@ -25,6 +25,7 @@
 #include "CallExpression.h"
 #include "FunctionDeclarationStatement.h"
 #include "IndexingExpression.h"
+#include "ArrayLiteralExpression.h"
 
 void printStatement(Statement *statement, int depth);
 
@@ -163,6 +164,13 @@ void printStatement(Statement *statement, int depth) {
             break;
         case AstNodeType::IndexingExpression:
             printIndexingExpression(static_cast<IndexingExpression *>(statement), depth);
+            break;
+        case AstNodeType::ArrayLiteralExpression:
+            std::wcout << L"ArrayLiteralExpression ( ";
+            for (auto element: static_cast<ArrayLiteralExpression *>(statement)->elements) {
+                printStatement(element, depth + 1);
+            }
+            std::wcout << L" ) \n";
             break;
         default:
             std::wcout << L"Unknown statement type" << std::endl;

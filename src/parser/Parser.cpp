@@ -29,6 +29,7 @@
 #include "FunctionDeclarationStatement.h"
 #include "ReturnStatement.h"
 #include "IndexingExpression.h"
+#include "ArrayLiteralExpression.h"
 
 std::unique_ptr<Program> Parser::parse() {
     std::unique_ptr<Program> program = std::make_unique<Program>();
@@ -402,10 +403,28 @@ ExprPtr Parser::primaryExpression() {
         }
         throw ExpectedXBeforeY(L"zatvorena zagrada", previous(), at());
     }
+    if(match({TokenType::OpenBracket})){
+        return parseArrayLiteral();
+    }
     if(current == 0){
         throw ParserError(ERROR_EXPECTED_EXPRESSION_AT_START, at());
     }
     throw ExpectedXBeforeY(L"izraz", previous(), at());
+}
+
+Expression* Parser::parseArrayLiteral() {
+    std::vector<ExprPtr> elements;
+    auto bracket = previous();
+    if(!atType(TokenType::ClosedBracket)){
+        do {
+            elements.push_back(expression());
+        } while(match({TokenType::Comma}));
+    }
+    if(!atType(TokenType::ClosedBracket)){
+        throw ExpectedXBeforeY(L"]", previous(), at());
+    }
+    advance();
+    return new ArrayLiteralExpression(elements, bracket);
 }
 
 bool Parser::match(const std::vector<TokenType>& types) {

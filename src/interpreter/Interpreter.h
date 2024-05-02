@@ -162,6 +162,10 @@ private:
 
     RuntimeValue evaluateCallExpression(CallExpression *expr);
 
+    RuntimeValue evaluateArrayLiteralExpression(ArrayLiteralExpression *expr);
+
+    RuntimeValue evaluateIndexingExpression(IndexingExpression *expr);
+
     bool isTruthy(const RuntimeValue &value);
 
     bool isEqual(const RuntimeValue &left, const RuntimeValue &right);
@@ -170,6 +174,7 @@ private:
 
     ObjectString *allocateStringObject(const std::wstring &value);
     ObjectFunction *allocateFunctionObject(FunctionDeclarationStatement *declaration);
+    ObjectArray *allocateArrayObject(const std::vector<RuntimeValue> &elements);
 
     // Used to ensure that errors don't go out of scope when running tests, since the type needs to be checked on the handledError field.
     // This function just dynamically allocates a new error of the same type and returns it (so that handledError can be set and checked in tests).
