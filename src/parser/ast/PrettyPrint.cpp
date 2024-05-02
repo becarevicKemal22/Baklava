@@ -24,6 +24,7 @@
 #include "AssignmentExpression.h"
 #include "CallExpression.h"
 #include "FunctionDeclarationStatement.h"
+#include "IndexingExpression.h"
 
 void printStatement(Statement *statement, int depth);
 
@@ -76,6 +77,13 @@ void printCallExpression(CallExpression *expression, int depth) {
     for (auto arg: expression->arguments) {
         printStatement(arg, depth + 1);
     }
+    std::wcout << L" ) ";
+}
+
+void printIndexingExpression(IndexingExpression *expression, int depth) {
+    std::wcout << L"IndexingExpr(";
+    printStatement(expression->left, depth + 1);
+    printStatement(expression->index, depth + 1);
     std::wcout << L" ) ";
 }
 
@@ -152,6 +160,9 @@ void printStatement(Statement *statement, int depth) {
             std::wcout << L"FunctionDeclarationStatement ( ";
             std::wcout << static_cast<FunctionDeclarationStatement *>(statement)->name->value << L" ";
             std::wcout << L" ) \n";
+            break;
+        case AstNodeType::IndexingExpression:
+            printIndexingExpression(static_cast<IndexingExpression *>(statement), depth);
             break;
         default:
             std::wcout << L"Unknown statement type" << std::endl;

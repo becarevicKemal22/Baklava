@@ -68,6 +68,7 @@ add_executable(Maturski_2 main.cpp
         src/parser/Resolver.h
         src/error/exceptions/parser/InvalidReturnPosition.h
         src/error/exceptions/parser/SelfReferencingInitializer.h
+        src/parser/ast/expressions/IndexingExpression.h
 )
 
 add_subdirectory(tests)

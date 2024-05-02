@@ -44,6 +44,11 @@ struct ObjectCallable {
     std::function<RuntimeValue(Interpreter*, const std::vector<RuntimeValue>&)> call;
 };
 
+struct ObjectArray {
+    Object obj;
+    std::vector<RuntimeValue> elements;
+};
+
 class Environment;
 
 struct ObjectFunction : public ObjectCallable {

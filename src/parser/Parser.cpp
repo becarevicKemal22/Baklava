@@ -28,6 +28,7 @@
 #include "CallExpression.h"
 #include "FunctionDeclarationStatement.h"
 #include "ReturnStatement.h"
+#include "IndexingExpression.h"
 
 std::unique_ptr<Program> Parser::parse() {
     std::unique_ptr<Program> program = std::make_unique<Program>();
@@ -338,11 +339,28 @@ ExprPtr Parser::postfixExpression() {
     if(atType(TokenType::OpenParenthesis)){
         return callExpression(expr);
     }
-    if(match({TokenType::DoublePlus, TokenType::DoubleMinus})){
-        Token* op = previous();
-        return new UnaryExpression(op, expr);// PROBLEM JE STO KOD UNARNIH SE PRVO EVALUIRA VRIJEDNOST A ONDA DODJELJUJE AKO JE VARIJABLA TO NE VALJA
+    if(atType(TokenType::OpenBracket)){
+        return indexingExpression(expr);
     }
     return expr;
+}
+
+ExprPtr Parser::indexingExpression(ExprPtr expr) {
+    while(true){
+        if(match({TokenType::OpenBracket})){
+            auto bracket = previous();
+            ExprPtr index = expression();
+            if(!atType(TokenType::ClosedBracket)){
+                throw ExpectedXBeforeY(L"]", previous(), at());
+            }
+            advance();
+            expr = new IndexingExpression(expr, bracket, index);
+        } else {
+            break;
+        }
+    }
+    return expr;
+
 }
 
 ExprPtr Parser::callExpression(ExprPtr expr) {

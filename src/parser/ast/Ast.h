@@ -36,6 +36,7 @@ enum class AstNodeType : uint8_t {
     GroupingExpression,
     VariableExpression,
     CallExpression,
+    IndexingExpression,
 };
 
 class Statement;
@@ -60,6 +61,7 @@ class StringLiteralExpression;
 class GroupingExpression;
 class VariableExpression;
 class CallExpression;
+class IndexingExpression;
 
 typedef Statement* StmtPtr;
 typedef Expression* ExprPtr;
