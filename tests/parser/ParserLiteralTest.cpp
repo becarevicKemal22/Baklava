@@ -15,7 +15,7 @@
 #include "../TestHelpers.h"
 
 TEST_CASE("Parses literals", "[parser][literal]") {
-    std::wstring source = L"24.2; istina; neistina; \"string\"; nula;";
+    std::wstring source = L"24.2; tačno; netačno; \"string\"; null;";
     Lexer lexer(source);
     lexer.tokenize();
     Parser parser(lexer.tokens);

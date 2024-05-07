@@ -14,7 +14,7 @@
 #include "../TestHelpers.h"
 
 TEST_CASE("Parses unary expressions", "[parser][unary]") {
-    std::wstring source = L"-24; !istina;";
+    std::wstring source = L"-24; !tačno;";
     Lexer lexer(source);
     lexer.tokenize();
     Parser parser(lexer.tokens);

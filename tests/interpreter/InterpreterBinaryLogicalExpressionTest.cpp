@@ -10,7 +10,7 @@
 #include "../TestHelpers.h"
 
 TEST_CASE("Evaluates logical and", "[interpreter][binary][logical]"){
-    std::wstring source = L"istina && istina";
+    std::wstring source = L"tačno && tačno";
     Interpreter interpreter;
 
     RuntimeValue result = interpreter.evaluate(parseSingleExpression(source));
@@ -19,7 +19,7 @@ TEST_CASE("Evaluates logical and", "[interpreter][binary][logical]"){
 }
 
 TEST_CASE("Evaluates logical or", "[interpreter][binary][logical]"){
-    std::wstring source = L"istina || neistina";
+    std::wstring source = L"tačno || netačno";
     Interpreter interpreter;
 
     RuntimeValue result = interpreter.evaluate(parseSingleExpression(source));
@@ -28,7 +28,7 @@ TEST_CASE("Evaluates logical or", "[interpreter][binary][logical]"){
 }
 
 TEST_CASE("Evaluates logical and with short-circuiting", "[interpreter][binary][logical]"){
-    std::wstring source = L"neistina && istina";
+    std::wstring source = L"netačno && tačno";
     Interpreter interpreter;
 
     RuntimeValue result = interpreter.evaluate(parseSingleExpression(source));
@@ -37,7 +37,7 @@ TEST_CASE("Evaluates logical and with short-circuiting", "[interpreter][binary][
 }
 
 TEST_CASE("Evaluates logical or with short-circuiting", "[interpreter][binary][logical]"){
-    std::wstring source = L"istina || neistina";
+    std::wstring source = L"tačno || netačno";
     Interpreter interpreter;
 
     RuntimeValue result = interpreter.evaluate(parseSingleExpression(source));
@@ -64,7 +64,7 @@ TEST_CASE("Logical and with truthy and falsy values", "[interpreter][binary][log
 }
 
 TEST_CASE("Logical or with string and null", "[interpreter][binary][logical]"){
-    std::wstring source = L"\"string\" || nula";
+    std::wstring source = L"\"string\" || null";
     Interpreter interpreter;
 
     RuntimeValue result = interpreter.evaluate(parseSingleExpression(source));
@@ -75,7 +75,7 @@ TEST_CASE("Logical or with string and null", "[interpreter][binary][logical]"){
 }
 
 TEST_CASE("Logical and with string and null", "[interpreter][binary][logical]"){
-    std::wstring source = L"\"string\" && nula";
+    std::wstring source = L"\"string\" && null";
     Interpreter interpreter;
 
     RuntimeValue result = interpreter.evaluate(parseSingleExpression(source));
@@ -83,7 +83,7 @@ TEST_CASE("Logical and with string and null", "[interpreter][binary][logical]"){
 }
 
 TEST_CASE("Logical or with string and boolean", "[interpreter][binary][logical]"){
-    std::wstring source = L"\"string\" || istina";
+    std::wstring source = L"\"string\" || tačno";
     Interpreter interpreter;
 
     RuntimeValue result = interpreter.evaluate(parseSingleExpression(source));
@@ -94,7 +94,7 @@ TEST_CASE("Logical or with string and boolean", "[interpreter][binary][logical]"
 }
 
 TEST_CASE("Logical and with string and boolean", "[interpreter][binary][logical]"){
-    std::wstring source = L"\"string\" && istina";
+    std::wstring source = L"\"string\" && tačno";
     Interpreter interpreter;
 
     RuntimeValue result = interpreter.evaluate(parseSingleExpression(source));
@@ -123,7 +123,7 @@ TEST_CASE("Logical and with number and string", "[interpreter][binary][logical]"
 }
 
 TEST_CASE("Logical or with number and boolean", "[interpreter][binary][logical]"){
-    std::wstring source = L"5 || istina";
+    std::wstring source = L"5 || tačno";
     Interpreter interpreter;
 
     RuntimeValue result = interpreter.evaluate(parseSingleExpression(source));
@@ -132,7 +132,7 @@ TEST_CASE("Logical or with number and boolean", "[interpreter][binary][logical]"
 }
 
 TEST_CASE("Logical and with number and boolean", "[interpreter][binary][logical]"){
-    std::wstring source = L"5 && istina";
+    std::wstring source = L"5 && tačno";
     Interpreter interpreter;
 
     RuntimeValue result = interpreter.evaluate(parseSingleExpression(source));
@@ -141,7 +141,7 @@ TEST_CASE("Logical and with number and boolean", "[interpreter][binary][logical]
 }
 
 TEST_CASE("Logical or with number and null", "[interpreter][binary][logical]"){
-    std::wstring source = L"5 || nula";
+    std::wstring source = L"5 || null";
     Interpreter interpreter;
 
     RuntimeValue result = interpreter.evaluate(parseSingleExpression(source));
@@ -150,7 +150,7 @@ TEST_CASE("Logical or with number and null", "[interpreter][binary][logical]"){
 }
 
 TEST_CASE("Logical and with number and null", "[interpreter][binary][logical]"){
-    std::wstring source = L"5 && nula";
+    std::wstring source = L"5 && null";
     Interpreter interpreter;
 
     RuntimeValue result = interpreter.evaluate(parseSingleExpression(source));

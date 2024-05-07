@@ -77,7 +77,7 @@ TEST_CASE("Throws on number + string", "[interpreter][binary]") {
 }
 
 TEST_CASE("Throws on number + boolean", "[interpreter][binary]") {
-    std::wstring source = L"5 + istina";
+    std::wstring source = L"5 + tačno";
     Interpreter interpreter;
 
     RuntimeValue result;
@@ -85,8 +85,8 @@ TEST_CASE("Throws on number + boolean", "[interpreter][binary]") {
     REQUIRE_THROWS_AS(result = interpreter.evaluate(parseSingleExpression(source)), WrongBinaryOperandTypes);
 }
 
-TEST_CASE("Throws on number + nula", "[interpreter][binary]") {
-    std::wstring source = L"5 + nula";
+TEST_CASE("Throws on number + null", "[interpreter][binary]") {
+    std::wstring source = L"5 + null";
     Interpreter interpreter;
 
     RuntimeValue result;
@@ -94,8 +94,8 @@ TEST_CASE("Throws on number + nula", "[interpreter][binary]") {
     REQUIRE_THROWS_AS(result = interpreter.evaluate(parseSingleExpression(source)), WrongBinaryOperandTypes);
 }
 
-TEST_CASE("Throws on nula + nula", "[interpreter][binary]") {
-    std::wstring source = L"nula + nula";
+TEST_CASE("Throws on null + null", "[interpreter][binary]") {
+    std::wstring source = L"null + null";
     Interpreter interpreter;
 
     RuntimeValue result;
@@ -103,8 +103,8 @@ TEST_CASE("Throws on nula + nula", "[interpreter][binary]") {
     REQUIRE_THROWS_AS(result = interpreter.evaluate(parseSingleExpression(source)), WrongBinaryOperandTypes);
 }
 
-TEST_CASE("Throws on nula + boolean value", "[interpreter][binary]") {
-    std::wstring source = L"nula + istina";
+TEST_CASE("Throws on null + boolean value", "[interpreter][binary]") {
+    std::wstring source = L"null + tačno";
     Interpreter interpreter;
 
     RuntimeValue result;
@@ -113,7 +113,7 @@ TEST_CASE("Throws on nula + boolean value", "[interpreter][binary]") {
 }
 
 TEST_CASE("Throws on boolean value + boolean value", "[interpreter][binary]") {
-    std::wstring source = L"istina + neistina";
+    std::wstring source = L"tačno + netačno";
     Interpreter interpreter;
 
     RuntimeValue result;
@@ -131,7 +131,7 @@ TEST_CASE("Throws on number - string", "[interpreter][binary]") {
 }
 
 TEST_CASE("Throws on number - boolean", "[interpreter][binary]") {
-    std::wstring source = L"5 - istina";
+    std::wstring source = L"5 - tačno";
     Interpreter interpreter;
 
     RuntimeValue result;
@@ -139,8 +139,8 @@ TEST_CASE("Throws on number - boolean", "[interpreter][binary]") {
     REQUIRE_THROWS_AS(result = interpreter.evaluate(parseSingleExpression(source)), WrongBinaryOperandTypes);
 }
 
-TEST_CASE("Throws on number - nula", "[interpreter][binary]") {
-    std::wstring source = L"5 - nula";
+TEST_CASE("Throws on number - null", "[interpreter][binary]") {
+    std::wstring source = L"5 - null";
     Interpreter interpreter;
 
     RuntimeValue result;
@@ -148,8 +148,8 @@ TEST_CASE("Throws on number - nula", "[interpreter][binary]") {
     REQUIRE_THROWS_AS(result = interpreter.evaluate(parseSingleExpression(source)), WrongBinaryOperandTypes);
 }
 
-TEST_CASE("Throws on nula - nula", "[interpreter][binary]") {
-    std::wstring source = L"nula - nula";
+TEST_CASE("Throws on null - null", "[interpreter][binary]") {
+    std::wstring source = L"null - null";
     Interpreter interpreter;
 
     RuntimeValue result;
@@ -157,8 +157,8 @@ TEST_CASE("Throws on nula - nula", "[interpreter][binary]") {
     REQUIRE_THROWS_AS(result = interpreter.evaluate(parseSingleExpression(source)), WrongBinaryOperandTypes);
 }
 
-TEST_CASE("Throws on nula - boolean value", "[interpreter][binary]") {
-    std::wstring source = L"nula - istina";
+TEST_CASE("Throws on null - boolean value", "[interpreter][binary]") {
+    std::wstring source = L"null - tačno";
     Interpreter interpreter;
 
     RuntimeValue result;
@@ -167,7 +167,7 @@ TEST_CASE("Throws on nula - boolean value", "[interpreter][binary]") {
 }
 
 TEST_CASE("Throws on boolean value - boolean value", "[interpreter][binary]") {
-    std::wstring source = L"istina - neistina";
+    std::wstring source = L"tačno - netačno";
     Interpreter interpreter;
 
     RuntimeValue result;
@@ -185,7 +185,7 @@ TEST_CASE("Throws on number * string", "[interpreter][binary]") {
 }
 
 TEST_CASE("Throws on number * boolean", "[interpreter][binary]") {
-    std::wstring source = L"5 * istina";
+    std::wstring source = L"5 * tačno";
     Interpreter interpreter;
 
     RuntimeValue result;
@@ -193,8 +193,8 @@ TEST_CASE("Throws on number * boolean", "[interpreter][binary]") {
     REQUIRE_THROWS_AS(result = interpreter.evaluate(parseSingleExpression(source)), WrongBinaryOperandTypes);
 }
 
-TEST_CASE("Throws on number * nula", "[interpreter][binary]") {
-    std::wstring source = L"5 * nula";
+TEST_CASE("Throws on number * null", "[interpreter][binary]") {
+    std::wstring source = L"5 * null";
     Interpreter interpreter;
 
     RuntimeValue result;
@@ -202,8 +202,8 @@ TEST_CASE("Throws on number * nula", "[interpreter][binary]") {
     REQUIRE_THROWS_AS(result = interpreter.evaluate(parseSingleExpression(source)), WrongBinaryOperandTypes);
 }
 
-TEST_CASE("Throws on nula * nula", "[interpreter][binary]") {
-    std::wstring source = L"nula * nula";
+TEST_CASE("Throws on null * null", "[interpreter][binary]") {
+    std::wstring source = L"null * null";
     Interpreter interpreter;
 
     RuntimeValue result;
@@ -211,8 +211,8 @@ TEST_CASE("Throws on nula * nula", "[interpreter][binary]") {
     REQUIRE_THROWS_AS(result = interpreter.evaluate(parseSingleExpression(source)), WrongBinaryOperandTypes);
 }
 
-TEST_CASE("Throws on nula * boolean value", "[interpreter][binary]") {
-    std::wstring source = L"nula * istina";
+TEST_CASE("Throws on null * boolean value", "[interpreter][binary]") {
+    std::wstring source = L"null * tačno";
     Interpreter interpreter;
 
     RuntimeValue result;
@@ -221,7 +221,7 @@ TEST_CASE("Throws on nula * boolean value", "[interpreter][binary]") {
 }
 
 TEST_CASE("Throws on boolean value * boolean value", "[interpreter][binary]") {
-    std::wstring source = L"istina * neistina";
+    std::wstring source = L"tačno * netačno";
     Interpreter interpreter;
 
     RuntimeValue result;
@@ -240,7 +240,7 @@ TEST_CASE("Throws on number / string", "[interpreter][binary]") {
 }
 
 TEST_CASE("Throws on number / boolean", "[interpreter][binary]") {
-    std::wstring source = L"5 / istina";
+    std::wstring source = L"5 / tačno";
     Interpreter interpreter;
 
     RuntimeValue result;
@@ -248,8 +248,8 @@ TEST_CASE("Throws on number / boolean", "[interpreter][binary]") {
     REQUIRE_THROWS_AS(result = interpreter.evaluate(parseSingleExpression(source)), WrongBinaryOperandTypes);
 }
 
-TEST_CASE("Throws on number / nula", "[interpreter][binary]") {
-    std::wstring source = L"5 / nula";
+TEST_CASE("Throws on number / null", "[interpreter][binary]") {
+    std::wstring source = L"5 / null";
     Interpreter interpreter;
 
     RuntimeValue result;
@@ -257,8 +257,8 @@ TEST_CASE("Throws on number / nula", "[interpreter][binary]") {
     REQUIRE_THROWS_AS(result = interpreter.evaluate(parseSingleExpression(source)), WrongBinaryOperandTypes);
 }
 
-TEST_CASE("Throws on nula / nula", "[interpreter][binary]") {
-    std::wstring source = L"nula / nula";
+TEST_CASE("Throws on null / null", "[interpreter][binary]") {
+    std::wstring source = L"null / null";
     Interpreter interpreter;
 
     RuntimeValue result;
@@ -266,8 +266,8 @@ TEST_CASE("Throws on nula / nula", "[interpreter][binary]") {
     REQUIRE_THROWS_AS(result = interpreter.evaluate(parseSingleExpression(source)), WrongBinaryOperandTypes);
 }
 
-TEST_CASE("Throws on nula / boolean value", "[interpreter][binary]") {
-    std::wstring source = L"nula / istina";
+TEST_CASE("Throws on null / boolean value", "[interpreter][binary]") {
+    std::wstring source = L"null / tačno";
     Interpreter interpreter;
 
     RuntimeValue result;
@@ -277,7 +277,7 @@ TEST_CASE("Throws on nula / boolean value", "[interpreter][binary]") {
 
 
 TEST_CASE("Throws on boolean value / boolean value", "[interpreter][binary]") {
-    std::wstring source = L"istina / neistina";
+    std::wstring source = L"tačno / netačno";
     Interpreter interpreter;
 
     RuntimeValue result;

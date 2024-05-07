@@ -19,7 +19,7 @@ TEST_CASE("Interprets block statement", "[interpreter][block]") {
 }
 
 TEST_CASE("Interprets block statement with multiple statements", "[interpreter][block]") {
-    std::wstring source = L"{ var x = 10; ispisi 1; }";
+    std::wstring source = L"{ var x = 10; ispiši 1; }";
     Interpreter interpreter;
     interpreter.interpret(parseSource(source).get());
     REQUIRE(interpreter.executedStatements.size() == 3);
@@ -38,17 +38,17 @@ TEST_CASE("Nesting and shadowing test", "[interpreter][block]") {
                           " var b = \"outer b\";\n"
                           " {\n"
                           " var a = \"inner a\";\n"
-                          " ispisi a;\n"
-                          " ispisi b;\n"
-                          " ispisi c;\n"
+                          " ispiši a;\n"
+                          " ispiši b;\n"
+                          " ispiši c;\n"
                           " }\n"
-                          " ispisi a;\n"
-                          " ispisi b;\n"
-                          " ispisi c;\n"
+                          " ispiši a;\n"
+                          " ispiši b;\n"
+                          " ispiši c;\n"
                           "}\n"
-                          "ispisi a;\n"
-                          "ispisi b;\n"
-                          "ispisi c;";
+                          "ispiši a;\n"
+                          "ispiši b;\n"
+                          "ispiši c;";
     Interpreter interpreter;
     std::unique_ptr<Program> program = parseSource(source);
     Resolver resolver(&interpreter);

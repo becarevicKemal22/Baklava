@@ -11,7 +11,7 @@
 #include "Resolver.h"
 
 TEST_CASE("Declares and calls basic function", "[interpreter][function]") {
-    std::wstring source = L"funkcija f() { ispisi 5; } f();";
+    std::wstring source = L"funkcija f() { ispiši 5; } f();";
     Interpreter interpreter;
 
     interpreter.interpret(parseSource(source).get());
@@ -20,7 +20,7 @@ TEST_CASE("Declares and calls basic function", "[interpreter][function]") {
 }
 
 TEST_CASE("Declares and calls function with parameters", "[interpreter][function]") {
-    std::wstring source = L"funkcija f(x) { ispisi x; } f(5);";
+    std::wstring source = L"funkcija f(x) { ispiši x; } f(5);";
     Interpreter interpreter;
     std::unique_ptr<Program> program = parseSource(source);
     Resolver resolver(&interpreter);
@@ -31,7 +31,7 @@ TEST_CASE("Declares and calls function with parameters", "[interpreter][function
 }
 
 TEST_CASE("Declares and calls function with multiple parameters", "[interpreter][function]") {
-    std::wstring source = L"funkcija f(x, y) { ispisi x; ispisi y; } f(5, 10);";
+    std::wstring source = L"funkcija f(x, y) { ispiši x; ispiši y; } f(5, 10);";
     Interpreter interpreter;
     std::unique_ptr<Program> program = parseSource(source);
     Resolver resolver(&interpreter);
@@ -43,7 +43,7 @@ TEST_CASE("Declares and calls function with multiple parameters", "[interpreter]
 }
 
 TEST_CASE("Declares and calls function with return statement", "[interpreter][function]") {
-    std::wstring source = L"funkcija f() { vrati 5; } ispisi f();";
+    std::wstring source = L"funkcija f() { vrati 5; } ispiši f();";
     Interpreter interpreter;
     std::unique_ptr<Program> program = parseSource(source);
     Resolver resolver(&interpreter);
@@ -54,7 +54,7 @@ TEST_CASE("Declares and calls function with return statement", "[interpreter][fu
 }
 
 TEST_CASE("Declares and calls function with return statement and parameters", "[interpreter][function]") {
-    std::wstring source = L"funkcija f(x, y) { vrati x + y; } ispisi f(5, 10);";
+    std::wstring source = L"funkcija f(x, y) { vrati x + y; } ispiši f(5, 10);";
     Interpreter interpreter;
     std::unique_ptr<Program> program = parseSource(source);
     Resolver resolver(&interpreter);
@@ -65,7 +65,7 @@ TEST_CASE("Declares and calls function with return statement and parameters", "[
 }
 
 TEST_CASE("Declares and calls function with return statement and nested function call", "[interpreter][function]") {
-    std::wstring source = L"funkcija f(x, y) { vrati x + y; } ispisi f(5, f(5, 5));";
+    std::wstring source = L"funkcija f(x, y) { vrati x + y; } ispiši f(5, f(5, 5));";
     Interpreter interpreter;
     std::unique_ptr<Program> program = parseSource(source);
     Resolver resolver(&interpreter);
@@ -76,7 +76,7 @@ TEST_CASE("Declares and calls function with return statement and nested function
 }
 
 TEST_CASE("Declares and calls function inside a block", "[interpreter][function]") {
-    std::wstring source = L"{ funkcija f() { ispisi 5; } f(); }";
+    std::wstring source = L"{ funkcija f() { ispiši 5; } f(); }";
     Interpreter interpreter;
     std::unique_ptr<Program> program = parseSource(source);
     Resolver resolver(&interpreter);
@@ -87,7 +87,7 @@ TEST_CASE("Declares and calls function inside a block", "[interpreter][function]
 }
 
 TEST_CASE("Declares and calls function inside a block with shadowing", "[interpreter][function]") {
-    std::wstring source = L"var x = 10; { funkcija f() { ispisi x; } f(); }";
+    std::wstring source = L"var x = 10; { funkcija f() { ispiši x; } f(); }";
     Interpreter interpreter;
     std::unique_ptr<Program> program = parseSource(source);
     Resolver resolver(&interpreter);
@@ -98,7 +98,7 @@ TEST_CASE("Declares and calls function inside a block with shadowing", "[interpr
 }
 
 TEST_CASE("Declares function outside block and calls inside block", "[interpreter][function]") {
-    std::wstring source = L"funkcija f() { ispisi 5; } { f(); }";
+    std::wstring source = L"funkcija f() { ispiši 5; } { f(); }";
     Interpreter interpreter;
 
     interpreter.interpret(parseSource(source).get());
@@ -118,8 +118,8 @@ TEST_CASE("Closure test", "[interpreter][function]") {
                           "\n"
                           "var counter = makeCounter();\n"
                           "\n"
-                          "ispisi counter(); // 1\n"
-                          "ispisi counter(); // 2";
+                          "ispiši counter(); // 1\n"
+                          "ispiši counter(); // 2";
     Interpreter interpreter;
     std::unique_ptr<Program> program = parseSource(source);
     Resolver resolver(&interpreter);
@@ -134,7 +134,7 @@ TEST_CASE("Closure edge case test", "[interpreter][function]") {
     std::wstring source = L"var a = \"global\";\n"
                           "{\n"
                           "    funkcija fn(){\n"
-                          "        ispisi a;\n"
+                          "        ispiši a;\n"
                           "    }\n"
                           "    fn();\n"
                           "    var a = \"local\";\n"
@@ -189,7 +189,7 @@ TEST_CASE("Throws on number call", "[interpreter][function]") {
 }
 
 TEST_CASE("Throws on null call", "[interpreter][function]") {
-    std::wstring source = L"var f = nula; f();";
+    std::wstring source = L"var f = null; f();";
     Interpreter interpreter;
 
     REQUIRE_NOTHROW(interpreter.interpret(parseSource(source).get()));
@@ -198,7 +198,7 @@ TEST_CASE("Throws on null call", "[interpreter][function]") {
 }
 
 TEST_CASE("Throws on boolean call", "[interpreter][function]") {
-    std::wstring source = L"var f = istina; f();";
+    std::wstring source = L"var f = tačno; f();";
     Interpreter interpreter;
 
     REQUIRE_NOTHROW(interpreter.interpret(parseSource(source).get()));

@@ -17,13 +17,13 @@
  */
 const std::unordered_map<std::wstring, TokenType> KEYWORDS = {
         {L"ako", TokenType::If},
-        {L"inace", TokenType::Else},
+        {L"inače", TokenType::Else},
         {L"dok", TokenType::While},
         {L"za", TokenType::For},
-        {L"istina", TokenType::True},
-        {L"neistina", TokenType::False},
-        {L"nula", TokenType::Null},
-        {L"ispisi", TokenType::Print},
+        {L"tačno", TokenType::True},
+        {L"netačno", TokenType::False},
+        {L"null", TokenType::Null},
+        {L"ispiši", TokenType::Print},
         {L"var", TokenType::Var},
         {L"konst", TokenType::Const},
         {L"funkcija", TokenType::Function},

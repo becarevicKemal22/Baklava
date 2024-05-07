@@ -12,7 +12,7 @@ std::wstring getRuntimeValueTypeString(const RuntimeValue& value) {
         case ValueType::Boolean:
             return L"boole";
         case ValueType::Null:
-            return L"nula";
+            return L"null";
         case ValueType::Object:
             switch(value.as.object->type) {
                 case ObjectType::OBJECT_STRING:

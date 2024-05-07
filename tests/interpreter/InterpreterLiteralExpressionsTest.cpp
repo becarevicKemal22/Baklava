@@ -10,7 +10,7 @@
 #include "../TestHelpers.h"
 
 TEST_CASE("Interprets true boolean literal", "[interpreter][literal]") {
-    std::wstring source = L"istina";
+    std::wstring source = L"tačno";
     Interpreter interpreter;
 
     RuntimeValue result = interpreter.evaluate(parseSingleExpression(source));
@@ -19,7 +19,7 @@ TEST_CASE("Interprets true boolean literal", "[interpreter][literal]") {
 }
 
 TEST_CASE("Interprets false boolean literal", "[interpreter][literal]") {
-    std::wstring source = L"neistina";
+    std::wstring source = L"netačno";
     Interpreter interpreter;
 
     RuntimeValue result = interpreter.evaluate(parseSingleExpression(source));
@@ -37,7 +37,7 @@ TEST_CASE("Interprets numeric literal", "[interpreter][literal]") {
 }
 
 TEST_CASE("Interprets null literal", "[interpreter][literal]") {
-    std::wstring source = L"nula";
+    std::wstring source = L"null";
     Interpreter interpreter;
     RuntimeValue result = interpreter.evaluate(parseSingleExpression(source));
     REQUIRE(result.type == ValueType::Null);
@@ -87,7 +87,7 @@ TEST_CASE("Interprets array literal with elements", "[interpreter][literal]") {
 }
 
 TEST_CASE("Interprets array literal with mixed-type elements", "[interpreter][literal]") {
-    std::wstring source = L"[1, \"string\", nula]";
+    std::wstring source = L"[1, \"string\", null]";
     Interpreter interpreter;
     RuntimeValue result = interpreter.evaluate(parseSingleExpression(source));
     REQUIRE(IS_OBJ(result));

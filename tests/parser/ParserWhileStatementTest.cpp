@@ -15,7 +15,7 @@
 #include "StringLiteralExpression.h"
 
 TEST_CASE("Parses empty while statement", "[parser][controlFlow]") {
-    std::wstring source = L"dok (istina) {}";
+    std::wstring source = L"dok (tačno) {}";
     Lexer lexer(source);
     lexer.tokenize();
     Parser parser(lexer.tokens);
@@ -31,7 +31,7 @@ TEST_CASE("Parses empty while statement", "[parser][controlFlow]") {
 }
 
 TEST_CASE("Parses while statement with statement", "[parser][controlFlow]") {
-    std::wstring source = L"dok (istina) { ispisi 1; }";
+    std::wstring source = L"dok (tačno) { ispiši 1; }";
     Lexer lexer(source);
     lexer.tokenize();
     Parser parser(lexer.tokens);
@@ -50,7 +50,7 @@ TEST_CASE("Parses while statement with statement", "[parser][controlFlow]") {
 }
 
 TEST_CASE("Parses while statement with no block", "[parser][controlFlow]") {
-    std::wstring source = L"dok (istina) ispisi 1; ispisi \"Izvan petlje\";";
+    std::wstring source = L"dok (tačno) ispiši 1; ispiši \"Izvan petlje\";";
     Lexer lexer(source);
     lexer.tokenize();
     Parser parser(lexer.tokens);
@@ -79,7 +79,7 @@ TEST_CASE("Throws on missing condition", "[parser][controlFlow]") {
 }
 
 TEST_CASE("Throws on missing body", "[parser][controlFlow]") {
-    std::wstring source = L"dok(istina)";
+    std::wstring source = L"dok(tačno)";
     Lexer lexer(source);
     lexer.tokenize();
     Parser parser(lexer.tokens);
@@ -95,7 +95,7 @@ TEST_CASE("Throws on missing condition and body", "[parser][controlFlow]") {
 }
 
 TEST_CASE("Throws on no opening parenthesis", "[parser][controlFlow]") {
-    std::wstring source = L"dok istina) {}";
+    std::wstring source = L"dok tačno) {}";
     Lexer lexer(source);
     lexer.tokenize();
     Parser parser(lexer.tokens);
@@ -103,7 +103,7 @@ TEST_CASE("Throws on no opening parenthesis", "[parser][controlFlow]") {
 }
 
 TEST_CASE("Throws on no closing parenthesis", "[parser][controlFlow]") {
-    std::wstring source = L"dok (istina {}";
+    std::wstring source = L"dok (tačno {}";
     Lexer lexer(source);
     lexer.tokenize();
     Parser parser(lexer.tokens);

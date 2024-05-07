@@ -12,7 +12,7 @@
 
 
 TEST_CASE("Applies logical not to true boolean value", "[interpreter][unary]"){
-    std::wstring source = L"!istina";
+    std::wstring source = L"!tačno";
     Interpreter interpreter;
 
     RuntimeValue result = interpreter.evaluate(parseSingleExpression(source));
@@ -21,7 +21,7 @@ TEST_CASE("Applies logical not to true boolean value", "[interpreter][unary]"){
 }
 
 TEST_CASE("Applies logical not to false boolean value", "[interpreter][unary]"){
-    std::wstring source = L"!neistina";
+    std::wstring source = L"!netačno";
     Interpreter interpreter;
 
     RuntimeValue result = interpreter.evaluate(parseSingleExpression(source));
@@ -48,7 +48,7 @@ TEST_CASE("Applies logical not to truthy value", "[interpreter][unary]"){
 }
 
 TEST_CASE("Applies logical not to null", "[interpreter][unary]"){
-    std::wstring source = L"!nula";
+    std::wstring source = L"!null";
     Interpreter interpreter;
 
     RuntimeValue result = interpreter.evaluate(parseSingleExpression(source));
@@ -57,7 +57,7 @@ TEST_CASE("Applies logical not to null", "[interpreter][unary]"){
 }
 
 TEST_CASE("Applies chained logical not", "[interpreter][unary]"){
-    std::wstring source = L"!!neistina";
+    std::wstring source = L"!!netačno";
     Interpreter interpreter;
 
     RuntimeValue result = interpreter.evaluate(parseSingleExpression(source));
@@ -84,7 +84,7 @@ TEST_CASE("Negates numeric value", "[interpreter][unary]"){
 //} ovo bi trebalo raditi kada se dodaju prefix operatori, ali ovako ce se interpretirati kao double minus u lexeru, sto trenutno i jeste greska, samo se mogu nizati ! operatori
 
 TEST_CASE("Negates null value", "[interpreter][unary]"){
-    std::wstring source = L"-nula";
+    std::wstring source = L"-null";
     Interpreter interpreter;
 
     RuntimeValue result = interpreter.evaluate(parseSingleExpression(source));
@@ -93,14 +93,14 @@ TEST_CASE("Negates null value", "[interpreter][unary]"){
 }
 
 TEST_CASE("Throws on boolean value negation", "[interpreter][unary]"){
-    std::wstring source = L"-istina";
+    std::wstring source = L"-tačno";
     Interpreter interpreter;
     RuntimeValue result;
     REQUIRE_THROWS_AS(result = interpreter.evaluate(parseSingleExpression(source)), WrongTypeError);
 }
 
 TEST_CASE("Throws on false boolean value negation", "[interpreter][unary]"){
-    std::wstring source = L"-neistina";
+    std::wstring source = L"-netačno";
     Interpreter interpreter;
 
     RuntimeValue result;

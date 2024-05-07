@@ -73,7 +73,7 @@ TEST_CASE("Throws on comparison with different types", "[interpreter][binary][co
 }
 
 TEST_CASE("Throws on comparison with null", "[interpreter][binary][comparison]"){
-    std::wstring source = L"5 < nula";
+    std::wstring source = L"5 < null";
     Interpreter interpreter;
 
     RuntimeValue result;
@@ -82,7 +82,7 @@ TEST_CASE("Throws on comparison with null", "[interpreter][binary][comparison]")
 }
 
 TEST_CASE("Throws on comparison with boolean", "[interpreter][binary][comparison]"){
-    std::wstring source = L"5 < istina";
+    std::wstring source = L"5 < tačno";
     Interpreter interpreter;
 
     RuntimeValue result;

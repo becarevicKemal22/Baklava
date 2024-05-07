@@ -186,7 +186,7 @@ Statement* Parser::forStatement() {
         body = new BlockStatement({body, new ExpressionStatement(increment)});
     }
     if(condition == nullptr){
-        condition = new BooleanLiteralExpression(new Token(TokenType::True, L"istina", 0, 0));
+        condition = new BooleanLiteralExpression(new Token(TokenType::True, L"tačno", 0, 0));
     }
     body = new WhileStatement(condition, body);
     if(initializer != nullptr){

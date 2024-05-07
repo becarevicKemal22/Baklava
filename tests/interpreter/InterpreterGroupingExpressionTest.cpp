@@ -10,7 +10,7 @@
 #include "../TestHelpers.h"
 
 TEST_CASE("Interprets simple grouping expression", "[interpreter][grouping]") {
-    std::wstring source = L"(istina)";
+    std::wstring source = L"(tačno)";
     Interpreter interpreter;
 
     RuntimeValue result = interpreter.evaluate(parseSingleExpression(source));

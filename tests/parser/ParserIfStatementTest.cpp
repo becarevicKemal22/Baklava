@@ -14,7 +14,7 @@
 #include "NumericLiteralExpression.h"
 
 TEST_CASE("Parses basic if statement", "[parser][controlFlow]") {
-    std::wstring source = L"ako (istina) { ispisi 1; }";
+    std::wstring source = L"ako (tačno) { ispiši 1; }";
     Lexer lexer(source);
     lexer.tokenize();
     Parser parser(lexer.tokens);
@@ -33,7 +33,7 @@ TEST_CASE("Parses basic if statement", "[parser][controlFlow]") {
 }
 
 TEST_CASE("Parses if without block", "[parser][controlFlow]") {
-    std::wstring source = L"ako (istina) ispisi 1; ispisi 2;";
+    std::wstring source = L"ako (tačno) ispiši 1; ispiši 2;";
     Lexer lexer(source);
     lexer.tokenize();
     Parser parser(lexer.tokens);
@@ -54,7 +54,7 @@ TEST_CASE("Parses if without block", "[parser][controlFlow]") {
 }
 
 TEST_CASE("Parses if with else", "[parser][controlFlow]") {
-    std::wstring source = L"ako (istina) ispisi 1; inace ispisi 2;";
+    std::wstring source = L"ako (tačno) ispiši 1; inače ispiši 2;";
     Lexer lexer(source);
     lexer.tokenize();
     Parser parser(lexer.tokens);
@@ -75,7 +75,7 @@ TEST_CASE("Parses if with else", "[parser][controlFlow]") {
 }
 
 TEST_CASE("Parses if-else-if-else statement", "[parser][controlFlow]"){
-    std::wstring source = L"ako (istina) ispisi 1; inace ako (istina) ispisi 2; inace ispisi 3;";
+    std::wstring source = L"ako (tačno) ispiši 1; inače ako (tačno) ispiši 2; inače ispiši 3;";
     Lexer lexer(source);
     lexer.tokenize();
     Parser parser(lexer.tokens);
@@ -104,7 +104,7 @@ TEST_CASE("Parses if-else-if-else statement", "[parser][controlFlow]"){
 }
 
 TEST_CASE("Ties else to nearest if statement", "[parser][controlFlow]"){
-    std::wstring source = L"ako (istina) ako(istina) ispisi 1; inace ispisi 2;";
+    std::wstring source = L"ako (tačno) ako(tačno) ispiši 1; inače ispiši 2;";
     Lexer lexer(source);
     lexer.tokenize();
     Parser parser(lexer.tokens);
@@ -129,7 +129,7 @@ TEST_CASE("Ties else to nearest if statement", "[parser][controlFlow]"){
 }
 
 TEST_CASE("Throws error if no condition in if statement", "[parser][controlFlow]") {
-    std::wstring source = L"ako (){ ispisi 1; }";
+    std::wstring source = L"ako (){ ispiši 1; }";
     Lexer lexer(source);
     lexer.tokenize();
     Parser parser(lexer.tokens);
@@ -137,7 +137,7 @@ TEST_CASE("Throws error if no condition in if statement", "[parser][controlFlow]
 }
 
 TEST_CASE("Throws error on no beginning parenthesis", "[parser][controlFlow]") {
-    std::wstring source = L"ako istina) { ispisi 1; }";
+    std::wstring source = L"ako tačno) { ispiši 1; }";
     Lexer lexer(source);
     lexer.tokenize();
     Parser parser(lexer.tokens);
@@ -145,7 +145,7 @@ TEST_CASE("Throws error on no beginning parenthesis", "[parser][controlFlow]") {
 }
 
 TEST_CASE("Throws error on no closing parenthesis", "[parser][controlFlow]") {
-    std::wstring source = L"ako (istina { ispisi 1; }";
+    std::wstring source = L"ako (tačno { ispiši 1; }";
     Lexer lexer(source);
     lexer.tokenize();
     Parser parser(lexer.tokens);
@@ -153,7 +153,7 @@ TEST_CASE("Throws error on no closing parenthesis", "[parser][controlFlow]") {
 }
 
 TEST_CASE("Throws error on no then branch", "[parser][controlFlow]") {
-    std::wstring source = L"ako (istina) ";
+    std::wstring source = L"ako (tačno) ";
     Lexer lexer(source);
     lexer.tokenize();
     Parser parser(lexer.tokens);

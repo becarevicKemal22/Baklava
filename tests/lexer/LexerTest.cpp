@@ -162,7 +162,7 @@ TEST_CASE("Tokenizes operators", "[lexer]"){
 }
 
 TEST_CASE("Tokenizes keywords", "[lexer]"){
-    std::wstring source = L"ako inace dok za istina neistina nula ispisi var konst funkcija vrati";
+    std::wstring source = L"ako inače dok za tačno netačno null ispiši var konst funkcija vrati";
 
     Lexer lexer(source);
     lexer.tokenize();
@@ -170,17 +170,17 @@ TEST_CASE("Tokenizes keywords", "[lexer]"){
 
     REQUIRE(tokens.size() == 13);
     checkToken(tokens[0], TokenType::If, L"ako", 1, 0);
-    checkToken(tokens[1], TokenType::Else, L"inace", 1, 4);
+    checkToken(tokens[1], TokenType::Else, L"inače", 1, 4);
     checkToken(tokens[2], TokenType::While, L"dok", 1, 10);
     checkToken(tokens[3], TokenType::For, L"za", 1, 14);
-    checkToken(tokens[4], TokenType::True, L"istina", 1, 17);
-    checkToken(tokens[5], TokenType::False, L"neistina", 1, 24);
-    checkToken(tokens[6], TokenType::Null, L"nula", 1, 33);
-    checkToken(tokens[7], TokenType::Print, L"ispisi", 1, 38);
-    checkToken(tokens[8], TokenType::Var, L"var", 1, 45);
-    checkToken(tokens[9], TokenType::Const, L"konst", 1, 49);
-    checkToken(tokens[10], TokenType::Function, L"funkcija", 1, 55);
-    checkToken(tokens[11], TokenType::Return, L"vrati", 1, 64);
+    checkToken(tokens[4], TokenType::True, L"tačno", 1, 17);
+    checkToken(tokens[5], TokenType::False, L"netačno", 1, 23);
+    checkToken(tokens[6], TokenType::Null, L"null", 1, 31);
+    checkToken(tokens[7], TokenType::Print, L"ispiši", 1, 36);
+    checkToken(tokens[8], TokenType::Var, L"var", 1, 43);
+    checkToken(tokens[9], TokenType::Const, L"konst", 1, 47);
+    checkToken(tokens[10], TokenType::Function, L"funkcija", 1, 53);
+    checkToken(tokens[11], TokenType::Return, L"vrati", 1, 62);
     checkToken(tokens[12], TokenType::Eof, L"");
 }
 

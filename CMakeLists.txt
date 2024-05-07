@@ -1,10 +1,10 @@
 cmake_minimum_required(VERSION 3.25)
-project(Maturski_2)
+project(Baklava)
 
 set(CMAKE_CXX_STANDARD 20)
 
 include_directories("src/interpreter/controlFlowExceptions" "src/lexer" "src/error" "src/error/exceptions/parser" "src/error/printer" "src/parser" "src/parser/ast/" "src/parser/ast/expressions" "src/parser/ast/statements" "src/interpreter/" "src/interpreter/runtimeValues" "src/error/exceptions" )
-add_executable(Maturski_2 main.cpp
+add_executable(baklava main.cpp
         src/lexer/Lexer.cpp
         src/lexer/Lexer.h
         src/lexer/Token.h
@@ -74,6 +74,6 @@ add_executable(Maturski_2 main.cpp
 
 add_subdirectory(tests)
 
-target_link_libraries(Maturski_2 -static)
+target_link_libraries(baklava -static)
 
-target_compile_options(Maturski_2 PRIVATE -fexec-charset=utf-8)
+target_compile_options(baklava PRIVATE -fexec-charset=utf-8)
