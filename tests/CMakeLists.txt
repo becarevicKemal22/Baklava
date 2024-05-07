@@ -73,5 +73,8 @@ add_executable(tests ../src/error/printer/ErrorPrinter.cpp ../src/lexer/Lexer.cp
         ../src/parser/Resolver.h
         ../src/error/exceptions/parser/InvalidReturnPosition.h
         ../src/error/exceptions/parser/SelfReferencingInitializer.h
+        parser/ParserIndexingOperatorTest.cpp
+        ../src/parser/ast/expressions/IndexingExpression.h
+        ../src/parser/ast/expressions/ArrayLiteralExpression.h
 )
 target_link_libraries(tests PRIVATE Catch2::Catch2WithMain)

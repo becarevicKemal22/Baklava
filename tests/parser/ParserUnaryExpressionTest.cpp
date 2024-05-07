@@ -34,8 +34,8 @@ TEST_CASE("Parses unary expressions", "[parser][unary]") {
     REQUIRE(booleanLiteral->value == true);
 }
 
-TEST_CASE("Allows chaining of unary operators", "[parser][unary]"){
-    std::wstring source = L"--24;";
+TEST_CASE("Allows chaining of unary logical-not operators", "[parser][unary]"){
+    std::wstring source = L"!!24;";
     Lexer lexer(source);
     lexer.tokenize();
     Parser parser(lexer.tokens);
@@ -45,10 +45,10 @@ TEST_CASE("Allows chaining of unary operators", "[parser][unary]"){
     auto statements = program->statements;
 
     auto unaryExpression = getNode<UnaryExpression>(statements[0]);
-    REQUIRE(unaryExpression->op->type == TokenType::Minus);
+    REQUIRE(unaryExpression->op->type == TokenType::Bang);
 
     unaryExpression = getNode<UnaryExpression>(unaryExpression->expr);
-    REQUIRE(unaryExpression->op->type == TokenType::Minus);
+    REQUIRE(unaryExpression->op->type == TokenType::Bang);
     auto numericLiteral = getNode<NumericLiteralExpression>(unaryExpression->expr);
     REQUIRE(numericLiteral->value == 24);
 }

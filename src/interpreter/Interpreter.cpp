@@ -21,6 +21,8 @@
 #include "IfStatement.h"
 #include "WhileStatement.h"
 #include "CallExpression.h"
+#include "ArrayLiteralExpression.h"
+#include "IndexingExpression.h"
 
 #include "WrongTypeError.h"
 #include "WrongBinaryOperandTypes.h"
@@ -194,6 +196,10 @@ RuntimeValue Interpreter::evaluate(Expression *expr) {
             return evaluateAssignmentExpression(static_cast<AssignmentExpression *>(expr));
         case AstNodeType::CallExpression:
             return evaluateCallExpression(static_cast<CallExpression *>(expr));
+        case AstNodeType::ArrayLiteralExpression:
+            return evaluateArrayLiteralExpression(static_cast<ArrayLiteralExpression *>(expr));
+        case AstNodeType::IndexingExpression:
+            return evaluateIndexingExpression(static_cast<IndexingExpression *>(expr));
         default:
             throw std::runtime_error("Unknown expression type");
     }
@@ -336,6 +342,14 @@ RuntimeValue Interpreter::evaluateUnaryExpression(UnaryExpression *expr) {
         case TokenType::Bang: {
             return {ValueType::Boolean, {.boolean = !isTruthy(value)}};
         }
+        case TokenType::DoublePlus: {
+            if (value.type != ValueType::Number) throw WrongTypeError(L"++", value, expr);
+            return {ValueType::Number, {.number = value.as.number + 1}};
+        }
+        case TokenType::DoubleMinus: {
+            if (value.type != ValueType::Number) throw WrongTypeError(L"--", value, expr);
+            return {ValueType::Number, {.number = value.as.number - 1}};
+        } // PROBLEM JE STO KOD UNARNIH SE PRVO EVALUIRA VRIJEDNOST A ONDA DODJELJUJE AKO JE VARIJABLA TO NE VALJA
         default:
             throw "PARSER ERROR: Unknown unary operator type";
     }
@@ -384,6 +398,33 @@ RuntimeValue Interpreter::evaluateCallExpression(CallExpression *expr) {
 //    }
 }
 
+RuntimeValue Interpreter::evaluateArrayLiteralExpression(ArrayLiteralExpression *expr) {
+    std::vector<RuntimeValue> elements;
+    for(auto element: expr->elements){
+        elements.push_back(evaluate(element));
+    }
+    return {ValueType::Object, {.object = (Object*)allocateArrayObject(elements)}};
+}
+
+RuntimeValue Interpreter::evaluateIndexingExpression(IndexingExpression *expr) {
+    RuntimeValue array = evaluate(expr->left);
+    RuntimeValue index = evaluate(expr->index);
+
+    if(array.type != ValueType::Object || !IS_ARRAY_OBJ(array)){
+        throw WrongTypeError(L"[]", array, expr);
+    }
+    if(index.type != ValueType::Number){
+        throw WrongTypeError(L"[]", index, expr);
+    }
+
+    auto elements = GET_ARRAY_OBJ_ELEMENTS(array);
+    if(index.as.number < 0 || index.as.number >= elements.size()){
+        throw std::runtime_error("Index out of bounds"); // Napraviti custom exception i malo ovaj kod prepraviti da nije copilot bas i provjeriti
+    }
+
+    return elements[(size_t)index.as.number];
+}
+
 bool Interpreter::isTruthy(const RuntimeValue &value) {
     switch (value.type) {
         case ValueType::Boolean:
@@ -428,6 +469,15 @@ ObjectString *Interpreter::allocateStringObject(const std::wstring &value) {
 
 ObjectFunction *Interpreter::allocateFunctionObject(FunctionDeclarationStatement *declaration) {
     auto *obj = new ObjectFunction(declaration, &environments.top());
+    obj->obj.next = objects;
+    objects = (Object *) obj;
+    return obj;
+}
+
+ObjectArray *Interpreter::allocateArrayObject(const std::vector<RuntimeValue> &elements) {
+    auto *obj = new ObjectArray();
+    obj->obj.type = ObjectType::OBJECT_ARRAY;
+    obj->elements = elements;
     obj->obj.next = objects;
     objects = (Object *) obj;
     return obj;

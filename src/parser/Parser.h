@@ -71,9 +71,13 @@ private:
     Expression* termExpression();
     Expression* factorExpression();
     Expression* unaryExpression();
-    Expression* callExpression();
+    Expression* postfixExpression();
+    Expression* indexingExpression(ExprPtr left);
+    Expression* callExpression(ExprPtr callee);
     Expression* finishCallExpression(Expression* callee);
     Expression* primaryExpression();
+
+    Expression* parseArrayLiteral();
 };
 
 #endif //MATURSKI_2_PARSER_H
