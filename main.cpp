@@ -31,7 +31,7 @@ void loadFile(const char *path, std::wstring &source) {
 }
 
 void runFile(const char *path) {
-    std::wcout << "Running file: " << path << "\n";
+//    std::wcout << "Running file: " << path << "\n";
     std::wstring source;
     loadFile(path, source);
     ErrorPrinter printer(source);
@@ -50,7 +50,7 @@ void runFile(const char *path) {
         printer.printParserError(&e);
         exit(0);
     }
-    printAST(program);
+//    printAST(program);
     Interpreter interpreter(&printer);
     try {
         Resolver resolver(&interpreter);
@@ -76,14 +76,16 @@ void runFile(const char *path) {
 //        std::wcout << std::format(L"Elapsed time: {} seconds\n", duration_seconds);
 //        std::wcout << val->stringify() << std::endl;
 //    }
-    auto start = std::chrono::high_resolution_clock::now();
 
+
+//    auto start = std::chrono::high_resolution_clock::now();
+//
     interpreter.interpret(program.get());
-
-    auto end = std::chrono::high_resolution_clock::now();
-    std::chrono::duration<double> duration = end - start;
-    double duration_seconds = duration.count();
-    std::wcout << std::format(L"Elapsed time: {} seconds\n", duration_seconds);
+//
+//    auto end = std::chrono::high_resolution_clock::now();
+//    std::chrono::duration<double> duration = end - start;
+//    double duration_seconds = duration.count();
+//    std::wcout << std::format(L"Elapsed time: {} seconds\n", duration_seconds);
 }
 
 int main(int argc, char **argv) {
