@@ -2,8 +2,8 @@
 // Created by kemal on 2/20/2024.
 //
 
-#ifndef MATURSKI_2_RUNTIMEVALUE_H
-#define MATURSKI_2_RUNTIMEVALUE_H
+#ifndef BAKLAVA_RUNTIMEVALUE_H
+#define BAKLAVA_RUNTIMEVALUE_H
 
 #include <cstdint>
 #include <string>
@@ -46,4 +46,4 @@ struct RuntimeValue{
  */
 std::wstring getRuntimeValueTypeString(const RuntimeValue& value);
 
-#endif //MATURSKI_2_RUNTIMEVALUE_H
+#endif //BAKLAVA_RUNTIMEVALUE_H

@@ -2,8 +2,8 @@
 // Created by kemal on 2/5/2024.
 //
 
-#ifndef MATURSKI_2_PROGRAM_H
-#define MATURSKI_2_PROGRAM_H
+#ifndef BAKLAVA_PROGRAM_H
+#define BAKLAVA_PROGRAM_H
 
 #include <vector>
 #include "Statement.h"
@@ -21,4 +21,4 @@ public:
     std::vector<Statement*> statements;
 };
 
-#endif //MATURSKI_2_PROGRAM_H
+#endif //BAKLAVA_PROGRAM_H

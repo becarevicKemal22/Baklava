@@ -2,8 +2,8 @@
 // Created by kemal on 3/19/2024.
 //
 
-#ifndef MATURSKI_2_INVALIDCALL_H
-#define MATURSKI_2_INVALIDCALL_H
+#ifndef BAKLAVA_INVALIDCALL_H
+#define BAKLAVA_INVALIDCALL_H
 
 #include "RuntimeError.h"
 #include "Token.h"
@@ -18,4 +18,4 @@ public:
     Token* name;
 };
 
-#endif //MATURSKI_2_INVALIDCALL_H
+#endif //BAKLAVA_INVALIDCALL_H

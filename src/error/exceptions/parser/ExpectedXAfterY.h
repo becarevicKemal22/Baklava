@@ -2,8 +2,8 @@
 // Created by kemal on 3/12/2024.
 //
 
-#ifndef MATURSKI_2_EXPECTEDXAFTERY_H
-#define MATURSKI_2_EXPECTEDXAFTERY_H
+#ifndef BAKLAVA_EXPECTEDXAFTERY_H
+#define BAKLAVA_EXPECTEDXAFTERY_H
 
 #include "ParserError.h"
 #include "Token.h"
@@ -26,4 +26,4 @@ public:
     TokenPtr after;
 };
 
-#endif //MATURSKI_2_EXPECTEDXAFTERY_H
+#endif //BAKLAVA_EXPECTEDXAFTERY_H

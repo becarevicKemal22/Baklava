@@ -2,8 +2,8 @@
 // Created by kemal on 3/19/2024.
 //
 
-#ifndef MATURSKI_2_INVALIDARGUMENTCOUNT_H
-#define MATURSKI_2_INVALIDARGUMENTCOUNT_H
+#ifndef BAKLAVA_INVALIDARGUMENTCOUNT_H
+#define BAKLAVA_INVALIDARGUMENTCOUNT_H
 
 #include "RuntimeError.h"
 #include "Token.h"
@@ -20,4 +20,4 @@ public:
     Token *paren;
 };
 
-#endif //MATURSKI_2_INVALIDARGUMENTCOUNT_H
+#endif //BAKLAVA_INVALIDARGUMENTCOUNT_H

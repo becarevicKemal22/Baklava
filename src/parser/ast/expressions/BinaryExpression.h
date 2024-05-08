@@ -2,8 +2,8 @@
 // Created by kemal on 2/5/2024.
 //
 
-#ifndef MATURSKI_2_BINARYEXPRESSION_H
-#define MATURSKI_2_BINARYEXPRESSION_H
+#ifndef BAKLAVA_BINARYEXPRESSION_H
+#define BAKLAVA_BINARYEXPRESSION_H
 
 #include "Expression.h"
 #include "Ast.h"
@@ -24,4 +24,4 @@ public:
     ExprPtr right;
 };
 
-#endif //MATURSKI_2_BINARYEXPRESSION_H
+#endif //BAKLAVA_BINARYEXPRESSION_H

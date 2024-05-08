@@ -2,8 +2,8 @@
 // Created by kemal on 2/25/2024.
 //
 
-#ifndef MATURSKI_2_WRONGBINARYOPERANDTYPES_H
-#define MATURSKI_2_WRONGBINARYOPERANDTYPES_H
+#ifndef BAKLAVA_WRONGBINARYOPERANDTYPES_H
+#define BAKLAVA_WRONGBINARYOPERANDTYPES_H
 
 #include "RuntimeError.h"
 #include "RuntimeValue.h"
@@ -36,4 +36,4 @@ public:
     Token *rightToken;
 };
 
-#endif //MATURSKI_2_WRONGBINARYOPERANDTYPES_H
+#endif //BAKLAVA_WRONGBINARYOPERANDTYPES_H

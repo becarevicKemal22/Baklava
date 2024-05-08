@@ -2,8 +2,8 @@
 // Created by kemal on 3/6/2024.
 //
 
-#ifndef MATURSKI_2_OBJECT_H
-#define MATURSKI_2_OBJECT_H
+#ifndef BAKLAVA_OBJECT_H
+#define BAKLAVA_OBJECT_H
 
 #include <cstdint>
 #include <string>
@@ -68,4 +68,4 @@ struct ObjectFunction : public ObjectCallable {
     }
 };
 
-#endif //MATURSKI_2_OBJECT_H
+#endif //BAKLAVA_OBJECT_H

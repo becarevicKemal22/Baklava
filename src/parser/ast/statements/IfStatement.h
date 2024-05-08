@@ -2,8 +2,8 @@
 // Created by kemal on 3/16/2024.
 //
 
-#ifndef MATURSKI_2_IFSTATEMENT_H
-#define MATURSKI_2_IFSTATEMENT_H
+#ifndef BAKLAVA_IFSTATEMENT_H
+#define BAKLAVA_IFSTATEMENT_H
 
 #include "Statement.h"
 
@@ -17,4 +17,4 @@ public:
     StmtPtr elseBranch;
 };
 
-#endif //MATURSKI_2_IFSTATEMENT_H
+#endif //BAKLAVA_IFSTATEMENT_H

@@ -2,8 +2,8 @@
 // Created by kemal on 3/11/2024.
 //
 
-#ifndef MATURSKI_2_LOGICALEXPRESSION_H
-#define MATURSKI_2_LOGICALEXPRESSION_H
+#ifndef BAKLAVA_LOGICALEXPRESSION_H
+#define BAKLAVA_LOGICALEXPRESSION_H
 
 #include "Expression.h"
 #include "Token.h"
@@ -23,4 +23,4 @@ public:
     ExprPtr right;
 };
 
-#endif //MATURSKI_2_LOGICALEXPRESSION_H
+#endif //BAKLAVA_LOGICALEXPRESSION_H

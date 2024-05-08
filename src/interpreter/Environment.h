@@ -2,8 +2,8 @@
 // Created by kemal on 3/13/2024.
 //
 
-#ifndef MATURSKI_2_ENVIRONMENT_H
-#define MATURSKI_2_ENVIRONMENT_H
+#ifndef BAKLAVA_ENVIRONMENT_H
+#define BAKLAVA_ENVIRONMENT_H
 
 #include <unordered_map>
 #include <algorithm>
@@ -53,4 +53,4 @@ public:
 };
 
 
-#endif //MATURSKI_2_ENVIRONMENT_H
+#endif //BAKLAVA_ENVIRONMENT_H

@@ -2,8 +2,8 @@
 // Created by kemal on 3/15/2024.
 //
 
-#ifndef MATURSKI_2_INVALIDLVALUE_H
-#define MATURSKI_2_INVALIDLVALUE_H
+#ifndef BAKLAVA_INVALIDLVALUE_H
+#define BAKLAVA_INVALIDLVALUE_H
 
 #include "ParserError.h"
 #include "Token.h"
@@ -20,4 +20,4 @@ public:
     TokenPtr token;
 };
 
-#endif //MATURSKI_2_INVALIDLVALUE_H
+#endif //BAKLAVA_INVALIDLVALUE_H

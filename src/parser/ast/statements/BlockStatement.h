@@ -2,8 +2,8 @@
 // Created by kemal on 3/16/2024.
 //
 
-#ifndef MATURSKI_2_BLOCKSTATEMENT_H
-#define MATURSKI_2_BLOCKSTATEMENT_H
+#ifndef BAKLAVA_BLOCKSTATEMENT_H
+#define BAKLAVA_BLOCKSTATEMENT_H
 
 #include <utility>
 #include <vector>
@@ -17,4 +17,4 @@ public:
     std::vector<StmtPtr> statements;
 };
 
-#endif //MATURSKI_2_BLOCKSTATEMENT_H
+#endif //BAKLAVA_BLOCKSTATEMENT_H

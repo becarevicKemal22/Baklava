@@ -2,8 +2,8 @@
 // Created by kemal on 2/24/2024.
 //
 
-#ifndef MATURSKI_2_WRONGTYPEERROR_H
-#define MATURSKI_2_WRONGTYPEERROR_H
+#ifndef BAKLAVA_WRONGTYPEERROR_H
+#define BAKLAVA_WRONGTYPEERROR_H
 
 #include "RuntimeError.h"
 #include "Token.h"
@@ -25,4 +25,4 @@ public:
     Token* token;
 };
 
-#endif //MATURSKI_2_WRONGTYPEERROR_H
+#endif //BAKLAVA_WRONGTYPEERROR_H

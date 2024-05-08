@@ -2,8 +2,8 @@
 // Created by kemal on 3/20/2024.
 //
 
-#ifndef MATURSKI_2_RESOLVER_H
-#define MATURSKI_2_RESOLVER_H
+#ifndef BAKLAVA_RESOLVER_H
+#define BAKLAVA_RESOLVER_H
 
 #include <vector>
 #include <memory>
@@ -101,4 +101,4 @@ private:
 };
 
 
-#endif //MATURSKI_2_RESOLVER_H
+#endif //BAKLAVA_RESOLVER_H

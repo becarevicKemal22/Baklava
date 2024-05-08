@@ -2,8 +2,8 @@
 // Created by kemal on 3/17/2024.
 //
 
-#ifndef MATURSKI_2_CALLEXPRESSION_H
-#define MATURSKI_2_CALLEXPRESSION_H
+#ifndef BAKLAVA_CALLEXPRESSION_H
+#define BAKLAVA_CALLEXPRESSION_H
 
 #include "Expression.h"
 #include "Token.h"
@@ -19,4 +19,4 @@ public:
     std::vector<ExprPtr> arguments;
 };
 
-#endif //MATURSKI_2_CALLEXPRESSION_H
+#endif //BAKLAVA_CALLEXPRESSION_H

@@ -2,8 +2,8 @@
 // Created by kemal on 1/31/2024.
 //
 
-#ifndef MATURSKI_2_KEYWORDS_H
-#define MATURSKI_2_KEYWORDS_H
+#ifndef BAKLAVA_KEYWORDS_H
+#define BAKLAVA_KEYWORDS_H
 
 #include <unordered_map>
 #include <string>
@@ -30,4 +30,4 @@ const std::unordered_map<std::wstring, TokenType> KEYWORDS = {
         {L"vrati", TokenType::Return},
 };
 
-#endif //MATURSKI_2_KEYWORDS_H
+#endif //BAKLAVA_KEYWORDS_H

@@ -2,8 +2,8 @@
 // Created by kemal on 1/28/2024.
 //
 
-#ifndef MATURSKI_2_LEXER_H
-#define MATURSKI_2_LEXER_H
+#ifndef BAKLAVA_LEXER_H
+#define BAKLAVA_LEXER_H
 
 #include <string>
 #include <vector>
@@ -110,4 +110,4 @@ private:
 };
 
 
-#endif //MATURSKI_2_LEXER_H
+#endif //BAKLAVA_LEXER_H

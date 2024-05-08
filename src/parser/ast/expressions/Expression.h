@@ -2,8 +2,8 @@
 // Created by kemal on 2/5/2024.
 //
 
-#ifndef MATURSKI_2_EXPRESSION_H
-#define MATURSKI_2_EXPRESSION_H
+#ifndef BAKLAVA_EXPRESSION_H
+#define BAKLAVA_EXPRESSION_H
 
 #include "Statement.h"
 
@@ -16,4 +16,4 @@ public:
     virtual ~Expression() = default;
 };
 
-#endif //MATURSKI_2_EXPRESSION_H
+#endif //BAKLAVA_EXPRESSION_H

@@ -2,8 +2,8 @@
 // Created by kemal on 3/12/2024.
 //
 
-#ifndef MATURSKI_2_PRINTSTATEMENT_H
-#define MATURSKI_2_PRINTSTATEMENT_H
+#ifndef BAKLAVA_PRINTSTATEMENT_H
+#define BAKLAVA_PRINTSTATEMENT_H
 
 #include "Statement.h"
 
@@ -15,4 +15,4 @@ public:
     ExprPtr expr;
 };
 
-#endif //MATURSKI_2_PRINTSTATEMENT_H
+#endif //BAKLAVA_PRINTSTATEMENT_H

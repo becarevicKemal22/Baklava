@@ -2,8 +2,8 @@
 // Created by kemal on 3/16/2024.
 //
 
-#ifndef MATURSKI_2_WHILESTATEMENT_H
-#define MATURSKI_2_WHILESTATEMENT_H
+#ifndef BAKLAVA_WHILESTATEMENT_H
+#define BAKLAVA_WHILESTATEMENT_H
 
 #include "Statement.h"
 
@@ -16,4 +16,4 @@ public:
     StmtPtr body;
 };
 
-#endif //MATURSKI_2_WHILESTATEMENT_H
+#endif //BAKLAVA_WHILESTATEMENT_H

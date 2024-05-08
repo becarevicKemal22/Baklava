@@ -2,8 +2,8 @@
 // Created by kemal on 1/28/2024.
 //
 
-#ifndef MATURSKI_2_ERRORPRINTER_H
-#define MATURSKI_2_ERRORPRINTER_H
+#ifndef BAKLAVA_ERRORPRINTER_H
+#define BAKLAVA_ERRORPRINTER_H
 
 #include <unordered_map>
 #include <string>
@@ -100,4 +100,4 @@ private:
 };
 
 
-#endif //MATURSKI_2_ERRORPRINTER_H
+#endif //BAKLAVA_ERRORPRINTER_H

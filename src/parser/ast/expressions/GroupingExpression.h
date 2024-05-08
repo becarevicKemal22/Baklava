@@ -2,8 +2,8 @@
 // Created by kemal on 3/12/2024.
 //
 
-#ifndef MATURSKI_2_GROUPINGEXPRESSION_H
-#define MATURSKI_2_GROUPINGEXPRESSION_H
+#ifndef BAKLAVA_GROUPINGEXPRESSION_H
+#define BAKLAVA_GROUPINGEXPRESSION_H
 
 #include "Expression.h"
 #include "Ast.h"
@@ -20,4 +20,4 @@ public:
     ExprPtr expr;
 };
 
-#endif //MATURSKI_2_GROUPINGEXPRESSION_H
+#endif //BAKLAVA_GROUPINGEXPRESSION_H

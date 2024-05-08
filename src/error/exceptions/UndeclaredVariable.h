@@ -2,8 +2,8 @@
 // Created by kemal on 3/14/2024.
 //
 
-#ifndef MATURSKI_2_UNDECLAREDVARIABLE_H
-#define MATURSKI_2_UNDECLAREDVARIABLE_H
+#ifndef BAKLAVA_UNDECLAREDVARIABLE_H
+#define BAKLAVA_UNDECLAREDVARIABLE_H
 
 #include "RuntimeError.h"
 #include "Token.h"
@@ -17,4 +17,4 @@ public:
     Token* name;
 };
 
-#endif //MATURSKI_2_UNDECLAREDVARIABLE_H
+#endif //BAKLAVA_UNDECLAREDVARIABLE_H

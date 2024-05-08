@@ -2,8 +2,8 @@
 // Created by kemal on 2/24/2024.
 //
 
-#ifndef MATURSKI_2_RUNTIMEERROR_H
-#define MATURSKI_2_RUNTIMEERROR_H
+#ifndef BAKLAVA_RUNTIMEERROR_H
+#define BAKLAVA_RUNTIMEERROR_H
 
 #include <exception>
 #include <utility>
@@ -28,4 +28,4 @@ public:
     std::vector<ErrorMessageArgument> messageArguments;
 };
 
-#endif //MATURSKI_2_RUNTIMEERROR_H
+#endif //BAKLAVA_RUNTIMEERROR_H

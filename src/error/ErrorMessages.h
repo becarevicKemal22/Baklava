@@ -2,8 +2,8 @@
 // Created by kemal on 1/28/2024.
 //
 
-#ifndef MATURSKI_2_ERRORMESSAGES_H
-#define MATURSKI_2_ERRORMESSAGES_H
+#ifndef BAKLAVA_ERRORMESSAGES_H
+#define BAKLAVA_ERRORMESSAGES_H
 
 #include <unordered_map>
 #include <string>
@@ -44,4 +44,4 @@ const std::unordered_map<int , std::wstring> ERRORMESSAGES = {
         {ERROR_WRONG_TYPE_OPERAND_BINARY,    L"Tipovi '{}' i '{}' nisu dozvoljeni za operator '{}'."}
 };
 
-#endif //MATURSKI_2_ERRORMESSAGES_H
+#endif //BAKLAVA_ERRORMESSAGES_H

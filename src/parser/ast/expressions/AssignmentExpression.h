@@ -2,8 +2,8 @@
 // Created by kemal on 3/13/2024.
 //
 
-#ifndef MATURSKI_2_ASSIGNMENTEXPRESSION_H
-#define MATURSKI_2_ASSIGNMENTEXPRESSION_H
+#ifndef BAKLAVA_ASSIGNMENTEXPRESSION_H
+#define BAKLAVA_ASSIGNMENTEXPRESSION_H
 
 #include "Expression.h"
 #include "Token.h"
@@ -20,4 +20,4 @@ public:
     ExprPtr value;
 };
 
-#endif //MATURSKI_2_ASSIGNMENTEXPRESSION_H
+#endif //BAKLAVA_ASSIGNMENTEXPRESSION_H

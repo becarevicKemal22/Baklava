@@ -2,8 +2,8 @@
 // Created by kemal on 1/28/2024.
 //
 
-#ifndef MATURSKI_2_TOKEN_H
-#define MATURSKI_2_TOKEN_H
+#ifndef BAKLAVA_TOKEN_H
+#define BAKLAVA_TOKEN_H
 
 #include <string>
 #include <utility>
@@ -24,4 +24,4 @@ public:
 
 typedef Token* TokenPtr;
 
-#endif //MATURSKI_2_TOKEN_H
+#endif //BAKLAVA_TOKEN_H

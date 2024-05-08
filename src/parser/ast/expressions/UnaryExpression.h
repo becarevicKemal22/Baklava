@@ -2,8 +2,8 @@
 // Created by kemal on 2/5/2024.
 //
 
-#ifndef MATURSKI_2_UNARYEXPRESSION_H
-#define MATURSKI_2_UNARYEXPRESSION_H
+#ifndef BAKLAVA_UNARYEXPRESSION_H
+#define BAKLAVA_UNARYEXPRESSION_H
 
 #include "Expression.h"
 #include "Token.h"
@@ -22,4 +22,4 @@ public:
     ExprPtr expr;
 };
 
-#endif //MATURSKI_2_UNARYEXPRESSION_H
+#endif //BAKLAVA_UNARYEXPRESSION_H

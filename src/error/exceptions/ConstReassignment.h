@@ -2,8 +2,8 @@
 // Created by kemal on 3/14/2024.
 //
 
-#ifndef MATURSKI_2_CONSTREASSIGNMENT_H
-#define MATURSKI_2_CONSTREASSIGNMENT_H
+#ifndef BAKLAVA_CONSTREASSIGNMENT_H
+#define BAKLAVA_CONSTREASSIGNMENT_H
 
 #include "RuntimeError.h"
 #include "Token.h"
@@ -17,4 +17,4 @@ class ConstReassignment : public RuntimeError {
     Token* name;
 };
 
-#endif //MATURSKI_2_CONSTREASSIGNMENT_H
+#endif //BAKLAVA_CONSTREASSIGNMENT_H

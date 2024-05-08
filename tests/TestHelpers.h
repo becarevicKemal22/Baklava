@@ -2,8 +2,8 @@
 // Created by kemal on 2/5/2024.
 //
 
-#ifndef MATURSKI_2_TESTHELPERS_H
-#define MATURSKI_2_TESTHELPERS_H
+#ifndef BAKLAVA_TESTHELPERS_H
+#define BAKLAVA_TESTHELPERS_H
 
 #include <catch2/catch_test_macros.hpp>
 
@@ -33,4 +33,4 @@ std::unique_ptr<Program> parseSource(const std::wstring& source);
 Expression* parseSingleExpression(const std::wstring& source);
 Token* makeToken(TokenType type, const std::wstring& lexeme);
 
-#endif //MATURSKI_2_TESTHELPERS_H
+#endif //BAKLAVA_TESTHELPERS_H

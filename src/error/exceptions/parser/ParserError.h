@@ -2,8 +2,8 @@
 // Created by kemal on 3/12/2024.
 //
 
-#ifndef MATURSKI_2_PARSERERROR_H
-#define MATURSKI_2_PARSERERROR_H
+#ifndef BAKLAVA_PARSERERROR_H
+#define BAKLAVA_PARSERERROR_H
 
 #include <exception>
 #include <utility>
@@ -34,4 +34,4 @@ public:
     Token *myToken = nullptr;
 };
 
-#endif //MATURSKI_2_PARSERERROR_H
+#endif //BAKLAVA_PARSERERROR_H

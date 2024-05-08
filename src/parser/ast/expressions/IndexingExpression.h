@@ -2,8 +2,8 @@
 // Created by kemal on 5/3/2024.
 //
 
-#ifndef MATURSKI_2_INDEXINGEXPRESSION_H
-#define MATURSKI_2_INDEXINGEXPRESSION_H
+#ifndef BAKLAVA_INDEXINGEXPRESSION_H
+#define BAKLAVA_INDEXINGEXPRESSION_H
 
 #include "Expression.h"
 #include "Token.h"
@@ -20,4 +20,4 @@ public:
 
 };
 
-#endif //MATURSKI_2_INDEXINGEXPRESSION_H
+#endif //BAKLAVA_INDEXINGEXPRESSION_H

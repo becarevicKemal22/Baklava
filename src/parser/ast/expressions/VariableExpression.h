@@ -2,8 +2,8 @@
 // Created by kemal on 3/13/2024.
 //
 
-#ifndef MATURSKI_2_VARIABLEEXPRESSION_H
-#define MATURSKI_2_VARIABLEEXPRESSION_H
+#ifndef BAKLAVA_VARIABLEEXPRESSION_H
+#define BAKLAVA_VARIABLEEXPRESSION_H
 
 #include "Expression.h"
 #include "Token.h"
@@ -19,4 +19,4 @@ public:
     TokenPtr name;
 };
 
-#endif //MATURSKI_2_VARIABLEEXPRESSION_H
+#endif //BAKLAVA_VARIABLEEXPRESSION_H

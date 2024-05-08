@@ -2,8 +2,8 @@
 // Created by kemal on 1/28/2024.
 //
 
-#ifndef MATURSKI_2_ERRORCODE_H
-#define MATURSKI_2_ERRORCODE_H
+#ifndef BAKLAVA_ERRORCODE_H
+#define BAKLAVA_ERRORCODE_H
 
 /**
  * @brief Standardized error codes for the interpreter that should be used by the entire project.
@@ -38,4 +38,4 @@ enum ErrorCode {
     ERROR_WRONG_TYPE_OPERAND_BINARY,
 };
 
-#endif //MATURSKI_2_ERRORCODE_H
+#endif //BAKLAVA_ERRORCODE_H

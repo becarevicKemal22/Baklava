@@ -2,8 +2,8 @@
 // Created by kemal on 3/13/2024.
 //
 
-#ifndef MATURSKI_2_UNINITIALIZEDCONST_H
-#define MATURSKI_2_UNINITIALIZEDCONST_H
+#ifndef BAKLAVA_UNINITIALIZEDCONST_H
+#define BAKLAVA_UNINITIALIZEDCONST_H
 
 #include "ParserError.h"
 #include "Token.h"
@@ -20,4 +20,4 @@ public:
     TokenPtr identifier;
 };
 
-#endif //MATURSKI_2_UNINITIALIZEDCONST_H
+#endif //BAKLAVA_UNINITIALIZEDCONST_H
