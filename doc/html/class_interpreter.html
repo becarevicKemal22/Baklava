@@ -87,19 +87,47 @@ $(function() {
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:a9faf0dca72cd27223e5c447b580de2a5" id="r_a9faf0dca72cd27223e5c447b580de2a5"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a9faf0dca72cd27223e5c447b580de2a5">Interpreter</a> ()</td></tr>
-<tr class="memdesc:a9faf0dca72cd27223e5c447b580de2a5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor with no error printer. Should almost never be used, as it leaves the interpreter with no error printing capability.  <br /></td></tr>
+<tr class="memdesc:a9faf0dca72cd27223e5c447b580de2a5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor with no error printer. Should almost never be used, as it leaves the interpreter with no error printing capability. Useful for testing.  <br /></td></tr>
 <tr class="separator:a9faf0dca72cd27223e5c447b580de2a5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a619a2264f48541288bd7bf1eecc5248a" id="r_a619a2264f48541288bd7bf1eecc5248a"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a619a2264f48541288bd7bf1eecc5248a">Interpreter</a> (<a class="el" href="class_error_printer.html">ErrorPrinter</a> *errorPrinter)</td></tr>
 <tr class="memdesc:a619a2264f48541288bd7bf1eecc5248a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor with an error printer. Recommended constructor.  <br /></td></tr>
 <tr class="separator:a619a2264f48541288bd7bf1eecc5248a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad2b78004f6586e9f90ae73140531b50c" id="r_ad2b78004f6586e9f90ae73140531b50c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad2b78004f6586e9f90ae73140531b50c">defineNativeFunctions</a> ()</td></tr>
+<tr class="separator:ad2b78004f6586e9f90ae73140531b50c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0f96b57f8126e2b5bc63390121e4b5b1" id="r_a0f96b57f8126e2b5bc63390121e4b5b1"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a0f96b57f8126e2b5bc63390121e4b5b1">~Interpreter</a> ()</td></tr>
+<tr class="separator:a0f96b57f8126e2b5bc63390121e4b5b1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0d08edd5e92501d04c9cac6e01b126eb" id="r_a0d08edd5e92501d04c9cac6e01b126eb"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_runtime_value.html">RuntimeValue</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a0d08edd5e92501d04c9cac6e01b126eb">evaluate</a> (<a class="el" href="class_expression.html">Expression</a> *expr)</td></tr>
 <tr class="memdesc:a0d08edd5e92501d04c9cac6e01b126eb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Evaluates the given expression.  <br /></td></tr>
 <tr class="separator:a0d08edd5e92501d04c9cac6e01b126eb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a54d8269cb7834e31ada8f989bb452f1d" id="r_a54d8269cb7834e31ada8f989bb452f1d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a54d8269cb7834e31ada8f989bb452f1d">execute</a> (<a class="el" href="class_statement.html">Statement</a> *stmt)</td></tr>
+<tr class="memdesc:a54d8269cb7834e31ada8f989bb452f1d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Executes the given statement.  <br /></td></tr>
+<tr class="separator:a54d8269cb7834e31ada8f989bb452f1d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af6d6bb528dbc5a1a661182466ea6d987" id="r_af6d6bb528dbc5a1a661182466ea6d987"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af6d6bb528dbc5a1a661182466ea6d987">interpret</a> (<a class="el" href="class_program.html">Program</a> *program)</td></tr>
+<tr class="memdesc:af6d6bb528dbc5a1a661182466ea6d987"><td class="mdescLeft">&#160;</td><td class="mdescRight">Interprets the given program.  <br /></td></tr>
+<tr class="separator:af6d6bb528dbc5a1a661182466ea6d987"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a174e5d01f8129ec93991681f49a0e779" id="r_a174e5d01f8129ec93991681f49a0e779"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a174e5d01f8129ec93991681f49a0e779">resolve</a> (const <a class="el" href="class_expression.html">Expression</a> *expr, int depth)</td></tr>
+<tr class="separator:a174e5d01f8129ec93991681f49a0e779"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4c64d99897a20ce300847700accc9c23" id="r_a4c64d99897a20ce300847700accc9c23"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a4c64d99897a20ce300847700accc9c23">executeBlock</a> (const std::vector&lt; <a class="el" href="_ast_8h.html#ad591697d8b5c0c7de8add763ec2e67ef">StmtPtr</a> &gt; &amp;statements, const <a class="el" href="class_environment.html">Environment</a> &amp;environment)</td></tr>
+<tr class="separator:a4c64d99897a20ce300847700accc9c23"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
 <tr class="memitem:a95ae7eb9c9fae9c61c7775a4974602dd" id="r_a95ae7eb9c9fae9c61c7775a4974602dd"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a95ae7eb9c9fae9c61c7775a4974602dd">hadError</a> = false</td></tr>
 <tr class="separator:a95ae7eb9c9fae9c61c7775a4974602dd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac8d1b7617a8b385112b5ab528ed29f46" id="r_ac8d1b7617a8b385112b5ab528ed29f46"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_environment.html">Environment</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac8d1b7617a8b385112b5ab528ed29f46">globals</a></td></tr>
+<tr class="separator:ac8d1b7617a8b385112b5ab528ed29f46"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acd8d4eae23e506ac006b5bb8f8194abd" id="r_acd8d4eae23e506ac006b5bb8f8194abd"><td class="memItemLeft" align="right" valign="top">std::vector&lt; <a class="el" href="class_statement.html">Statement</a> * &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#acd8d4eae23e506ac006b5bb8f8194abd">executedStatements</a></td></tr>
+<tr class="separator:acd8d4eae23e506ac006b5bb8f8194abd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9ae1ff6d560682e621c696889c9259b0" id="r_a9ae1ff6d560682e621c696889c9259b0"><td class="memItemLeft" align="right" valign="top">std::vector&lt; <a class="el" href="struct_runtime_value.html">RuntimeValue</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a9ae1ff6d560682e621c696889c9259b0">printHistory</a></td></tr>
+<tr class="separator:a9ae1ff6d560682e621c696889c9259b0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a57c19f5e1b82cefccba83474ed01258d" id="r_a57c19f5e1b82cefccba83474ed01258d"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_runtime_error.html">RuntimeError</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a57c19f5e1b82cefccba83474ed01258d">handledError</a> = nullptr</td></tr>
+<tr class="separator:a57c19f5e1b82cefccba83474ed01258d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a689836b6f73510fd3b98200ac67d6d50" id="r_a689836b6f73510fd3b98200ac67d6d50"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_runtime_value.html">RuntimeValue</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a689836b6f73510fd3b98200ac67d6d50">returnedValue</a></td></tr>
+<tr class="separator:a689836b6f73510fd3b98200ac67d6d50"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5237f122c259b5e120cb20478db387a1" id="r_a5237f122c259b5e120cb20478db387a1"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a5237f122c259b5e120cb20478db387a1">isReturning</a> = false</td></tr>
+<tr class="separator:a5237f122c259b5e120cb20478db387a1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a51754c3f067cfd5f79672fc026a761e2" id="r_a51754c3f067cfd5f79672fc026a761e2"><td class="memItemLeft" align="right" valign="top">std::stack&lt; <a class="el" href="class_environment.html">Environment</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a51754c3f067cfd5f79672fc026a761e2">environments</a></td></tr>
+<tr class="separator:a51754c3f067cfd5f79672fc026a761e2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Class that runs a program. </p>
@@ -128,7 +156,7 @@ Public Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Constructor with no error printer. Should almost never be used, as it leaves the interpreter with no error printing capability. </p>
+<p>Constructor with no error printer. Should almost never be used, as it leaves the interpreter with no error printing capability. Useful for testing. </p>
 
 </div>
 </div>
@@ -165,7 +193,49 @@ Public Attributes</h2></td></tr>
 
 </div>
 </div>
+<a id="a0f96b57f8126e2b5bc63390121e4b5b1" name="a0f96b57f8126e2b5bc63390121e4b5b1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0f96b57f8126e2b5bc63390121e4b5b1">&#9670;&#160;</a></span>~Interpreter()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">Interpreter::~Interpreter </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <h2 class="groupheader">Member Function Documentation</h2>
+<a id="ad2b78004f6586e9f90ae73140531b50c" name="ad2b78004f6586e9f90ae73140531b50c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad2b78004f6586e9f90ae73140531b50c">&#9670;&#160;</a></span>defineNativeFunctions()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Interpreter::defineNativeFunctions </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="a0d08edd5e92501d04c9cac6e01b126eb" name="a0d08edd5e92501d04c9cac6e01b126eb"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a0d08edd5e92501d04c9cac6e01b126eb">&#9670;&#160;</a></span>evaluate()</h2>
 
@@ -198,7 +268,156 @@ Public Attributes</h2></td></tr>
 
 </div>
 </div>
+<a id="a54d8269cb7834e31ada8f989bb452f1d" name="a54d8269cb7834e31ada8f989bb452f1d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a54d8269cb7834e31ada8f989bb452f1d">&#9670;&#160;</a></span>execute()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Interpreter::execute </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="class_statement.html">Statement</a> *</td>          <td class="paramname"><span class="paramname"><em>stmt</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Executes the given statement. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">stmt</td><td><a class="el" href="class_statement.html" title="Base class for all AST nodes. Not meant to be used aside from achieving polymorphism.">Statement</a> to execute. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="exception"><dt>Exceptions</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname"><a class="el" href="class_runtime_error.html" title="Base class for all runtime exceptions.">RuntimeError</a></td><td>Throws <a class="el" href="class_runtime_error.html" title="Base class for all runtime exceptions.">RuntimeError</a> and its derived classes if an error occurs during execution. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a4c64d99897a20ce300847700accc9c23" name="a4c64d99897a20ce300847700accc9c23"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4c64d99897a20ce300847700accc9c23">&#9670;&#160;</a></span>executeBlock()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Interpreter::executeBlock </td>
+          <td>(</td>
+          <td class="paramtype">const std::vector&lt; <a class="el" href="_ast_8h.html#ad591697d8b5c0c7de8add763ec2e67ef">StmtPtr</a> &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>statements</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="class_environment.html">Environment</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>environment</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="af6d6bb528dbc5a1a661182466ea6d987" name="af6d6bb528dbc5a1a661182466ea6d987"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af6d6bb528dbc5a1a661182466ea6d987">&#9670;&#160;</a></span>interpret()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Interpreter::interpret </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="class_program.html">Program</a> *</td>          <td class="paramname"><span class="paramname"><em>program</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Interprets the given program. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">program</td><td><a class="el" href="class_program.html" title="Represents the entire program.">Program</a> to interpret. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a174e5d01f8129ec93991681f49a0e779" name="a174e5d01f8129ec93991681f49a0e779"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a174e5d01f8129ec93991681f49a0e779">&#9670;&#160;</a></span>resolve()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Interpreter::resolve </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="class_expression.html">Expression</a> *</td>          <td class="paramname"><span class="paramname"><em>expr</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>depth</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <h2 class="groupheader">Member Data Documentation</h2>
+<a id="a51754c3f067cfd5f79672fc026a761e2" name="a51754c3f067cfd5f79672fc026a761e2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a51754c3f067cfd5f79672fc026a761e2">&#9670;&#160;</a></span>environments</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::stack&lt;<a class="el" href="class_environment.html">Environment</a>&gt; Interpreter::environments</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="acd8d4eae23e506ac006b5bb8f8194abd" name="acd8d4eae23e506ac006b5bb8f8194abd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acd8d4eae23e506ac006b5bb8f8194abd">&#9670;&#160;</a></span>executedStatements</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt;<a class="el" href="class_statement.html">Statement</a> *&gt; Interpreter::executedStatements</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>List of pointers to all statements that have been executed. Only written to when DEBUG_TRACK_EXECUTION is set </p>
+
+</div>
+</div>
+<a id="ac8d1b7617a8b385112b5ab528ed29f46" name="ac8d1b7617a8b385112b5ab528ed29f46"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac8d1b7617a8b385112b5ab528ed29f46">&#9670;&#160;</a></span>globals</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_environment.html">Environment</a>* Interpreter::globals</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="a95ae7eb9c9fae9c61c7775a4974602dd" name="a95ae7eb9c9fae9c61c7775a4974602dd"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a95ae7eb9c9fae9c61c7775a4974602dd">&#9670;&#160;</a></span>hadError</h2>
 
@@ -211,6 +430,64 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <p>Holds whether an error has occurred during the interpretation. Interpretation should stop if this is set to true. </p>
+
+</div>
+</div>
+<a id="a57c19f5e1b82cefccba83474ed01258d" name="a57c19f5e1b82cefccba83474ed01258d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a57c19f5e1b82cefccba83474ed01258d">&#9670;&#160;</a></span>handledError</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_runtime_error.html">RuntimeError</a>* Interpreter::handledError = nullptr</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Holds the last error that has been handled. No flags needed as this is only done when the program has to quit so performance is not an issue. </p>
+
+</div>
+</div>
+<a id="a5237f122c259b5e120cb20478db387a1" name="a5237f122c259b5e120cb20478db387a1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5237f122c259b5e120cb20478db387a1">&#9670;&#160;</a></span>isReturning</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool Interpreter::isReturning = false</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a9ae1ff6d560682e621c696889c9259b0" name="a9ae1ff6d560682e621c696889c9259b0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9ae1ff6d560682e621c696889c9259b0">&#9670;&#160;</a></span>printHistory</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt;<a class="el" href="struct_runtime_value.html">RuntimeValue</a>&gt; Interpreter::printHistory</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>List of all values that have been printed. Only written to when DEBUG_TRACK_PRINTING is set </p>
+
+</div>
+</div>
+<a id="a689836b6f73510fd3b98200ac67d6d50" name="a689836b6f73510fd3b98200ac67d6d50"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a689836b6f73510fd3b98200ac67d6d50">&#9670;&#160;</a></span>returnedValue</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="struct_runtime_value.html">RuntimeValue</a> Interpreter::returnedValue</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
 
 </div>
 </div>

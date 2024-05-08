@@ -2,7 +2,8 @@
 \hypertarget{_runtime_value_8h}{}\label{_runtime_value_8h}\index{src/interpreter/RuntimeValue.h@{src/interpreter/RuntimeValue.h}}
 {\ttfamily \#include $<$cstdint$>$}\newline
 {\ttfamily \#include $<$string$>$}\newline
-{\ttfamily \#include "{}Object.\+h"{}}\newline
+{\ttfamily \#include $<$vector$>$}\newline
+{\ttfamily \#include $<$functional$>$}\newline
 \doxysubsubsection*{Classes}
 \begin{DoxyCompactItemize}
 \item 
@@ -13,6 +14,13 @@ struct \mbox{\hyperlink{struct_runtime_value}{Runtime\+Value}}
 \item 
 \#define \mbox{\hyperlink{_runtime_value_8h_a4da06c994a3591d379aca99d26b7e7f5}{IS\+\_\+\+OBJ}}(value)~((value).type == \mbox{\hyperlink{_runtime_value_8h_a374c860c922f0b389e0291d92c099c35a497031794414a552435f90151ac3b54b}{Value\+Type\+::\+Object}})
 \end{DoxyCompactItemize}
+\doxysubsubsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+typedef struct Object \mbox{\hyperlink{_runtime_value_8h_ab1287b6141419421dc5c14b9f7756b0a}{Object}}
+\item 
+typedef struct Runtime\+Value \mbox{\hyperlink{_runtime_value_8h_a96850234e3dbbb0c2e6e12c2c71fa3e4}{Runtime\+Value}}
+\end{DoxyCompactItemize}
 \doxysubsubsection*{Enumerations}
 \begin{DoxyCompactItemize}
 \item 
@@ -21,7 +29,7 @@ enum class \mbox{\hyperlink{_runtime_value_8h_a374c860c922f0b389e0291d92c099c35}
 , \mbox{\hyperlink{_runtime_value_8h_a374c860c922f0b389e0291d92c099c35abbb93ef26e3c101ff11cdd21cab08a94}{Null}}
 , \mbox{\hyperlink{_runtime_value_8h_a374c860c922f0b389e0291d92c099c35a497031794414a552435f90151ac3b54b}{Object}}
  \}
-\begin{DoxyCompactList}\small\item\em Enum class which defines all types of runtime values in the language. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em Enum class which defines all types of runtime values in the language, excluding specific object types. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsubsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
@@ -38,6 +46,21 @@ std\+::wstring \mbox{\hyperlink{_runtime_value_8h_adf30048625b9cbd3bc2c6ea783e7a
 
 
 
+\doxysubsection{Typedef Documentation}
+\Hypertarget{_runtime_value_8h_ab1287b6141419421dc5c14b9f7756b0a}\label{_runtime_value_8h_ab1287b6141419421dc5c14b9f7756b0a} 
+\index{RuntimeValue.h@{RuntimeValue.h}!Object@{Object}}
+\index{Object@{Object}!RuntimeValue.h@{RuntimeValue.h}}
+\doxysubsubsection{\texorpdfstring{Object}{Object}}
+{\footnotesize\ttfamily typedef struct Object Object}
+
+\Hypertarget{_runtime_value_8h_a96850234e3dbbb0c2e6e12c2c71fa3e4}\label{_runtime_value_8h_a96850234e3dbbb0c2e6e12c2c71fa3e4} 
+\index{RuntimeValue.h@{RuntimeValue.h}!RuntimeValue@{RuntimeValue}}
+\index{RuntimeValue@{RuntimeValue}!RuntimeValue.h@{RuntimeValue.h}}
+\doxysubsubsection{\texorpdfstring{RuntimeValue}{RuntimeValue}}
+{\footnotesize\ttfamily typedef struct Runtime\+Value Runtime\+Value}
+
+
+
 \doxysubsection{Enumeration Type Documentation}
 \Hypertarget{_runtime_value_8h_a374c860c922f0b389e0291d92c099c35}\label{_runtime_value_8h_a374c860c922f0b389e0291d92c099c35} 
 \index{RuntimeValue.h@{RuntimeValue.h}!ValueType@{ValueType}}
@@ -47,7 +70,7 @@ std\+::wstring \mbox{\hyperlink{_runtime_value_8h_adf30048625b9cbd3bc2c6ea783e7a
 
 
 
-Enum class which defines all types of runtime values in the language. 
+Enum class which defines all types of runtime values in the language, excluding specific object types. 
 
 \begin{DoxyEnumFields}{Enumerator}
 \raisebox{\heightof{T}}[0pt][0pt]{\index{Number@{Number}!RuntimeValue.h@{RuntimeValue.h}}\index{RuntimeValue.h@{RuntimeValue.h}!Number@{Number}}}\Hypertarget{_runtime_value_8h_a374c860c922f0b389e0291d92c099c35ab2ee912b91d69b435159c7c3f6df7f5f}\label{_runtime_value_8h_a374c860c922f0b389e0291d92c099c35ab2ee912b91d69b435159c7c3f6df7f5f} 

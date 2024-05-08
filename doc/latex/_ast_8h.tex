@@ -13,16 +13,32 @@ typedef \mbox{\hyperlink{class_expression}{Expression}} \texorpdfstring{$\ast$}{
 \item 
 enum class \mbox{\hyperlink{_ast_8h_abbed81ee894f251822f94201ef008817}{Ast\+Node\+Type}} \+: uint8\+\_\+t \{ \newline
 \mbox{\hyperlink{_ast_8h_abbed81ee894f251822f94201ef008817a95c50c7cc68e399ac5540898dfd06820}{Program}}
+, \mbox{\hyperlink{_ast_8h_abbed81ee894f251822f94201ef008817a9a19427cbcc2da670064ca47b71306ed}{Expression\+Statement}}
+, \mbox{\hyperlink{_ast_8h_abbed81ee894f251822f94201ef008817ab60d8a4c331661de912a2285db0abfd1}{Print\+Statement}}
+, \mbox{\hyperlink{_ast_8h_abbed81ee894f251822f94201ef008817a22e30b89937f764aa457c505e8e2b93c}{Var\+Declaration\+Statement}}
+, \newline
+\mbox{\hyperlink{_ast_8h_abbed81ee894f251822f94201ef008817afcd99f9c9a997ff2b2e9791fe791c53b}{Block\+Statement}}
+, \mbox{\hyperlink{_ast_8h_abbed81ee894f251822f94201ef008817a69bf1eda358268e97a9d792c0e88b10d}{If\+Statement}}
+, \mbox{\hyperlink{_ast_8h_abbed81ee894f251822f94201ef008817ab29d5f9d91f4492a318586100a2a00d4}{While\+Statement}}
+, \mbox{\hyperlink{_ast_8h_abbed81ee894f251822f94201ef008817aef190250c7ddc22c8f9965ad6c9ac872}{Function\+Declaration\+Statement}}
+, \newline
+\mbox{\hyperlink{_ast_8h_abbed81ee894f251822f94201ef008817ab5660306d5780a6d4577a8947ae768df}{Return\+Statement}}
+, \mbox{\hyperlink{_ast_8h_abbed81ee894f251822f94201ef008817a9bf7cb6ceb302a26beca37800b039369}{Assignment\+Expression}}
 , \mbox{\hyperlink{_ast_8h_abbed81ee894f251822f94201ef008817aef8bdf9ede229a64b3daf2724b5e45dc}{Binary\+Expression}}
 , \mbox{\hyperlink{_ast_8h_abbed81ee894f251822f94201ef008817aba040fffb921ae39cd6724a98a871210}{Logical\+Expression}}
-, \mbox{\hyperlink{_ast_8h_abbed81ee894f251822f94201ef008817af63d76d45aee45cf332a951650eedcb7}{Unary\+Expression}}
 , \newline
-\mbox{\hyperlink{_ast_8h_abbed81ee894f251822f94201ef008817a02da156e47dc8b7bb0575d125b9dbe38}{Null\+Literal\+Expression}}
+\mbox{\hyperlink{_ast_8h_abbed81ee894f251822f94201ef008817af63d76d45aee45cf332a951650eedcb7}{Unary\+Expression}}
+, \mbox{\hyperlink{_ast_8h_abbed81ee894f251822f94201ef008817a02da156e47dc8b7bb0575d125b9dbe38}{Null\+Literal\+Expression}}
 , \mbox{\hyperlink{_ast_8h_abbed81ee894f251822f94201ef008817a01f9552b9de59b58d97abcdbe885307f}{Boolean\+Literal\+Expression}}
 , \mbox{\hyperlink{_ast_8h_abbed81ee894f251822f94201ef008817a3b1f196eca8855434fe73958b8df7c9e}{Numeric\+Literal\+Expression}}
-, \mbox{\hyperlink{_ast_8h_abbed81ee894f251822f94201ef008817ac630f88540b8851ac6098772bb517e83}{String\+Literal\+Expression}}
 , \newline
-\mbox{\hyperlink{_ast_8h_abbed81ee894f251822f94201ef008817ad9a47e9f7c52e88ca30bd69725b59aaf}{Grouping\+Expression}}
+\mbox{\hyperlink{_ast_8h_abbed81ee894f251822f94201ef008817ac630f88540b8851ac6098772bb517e83}{String\+Literal\+Expression}}
+, \mbox{\hyperlink{_ast_8h_abbed81ee894f251822f94201ef008817ad9a47e9f7c52e88ca30bd69725b59aaf}{Grouping\+Expression}}
+, \mbox{\hyperlink{_ast_8h_abbed81ee894f251822f94201ef008817a00fae1715f735bd70a658b65077013ff}{Variable\+Expression}}
+, \mbox{\hyperlink{_ast_8h_abbed81ee894f251822f94201ef008817a1697fad9088aaf8a1b519d9502372538}{Call\+Expression}}
+, \newline
+\mbox{\hyperlink{_ast_8h_abbed81ee894f251822f94201ef008817af2355d30a1764378021476eb91f58801}{Indexing\+Expression}}
+, \mbox{\hyperlink{_ast_8h_abbed81ee894f251822f94201ef008817a310c59dec3af1a260ca515c18fe9804c}{Array\+Literal\+Expression}}
  \}
 \begin{DoxyCompactList}\small\item\em Enum class representing the type of the AST node. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
@@ -58,6 +74,42 @@ Used to determine the type of a node at runtime without doing dynamic casting. \
 Program&\\
 \hline
 
+\raisebox{\heightof{T}}[0pt][0pt]{\index{ExpressionStatement@{ExpressionStatement}!Ast.h@{Ast.h}}\index{Ast.h@{Ast.h}!ExpressionStatement@{ExpressionStatement}}}\Hypertarget{_ast_8h_abbed81ee894f251822f94201ef008817a9a19427cbcc2da670064ca47b71306ed}\label{_ast_8h_abbed81ee894f251822f94201ef008817a9a19427cbcc2da670064ca47b71306ed} 
+Expression\+Statement&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{PrintStatement@{PrintStatement}!Ast.h@{Ast.h}}\index{Ast.h@{Ast.h}!PrintStatement@{PrintStatement}}}\Hypertarget{_ast_8h_abbed81ee894f251822f94201ef008817ab60d8a4c331661de912a2285db0abfd1}\label{_ast_8h_abbed81ee894f251822f94201ef008817ab60d8a4c331661de912a2285db0abfd1} 
+Print\+Statement&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{VarDeclarationStatement@{VarDeclarationStatement}!Ast.h@{Ast.h}}\index{Ast.h@{Ast.h}!VarDeclarationStatement@{VarDeclarationStatement}}}\Hypertarget{_ast_8h_abbed81ee894f251822f94201ef008817a22e30b89937f764aa457c505e8e2b93c}\label{_ast_8h_abbed81ee894f251822f94201ef008817a22e30b89937f764aa457c505e8e2b93c} 
+Var\+Declaration\+Statement&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{BlockStatement@{BlockStatement}!Ast.h@{Ast.h}}\index{Ast.h@{Ast.h}!BlockStatement@{BlockStatement}}}\Hypertarget{_ast_8h_abbed81ee894f251822f94201ef008817afcd99f9c9a997ff2b2e9791fe791c53b}\label{_ast_8h_abbed81ee894f251822f94201ef008817afcd99f9c9a997ff2b2e9791fe791c53b} 
+Block\+Statement&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{IfStatement@{IfStatement}!Ast.h@{Ast.h}}\index{Ast.h@{Ast.h}!IfStatement@{IfStatement}}}\Hypertarget{_ast_8h_abbed81ee894f251822f94201ef008817a69bf1eda358268e97a9d792c0e88b10d}\label{_ast_8h_abbed81ee894f251822f94201ef008817a69bf1eda358268e97a9d792c0e88b10d} 
+If\+Statement&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{WhileStatement@{WhileStatement}!Ast.h@{Ast.h}}\index{Ast.h@{Ast.h}!WhileStatement@{WhileStatement}}}\Hypertarget{_ast_8h_abbed81ee894f251822f94201ef008817ab29d5f9d91f4492a318586100a2a00d4}\label{_ast_8h_abbed81ee894f251822f94201ef008817ab29d5f9d91f4492a318586100a2a00d4} 
+While\+Statement&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{FunctionDeclarationStatement@{FunctionDeclarationStatement}!Ast.h@{Ast.h}}\index{Ast.h@{Ast.h}!FunctionDeclarationStatement@{FunctionDeclarationStatement}}}\Hypertarget{_ast_8h_abbed81ee894f251822f94201ef008817aef190250c7ddc22c8f9965ad6c9ac872}\label{_ast_8h_abbed81ee894f251822f94201ef008817aef190250c7ddc22c8f9965ad6c9ac872} 
+Function\+Declaration\+Statement&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{ReturnStatement@{ReturnStatement}!Ast.h@{Ast.h}}\index{Ast.h@{Ast.h}!ReturnStatement@{ReturnStatement}}}\Hypertarget{_ast_8h_abbed81ee894f251822f94201ef008817ab5660306d5780a6d4577a8947ae768df}\label{_ast_8h_abbed81ee894f251822f94201ef008817ab5660306d5780a6d4577a8947ae768df} 
+Return\+Statement&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{AssignmentExpression@{AssignmentExpression}!Ast.h@{Ast.h}}\index{Ast.h@{Ast.h}!AssignmentExpression@{AssignmentExpression}}}\Hypertarget{_ast_8h_abbed81ee894f251822f94201ef008817a9bf7cb6ceb302a26beca37800b039369}\label{_ast_8h_abbed81ee894f251822f94201ef008817a9bf7cb6ceb302a26beca37800b039369} 
+Assignment\+Expression&\\
+\hline
+
 \raisebox{\heightof{T}}[0pt][0pt]{\index{BinaryExpression@{BinaryExpression}!Ast.h@{Ast.h}}\index{Ast.h@{Ast.h}!BinaryExpression@{BinaryExpression}}}\Hypertarget{_ast_8h_abbed81ee894f251822f94201ef008817aef8bdf9ede229a64b3daf2724b5e45dc}\label{_ast_8h_abbed81ee894f251822f94201ef008817aef8bdf9ede229a64b3daf2724b5e45dc} 
 Binary\+Expression&\\
 \hline
@@ -88,6 +140,22 @@ String\+Literal\+Expression&\\
 
 \raisebox{\heightof{T}}[0pt][0pt]{\index{GroupingExpression@{GroupingExpression}!Ast.h@{Ast.h}}\index{Ast.h@{Ast.h}!GroupingExpression@{GroupingExpression}}}\Hypertarget{_ast_8h_abbed81ee894f251822f94201ef008817ad9a47e9f7c52e88ca30bd69725b59aaf}\label{_ast_8h_abbed81ee894f251822f94201ef008817ad9a47e9f7c52e88ca30bd69725b59aaf} 
 Grouping\+Expression&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{VariableExpression@{VariableExpression}!Ast.h@{Ast.h}}\index{Ast.h@{Ast.h}!VariableExpression@{VariableExpression}}}\Hypertarget{_ast_8h_abbed81ee894f251822f94201ef008817a00fae1715f735bd70a658b65077013ff}\label{_ast_8h_abbed81ee894f251822f94201ef008817a00fae1715f735bd70a658b65077013ff} 
+Variable\+Expression&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{CallExpression@{CallExpression}!Ast.h@{Ast.h}}\index{Ast.h@{Ast.h}!CallExpression@{CallExpression}}}\Hypertarget{_ast_8h_abbed81ee894f251822f94201ef008817a1697fad9088aaf8a1b519d9502372538}\label{_ast_8h_abbed81ee894f251822f94201ef008817a1697fad9088aaf8a1b519d9502372538} 
+Call\+Expression&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{IndexingExpression@{IndexingExpression}!Ast.h@{Ast.h}}\index{Ast.h@{Ast.h}!IndexingExpression@{IndexingExpression}}}\Hypertarget{_ast_8h_abbed81ee894f251822f94201ef008817af2355d30a1764378021476eb91f58801}\label{_ast_8h_abbed81ee894f251822f94201ef008817af2355d30a1764378021476eb91f58801} 
+Indexing\+Expression&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{ArrayLiteralExpression@{ArrayLiteralExpression}!Ast.h@{Ast.h}}\index{Ast.h@{Ast.h}!ArrayLiteralExpression@{ArrayLiteralExpression}}}\Hypertarget{_ast_8h_abbed81ee894f251822f94201ef008817a310c59dec3af1a260ca515c18fe9804c}\label{_ast_8h_abbed81ee894f251822f94201ef008817a310c59dec3af1a260ca515c18fe9804c} 
+Array\+Literal\+Expression&\\
 \hline
 
 \end{DoxyEnumFields}

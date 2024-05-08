@@ -1,0 +1,26 @@
+\doxysection{Block\+Statement.\+h}
+\hypertarget{_block_statement_8h_source}{}\label{_block_statement_8h_source}\index{src/parser/ast/statements/BlockStatement.h@{src/parser/ast/statements/BlockStatement.h}}
+\mbox{\hyperlink{_block_statement_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{//}}
+\DoxyCodeLine{00002\ \textcolor{comment}{//\ Created\ by\ kemal\ on\ 3/16/2024.}}
+\DoxyCodeLine{00003\ \textcolor{comment}{//}}
+\DoxyCodeLine{00004\ }
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#ifndef\ BAKLAVA\_BLOCKSTATEMENT\_H}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#define\ BAKLAVA\_BLOCKSTATEMENT\_H}}
+\DoxyCodeLine{00007\ }
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#include\ <utility>}}
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#include\ <vector>}}
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_statement_8h}{Statement.h}}"{}}}
+\DoxyCodeLine{00011\ }
+\DoxyCodeLine{00012\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_block_statement}{BlockStatement}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{class_statement}{Statement}}\ \{}
+\DoxyCodeLine{00013\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00014\ \ \ \ \ \textcolor{keyword}{explicit}\ \mbox{\hyperlink{class_block_statement_a1431f371c83d185f322531fe512a31e2}{BlockStatement}}(std::vector<StmtPtr>\ \mbox{\hyperlink{class_block_statement_a47c29508e9230df1b5ecea757f122162}{statements}})\ :\ \mbox{\hyperlink{class_block_statement_a47c29508e9230df1b5ecea757f122162}{statements}}(std::move(\mbox{\hyperlink{class_block_statement_a47c29508e9230df1b5ecea757f122162}{statements}}))\ \{}
+\DoxyCodeLine{00015\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_statement_af799a81c3fbd31e741cc01d09324df30}{type}}\ =\ \mbox{\hyperlink{_ast_8h_abbed81ee894f251822f94201ef008817afcd99f9c9a997ff2b2e9791fe791c53b}{AstNodeType::BlockStatement}};}
+\DoxyCodeLine{00016\ \ \ \ \ \}}
+\DoxyCodeLine{00017\ \ \ \ \ std::vector<StmtPtr>\ \mbox{\hyperlink{class_block_statement_a47c29508e9230df1b5ecea757f122162}{statements}};}
+\DoxyCodeLine{00018\ \};}
+\DoxyCodeLine{00019\ }
+\DoxyCodeLine{00020\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//BAKLAVA\_BLOCKSTATEMENT\_H}}
+
+\end{DoxyCode}

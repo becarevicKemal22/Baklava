@@ -10,6 +10,18 @@
 {\ttfamily \#include "{}Boolean\+Literal\+Expression.\+h"{}}\newline
 {\ttfamily \#include "{}Numeric\+Literal\+Expression.\+h"{}}\newline
 {\ttfamily \#include "{}String\+Literal\+Expression.\+h"{}}\newline
+{\ttfamily \#include "{}Grouping\+Expression.\+h"{}}\newline
+{\ttfamily \#include "{}Expression\+Statement.\+h"{}}\newline
+{\ttfamily \#include "{}Print\+Statement.\+h"{}}\newline
+{\ttfamily \#include "{}Variable\+Expression.\+h"{}}\newline
+{\ttfamily \#include "{}Var\+Declaration\+Statement.\+h"{}}\newline
+{\ttfamily \#include "{}Block\+Statement.\+h"{}}\newline
+{\ttfamily \#include "{}While\+Statement.\+h"{}}\newline
+{\ttfamily \#include "{}Assignment\+Expression.\+h"{}}\newline
+{\ttfamily \#include "{}Call\+Expression.\+h"{}}\newline
+{\ttfamily \#include "{}Function\+Declaration\+Statement.\+h"{}}\newline
+{\ttfamily \#include "{}Indexing\+Expression.\+h"{}}\newline
+{\ttfamily \#include "{}Array\+Literal\+Expression.\+h"{}}\newline
 \doxysubsubsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
@@ -28,6 +40,12 @@ void \mbox{\hyperlink{_pretty_print_8cpp_ae64a8f22140e761d91e6079a94f6eea7}{prin
 void \mbox{\hyperlink{_pretty_print_8cpp_a4bf88a92cbfc29ca063fad48170d15d5}{print\+Numeric\+Literal\+Expression}} (\mbox{\hyperlink{class_numeric_literal_expression}{Numeric\+Literal\+Expression}} \texorpdfstring{$\ast$}{*}expression, int depth)
 \item 
 void \mbox{\hyperlink{_pretty_print_8cpp_a8cc04d78d8ee7610446a4b18dfcf8a64}{print\+String\+Literal\+Expression}} (\mbox{\hyperlink{class_string_literal_expression}{String\+Literal\+Expression}} \texorpdfstring{$\ast$}{*}expression, int depth)
+\item 
+void \mbox{\hyperlink{_pretty_print_8cpp_a54152b90aca15e42c94ef57a9f5c5824}{print\+Variable\+Expression}} (\mbox{\hyperlink{class_variable_expression}{Variable\+Expression}} \texorpdfstring{$\ast$}{*}expression, int depth)
+\item 
+void \mbox{\hyperlink{_pretty_print_8cpp_a081216820757ead7e9714c1ab93f3b00}{print\+Call\+Expression}} (\mbox{\hyperlink{class_call_expression}{Call\+Expression}} \texorpdfstring{$\ast$}{*}expression, int depth)
+\item 
+void \mbox{\hyperlink{_pretty_print_8cpp_a12f47c441af662a4aea20a5b1b2edacd}{print\+Indexing\+Expression}} (\mbox{\hyperlink{class_indexing_expression}{Indexing\+Expression}} \texorpdfstring{$\ast$}{*}expression, int depth)
 \end{DoxyCompactItemize}
 
 
@@ -59,6 +77,18 @@ Pretty prints entire AST to standard output.
 \doxysubsubsection{\texorpdfstring{printBooleanLiteralExpression()}{printBooleanLiteralExpression()}}
 {\footnotesize\ttfamily void print\+Boolean\+Literal\+Expression (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_boolean_literal_expression}{Boolean\+Literal\+Expression}} \texorpdfstring{$\ast$}{*}}]{expression,  }\item[{int}]{depth }\end{DoxyParamCaption})}
 
+\Hypertarget{_pretty_print_8cpp_a081216820757ead7e9714c1ab93f3b00}\label{_pretty_print_8cpp_a081216820757ead7e9714c1ab93f3b00} 
+\index{PrettyPrint.cpp@{PrettyPrint.cpp}!printCallExpression@{printCallExpression}}
+\index{printCallExpression@{printCallExpression}!PrettyPrint.cpp@{PrettyPrint.cpp}}
+\doxysubsubsection{\texorpdfstring{printCallExpression()}{printCallExpression()}}
+{\footnotesize\ttfamily void print\+Call\+Expression (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_call_expression}{Call\+Expression}} \texorpdfstring{$\ast$}{*}}]{expression,  }\item[{int}]{depth }\end{DoxyParamCaption})}
+
+\Hypertarget{_pretty_print_8cpp_a12f47c441af662a4aea20a5b1b2edacd}\label{_pretty_print_8cpp_a12f47c441af662a4aea20a5b1b2edacd} 
+\index{PrettyPrint.cpp@{PrettyPrint.cpp}!printIndexingExpression@{printIndexingExpression}}
+\index{printIndexingExpression@{printIndexingExpression}!PrettyPrint.cpp@{PrettyPrint.cpp}}
+\doxysubsubsection{\texorpdfstring{printIndexingExpression()}{printIndexingExpression()}}
+{\footnotesize\ttfamily void print\+Indexing\+Expression (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_indexing_expression}{Indexing\+Expression}} \texorpdfstring{$\ast$}{*}}]{expression,  }\item[{int}]{depth }\end{DoxyParamCaption})}
+
 \Hypertarget{_pretty_print_8cpp_a3ddd4a6a76646e5a9f16820b17b7e171}\label{_pretty_print_8cpp_a3ddd4a6a76646e5a9f16820b17b7e171} 
 \index{PrettyPrint.cpp@{PrettyPrint.cpp}!printNullLiteralExpression@{printNullLiteralExpression}}
 \index{printNullLiteralExpression@{printNullLiteralExpression}!PrettyPrint.cpp@{PrettyPrint.cpp}}
@@ -88,4 +118,10 @@ Pretty prints entire AST to standard output.
 \index{printUnaryExpression@{printUnaryExpression}!PrettyPrint.cpp@{PrettyPrint.cpp}}
 \doxysubsubsection{\texorpdfstring{printUnaryExpression()}{printUnaryExpression()}}
 {\footnotesize\ttfamily void print\+Unary\+Expression (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_unary_expression}{Unary\+Expression}} \texorpdfstring{$\ast$}{*}}]{expression,  }\item[{int}]{depth }\end{DoxyParamCaption})}
+
+\Hypertarget{_pretty_print_8cpp_a54152b90aca15e42c94ef57a9f5c5824}\label{_pretty_print_8cpp_a54152b90aca15e42c94ef57a9f5c5824} 
+\index{PrettyPrint.cpp@{PrettyPrint.cpp}!printVariableExpression@{printVariableExpression}}
+\index{printVariableExpression@{printVariableExpression}!PrettyPrint.cpp@{PrettyPrint.cpp}}
+\doxysubsubsection{\texorpdfstring{printVariableExpression()}{printVariableExpression()}}
+{\footnotesize\ttfamily void print\+Variable\+Expression (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_variable_expression}{Variable\+Expression}} \texorpdfstring{$\ast$}{*}}]{expression,  }\item[{int}]{depth }\end{DoxyParamCaption})}
 

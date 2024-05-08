@@ -1,0 +1,26 @@
+\doxysection{Invalid\+Return\+Position.\+h}
+\hypertarget{_invalid_return_position_8h_source}{}\label{_invalid_return_position_8h_source}\index{src/error/exceptions/parser/InvalidReturnPosition.h@{src/error/exceptions/parser/InvalidReturnPosition.h}}
+\mbox{\hyperlink{_invalid_return_position_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{//}}
+\DoxyCodeLine{00002\ \textcolor{comment}{//\ Created\ by\ kemal\ on\ 3/27/2024.}}
+\DoxyCodeLine{00003\ \textcolor{comment}{//}}
+\DoxyCodeLine{00004\ }
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#ifndef\ BAKLAVA\_INVALIDRETURNPOSITION\_H}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#define\ BAKLAVA\_INVALIDRETURNPOSITION\_H}}
+\DoxyCodeLine{00007\ }
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_parser_error_8h}{ParserError.h}}"{}}}
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_token_8h}{Token.h}}"{}}}
+\DoxyCodeLine{00010\ }
+\DoxyCodeLine{00014\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_invalid_return_position}{InvalidReturnPosition}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{class_parser_error}{ParserError}}\ \{}
+\DoxyCodeLine{00015\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00016\ \ \ \ \ \mbox{\hyperlink{class_invalid_return_position_ab85436ddf14dc98df7104f4c1e93c65e}{InvalidReturnPosition}}(\mbox{\hyperlink{class_token}{TokenPtr}}\ \mbox{\hyperlink{class_invalid_return_position_ad42e0bace5f2b7ef516a242bf43de913}{token}})\ :\ \mbox{\hyperlink{class_parser_error}{ParserError}}(\mbox{\hyperlink{_error_code_8h_a59e56af19e754a6aa26a612ebf91d05fab8e0076acfdc964614d77b23ce15e112}{ERROR\_INVALID\_RETURN\_POSITION}}),\ \mbox{\hyperlink{class_invalid_return_position_ad42e0bace5f2b7ef516a242bf43de913}{token}}(\mbox{\hyperlink{class_invalid_return_position_ad42e0bace5f2b7ef516a242bf43de913}{token}})\ \{}
+\DoxyCodeLine{00017\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_parser_error_afd3884bd1c9e5edf8321f7824a858657}{messageArguments}}.push\_back(\mbox{\hyperlink{class_invalid_return_position_ad42e0bace5f2b7ef516a242bf43de913}{token}}-\/>\mbox{\hyperlink{class_token_acfd9e64709c736211934e4b27ac20955}{value}});}
+\DoxyCodeLine{00018\ \ \ \ \ \}}
+\DoxyCodeLine{00019\ }
+\DoxyCodeLine{00020\ \ \ \ \ \mbox{\hyperlink{class_token}{TokenPtr}}\ \mbox{\hyperlink{class_invalid_return_position_ad42e0bace5f2b7ef516a242bf43de913}{token}};}
+\DoxyCodeLine{00021\ \};}
+\DoxyCodeLine{00022\ }
+\DoxyCodeLine{00023\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//BAKLAVA\_INVALIDRETURNPOSITION\_H}}
+
+\end{DoxyCode}

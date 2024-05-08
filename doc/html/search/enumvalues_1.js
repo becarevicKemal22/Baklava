@@ -1,8 +1,9 @@
 var searchData=
 [
-  ['closedbrace_0',['ClosedBrace',['../_token_type_8h.html#afa91e1934f818659a4e2b0c8ce1214b0ab8475521290b219a50d8290ecd4f1675',1,'TokenType.h']]],
-  ['closedbracket_1',['ClosedBracket',['../_token_type_8h.html#afa91e1934f818659a4e2b0c8ce1214b0a90521fcb4be9048aeecef4a7f4252524',1,'TokenType.h']]],
-  ['closedparenthesis_2',['ClosedParenthesis',['../_token_type_8h.html#afa91e1934f818659a4e2b0c8ce1214b0a5852417ab52e38c2e2ad6b874ca3af3d',1,'TokenType.h']]],
-  ['colon_3',['Colon',['../_token_type_8h.html#afa91e1934f818659a4e2b0c8ce1214b0a3ccf74d463f8895cef06727cb9709d83',1,'TokenType.h']]],
-  ['comma_4',['Comma',['../_token_type_8h.html#afa91e1934f818659a4e2b0c8ce1214b0a58be47db9455679e6a44df2eff9c9fa6',1,'TokenType.h']]]
+  ['bang_0',['Bang',['../_token_type_8h.html#afa91e1934f818659a4e2b0c8ce1214b0a526e67744f0b90739ec17c191c62d24c',1,'TokenType.h']]],
+  ['bangequal_1',['BangEqual',['../_token_type_8h.html#afa91e1934f818659a4e2b0c8ce1214b0a5278bcb93db8ac282d71486badfa20e5',1,'TokenType.h']]],
+  ['binaryexpression_2',['BinaryExpression',['../_ast_8h.html#abbed81ee894f251822f94201ef008817aef8bdf9ede229a64b3daf2724b5e45dc',1,'Ast.h']]],
+  ['blockstatement_3',['BlockStatement',['../_ast_8h.html#abbed81ee894f251822f94201ef008817afcd99f9c9a997ff2b2e9791fe791c53b',1,'Ast.h']]],
+  ['boolean_4',['Boolean',['../_runtime_value_8h.html#a374c860c922f0b389e0291d92c099c35a27226c864bac7454a8504f8edb15d95b',1,'RuntimeValue.h']]],
+  ['booleanliteralexpression_5',['BooleanLiteralExpression',['../_ast_8h.html#abbed81ee894f251822f94201ef008817a01f9552b9de59b58d97abcdbe885307f',1,'Ast.h']]]
 ];

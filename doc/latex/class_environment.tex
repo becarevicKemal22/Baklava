@@ -1,0 +1,148 @@
+\doxysection{Environment Class Reference}
+\hypertarget{class_environment}{}\label{class_environment}\index{Environment@{Environment}}
+
+
+{\ttfamily \#include $<$Environment.\+h$>$}
+
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_environment_a8b427c4448d8b7536666837521b9e83d}{Environment}} ()
+\item 
+\mbox{\hyperlink{class_environment_a030253266b5d549059c14984dfbb31da}{Environment}} (\mbox{\hyperlink{class_environment}{Environment}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{class_environment_af30fb756401cfd2e6201e8eadb10f9eb}{parent}})
+\item 
+void \mbox{\hyperlink{class_environment_a2d1f7187a5798f80bef070e24a7aa47c}{define}} (\mbox{\hyperlink{class_token}{Token}} \texorpdfstring{$\ast$}{*}name, \mbox{\hyperlink{_environment_8h_a96850234e3dbbb0c2e6e12c2c71fa3e4}{Runtime\+Value}} value, bool is\+Constant)
+\item 
+\mbox{\hyperlink{_environment_8h_a96850234e3dbbb0c2e6e12c2c71fa3e4}{Runtime\+Value}} \mbox{\hyperlink{class_environment_a6153ea2b22a04d782a296d486072d813}{get}} (\mbox{\hyperlink{class_token}{Token}} \texorpdfstring{$\ast$}{*}name)
+\item 
+void \mbox{\hyperlink{class_environment_a5a30154eda3aac5cbcfbcd69fbae4d64}{assign}} (\mbox{\hyperlink{class_token}{Token}} \texorpdfstring{$\ast$}{*}name, \mbox{\hyperlink{_environment_8h_a96850234e3dbbb0c2e6e12c2c71fa3e4}{Runtime\+Value}} value)
+\item 
+\mbox{\hyperlink{_environment_8h_a96850234e3dbbb0c2e6e12c2c71fa3e4}{Runtime\+Value}} \mbox{\hyperlink{class_environment_ade6e0518ba8865c7a1d5de741b56785c}{get\+At}} (int distance, const std\+::wstring \&name)
+\item 
+\mbox{\hyperlink{class_environment}{Environment}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{class_environment_a9fa246b1e6815c9258733696d71918cc}{ancestor}} (int distance)
+\item 
+void \mbox{\hyperlink{class_environment_a21b706d38ef774b1b8e2be72b67380d4}{assign\+At}} (int distance, const std\+::wstring \&name, \mbox{\hyperlink{_environment_8h_a96850234e3dbbb0c2e6e12c2c71fa3e4}{Runtime\+Value}} value)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+std\+::unordered\+\_\+map$<$ std\+::wstring, std\+::pair$<$ \mbox{\hyperlink{_environment_8h_a96850234e3dbbb0c2e6e12c2c71fa3e4}{Runtime\+Value}}, bool $>$ $>$ \mbox{\hyperlink{class_environment_ab55e88222ddba3ec2a7c34041aa6a253}{variables}} \{\}
+\item 
+\mbox{\hyperlink{class_environment}{Environment}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{class_environment_af30fb756401cfd2e6201e8eadb10f9eb}{parent}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{class_environment_a8b427c4448d8b7536666837521b9e83d}\label{class_environment_a8b427c4448d8b7536666837521b9e83d} 
+\index{Environment@{Environment}!Environment@{Environment}}
+\index{Environment@{Environment}!Environment@{Environment}}
+\doxysubsubsection{\texorpdfstring{Environment()}{Environment()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily Environment\+::\+Environment (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\Hypertarget{class_environment_a030253266b5d549059c14984dfbb31da}\label{class_environment_a030253266b5d549059c14984dfbb31da} 
+\index{Environment@{Environment}!Environment@{Environment}}
+\index{Environment@{Environment}!Environment@{Environment}}
+\doxysubsubsection{\texorpdfstring{Environment()}{Environment()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily Environment\+::\+Environment (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_environment}{Environment}} \texorpdfstring{$\ast$}{*}}]{parent }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [explicit]}}
+
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_environment_a9fa246b1e6815c9258733696d71918cc}\label{class_environment_a9fa246b1e6815c9258733696d71918cc} 
+\index{Environment@{Environment}!ancestor@{ancestor}}
+\index{ancestor@{ancestor}!Environment@{Environment}}
+\doxysubsubsection{\texorpdfstring{ancestor()}{ancestor()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_environment}{Environment}} \texorpdfstring{$\ast$}{*} Environment\+::ancestor (\begin{DoxyParamCaption}\item[{int}]{distance }\end{DoxyParamCaption})}
+
+\Hypertarget{class_environment_a5a30154eda3aac5cbcfbcd69fbae4d64}\label{class_environment_a5a30154eda3aac5cbcfbcd69fbae4d64} 
+\index{Environment@{Environment}!assign@{assign}}
+\index{assign@{assign}!Environment@{Environment}}
+\doxysubsubsection{\texorpdfstring{assign()}{assign()}}
+{\footnotesize\ttfamily void Environment\+::assign (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_token}{Token}} \texorpdfstring{$\ast$}{*}}]{name,  }\item[{\mbox{\hyperlink{_environment_8h_a96850234e3dbbb0c2e6e12c2c71fa3e4}{Runtime\+Value}}}]{value }\end{DoxyParamCaption})}
+
+Assigns a value to an existing variable 
+\begin{DoxyParams}{Parameters}
+{\em name} & \doxylink{class_token}{Token} pointer that holds the identifier of the variable \\
+\hline
+{\em value} & \doxylink{struct_runtime_value}{Runtime\+Value} that holds the value to be used for assignment \\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em \doxylink{class_undeclared_variable}{Undeclared\+Variable}} & Throws if provided an identifier of a non-\/existing variable \\
+\hline
+{\em \doxylink{class_const_reassignment}{Const\+Reassignment}} & Throws if assign is called on a constant variable \\
+\hline
+\end{DoxyExceptions}
+\Hypertarget{class_environment_a21b706d38ef774b1b8e2be72b67380d4}\label{class_environment_a21b706d38ef774b1b8e2be72b67380d4} 
+\index{Environment@{Environment}!assignAt@{assignAt}}
+\index{assignAt@{assignAt}!Environment@{Environment}}
+\doxysubsubsection{\texorpdfstring{assignAt()}{assignAt()}}
+{\footnotesize\ttfamily void Environment\+::assign\+At (\begin{DoxyParamCaption}\item[{int}]{distance,  }\item[{const std\+::wstring \&}]{name,  }\item[{\mbox{\hyperlink{_environment_8h_a96850234e3dbbb0c2e6e12c2c71fa3e4}{Runtime\+Value}}}]{value }\end{DoxyParamCaption})}
+
+\Hypertarget{class_environment_a2d1f7187a5798f80bef070e24a7aa47c}\label{class_environment_a2d1f7187a5798f80bef070e24a7aa47c} 
+\index{Environment@{Environment}!define@{define}}
+\index{define@{define}!Environment@{Environment}}
+\doxysubsubsection{\texorpdfstring{define()}{define()}}
+{\footnotesize\ttfamily void Environment\+::define (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_token}{Token}} \texorpdfstring{$\ast$}{*}}]{name,  }\item[{\mbox{\hyperlink{_environment_8h_a96850234e3dbbb0c2e6e12c2c71fa3e4}{Runtime\+Value}}}]{value,  }\item[{bool}]{is\+Constant }\end{DoxyParamCaption})}
+
+Points to the parent environment of the env. If this is nullptr, it means that the environment is the global one. Makes a new variable in the environment 
+\begin{DoxyParams}{Parameters}
+{\em name} & \doxylink{class_token}{Token} pointer that points to the token of the variable identifier \\
+\hline
+{\em value} & Runtime\+Value\texorpdfstring{$\ast$}{*} that can either hold a value or be nullptr. In case it is nullptr, variable will be initialized to null. Important to note is that it does not check if a const variable has tried to be initialized without a value. That is something that must be checked beforehand. \\
+\hline
+{\em is\+Constant} & bool value that defines whether the variable should be a constant or not. \\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em \doxylink{class_variable_redeclaration}{Variable\+Redeclaration}} & if name parameter already matches an existing value in the environment. \\
+\hline
+\end{DoxyExceptions}
+\Hypertarget{class_environment_a6153ea2b22a04d782a296d486072d813}\label{class_environment_a6153ea2b22a04d782a296d486072d813} 
+\index{Environment@{Environment}!get@{get}}
+\index{get@{get}!Environment@{Environment}}
+\doxysubsubsection{\texorpdfstring{get()}{get()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{_environment_8h_a96850234e3dbbb0c2e6e12c2c71fa3e4}{Runtime\+Value}} Environment\+::get (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_token}{Token}} \texorpdfstring{$\ast$}{*}}]{name }\end{DoxyParamCaption})}
+
+
+\begin{DoxyParams}{Parameters}
+{\em name} & String variable that provides the identifier of the desired variable \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\doxylink{struct_runtime_value}{Runtime\+Value} if it has been found in the environment or some parent environment 
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em \doxylink{class_undeclared_variable}{Undeclared\+Variable}} & Throws if provided an identifier of a non-\/existing variable \\
+\hline
+\end{DoxyExceptions}
+\Hypertarget{class_environment_ade6e0518ba8865c7a1d5de741b56785c}\label{class_environment_ade6e0518ba8865c7a1d5de741b56785c} 
+\index{Environment@{Environment}!getAt@{getAt}}
+\index{getAt@{getAt}!Environment@{Environment}}
+\doxysubsubsection{\texorpdfstring{getAt()}{getAt()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{_environment_8h_a96850234e3dbbb0c2e6e12c2c71fa3e4}{Runtime\+Value}} Environment\+::get\+At (\begin{DoxyParamCaption}\item[{int}]{distance,  }\item[{const std\+::wstring \&}]{name }\end{DoxyParamCaption})}
+
+
+
+\doxysubsection{Member Data Documentation}
+\Hypertarget{class_environment_af30fb756401cfd2e6201e8eadb10f9eb}\label{class_environment_af30fb756401cfd2e6201e8eadb10f9eb} 
+\index{Environment@{Environment}!parent@{parent}}
+\index{parent@{parent}!Environment@{Environment}}
+\doxysubsubsection{\texorpdfstring{parent}{parent}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_environment}{Environment}}\texorpdfstring{$\ast$}{*} Environment\+::parent}
+
+\Hypertarget{class_environment_ab55e88222ddba3ec2a7c34041aa6a253}\label{class_environment_ab55e88222ddba3ec2a7c34041aa6a253} 
+\index{Environment@{Environment}!variables@{variables}}
+\index{variables@{variables}!Environment@{Environment}}
+\doxysubsubsection{\texorpdfstring{variables}{variables}}
+{\footnotesize\ttfamily std\+::unordered\+\_\+map$<$std\+::wstring, std\+::pair$<$\mbox{\hyperlink{_environment_8h_a96850234e3dbbb0c2e6e12c2c71fa3e4}{Runtime\+Value}}, bool$>$ $>$ Environment\+::variables \{\}}
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+src/interpreter/\mbox{\hyperlink{_environment_8h}{Environment.\+h}}\item 
+src/interpreter/\mbox{\hyperlink{_environment_8cpp}{Environment.\+cpp}}\end{DoxyCompactItemize}

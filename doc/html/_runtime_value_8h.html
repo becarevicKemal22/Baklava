@@ -78,6 +78,7 @@ $(function() {
   <div class="summary">
 <a href="#nested-classes">Classes</a> &#124;
 <a href="#define-members">Macros</a> &#124;
+<a href="#typedef-members">Typedefs</a> &#124;
 <a href="#enum-members">Enumerations</a> &#124;
 <a href="#func-members">Functions</a>  </div>
   <div class="headertitle"><div class="title">RuntimeValue.h File Reference</div></div>
@@ -85,7 +86,8 @@ $(function() {
 <div class="contents">
 <div class="textblock"><code>#include &lt;cstdint&gt;</code><br />
 <code>#include &lt;string&gt;</code><br />
-<code>#include &quot;<a class="el" href="_object_8h_source.html">Object.h</a>&quot;</code><br />
+<code>#include &lt;vector&gt;</code><br />
+<code>#include &lt;functional&gt;</code><br />
 </div>
 <p><a href="_runtime_value_8h_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
@@ -100,6 +102,13 @@ Macros</h2></td></tr>
 <tr class="memitem:a4da06c994a3591d379aca99d26b7e7f5" id="r_a4da06c994a3591d379aca99d26b7e7f5"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a4da06c994a3591d379aca99d26b7e7f5">IS_OBJ</a>(value)&#160;&#160;&#160;((value).type == <a class="el" href="#a374c860c922f0b389e0291d92c099c35a497031794414a552435f90151ac3b54b">ValueType::Object</a>)</td></tr>
 <tr class="separator:a4da06c994a3591d379aca99d26b7e7f5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="typedef-members" name="typedef-members"></a>
+Typedefs</h2></td></tr>
+<tr class="memitem:ab1287b6141419421dc5c14b9f7756b0a" id="r_ab1287b6141419421dc5c14b9f7756b0a"><td class="memItemLeft" align="right" valign="top">typedef struct Object&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab1287b6141419421dc5c14b9f7756b0a">Object</a></td></tr>
+<tr class="separator:ab1287b6141419421dc5c14b9f7756b0a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a96850234e3dbbb0c2e6e12c2c71fa3e4" id="r_a96850234e3dbbb0c2e6e12c2c71fa3e4"><td class="memItemLeft" align="right" valign="top">typedef struct RuntimeValue&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a96850234e3dbbb0c2e6e12c2c71fa3e4">RuntimeValue</a></td></tr>
+<tr class="separator:a96850234e3dbbb0c2e6e12c2c71fa3e4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="enum-members" name="enum-members"></a>
 Enumerations</h2></td></tr>
 <tr class="memitem:a374c860c922f0b389e0291d92c099c35" id="r_a374c860c922f0b389e0291d92c099c35"><td class="memItemLeft" align="right" valign="top">enum class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a374c860c922f0b389e0291d92c099c35">ValueType</a> : uint8_t { <a class="el" href="#a374c860c922f0b389e0291d92c099c35ab2ee912b91d69b435159c7c3f6df7f5f">Number</a>
@@ -107,7 +116,7 @@ Enumerations</h2></td></tr>
 , <a class="el" href="#a374c860c922f0b389e0291d92c099c35abbb93ef26e3c101ff11cdd21cab08a94">Null</a>
 , <a class="el" href="#a374c860c922f0b389e0291d92c099c35a497031794414a552435f90151ac3b54b">Object</a>
  }</td></tr>
-<tr class="memdesc:a374c860c922f0b389e0291d92c099c35"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enum class which defines all types of runtime values in the language.  <a href="#a374c860c922f0b389e0291d92c099c35">More...</a><br /></td></tr>
+<tr class="memdesc:a374c860c922f0b389e0291d92c099c35"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enum class which defines all types of runtime values in the language, excluding specific object types.  <a href="#a374c860c922f0b389e0291d92c099c35">More...</a><br /></td></tr>
 <tr class="separator:a374c860c922f0b389e0291d92c099c35"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
@@ -128,6 +137,35 @@ Functions</h2></td></tr>
           <td>(</td>
           <td class="paramtype"></td>          <td class="paramname"><span class="paramname">value</span></td><td>)</td>
           <td>&#160;&#160;&#160;((value).type == <a class="el" href="#a374c860c922f0b389e0291d92c099c35a497031794414a552435f90151ac3b54b">ValueType::Object</a>)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<h2 class="groupheader">Typedef Documentation</h2>
+<a id="ab1287b6141419421dc5c14b9f7756b0a" name="ab1287b6141419421dc5c14b9f7756b0a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab1287b6141419421dc5c14b9f7756b0a">&#9670;&#160;</a></span>Object</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef struct Object Object</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a96850234e3dbbb0c2e6e12c2c71fa3e4" name="a96850234e3dbbb0c2e6e12c2c71fa3e4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a96850234e3dbbb0c2e6e12c2c71fa3e4">&#9670;&#160;</a></span>RuntimeValue</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef struct RuntimeValue RuntimeValue</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -155,7 +193,7 @@ Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Enum class which defines all types of runtime values in the language. </p>
+<p>Enum class which defines all types of runtime values in the language, excluding specific object types. </p>
 <table class="fieldtable">
 <tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a374c860c922f0b389e0291d92c099c35ab2ee912b91d69b435159c7c3f6df7f5f" name="a374c860c922f0b389e0291d92c099c35ab2ee912b91d69b435159c7c3f6df7f5f"></a>Number&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="a374c860c922f0b389e0291d92c099c35a27226c864bac7454a8504f8edb15d95b" name="a374c860c922f0b389e0291d92c099c35a27226c864bac7454a8504f8edb15d95b"></a>Boolean&#160;</td><td class="fielddoc"></td></tr>

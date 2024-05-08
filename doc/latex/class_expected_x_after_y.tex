@@ -1,0 +1,87 @@
+\doxysection{Expected\+XAfterY Class Reference}
+\hypertarget{class_expected_x_after_y}{}\label{class_expected_x_after_y}\index{ExpectedXAfterY@{ExpectedXAfterY}}
+
+
+Represents an error where a certain token was expected after another token.  
+
+
+
+
+{\ttfamily \#include $<$Expected\+XAfter\+Y.\+h$>$}
+
+Inheritance diagram for Expected\+XAfterY\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=3.000000cm]{class_expected_x_after_y}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_expected_x_after_y_a0d2e9de4d87a9f1e6918b1fa37aebe17}{Expected\+XAfterY}} (std\+::wstring \mbox{\hyperlink{class_expected_x_after_y_af61fc9f7b1a1a18710cec6b84a4ebc9f}{expected\+What}}, \mbox{\hyperlink{_token_8h_a2c0e84a5a66315462eade54370fa02b8}{Token\+Ptr}} \mbox{\hyperlink{class_expected_x_after_y_a486d08106d8faa0138dd344115ce2938}{found}}, \mbox{\hyperlink{_token_8h_a2c0e84a5a66315462eade54370fa02b8}{Token\+Ptr}} \mbox{\hyperlink{class_expected_x_after_y_a07ad06083022166c80a72939c5ffacf6}{after}})
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{class_parser_error}{Parser\+Error}}}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_parser_error_a04c2c577a5a638f50b7a340ebdd8a593}{Parser\+Error}} (\mbox{\hyperlink{_error_code_8h_a59e56af19e754a6aa26a612ebf91d05f}{Error\+Code}} \mbox{\hyperlink{class_parser_error_a7923d1c9d18cc0996e3b1f875e548de3}{code}})
+\item 
+\mbox{\hyperlink{class_parser_error_a58a4af6d0dfc0a5848cebbb7cf3788dc}{Parser\+Error}} (\mbox{\hyperlink{_error_code_8h_a59e56af19e754a6aa26a612ebf91d05f}{Error\+Code}} \mbox{\hyperlink{class_parser_error_a7923d1c9d18cc0996e3b1f875e548de3}{code}}, std\+::vector$<$ \mbox{\hyperlink{_error_message_argument_8h_a2ce8d7c0c01d40b6373946f75c36eee7}{Error\+Message\+Argument}} $>$ \mbox{\hyperlink{class_parser_error_afd3884bd1c9e5edf8321f7824a858657}{message\+Arguments}})
+\item 
+\mbox{\hyperlink{class_parser_error_a4e1e918bb6dd798c61ee72f480375a6c}{Parser\+Error}} (\mbox{\hyperlink{_error_code_8h_a59e56af19e754a6aa26a612ebf91d05f}{Error\+Code}} \mbox{\hyperlink{class_parser_error_a7923d1c9d18cc0996e3b1f875e548de3}{code}}, \mbox{\hyperlink{class_token}{Token}} \texorpdfstring{$\ast$}{*}token)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+std\+::wstring \mbox{\hyperlink{class_expected_x_after_y_af61fc9f7b1a1a18710cec6b84a4ebc9f}{expected\+What}}
+\item 
+\mbox{\hyperlink{_token_8h_a2c0e84a5a66315462eade54370fa02b8}{Token\+Ptr}} \mbox{\hyperlink{class_expected_x_after_y_a486d08106d8faa0138dd344115ce2938}{found}}
+\item 
+\mbox{\hyperlink{_token_8h_a2c0e84a5a66315462eade54370fa02b8}{Token\+Ptr}} \mbox{\hyperlink{class_expected_x_after_y_a07ad06083022166c80a72939c5ffacf6}{after}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes inherited from \mbox{\hyperlink{class_parser_error}{Parser\+Error}}}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{_error_code_8h_a59e56af19e754a6aa26a612ebf91d05f}{Error\+Code}} \mbox{\hyperlink{class_parser_error_a7923d1c9d18cc0996e3b1f875e548de3}{code}}
+\item 
+std\+::vector$<$ \mbox{\hyperlink{_error_message_argument_8h_a2ce8d7c0c01d40b6373946f75c36eee7}{Error\+Message\+Argument}} $>$ \mbox{\hyperlink{class_parser_error_afd3884bd1c9e5edf8321f7824a858657}{message\+Arguments}}
+\item 
+\mbox{\hyperlink{class_token}{Token}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{class_parser_error_a258c3acf41bb96de8ac24f313eb92e18}{my\+Token}} = nullptr
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Represents an error where a certain token was expected after another token. 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{class_expected_x_after_y_a0d2e9de4d87a9f1e6918b1fa37aebe17}\label{class_expected_x_after_y_a0d2e9de4d87a9f1e6918b1fa37aebe17} 
+\index{ExpectedXAfterY@{ExpectedXAfterY}!ExpectedXAfterY@{ExpectedXAfterY}}
+\index{ExpectedXAfterY@{ExpectedXAfterY}!ExpectedXAfterY@{ExpectedXAfterY}}
+\doxysubsubsection{\texorpdfstring{ExpectedXAfterY()}{ExpectedXAfterY()}}
+{\footnotesize\ttfamily Expected\+XAfter\+Y\+::\+Expected\+XAfterY (\begin{DoxyParamCaption}\item[{std\+::wstring}]{expected\+What,  }\item[{\mbox{\hyperlink{_token_8h_a2c0e84a5a66315462eade54370fa02b8}{Token\+Ptr}}}]{found,  }\item[{\mbox{\hyperlink{_token_8h_a2c0e84a5a66315462eade54370fa02b8}{Token\+Ptr}}}]{after }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+\doxysubsection{Member Data Documentation}
+\Hypertarget{class_expected_x_after_y_a07ad06083022166c80a72939c5ffacf6}\label{class_expected_x_after_y_a07ad06083022166c80a72939c5ffacf6} 
+\index{ExpectedXAfterY@{ExpectedXAfterY}!after@{after}}
+\index{after@{after}!ExpectedXAfterY@{ExpectedXAfterY}}
+\doxysubsubsection{\texorpdfstring{after}{after}}
+{\footnotesize\ttfamily \mbox{\hyperlink{_token_8h_a2c0e84a5a66315462eade54370fa02b8}{Token\+Ptr}} Expected\+XAfter\+Y\+::after}
+
+\Hypertarget{class_expected_x_after_y_af61fc9f7b1a1a18710cec6b84a4ebc9f}\label{class_expected_x_after_y_af61fc9f7b1a1a18710cec6b84a4ebc9f} 
+\index{ExpectedXAfterY@{ExpectedXAfterY}!expectedWhat@{expectedWhat}}
+\index{expectedWhat@{expectedWhat}!ExpectedXAfterY@{ExpectedXAfterY}}
+\doxysubsubsection{\texorpdfstring{expectedWhat}{expectedWhat}}
+{\footnotesize\ttfamily std\+::wstring Expected\+XAfter\+Y\+::expected\+What}
+
+\Hypertarget{class_expected_x_after_y_a486d08106d8faa0138dd344115ce2938}\label{class_expected_x_after_y_a486d08106d8faa0138dd344115ce2938} 
+\index{ExpectedXAfterY@{ExpectedXAfterY}!found@{found}}
+\index{found@{found}!ExpectedXAfterY@{ExpectedXAfterY}}
+\doxysubsubsection{\texorpdfstring{found}{found}}
+{\footnotesize\ttfamily \mbox{\hyperlink{_token_8h_a2c0e84a5a66315462eade54370fa02b8}{Token\+Ptr}} Expected\+XAfter\+Y\+::found}
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+src/error/exceptions/parser/\mbox{\hyperlink{_expected_x_after_y_8h}{Expected\+XAfter\+Y.\+h}}\end{DoxyCompactItemize}

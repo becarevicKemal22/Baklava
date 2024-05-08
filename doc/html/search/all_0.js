@@ -1,11 +1,24 @@
 var searchData=
 [
-  ['ansi_5fblue_0',['ANSI_BLUE',['../_error_printer_8cpp.html#a8c4264c036de534eb0d24368cae7e089',1,'ErrorPrinter.cpp']]],
-  ['ansi_5fgreen_1',['ANSI_GREEN',['../_error_printer_8cpp.html#a3654c0dce80eb0c16811b1661ebfd5ec',1,'ErrorPrinter.cpp']]],
-  ['ansi_5fred_2',['ANSI_RED',['../_error_printer_8cpp.html#aafd0cd6aae855b6242cb9ec4f47ab552',1,'ErrorPrinter.cpp']]],
-  ['ansi_5freset_3',['ANSI_RESET',['../_error_printer_8cpp.html#a44a0ee71c8059f6dae973e95425f5096',1,'ErrorPrinter.cpp']]],
-  ['as_4',['as',['../struct_runtime_value.html#aa8483e3ce601048c7a71115fe833b1eb',1,'RuntimeValue']]],
-  ['as_5fstring_5fobj_5',['AS_STRING_OBJ',['../_object_8h.html#a4ad71079a6c6836e3dbf1f67e5a792fe',1,'Object.h']]],
-  ['ast_2eh_6',['Ast.h',['../_ast_8h.html',1,'']]],
-  ['astnodetype_7',['AstNodeType',['../_ast_8h.html#abbed81ee894f251822f94201ef008817',1,'Ast.h']]]
+  ['after_0',['after',['../class_expected_x_after_y.html#a07ad06083022166c80a72939c5ffacf6',1,'ExpectedXAfterY']]],
+  ['ancestor_1',['ancestor',['../class_environment.html#a9fa246b1e6815c9258733696d71918cc',1,'Environment']]],
+  ['ansi_5fblue_2',['ANSI_BLUE',['../_error_printer_8cpp.html#a8c4264c036de534eb0d24368cae7e089',1,'ErrorPrinter.cpp']]],
+  ['ansi_5fgreen_3',['ANSI_GREEN',['../_error_printer_8cpp.html#a3654c0dce80eb0c16811b1661ebfd5ec',1,'ErrorPrinter.cpp']]],
+  ['ansi_5fred_4',['ANSI_RED',['../_error_printer_8cpp.html#aafd0cd6aae855b6242cb9ec4f47ab552',1,'ErrorPrinter.cpp']]],
+  ['ansi_5freset_5',['ANSI_RESET',['../_error_printer_8cpp.html#a44a0ee71c8059f6dae973e95425f5096',1,'ErrorPrinter.cpp']]],
+  ['arguments_6',['arguments',['../class_call_expression.html#a57e2803488c2f94ed552b5e1aaf36b6b',1,'CallExpression']]],
+  ['arity_7',['arity',['../struct_object_callable.html#a5d11d07783d5a39adc09f98a921719ad',1,'ObjectCallable']]],
+  ['arrayliteralexpression_8',['ArrayLiteralExpression',['../class_array_literal_expression.html',1,'ArrayLiteralExpression'],['../class_array_literal_expression.html#a0f91b878edd19894458863dff98983bf',1,'ArrayLiteralExpression::ArrayLiteralExpression()'],['../_ast_8h.html#abbed81ee894f251822f94201ef008817a310c59dec3af1a260ca515c18fe9804c',1,'ArrayLiteralExpression:&#160;Ast.h']]],
+  ['arrayliteralexpression_2eh_9',['ArrayLiteralExpression.h',['../_array_literal_expression_8h.html',1,'']]],
+  ['as_10',['as',['../struct_runtime_value.html#aa8483e3ce601048c7a71115fe833b1eb',1,'RuntimeValue']]],
+  ['as_5farray_5fobj_11',['AS_ARRAY_OBJ',['../_object_8h.html#a77d63b19e3f942faca07bbb49cf13484',1,'Object.h']]],
+  ['as_5fcallable_5fobj_12',['AS_CALLABLE_OBJ',['../_object_8h.html#aa2c66e90dea8443140573c92a1eb4c3f',1,'Object.h']]],
+  ['as_5ffunction_5fobj_13',['AS_FUNCTION_OBJ',['../_object_8h.html#ae49b9ada14bb350ca9ce11c2ed21eb83',1,'Object.h']]],
+  ['as_5fstring_5fobj_14',['AS_STRING_OBJ',['../_object_8h.html#a4ad71079a6c6836e3dbf1f67e5a792fe',1,'Object.h']]],
+  ['assign_15',['assign',['../class_environment.html#a5a30154eda3aac5cbcfbcd69fbae4d64',1,'Environment']]],
+  ['assignat_16',['assignAt',['../class_environment.html#a21b706d38ef774b1b8e2be72b67380d4',1,'Environment']]],
+  ['assignmentexpression_17',['AssignmentExpression',['../class_assignment_expression.html',1,'AssignmentExpression'],['../class_assignment_expression.html#a68ae1752466823daa267f964c632a8ca',1,'AssignmentExpression::AssignmentExpression()'],['../_ast_8h.html#abbed81ee894f251822f94201ef008817a9bf7cb6ceb302a26beca37800b039369',1,'AssignmentExpression:&#160;Ast.h']]],
+  ['assignmentexpression_2eh_18',['AssignmentExpression.h',['../_assignment_expression_8h.html',1,'']]],
+  ['ast_2eh_19',['Ast.h',['../_ast_8h.html',1,'']]],
+  ['astnodetype_20',['AstNodeType',['../_ast_8h.html#abbed81ee894f251822f94201ef008817',1,'Ast.h']]]
 ];

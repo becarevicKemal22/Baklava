@@ -1,0 +1,26 @@
+\doxysection{Self\+Referencing\+Initializer.\+h}
+\hypertarget{_self_referencing_initializer_8h_source}{}\label{_self_referencing_initializer_8h_source}\index{src/error/exceptions/parser/SelfReferencingInitializer.h@{src/error/exceptions/parser/SelfReferencingInitializer.h}}
+\mbox{\hyperlink{_self_referencing_initializer_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{//}}
+\DoxyCodeLine{00002\ \textcolor{comment}{//\ Created\ by\ kemal\ on\ 3/27/2024.}}
+\DoxyCodeLine{00003\ \textcolor{comment}{//}}
+\DoxyCodeLine{00004\ }
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#ifndef\ BAKLAVA\_SELFREFERENCINGINITIALIZER\_H}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#define\ BAKLAVA\_SELFREFERENCINGINITIALIZER\_H}}
+\DoxyCodeLine{00007\ }
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_parser_error_8h}{ParserError.h}}"{}}}
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_token_8h}{Token.h}}"{}}}
+\DoxyCodeLine{00010\ }
+\DoxyCodeLine{00014\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_self_referencing_initializer}{SelfReferencingInitializer}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{class_parser_error}{ParserError}}\ \{}
+\DoxyCodeLine{00015\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00016\ \ \ \ \ \mbox{\hyperlink{class_self_referencing_initializer_addf35bd0589c94a6c41ef286c82699a5}{SelfReferencingInitializer}}(\mbox{\hyperlink{class_token}{TokenPtr}}\ \mbox{\hyperlink{class_self_referencing_initializer_a801070472e9782b443afdd6e52174bbd}{token}})\ :\ \mbox{\hyperlink{class_parser_error}{ParserError}}(\mbox{\hyperlink{_error_code_8h_a59e56af19e754a6aa26a612ebf91d05fa425c0ce6580188f05fc03bd22e852c4b}{ERROR\_SELF\_REFERENCING\_INITIALIZER}}),\ \mbox{\hyperlink{class_self_referencing_initializer_a801070472e9782b443afdd6e52174bbd}{token}}(\mbox{\hyperlink{class_self_referencing_initializer_a801070472e9782b443afdd6e52174bbd}{token}})\ \{}
+\DoxyCodeLine{00017\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_parser_error_afd3884bd1c9e5edf8321f7824a858657}{messageArguments}}.push\_back(\mbox{\hyperlink{class_self_referencing_initializer_a801070472e9782b443afdd6e52174bbd}{token}}-\/>\mbox{\hyperlink{class_token_acfd9e64709c736211934e4b27ac20955}{value}});}
+\DoxyCodeLine{00018\ \ \ \ \ \}}
+\DoxyCodeLine{00019\ }
+\DoxyCodeLine{00020\ \ \ \ \ \mbox{\hyperlink{class_token}{TokenPtr}}\ \mbox{\hyperlink{class_self_referencing_initializer_a801070472e9782b443afdd6e52174bbd}{token}};}
+\DoxyCodeLine{00021\ \};}
+\DoxyCodeLine{00022\ }
+\DoxyCodeLine{00023\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//BAKLAVA\_SELFREFERENCINGINITIALIZER\_H}}
+
+\end{DoxyCode}

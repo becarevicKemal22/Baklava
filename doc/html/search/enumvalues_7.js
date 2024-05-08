@@ -1,6 +1,7 @@
 var searchData=
 [
-  ['less_0',['Less',['../_token_type_8h.html#afa91e1934f818659a4e2b0c8ce1214b0a1cfdf0e8d0c87a228c1f40d9bee7888b',1,'TokenType.h']]],
-  ['lessequal_1',['LessEqual',['../_token_type_8h.html#afa91e1934f818659a4e2b0c8ce1214b0ad3e6fdac55bb7b0edd7834c968ba1f38',1,'TokenType.h']]],
-  ['logicalexpression_2',['LogicalExpression',['../_ast_8h.html#abbed81ee894f251822f94201ef008817aba040fffb921ae39cd6724a98a871210',1,'Ast.h']]]
+  ['identifier_0',['Identifier',['../_token_type_8h.html#afa91e1934f818659a4e2b0c8ce1214b0a29ee5d1ebcc033234938a5234f1f2075',1,'TokenType.h']]],
+  ['if_1',['If',['../_token_type_8h.html#afa91e1934f818659a4e2b0c8ce1214b0a786887572f6ef1c20f2d8177cb2f1639',1,'TokenType.h']]],
+  ['ifstatement_2',['IfStatement',['../_ast_8h.html#abbed81ee894f251822f94201ef008817a69bf1eda358268e97a9d792c0e88b10d',1,'Ast.h']]],
+  ['indexingexpression_3',['IndexingExpression',['../_ast_8h.html#abbed81ee894f251822f94201ef008817af2355d30a1764378021476eb91f58801',1,'Ast.h']]]
 ];

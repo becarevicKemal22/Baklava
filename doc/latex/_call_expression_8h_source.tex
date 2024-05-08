@@ -1,0 +1,28 @@
+\doxysection{Call\+Expression.\+h}
+\hypertarget{_call_expression_8h_source}{}\label{_call_expression_8h_source}\index{src/parser/ast/expressions/CallExpression.h@{src/parser/ast/expressions/CallExpression.h}}
+\mbox{\hyperlink{_call_expression_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{//}}
+\DoxyCodeLine{00002\ \textcolor{comment}{//\ Created\ by\ kemal\ on\ 3/17/2024.}}
+\DoxyCodeLine{00003\ \textcolor{comment}{//}}
+\DoxyCodeLine{00004\ }
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#ifndef\ BAKLAVA\_CALLEXPRESSION\_H}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#define\ BAKLAVA\_CALLEXPRESSION\_H}}
+\DoxyCodeLine{00007\ }
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_expression_8h}{Expression.h}}"{}}}
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_token_8h}{Token.h}}"{}}}
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#include\ <vector>}}
+\DoxyCodeLine{00011\ }
+\DoxyCodeLine{00012\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_call_expression}{CallExpression}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{class_expression}{Expression}}\ \{}
+\DoxyCodeLine{00013\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00014\ \ \ \ \ \mbox{\hyperlink{class_call_expression_a38014dee9df5b13cf914b0ef2c0d7d54}{CallExpression}}(\mbox{\hyperlink{class_expression}{ExprPtr}}\ \mbox{\hyperlink{class_call_expression_a094a91ede3a00c66c2e287bb4ae9e0d2}{callee}},\ \mbox{\hyperlink{class_token}{TokenPtr}}\ \mbox{\hyperlink{class_call_expression_a82e6719a738d9d8beea047e210360e92}{paren}},\ std::vector<ExprPtr>\ \mbox{\hyperlink{class_call_expression_a57e2803488c2f94ed552b5e1aaf36b6b}{arguments}})\ :\ \mbox{\hyperlink{class_call_expression_a094a91ede3a00c66c2e287bb4ae9e0d2}{callee}}(\mbox{\hyperlink{class_call_expression_a094a91ede3a00c66c2e287bb4ae9e0d2}{callee}}),\ \mbox{\hyperlink{class_call_expression_a82e6719a738d9d8beea047e210360e92}{paren}}(\mbox{\hyperlink{class_call_expression_a82e6719a738d9d8beea047e210360e92}{paren}}),\ \mbox{\hyperlink{class_call_expression_a57e2803488c2f94ed552b5e1aaf36b6b}{arguments}}(\mbox{\hyperlink{class_call_expression_a57e2803488c2f94ed552b5e1aaf36b6b}{arguments}})\ \{}
+\DoxyCodeLine{00015\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_statement_af799a81c3fbd31e741cc01d09324df30}{type}}\ =\ \mbox{\hyperlink{_ast_8h_abbed81ee894f251822f94201ef008817a1697fad9088aaf8a1b519d9502372538}{AstNodeType::CallExpression}};}
+\DoxyCodeLine{00016\ \ \ \ \ \}}
+\DoxyCodeLine{00017\ \ \ \ \ \mbox{\hyperlink{class_expression}{ExprPtr}}\ \mbox{\hyperlink{class_call_expression_a094a91ede3a00c66c2e287bb4ae9e0d2}{callee}};}
+\DoxyCodeLine{00018\ \ \ \ \ \mbox{\hyperlink{class_token}{TokenPtr}}\ \mbox{\hyperlink{class_call_expression_a82e6719a738d9d8beea047e210360e92}{paren}};}
+\DoxyCodeLine{00019\ \ \ \ \ std::vector<ExprPtr>\ \mbox{\hyperlink{class_call_expression_a57e2803488c2f94ed552b5e1aaf36b6b}{arguments}};}
+\DoxyCodeLine{00020\ \};}
+\DoxyCodeLine{00021\ }
+\DoxyCodeLine{00022\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//BAKLAVA\_CALLEXPRESSION\_H}}
+
+\end{DoxyCode}

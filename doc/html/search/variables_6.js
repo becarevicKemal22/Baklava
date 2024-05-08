@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['keywords_0',['KEYWORDS',['../_keywords_8h.html#a8f2821841f1038b7f82c075dd79036da',1,'Keywords.h']]]
+  ['globals_0',['globals',['../class_interpreter.html#ac8d1b7617a8b385112b5ab528ed29f46',1,'Interpreter']]]
 ];

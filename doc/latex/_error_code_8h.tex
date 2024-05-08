@@ -6,11 +6,25 @@
 enum \mbox{\hyperlink{_error_code_8h_a59e56af19e754a6aa26a612ebf91d05f}{Error\+Code}} \{ \newline
 \mbox{\hyperlink{_error_code_8h_a59e56af19e754a6aa26a612ebf91d05fa2cfbedee4226e70e54cad70893f67d47}{ERROR\+\_\+\+CANNOT\+\_\+\+OPEN\+\_\+\+FILE}} = 100
 , \mbox{\hyperlink{_error_code_8h_a59e56af19e754a6aa26a612ebf91d05fa0808d39b709bff4c370987800c4713fa}{ERROR\+\_\+\+UNEXPECTED\+\_\+\+CHARACTER}} = 200
-, \mbox{\hyperlink{_error_code_8h_a59e56af19e754a6aa26a612ebf91d05fadd419a657a311f11c4ac1c0efb3a35a0}{ERROR\+\_\+\+UNTERMINATED\+\_\+\+STRING}} = 201
+, \mbox{\hyperlink{_error_code_8h_a59e56af19e754a6aa26a612ebf91d05fadd419a657a311f11c4ac1c0efb3a35a0}{ERROR\+\_\+\+UNTERMINATED\+\_\+\+STRING}}
 , \mbox{\hyperlink{_error_code_8h_a59e56af19e754a6aa26a612ebf91d05fae7bd9c309ae19bbfc14f515e11283557}{ERROR\+\_\+\+EXPECTED\+\_\+\+X\+\_\+\+BEFORE\+\_\+Y}} = 300
 , \newline
-\mbox{\hyperlink{_error_code_8h_a59e56af19e754a6aa26a612ebf91d05fa2e1a626d0a665069b6c81d59b1787d25}{ERROR\+\_\+\+WRONG\+\_\+\+TYPE\+\_\+\+OPERAND}} = 400
-, \mbox{\hyperlink{_error_code_8h_a59e56af19e754a6aa26a612ebf91d05fa105a71af2f532e023af49115dc047530}{ERROR\+\_\+\+WRONG\+\_\+\+TYPE\+\_\+\+OPERAND\+\_\+\+BINARY}} = 401
+\mbox{\hyperlink{_error_code_8h_a59e56af19e754a6aa26a612ebf91d05fa0243626839736039ea6469c74b2d9745}{ERROR\+\_\+\+UNINITIALIZED\+\_\+\+CONST}}
+, \mbox{\hyperlink{_error_code_8h_a59e56af19e754a6aa26a612ebf91d05fae8f827fe28c0270722e6bd4a0dbd2b50}{ERROR\+\_\+\+EXPECTED\+\_\+\+X\+\_\+\+AFTER\+\_\+Y}}
+, \mbox{\hyperlink{_error_code_8h_a59e56af19e754a6aa26a612ebf91d05faa5616dc9ba68e1ca97515b0b53da37b6}{ERROR\+\_\+\+VARIABLE\+\_\+\+REDECLARATION}}
+, \mbox{\hyperlink{_error_code_8h_a59e56af19e754a6aa26a612ebf91d05fa83ddedd6f3fc495318b9e8d703399907}{ERROR\+\_\+\+UNDECLARED\+\_\+\+VARIABLE}}
+, \newline
+\mbox{\hyperlink{_error_code_8h_a59e56af19e754a6aa26a612ebf91d05fa32ad158063667cc5572823c961c1c4ef}{ERROR\+\_\+\+CONST\+\_\+\+REASSIGNMENT}}
+, \mbox{\hyperlink{_error_code_8h_a59e56af19e754a6aa26a612ebf91d05fae67d45ba44d0f5215d200875e19c5de3}{ERROR\+\_\+\+EXPECTED\+\_\+\+EXPRESSION\+\_\+\+AT\+\_\+\+START}}
+, \mbox{\hyperlink{_error_code_8h_a59e56af19e754a6aa26a612ebf91d05fa35a3bfe6f0bcbd43fdf4553876972ec5}{ERROR\+\_\+\+INVALID\+\_\+\+LVALUE}}
+, \mbox{\hyperlink{_error_code_8h_a59e56af19e754a6aa26a612ebf91d05fa07213cc3dba5230ec5715a8e23b7a75b}{ERROR\+\_\+\+INVALID\+\_\+\+CALL}}
+, \newline
+\mbox{\hyperlink{_error_code_8h_a59e56af19e754a6aa26a612ebf91d05fab55db74ec6e0da76114fcde483042d2e}{ERROR\+\_\+\+INVALID\+\_\+\+ARGUMENT\+\_\+\+COUNT}}
+, \mbox{\hyperlink{_error_code_8h_a59e56af19e754a6aa26a612ebf91d05fab8e0076acfdc964614d77b23ce15e112}{ERROR\+\_\+\+INVALID\+\_\+\+RETURN\+\_\+\+POSITION}}
+, \mbox{\hyperlink{_error_code_8h_a59e56af19e754a6aa26a612ebf91d05fa425c0ce6580188f05fc03bd22e852c4b}{ERROR\+\_\+\+SELF\+\_\+\+REFERENCING\+\_\+\+INITIALIZER}}
+, \mbox{\hyperlink{_error_code_8h_a59e56af19e754a6aa26a612ebf91d05fa2e1a626d0a665069b6c81d59b1787d25}{ERROR\+\_\+\+WRONG\+\_\+\+TYPE\+\_\+\+OPERAND}} = 400
+, \newline
+\mbox{\hyperlink{_error_code_8h_a59e56af19e754a6aa26a612ebf91d05fa105a71af2f532e023af49115dc047530}{ERROR\+\_\+\+WRONG\+\_\+\+TYPE\+\_\+\+OPERAND\+\_\+\+BINARY}}
  \}
 \begin{DoxyCompactList}\small\item\em Standardized error codes for the interpreter that should be used by the entire project. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
@@ -44,6 +58,50 @@ ERROR\+\_\+\+UNTERMINATED\+\_\+\+STRING&\\
 
 \raisebox{\heightof{T}}[0pt][0pt]{\index{ERROR\_EXPECTED\_X\_BEFORE\_Y@{ERROR\_EXPECTED\_X\_BEFORE\_Y}!ErrorCode.h@{ErrorCode.h}}\index{ErrorCode.h@{ErrorCode.h}!ERROR\_EXPECTED\_X\_BEFORE\_Y@{ERROR\_EXPECTED\_X\_BEFORE\_Y}}}\Hypertarget{_error_code_8h_a59e56af19e754a6aa26a612ebf91d05fae7bd9c309ae19bbfc14f515e11283557}\label{_error_code_8h_a59e56af19e754a6aa26a612ebf91d05fae7bd9c309ae19bbfc14f515e11283557} 
 ERROR\+\_\+\+EXPECTED\+\_\+\+X\+\_\+\+BEFORE\+\_\+Y&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{ERROR\_UNINITIALIZED\_CONST@{ERROR\_UNINITIALIZED\_CONST}!ErrorCode.h@{ErrorCode.h}}\index{ErrorCode.h@{ErrorCode.h}!ERROR\_UNINITIALIZED\_CONST@{ERROR\_UNINITIALIZED\_CONST}}}\Hypertarget{_error_code_8h_a59e56af19e754a6aa26a612ebf91d05fa0243626839736039ea6469c74b2d9745}\label{_error_code_8h_a59e56af19e754a6aa26a612ebf91d05fa0243626839736039ea6469c74b2d9745} 
+ERROR\+\_\+\+UNINITIALIZED\+\_\+\+CONST&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{ERROR\_EXPECTED\_X\_AFTER\_Y@{ERROR\_EXPECTED\_X\_AFTER\_Y}!ErrorCode.h@{ErrorCode.h}}\index{ErrorCode.h@{ErrorCode.h}!ERROR\_EXPECTED\_X\_AFTER\_Y@{ERROR\_EXPECTED\_X\_AFTER\_Y}}}\Hypertarget{_error_code_8h_a59e56af19e754a6aa26a612ebf91d05fae8f827fe28c0270722e6bd4a0dbd2b50}\label{_error_code_8h_a59e56af19e754a6aa26a612ebf91d05fae8f827fe28c0270722e6bd4a0dbd2b50} 
+ERROR\+\_\+\+EXPECTED\+\_\+\+X\+\_\+\+AFTER\+\_\+Y&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{ERROR\_VARIABLE\_REDECLARATION@{ERROR\_VARIABLE\_REDECLARATION}!ErrorCode.h@{ErrorCode.h}}\index{ErrorCode.h@{ErrorCode.h}!ERROR\_VARIABLE\_REDECLARATION@{ERROR\_VARIABLE\_REDECLARATION}}}\Hypertarget{_error_code_8h_a59e56af19e754a6aa26a612ebf91d05faa5616dc9ba68e1ca97515b0b53da37b6}\label{_error_code_8h_a59e56af19e754a6aa26a612ebf91d05faa5616dc9ba68e1ca97515b0b53da37b6} 
+ERROR\+\_\+\+VARIABLE\+\_\+\+REDECLARATION&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{ERROR\_UNDECLARED\_VARIABLE@{ERROR\_UNDECLARED\_VARIABLE}!ErrorCode.h@{ErrorCode.h}}\index{ErrorCode.h@{ErrorCode.h}!ERROR\_UNDECLARED\_VARIABLE@{ERROR\_UNDECLARED\_VARIABLE}}}\Hypertarget{_error_code_8h_a59e56af19e754a6aa26a612ebf91d05fa83ddedd6f3fc495318b9e8d703399907}\label{_error_code_8h_a59e56af19e754a6aa26a612ebf91d05fa83ddedd6f3fc495318b9e8d703399907} 
+ERROR\+\_\+\+UNDECLARED\+\_\+\+VARIABLE&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{ERROR\_CONST\_REASSIGNMENT@{ERROR\_CONST\_REASSIGNMENT}!ErrorCode.h@{ErrorCode.h}}\index{ErrorCode.h@{ErrorCode.h}!ERROR\_CONST\_REASSIGNMENT@{ERROR\_CONST\_REASSIGNMENT}}}\Hypertarget{_error_code_8h_a59e56af19e754a6aa26a612ebf91d05fa32ad158063667cc5572823c961c1c4ef}\label{_error_code_8h_a59e56af19e754a6aa26a612ebf91d05fa32ad158063667cc5572823c961c1c4ef} 
+ERROR\+\_\+\+CONST\+\_\+\+REASSIGNMENT&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{ERROR\_EXPECTED\_EXPRESSION\_AT\_START@{ERROR\_EXPECTED\_EXPRESSION\_AT\_START}!ErrorCode.h@{ErrorCode.h}}\index{ErrorCode.h@{ErrorCode.h}!ERROR\_EXPECTED\_EXPRESSION\_AT\_START@{ERROR\_EXPECTED\_EXPRESSION\_AT\_START}}}\Hypertarget{_error_code_8h_a59e56af19e754a6aa26a612ebf91d05fae67d45ba44d0f5215d200875e19c5de3}\label{_error_code_8h_a59e56af19e754a6aa26a612ebf91d05fae67d45ba44d0f5215d200875e19c5de3} 
+ERROR\+\_\+\+EXPECTED\+\_\+\+EXPRESSION\+\_\+\+AT\+\_\+\+START&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{ERROR\_INVALID\_LVALUE@{ERROR\_INVALID\_LVALUE}!ErrorCode.h@{ErrorCode.h}}\index{ErrorCode.h@{ErrorCode.h}!ERROR\_INVALID\_LVALUE@{ERROR\_INVALID\_LVALUE}}}\Hypertarget{_error_code_8h_a59e56af19e754a6aa26a612ebf91d05fa35a3bfe6f0bcbd43fdf4553876972ec5}\label{_error_code_8h_a59e56af19e754a6aa26a612ebf91d05fa35a3bfe6f0bcbd43fdf4553876972ec5} 
+ERROR\+\_\+\+INVALID\+\_\+\+LVALUE&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{ERROR\_INVALID\_CALL@{ERROR\_INVALID\_CALL}!ErrorCode.h@{ErrorCode.h}}\index{ErrorCode.h@{ErrorCode.h}!ERROR\_INVALID\_CALL@{ERROR\_INVALID\_CALL}}}\Hypertarget{_error_code_8h_a59e56af19e754a6aa26a612ebf91d05fa07213cc3dba5230ec5715a8e23b7a75b}\label{_error_code_8h_a59e56af19e754a6aa26a612ebf91d05fa07213cc3dba5230ec5715a8e23b7a75b} 
+ERROR\+\_\+\+INVALID\+\_\+\+CALL&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{ERROR\_INVALID\_ARGUMENT\_COUNT@{ERROR\_INVALID\_ARGUMENT\_COUNT}!ErrorCode.h@{ErrorCode.h}}\index{ErrorCode.h@{ErrorCode.h}!ERROR\_INVALID\_ARGUMENT\_COUNT@{ERROR\_INVALID\_ARGUMENT\_COUNT}}}\Hypertarget{_error_code_8h_a59e56af19e754a6aa26a612ebf91d05fab55db74ec6e0da76114fcde483042d2e}\label{_error_code_8h_a59e56af19e754a6aa26a612ebf91d05fab55db74ec6e0da76114fcde483042d2e} 
+ERROR\+\_\+\+INVALID\+\_\+\+ARGUMENT\+\_\+\+COUNT&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{ERROR\_INVALID\_RETURN\_POSITION@{ERROR\_INVALID\_RETURN\_POSITION}!ErrorCode.h@{ErrorCode.h}}\index{ErrorCode.h@{ErrorCode.h}!ERROR\_INVALID\_RETURN\_POSITION@{ERROR\_INVALID\_RETURN\_POSITION}}}\Hypertarget{_error_code_8h_a59e56af19e754a6aa26a612ebf91d05fab8e0076acfdc964614d77b23ce15e112}\label{_error_code_8h_a59e56af19e754a6aa26a612ebf91d05fab8e0076acfdc964614d77b23ce15e112} 
+ERROR\+\_\+\+INVALID\+\_\+\+RETURN\+\_\+\+POSITION&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{ERROR\_SELF\_REFERENCING\_INITIALIZER@{ERROR\_SELF\_REFERENCING\_INITIALIZER}!ErrorCode.h@{ErrorCode.h}}\index{ErrorCode.h@{ErrorCode.h}!ERROR\_SELF\_REFERENCING\_INITIALIZER@{ERROR\_SELF\_REFERENCING\_INITIALIZER}}}\Hypertarget{_error_code_8h_a59e56af19e754a6aa26a612ebf91d05fa425c0ce6580188f05fc03bd22e852c4b}\label{_error_code_8h_a59e56af19e754a6aa26a612ebf91d05fa425c0ce6580188f05fc03bd22e852c4b} 
+ERROR\+\_\+\+SELF\+\_\+\+REFERENCING\+\_\+\+INITIALIZER&\\
 \hline
 
 \raisebox{\heightof{T}}[0pt][0pt]{\index{ERROR\_WRONG\_TYPE\_OPERAND@{ERROR\_WRONG\_TYPE\_OPERAND}!ErrorCode.h@{ErrorCode.h}}\index{ErrorCode.h@{ErrorCode.h}!ERROR\_WRONG\_TYPE\_OPERAND@{ERROR\_WRONG\_TYPE\_OPERAND}}}\Hypertarget{_error_code_8h_a59e56af19e754a6aa26a612ebf91d05fa2e1a626d0a665069b6c81d59b1787d25}\label{_error_code_8h_a59e56af19e754a6aa26a612ebf91d05fa2e1a626d0a665069b6c81d59b1787d25} 

@@ -96,16 +96,32 @@ Typedefs</h2></td></tr>
 Enumerations</h2></td></tr>
 <tr class="memitem:abbed81ee894f251822f94201ef008817" id="r_abbed81ee894f251822f94201ef008817"><td class="memItemLeft" align="right" valign="top">enum class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#abbed81ee894f251822f94201ef008817">AstNodeType</a> : uint8_t { <br />
 &#160;&#160;<a class="el" href="#abbed81ee894f251822f94201ef008817a95c50c7cc68e399ac5540898dfd06820">Program</a>
+, <a class="el" href="#abbed81ee894f251822f94201ef008817a9a19427cbcc2da670064ca47b71306ed">ExpressionStatement</a>
+, <a class="el" href="#abbed81ee894f251822f94201ef008817ab60d8a4c331661de912a2285db0abfd1">PrintStatement</a>
+, <a class="el" href="#abbed81ee894f251822f94201ef008817a22e30b89937f764aa457c505e8e2b93c">VarDeclarationStatement</a>
+, <br />
+&#160;&#160;<a class="el" href="#abbed81ee894f251822f94201ef008817afcd99f9c9a997ff2b2e9791fe791c53b">BlockStatement</a>
+, <a class="el" href="#abbed81ee894f251822f94201ef008817a69bf1eda358268e97a9d792c0e88b10d">IfStatement</a>
+, <a class="el" href="#abbed81ee894f251822f94201ef008817ab29d5f9d91f4492a318586100a2a00d4">WhileStatement</a>
+, <a class="el" href="#abbed81ee894f251822f94201ef008817aef190250c7ddc22c8f9965ad6c9ac872">FunctionDeclarationStatement</a>
+, <br />
+&#160;&#160;<a class="el" href="#abbed81ee894f251822f94201ef008817ab5660306d5780a6d4577a8947ae768df">ReturnStatement</a>
+, <a class="el" href="#abbed81ee894f251822f94201ef008817a9bf7cb6ceb302a26beca37800b039369">AssignmentExpression</a>
 , <a class="el" href="#abbed81ee894f251822f94201ef008817aef8bdf9ede229a64b3daf2724b5e45dc">BinaryExpression</a>
 , <a class="el" href="#abbed81ee894f251822f94201ef008817aba040fffb921ae39cd6724a98a871210">LogicalExpression</a>
-, <a class="el" href="#abbed81ee894f251822f94201ef008817af63d76d45aee45cf332a951650eedcb7">UnaryExpression</a>
 , <br />
-&#160;&#160;<a class="el" href="#abbed81ee894f251822f94201ef008817a02da156e47dc8b7bb0575d125b9dbe38">NullLiteralExpression</a>
+&#160;&#160;<a class="el" href="#abbed81ee894f251822f94201ef008817af63d76d45aee45cf332a951650eedcb7">UnaryExpression</a>
+, <a class="el" href="#abbed81ee894f251822f94201ef008817a02da156e47dc8b7bb0575d125b9dbe38">NullLiteralExpression</a>
 , <a class="el" href="#abbed81ee894f251822f94201ef008817a01f9552b9de59b58d97abcdbe885307f">BooleanLiteralExpression</a>
 , <a class="el" href="#abbed81ee894f251822f94201ef008817a3b1f196eca8855434fe73958b8df7c9e">NumericLiteralExpression</a>
-, <a class="el" href="#abbed81ee894f251822f94201ef008817ac630f88540b8851ac6098772bb517e83">StringLiteralExpression</a>
 , <br />
-&#160;&#160;<a class="el" href="#abbed81ee894f251822f94201ef008817ad9a47e9f7c52e88ca30bd69725b59aaf">GroupingExpression</a>
+&#160;&#160;<a class="el" href="#abbed81ee894f251822f94201ef008817ac630f88540b8851ac6098772bb517e83">StringLiteralExpression</a>
+, <a class="el" href="#abbed81ee894f251822f94201ef008817ad9a47e9f7c52e88ca30bd69725b59aaf">GroupingExpression</a>
+, <a class="el" href="#abbed81ee894f251822f94201ef008817a00fae1715f735bd70a658b65077013ff">VariableExpression</a>
+, <a class="el" href="#abbed81ee894f251822f94201ef008817a1697fad9088aaf8a1b519d9502372538">CallExpression</a>
+, <br />
+&#160;&#160;<a class="el" href="#abbed81ee894f251822f94201ef008817af2355d30a1764378021476eb91f58801">IndexingExpression</a>
+, <a class="el" href="#abbed81ee894f251822f94201ef008817a310c59dec3af1a260ca515c18fe9804c">ArrayLiteralExpression</a>
 <br />
  }</td></tr>
 <tr class="memdesc:abbed81ee894f251822f94201ef008817"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enum class representing the type of the AST node.  <a href="#abbed81ee894f251822f94201ef008817">More...</a><br /></td></tr>
@@ -165,6 +181,15 @@ Enumerations</h2></td></tr>
 <p>Used to determine the type of a node at runtime without doing dynamic casting. </p>
 <table class="fieldtable">
 <tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="abbed81ee894f251822f94201ef008817a95c50c7cc68e399ac5540898dfd06820" name="abbed81ee894f251822f94201ef008817a95c50c7cc68e399ac5540898dfd06820"></a>Program&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="abbed81ee894f251822f94201ef008817a9a19427cbcc2da670064ca47b71306ed" name="abbed81ee894f251822f94201ef008817a9a19427cbcc2da670064ca47b71306ed"></a>ExpressionStatement&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="abbed81ee894f251822f94201ef008817ab60d8a4c331661de912a2285db0abfd1" name="abbed81ee894f251822f94201ef008817ab60d8a4c331661de912a2285db0abfd1"></a>PrintStatement&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="abbed81ee894f251822f94201ef008817a22e30b89937f764aa457c505e8e2b93c" name="abbed81ee894f251822f94201ef008817a22e30b89937f764aa457c505e8e2b93c"></a>VarDeclarationStatement&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="abbed81ee894f251822f94201ef008817afcd99f9c9a997ff2b2e9791fe791c53b" name="abbed81ee894f251822f94201ef008817afcd99f9c9a997ff2b2e9791fe791c53b"></a>BlockStatement&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="abbed81ee894f251822f94201ef008817a69bf1eda358268e97a9d792c0e88b10d" name="abbed81ee894f251822f94201ef008817a69bf1eda358268e97a9d792c0e88b10d"></a>IfStatement&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="abbed81ee894f251822f94201ef008817ab29d5f9d91f4492a318586100a2a00d4" name="abbed81ee894f251822f94201ef008817ab29d5f9d91f4492a318586100a2a00d4"></a>WhileStatement&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="abbed81ee894f251822f94201ef008817aef190250c7ddc22c8f9965ad6c9ac872" name="abbed81ee894f251822f94201ef008817aef190250c7ddc22c8f9965ad6c9ac872"></a>FunctionDeclarationStatement&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="abbed81ee894f251822f94201ef008817ab5660306d5780a6d4577a8947ae768df" name="abbed81ee894f251822f94201ef008817ab5660306d5780a6d4577a8947ae768df"></a>ReturnStatement&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="abbed81ee894f251822f94201ef008817a9bf7cb6ceb302a26beca37800b039369" name="abbed81ee894f251822f94201ef008817a9bf7cb6ceb302a26beca37800b039369"></a>AssignmentExpression&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="abbed81ee894f251822f94201ef008817aef8bdf9ede229a64b3daf2724b5e45dc" name="abbed81ee894f251822f94201ef008817aef8bdf9ede229a64b3daf2724b5e45dc"></a>BinaryExpression&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="abbed81ee894f251822f94201ef008817aba040fffb921ae39cd6724a98a871210" name="abbed81ee894f251822f94201ef008817aba040fffb921ae39cd6724a98a871210"></a>LogicalExpression&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="abbed81ee894f251822f94201ef008817af63d76d45aee45cf332a951650eedcb7" name="abbed81ee894f251822f94201ef008817af63d76d45aee45cf332a951650eedcb7"></a>UnaryExpression&#160;</td><td class="fielddoc"></td></tr>
@@ -173,6 +198,10 @@ Enumerations</h2></td></tr>
 <tr><td class="fieldname"><a id="abbed81ee894f251822f94201ef008817a3b1f196eca8855434fe73958b8df7c9e" name="abbed81ee894f251822f94201ef008817a3b1f196eca8855434fe73958b8df7c9e"></a>NumericLiteralExpression&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="abbed81ee894f251822f94201ef008817ac630f88540b8851ac6098772bb517e83" name="abbed81ee894f251822f94201ef008817ac630f88540b8851ac6098772bb517e83"></a>StringLiteralExpression&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="abbed81ee894f251822f94201ef008817ad9a47e9f7c52e88ca30bd69725b59aaf" name="abbed81ee894f251822f94201ef008817ad9a47e9f7c52e88ca30bd69725b59aaf"></a>GroupingExpression&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="abbed81ee894f251822f94201ef008817a00fae1715f735bd70a658b65077013ff" name="abbed81ee894f251822f94201ef008817a00fae1715f735bd70a658b65077013ff"></a>VariableExpression&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="abbed81ee894f251822f94201ef008817a1697fad9088aaf8a1b519d9502372538" name="abbed81ee894f251822f94201ef008817a1697fad9088aaf8a1b519d9502372538"></a>CallExpression&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="abbed81ee894f251822f94201ef008817af2355d30a1764378021476eb91f58801" name="abbed81ee894f251822f94201ef008817af2355d30a1764378021476eb91f58801"></a>IndexingExpression&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="abbed81ee894f251822f94201ef008817a310c59dec3af1a260ca515c18fe9804c" name="abbed81ee894f251822f94201ef008817a310c59dec3af1a260ca515c18fe9804c"></a>ArrayLiteralExpression&#160;</td><td class="fielddoc"></td></tr>
 </table>
 
 </div>

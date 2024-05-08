@@ -1,0 +1,32 @@
+\doxysection{Expected\+XAfter\+Y.\+h}
+\hypertarget{_expected_x_after_y_8h_source}{}\label{_expected_x_after_y_8h_source}\index{src/error/exceptions/parser/ExpectedXAfterY.h@{src/error/exceptions/parser/ExpectedXAfterY.h}}
+\mbox{\hyperlink{_expected_x_after_y_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{//}}
+\DoxyCodeLine{00002\ \textcolor{comment}{//\ Created\ by\ kemal\ on\ 3/12/2024.}}
+\DoxyCodeLine{00003\ \textcolor{comment}{//}}
+\DoxyCodeLine{00004\ }
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#ifndef\ BAKLAVA\_EXPECTEDXAFTERY\_H}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#define\ BAKLAVA\_EXPECTEDXAFTERY\_H}}
+\DoxyCodeLine{00007\ }
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_parser_error_8h}{ParserError.h}}"{}}}
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_token_8h}{Token.h}}"{}}}
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_error_code_8h}{ErrorCode.h}}"{}}}
+\DoxyCodeLine{00011\ }
+\DoxyCodeLine{00015\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_expected_x_after_y}{ExpectedXAfterY}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{class_parser_error}{ParserError}}\ \{}
+\DoxyCodeLine{00016\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00017\ \ \ \ \ \mbox{\hyperlink{class_expected_x_after_y_a0d2e9de4d87a9f1e6918b1fa37aebe17}{ExpectedXAfterY}}(std::wstring\ \mbox{\hyperlink{class_expected_x_after_y_af61fc9f7b1a1a18710cec6b84a4ebc9f}{expectedWhat}},\ \mbox{\hyperlink{class_token}{TokenPtr}}\ \mbox{\hyperlink{class_expected_x_after_y_a486d08106d8faa0138dd344115ce2938}{found}},\ \mbox{\hyperlink{class_token}{TokenPtr}}\ \mbox{\hyperlink{class_expected_x_after_y_a07ad06083022166c80a72939c5ffacf6}{after}})\ :\ \mbox{\hyperlink{class_parser_error}{ParserError}}(}
+\DoxyCodeLine{00018\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_error_code_8h_a59e56af19e754a6aa26a612ebf91d05fae8f827fe28c0270722e6bd4a0dbd2b50}{ERROR\_EXPECTED\_X\_AFTER\_Y}}),\ \mbox{\hyperlink{class_expected_x_after_y_af61fc9f7b1a1a18710cec6b84a4ebc9f}{expectedWhat}}(\mbox{\hyperlink{class_expected_x_after_y_af61fc9f7b1a1a18710cec6b84a4ebc9f}{expectedWhat}}),\ \mbox{\hyperlink{class_expected_x_after_y_a486d08106d8faa0138dd344115ce2938}{found}}(std::move(\mbox{\hyperlink{class_expected_x_after_y_a486d08106d8faa0138dd344115ce2938}{found}})),}
+\DoxyCodeLine{00019\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_expected_x_after_y_a07ad06083022166c80a72939c5ffacf6}{after}}(std::move(\mbox{\hyperlink{class_expected_x_after_y_a07ad06083022166c80a72939c5ffacf6}{after}}))\ \{}
+\DoxyCodeLine{00020\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_parser_error_afd3884bd1c9e5edf8321f7824a858657}{messageArguments}}.push\_back(\mbox{\hyperlink{class_expected_x_after_y_af61fc9f7b1a1a18710cec6b84a4ebc9f}{expectedWhat}});}
+\DoxyCodeLine{00021\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_parser_error_afd3884bd1c9e5edf8321f7824a858657}{messageArguments}}.push\_back(\mbox{\hyperlink{class_expected_x_after_y_a07ad06083022166c80a72939c5ffacf6}{after}}-\/>\mbox{\hyperlink{class_token_acfd9e64709c736211934e4b27ac20955}{value}});}
+\DoxyCodeLine{00022\ \ \ \ \ \}}
+\DoxyCodeLine{00023\ }
+\DoxyCodeLine{00024\ \ \ \ \ std::wstring\ \mbox{\hyperlink{class_expected_x_after_y_af61fc9f7b1a1a18710cec6b84a4ebc9f}{expectedWhat}};}
+\DoxyCodeLine{00025\ \ \ \ \ \mbox{\hyperlink{class_token}{TokenPtr}}\ \mbox{\hyperlink{class_expected_x_after_y_a486d08106d8faa0138dd344115ce2938}{found}};}
+\DoxyCodeLine{00026\ \ \ \ \ \mbox{\hyperlink{class_token}{TokenPtr}}\ \mbox{\hyperlink{class_expected_x_after_y_a07ad06083022166c80a72939c5ffacf6}{after}};}
+\DoxyCodeLine{00027\ \};}
+\DoxyCodeLine{00028\ }
+\DoxyCodeLine{00029\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//BAKLAVA\_EXPECTEDXAFTERY\_H}}
+
+\end{DoxyCode}

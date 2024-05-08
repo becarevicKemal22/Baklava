@@ -6,8 +6,8 @@
 \DoxyCodeLine{00002\ \textcolor{comment}{//\ Created\ by\ kemal\ on\ 3/12/2024.}}
 \DoxyCodeLine{00003\ \textcolor{comment}{//}}
 \DoxyCodeLine{00004\ }
-\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#ifndef\ MATURSKI\_2\_PARSERERROR\_H}}
-\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#define\ MATURSKI\_2\_PARSERERROR\_H}}
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#ifndef\ BAKLAVA\_PARSERERROR\_H}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#define\ BAKLAVA\_PARSERERROR\_H}}
 \DoxyCodeLine{00007\ }
 \DoxyCodeLine{00008\ \textcolor{preprocessor}{\#include\ <exception>}}
 \DoxyCodeLine{00009\ \textcolor{preprocessor}{\#include\ <utility>}}
@@ -21,12 +21,18 @@
 \DoxyCodeLine{00022\ \ \ \ \ \mbox{\hyperlink{class_parser_error_a04c2c577a5a638f50b7a340ebdd8a593}{ParserError}}(\mbox{\hyperlink{_error_code_8h_a59e56af19e754a6aa26a612ebf91d05f}{ErrorCode}}\ \mbox{\hyperlink{class_parser_error_a7923d1c9d18cc0996e3b1f875e548de3}{code}})\ :\ \mbox{\hyperlink{class_parser_error_a7923d1c9d18cc0996e3b1f875e548de3}{code}}(\mbox{\hyperlink{class_parser_error_a7923d1c9d18cc0996e3b1f875e548de3}{code}})\ \{\}}
 \DoxyCodeLine{00023\ }
 \DoxyCodeLine{00024\ \ \ \ \ \mbox{\hyperlink{class_parser_error_a58a4af6d0dfc0a5848cebbb7cf3788dc}{ParserError}}(\mbox{\hyperlink{_error_code_8h_a59e56af19e754a6aa26a612ebf91d05f}{ErrorCode}}\ \mbox{\hyperlink{class_parser_error_a7923d1c9d18cc0996e3b1f875e548de3}{code}},\ std::vector<ErrorMessageArgument>\ \mbox{\hyperlink{class_parser_error_afd3884bd1c9e5edf8321f7824a858657}{messageArguments}})\ :\ \mbox{\hyperlink{class_parser_error_a7923d1c9d18cc0996e3b1f875e548de3}{code}}(\mbox{\hyperlink{class_parser_error_a7923d1c9d18cc0996e3b1f875e548de3}{code}}),}
-\DoxyCodeLine{00025\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_parser_error_afd3884bd1c9e5edf8321f7824a858657}{messageArguments}}(std::move(\mbox{\hyperlink{class_parser_error_afd3884bd1c9e5edf8321f7824a858657}{messageArguments}}))\ \{\}}
-\DoxyCodeLine{00026\ }
-\DoxyCodeLine{00027\ \ \ \ \ \mbox{\hyperlink{_error_code_8h_a59e56af19e754a6aa26a612ebf91d05f}{ErrorCode}}\ \mbox{\hyperlink{class_parser_error_a7923d1c9d18cc0996e3b1f875e548de3}{code}};}
-\DoxyCodeLine{00028\ \ \ \ \ std::vector<ErrorMessageArgument>\ \mbox{\hyperlink{class_parser_error_afd3884bd1c9e5edf8321f7824a858657}{messageArguments}};}
-\DoxyCodeLine{00029\ \};}
-\DoxyCodeLine{00030\ }
-\DoxyCodeLine{00031\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//MATURSKI\_2\_PARSERERROR\_H}}
+\DoxyCodeLine{00025\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_parser_error_afd3884bd1c9e5edf8321f7824a858657}{messageArguments}}(std::move(}
+\DoxyCodeLine{00026\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_parser_error_afd3884bd1c9e5edf8321f7824a858657}{messageArguments}}))\ \{\}}
+\DoxyCodeLine{00027\ }
+\DoxyCodeLine{00028\ \ \ \ \ \mbox{\hyperlink{class_parser_error_a4e1e918bb6dd798c61ee72f480375a6c}{ParserError}}(\mbox{\hyperlink{_error_code_8h_a59e56af19e754a6aa26a612ebf91d05f}{ErrorCode}}\ \mbox{\hyperlink{class_parser_error_a7923d1c9d18cc0996e3b1f875e548de3}{code}},\ \mbox{\hyperlink{class_token}{Token}}\ *token)\ :\ \mbox{\hyperlink{class_parser_error_a7923d1c9d18cc0996e3b1f875e548de3}{code}}(\mbox{\hyperlink{class_parser_error_a7923d1c9d18cc0996e3b1f875e548de3}{code}}),\ \mbox{\hyperlink{class_parser_error_a258c3acf41bb96de8ac24f313eb92e18}{myToken}}(token)\ \{}
+\DoxyCodeLine{00029\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_parser_error_afd3884bd1c9e5edf8321f7824a858657}{messageArguments}}.push\_back(token-\/>\mbox{\hyperlink{class_token_acfd9e64709c736211934e4b27ac20955}{value}});}
+\DoxyCodeLine{00030\ \ \ \ \ \}}
+\DoxyCodeLine{00031\ }
+\DoxyCodeLine{00032\ \ \ \ \ \mbox{\hyperlink{_error_code_8h_a59e56af19e754a6aa26a612ebf91d05f}{ErrorCode}}\ \mbox{\hyperlink{class_parser_error_a7923d1c9d18cc0996e3b1f875e548de3}{code}};}
+\DoxyCodeLine{00033\ \ \ \ \ std::vector<ErrorMessageArgument>\ \mbox{\hyperlink{class_parser_error_afd3884bd1c9e5edf8321f7824a858657}{messageArguments}};}
+\DoxyCodeLine{00034\ \ \ \ \ \mbox{\hyperlink{class_token}{Token}}\ *\mbox{\hyperlink{class_parser_error_a258c3acf41bb96de8ac24f313eb92e18}{myToken}}\ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00035\ \};}
+\DoxyCodeLine{00036\ }
+\DoxyCodeLine{00037\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//BAKLAVA\_PARSERERROR\_H}}
 
 \end{DoxyCode}

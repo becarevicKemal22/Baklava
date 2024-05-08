@@ -1,0 +1,110 @@
+\doxysection{Resolver.\+h}
+\hypertarget{_resolver_8h_source}{}\label{_resolver_8h_source}\index{src/parser/Resolver.h@{src/parser/Resolver.h}}
+\mbox{\hyperlink{_resolver_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{//}}
+\DoxyCodeLine{00002\ \textcolor{comment}{//\ Created\ by\ kemal\ on\ 3/20/2024.}}
+\DoxyCodeLine{00003\ \textcolor{comment}{//}}
+\DoxyCodeLine{00004\ }
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#ifndef\ BAKLAVA\_RESOLVER\_H}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#define\ BAKLAVA\_RESOLVER\_H}}
+\DoxyCodeLine{00007\ }
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#include\ <vector>}}
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#include\ <memory>}}
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#include\ <stack>}}
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#include\ <unordered\_map>}}
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_interpreter_8h}{Interpreter.h}}"{}}}
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_program_8h}{Program.h}}"{}}}
+\DoxyCodeLine{00014\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_statement_8h}{Statement.h}}"{}}}
+\DoxyCodeLine{00015\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_expression_8h}{Expression.h}}"{}}}
+\DoxyCodeLine{00016\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_ast_8h}{Ast.h}}"{}}}
+\DoxyCodeLine{00017\ }
+\DoxyCodeLine{00018\ \textcolor{keyword}{typedef}\ std::unordered\_map<std::wstring,\ bool>\ \mbox{\hyperlink{_resolver_8h_a21e1451753a0b783ae5c4b921c44c963}{Scope}};}
+\DoxyCodeLine{00019\ \textcolor{keyword}{typedef}\ std::stack<Scope>\ \mbox{\hyperlink{_resolver_8h_ad6f880cdf75e7462a737aa17fa2295a0}{ScopeStack}};}
+\DoxyCodeLine{00020\ }
+\DoxyCodeLine{00021\ \textcolor{keyword}{enum\ class}\ \mbox{\hyperlink{_resolver_8h_a42a11575cc237e37732d560240e04371}{FunctionType}}\ \{}
+\DoxyCodeLine{00022\ \ \ \ \ \mbox{\hyperlink{_resolver_8h_a42a11575cc237e37732d560240e04371ab50339a10e1de285ac99d4c3990b8693}{NONE}},}
+\DoxyCodeLine{00023\ \ \ \ \ \mbox{\hyperlink{_resolver_8h_a42a11575cc237e37732d560240e04371a6a72a6a776662a244f82d31e9274a07b}{FUNCTION}},}
+\DoxyCodeLine{00024\ \};}
+\DoxyCodeLine{00025\ }
+\DoxyCodeLine{00026\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_resolver}{Resolver}}\ \{}
+\DoxyCodeLine{00027\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00028\ \ \ \ \ \mbox{\hyperlink{class_resolver_aede661a50a7e07603fcd2cbd3fadd4b6}{Resolver}}(\mbox{\hyperlink{class_interpreter}{Interpreter}}\ *interpreter)\ \{}
+\DoxyCodeLine{00029\ \ \ \ \ \ \ \ \ this-\/>interpreter\ =\ interpreter;}
+\DoxyCodeLine{00030\ \ \ \ \ \}}
+\DoxyCodeLine{00031\ }
+\DoxyCodeLine{00032\ \ \ \ \ \mbox{\hyperlink{class_resolver_a761b0b79ba0aeac72adbeec4674197d9}{\string~Resolver}}()\ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{00033\ }
+\DoxyCodeLine{00034\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_resolver_a7cbd1c72e8ae8b75a64cbbbf037d1bd7}{resolve}}(std::unique\_ptr<Program>\ \&program);}
+\DoxyCodeLine{00035\ }
+\DoxyCodeLine{00036\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_resolver_a7cbd1c72e8ae8b75a64cbbbf037d1bd7}{resolve}}(\textcolor{keyword}{const}\ std::vector<Statement\ *>\ \&statements);}
+\DoxyCodeLine{00037\ }
+\DoxyCodeLine{00038\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_resolver_a7cbd1c72e8ae8b75a64cbbbf037d1bd7}{resolve}}(\mbox{\hyperlink{class_statement}{Statement}}\ *statement);}
+\DoxyCodeLine{00039\ }
+\DoxyCodeLine{00040\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_resolver_a7cbd1c72e8ae8b75a64cbbbf037d1bd7}{resolve}}(\mbox{\hyperlink{class_expression}{Expression}}\ *expression);}
+\DoxyCodeLine{00041\ }
+\DoxyCodeLine{00042\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00043\ \ \ \ \ \mbox{\hyperlink{_resolver_8h_ad6f880cdf75e7462a737aa17fa2295a0}{ScopeStack}}\ scopes;}
+\DoxyCodeLine{00044\ \ \ \ \ \mbox{\hyperlink{class_interpreter}{Interpreter}}\ *interpreter;}
+\DoxyCodeLine{00045\ \ \ \ \ \mbox{\hyperlink{_resolver_8h_a42a11575cc237e37732d560240e04371}{FunctionType}}\ currentFunction\ =\ \mbox{\hyperlink{_resolver_8h_a42a11575cc237e37732d560240e04371ab50339a10e1de285ac99d4c3990b8693}{FunctionType::NONE}};}
+\DoxyCodeLine{00046\ }
+\DoxyCodeLine{00047\ \ \ \ \ \textcolor{keywordtype}{void}\ beginScope()\ \{}
+\DoxyCodeLine{00048\ \ \ \ \ \ \ \ \ scopes.emplace();}
+\DoxyCodeLine{00049\ \ \ \ \ \}}
+\DoxyCodeLine{00050\ }
+\DoxyCodeLine{00051\ \ \ \ \ \textcolor{keywordtype}{void}\ endScope()\ \{}
+\DoxyCodeLine{00052\ \ \ \ \ \ \ \ \ scopes.pop();}
+\DoxyCodeLine{00053\ \ \ \ \ \}}
+\DoxyCodeLine{00054\ }
+\DoxyCodeLine{00055\ \ \ \ \ \textcolor{keywordtype}{void}\ declare(\mbox{\hyperlink{class_token}{Token}}\ *name);}
+\DoxyCodeLine{00056\ }
+\DoxyCodeLine{00057\ \ \ \ \ \textcolor{keywordtype}{void}\ define(\mbox{\hyperlink{class_token}{Token}}\ *name);}
+\DoxyCodeLine{00058\ }
+\DoxyCodeLine{00059\ \ \ \ \ \textcolor{keywordtype}{void}\ resolveLocal(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_expression}{Expression}}\ *expr,\ \textcolor{keyword}{const}\ std::wstring\ \&name);}
+\DoxyCodeLine{00060\ }
+\DoxyCodeLine{00061\ \ \ \ \ \textcolor{keywordtype}{void}\ resolveFunction(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_function_declaration_statement}{FunctionDeclarationStatement}}\ *function,\ \mbox{\hyperlink{_resolver_8h_a42a11575cc237e37732d560240e04371}{FunctionType}}\ type);}
+\DoxyCodeLine{00062\ }
+\DoxyCodeLine{00063\ \ \ \ \ \textcolor{keywordtype}{void}\ resolveBlockStatement(\mbox{\hyperlink{class_block_statement}{BlockStatement}}\ *statement);}
+\DoxyCodeLine{00064\ }
+\DoxyCodeLine{00065\ \ \ \ \ \textcolor{keywordtype}{void}\ resolveVarDeclarationStatement(\mbox{\hyperlink{class_var_declaration_statement}{VarDeclarationStatement}}\ *statement);}
+\DoxyCodeLine{00066\ }
+\DoxyCodeLine{00067\ \ \ \ \ \textcolor{keywordtype}{void}\ resolveFunctionDeclarationStatement(\mbox{\hyperlink{class_function_declaration_statement}{FunctionDeclarationStatement}}\ *statement);}
+\DoxyCodeLine{00068\ }
+\DoxyCodeLine{00069\ \ \ \ \ \textcolor{keywordtype}{void}\ resolveExpressionStatement(\mbox{\hyperlink{class_expression_statement}{ExpressionStatement}}\ *statement);}
+\DoxyCodeLine{00070\ }
+\DoxyCodeLine{00071\ \ \ \ \ \textcolor{keywordtype}{void}\ resolvePrintStatement(\mbox{\hyperlink{class_print_statement}{PrintStatement}}\ *statement);}
+\DoxyCodeLine{00072\ }
+\DoxyCodeLine{00073\ \ \ \ \ \textcolor{keywordtype}{void}\ resolveIfStatement(\mbox{\hyperlink{class_if_statement}{IfStatement}}\ *statement);}
+\DoxyCodeLine{00074\ }
+\DoxyCodeLine{00075\ \ \ \ \ \textcolor{keywordtype}{void}\ resolveWhileStatement(\mbox{\hyperlink{class_while_statement}{WhileStatement}}\ *statement);}
+\DoxyCodeLine{00076\ }
+\DoxyCodeLine{00077\ \ \ \ \ \textcolor{keywordtype}{void}\ resolveReturnStatement(\mbox{\hyperlink{class_return_statement}{ReturnStatement}}\ *statement);}
+\DoxyCodeLine{00078\ }
+\DoxyCodeLine{00079\ \ \ \ \ \textcolor{keywordtype}{void}\ resolveVariableExpression(\mbox{\hyperlink{class_variable_expression}{VariableExpression}}\ *expression);}
+\DoxyCodeLine{00080\ }
+\DoxyCodeLine{00081\ \ \ \ \ \textcolor{keywordtype}{void}\ resolveAssignmentExpression(\mbox{\hyperlink{class_assignment_expression}{AssignmentExpression}}\ *expression);}
+\DoxyCodeLine{00082\ }
+\DoxyCodeLine{00083\ \ \ \ \ \textcolor{keywordtype}{void}\ resolveBinaryExpression(\mbox{\hyperlink{class_binary_expression}{BinaryExpression}}\ *expression);}
+\DoxyCodeLine{00084\ }
+\DoxyCodeLine{00085\ \ \ \ \ \textcolor{keywordtype}{void}\ resolveCallExpression(\mbox{\hyperlink{class_call_expression}{CallExpression}}\ *expression);}
+\DoxyCodeLine{00086\ }
+\DoxyCodeLine{00087\ \ \ \ \ \textcolor{keywordtype}{void}\ resolveGroupingExpression(\mbox{\hyperlink{class_grouping_expression}{GroupingExpression}}\ *expression);}
+\DoxyCodeLine{00088\ }
+\DoxyCodeLine{00089\ \ \ \ \ \textcolor{keywordtype}{void}\ resolveLogicalExpression(\mbox{\hyperlink{class_logical_expression}{LogicalExpression}}\ *expression);}
+\DoxyCodeLine{00090\ }
+\DoxyCodeLine{00091\ \ \ \ \ \textcolor{keywordtype}{void}\ resolveUnaryExpression(\mbox{\hyperlink{class_unary_expression}{UnaryExpression}}\ *expression);}
+\DoxyCodeLine{00092\ }
+\DoxyCodeLine{00093\ \ \ \ \ \textcolor{keywordtype}{void}\ resolveNumericLiteralExpression(\mbox{\hyperlink{class_numeric_literal_expression}{NumericLiteralExpression}}\ *expression);}
+\DoxyCodeLine{00094\ }
+\DoxyCodeLine{00095\ \ \ \ \ \textcolor{keywordtype}{void}\ resolveBooleanLiteralExpression(\mbox{\hyperlink{class_boolean_literal_expression}{BooleanLiteralExpression}}\ *expression);}
+\DoxyCodeLine{00096\ }
+\DoxyCodeLine{00097\ \ \ \ \ \textcolor{keywordtype}{void}\ resolveStringLiteralExpression(\mbox{\hyperlink{class_string_literal_expression}{StringLiteralExpression}}\ *expression);}
+\DoxyCodeLine{00098\ }
+\DoxyCodeLine{00099\ \ \ \ \ \textcolor{keywordtype}{void}\ resolveNullLiteralExpression(\mbox{\hyperlink{class_null_literal_expression}{NullLiteralExpression}}\ *expression);}
+\DoxyCodeLine{00100\ }
+\DoxyCodeLine{00101\ \};}
+\DoxyCodeLine{00102\ }
+\DoxyCodeLine{00103\ }
+\DoxyCodeLine{00104\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//BAKLAVA\_RESOLVER\_H}}
+
+\end{DoxyCode}

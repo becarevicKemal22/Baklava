@@ -1,7 +1,7 @@
 var searchData=
 [
-  ['_7eerrorprinter_0',['~ErrorPrinter',['../class_error_printer.html#a962f248b48c52c988f1bcb815f2a9886',1,'ErrorPrinter']]],
-  ['_7eexpression_1',['~Expression',['../class_expression.html#a9d81831ea034f330627b1fddb1899517',1,'Expression']]],
-  ['_7elexer_2',['~Lexer',['../class_lexer.html#a7a26f238ff21f31d754e5770d3501c71',1,'Lexer']]],
-  ['_7estatement_3',['~Statement',['../class_statement.html#a99d8be8cbb81cc0742784f3c43d8bb39',1,'Statement']]]
+  ['selfreferencinginitializer_0',['SelfReferencingInitializer',['../class_self_referencing_initializer.html#addf35bd0589c94a6c41ef286c82699a5',1,'SelfReferencingInitializer']]],
+  ['setprinter_1',['setPrinter',['../class_lexer.html#a919b2ac3e53a80b0c612ca511578eb37',1,'Lexer']]],
+  ['statement_2',['Statement',['../class_statement.html#aab5d8685699f2a73c8919d2008e2803f',1,'Statement']]],
+  ['stringliteralexpression_3',['StringLiteralExpression',['../class_string_literal_expression.html#ad82b7bf5c7cbaf8f41141e7339dd156b',1,'StringLiteralExpression']]]
 ];

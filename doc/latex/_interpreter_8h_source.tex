@@ -6,53 +6,129 @@
 \DoxyCodeLine{00002\ \textcolor{comment}{//\ Created\ by\ kemal\ on\ 2/6/2024.}}
 \DoxyCodeLine{00003\ \textcolor{comment}{//}}
 \DoxyCodeLine{00004\ }
-\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#ifndef\ MATURSKI\_2\_INTERPRETER\_H}}
-\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#define\ MATURSKI\_2\_INTERPRETER\_H}}
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#ifndef\ BAKLAVA\_INTERPRETER\_H}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#define\ BAKLAVA\_INTERPRETER\_H}}
 \DoxyCodeLine{00007\ }
-\DoxyCodeLine{00008\ }
-\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_runtime_value_8h}{RuntimeValue.h}}"{}}}
-\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_ast_8h}{Ast.h}}"{}}}
-\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_error_printer_8h}{ErrorPrinter.h}}"{}}}
-\DoxyCodeLine{00012\ }
-\DoxyCodeLine{00018\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_interpreter}{Interpreter}}\ \{}
-\DoxyCodeLine{00019\ \textcolor{keyword}{public}:}
-\DoxyCodeLine{00023\ \ \ \ \ \mbox{\hyperlink{class_interpreter_a9faf0dca72cd27223e5c447b580de2a5}{Interpreter}}()\ :\ errorPrinter(nullptr)\ \{\}}
-\DoxyCodeLine{00028\ \ \ \ \ \textcolor{keyword}{explicit}\ \mbox{\hyperlink{class_interpreter_a619a2264f48541288bd7bf1eecc5248a}{Interpreter}}(\mbox{\hyperlink{class_error_printer}{ErrorPrinter}}*\ errorPrinter)\ :\ errorPrinter(errorPrinter)\ \{\}}
-\DoxyCodeLine{00029\ }
-\DoxyCodeLine{00036\ \ \ \ \ \mbox{\hyperlink{struct_runtime_value}{RuntimeValue}}\ \mbox{\hyperlink{class_interpreter_a0d08edd5e92501d04c9cac6e01b126eb}{evaluate}}(\mbox{\hyperlink{class_expression}{Expression}}*\ expr);}
-\DoxyCodeLine{00037\ }
-\DoxyCodeLine{00038\ \textcolor{comment}{//\ \ \ \ \string~Interpreter()\{}}
-\DoxyCodeLine{00039\ \textcolor{comment}{//\ \ \ \ \ \ \ \ if(objects\ !=\ nullptr)\{}}
-\DoxyCodeLine{00040\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ Object*\ object\ =\ objects;}}
-\DoxyCodeLine{00041\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ while(object\ !=\ nullptr)\{}}
-\DoxyCodeLine{00042\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Object*\ next\ =\ object-\/>next;}}
-\DoxyCodeLine{00043\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ delete\ object;}}
-\DoxyCodeLine{00044\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ object\ =\ next;}}
-\DoxyCodeLine{00045\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \}}}
-\DoxyCodeLine{00046\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \}}}
-\DoxyCodeLine{00047\ \textcolor{comment}{//\ \ \ \ \}}}
-\DoxyCodeLine{00048\ }
-\DoxyCodeLine{00049\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_interpreter_a95ae7eb9c9fae9c61c7775a4974602dd}{hadError}}\ =\ \textcolor{keyword}{false};\ }
-\DoxyCodeLine{00050\ \textcolor{keyword}{private}:}
-\DoxyCodeLine{00051\ \ \ \ \ \mbox{\hyperlink{class_error_printer}{ErrorPrinter}}*\ errorPrinter;}
-\DoxyCodeLine{00052\ }
-\DoxyCodeLine{00053\ \ \ \ \ \mbox{\hyperlink{struct_runtime_value}{RuntimeValue}}\ evaluateBinaryExpression(\mbox{\hyperlink{class_binary_expression}{BinaryExpression}}*\ expr);}
-\DoxyCodeLine{00054\ \ \ \ \ \mbox{\hyperlink{struct_runtime_value}{RuntimeValue}}\ evaluateLogicalExpression(\mbox{\hyperlink{class_logical_expression}{LogicalExpression}}*\ expr);}
-\DoxyCodeLine{00055\ \ \ \ \ \mbox{\hyperlink{struct_runtime_value}{RuntimeValue}}\ evaluateUnaryExpression(\mbox{\hyperlink{class_unary_expression}{UnaryExpression}}*\ expr);}
-\DoxyCodeLine{00056\ \ \ \ \ \mbox{\hyperlink{struct_runtime_value}{RuntimeValue}}\ evaluateNumericLiteralExpression(\mbox{\hyperlink{class_numeric_literal_expression}{NumericLiteralExpression}}*\ expr);}
-\DoxyCodeLine{00057\ \ \ \ \ \mbox{\hyperlink{struct_runtime_value}{RuntimeValue}}\ evaluateBooleanLiteralExpression(\mbox{\hyperlink{class_boolean_literal_expression}{BooleanLiteralExpression}}*\ expr);}
-\DoxyCodeLine{00058\ \ \ \ \ \mbox{\hyperlink{struct_runtime_value}{RuntimeValue}}\ evaluateStringLiteralExpression(\mbox{\hyperlink{class_string_literal_expression}{StringLiteralExpression}}*\ expr);}
-\DoxyCodeLine{00059\ \ \ \ \ \mbox{\hyperlink{struct_runtime_value}{RuntimeValue}}\ evaluateNullLiteralExpression(\mbox{\hyperlink{class_null_literal_expression}{NullLiteralExpression}}*\ expr);}
-\DoxyCodeLine{00060\ }
-\DoxyCodeLine{00061\ \ \ \ \ \textcolor{keywordtype}{bool}\ isTruthy(\textcolor{keyword}{const}\ \mbox{\hyperlink{struct_runtime_value}{RuntimeValue}}\&\ value);}
-\DoxyCodeLine{00062\ \ \ \ \ \textcolor{keywordtype}{bool}\ isEqual(\textcolor{keyword}{const}\ \mbox{\hyperlink{struct_runtime_value}{RuntimeValue}}\&\ left,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{struct_runtime_value}{RuntimeValue}}\&\ right);}
-\DoxyCodeLine{00063\ }
-\DoxyCodeLine{00064\ \ \ \ \ \mbox{\hyperlink{struct_object}{Object}}*\ objects\ =\ \textcolor{keyword}{nullptr};}
-\DoxyCodeLine{00065\ }
-\DoxyCodeLine{00066\ \ \ \ \ \mbox{\hyperlink{struct_object_string}{ObjectString}}*\ allocateStringObject(\textcolor{keyword}{const}\ std::wstring\&\ value);}
-\DoxyCodeLine{00067\ \};}
-\DoxyCodeLine{00068\ }
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#include\ <stack>}}
+\DoxyCodeLine{00009\ }
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_object_8h}{Object.h}}"{}}}
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_ast_8h}{Ast.h}}"{}}}
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_error_printer_8h}{ErrorPrinter.h}}"{}}}
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_environment_8h}{Environment.h}}"{}}}
+\DoxyCodeLine{00014\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_assignment_expression_8h}{AssignmentExpression.h}}"{}}}
+\DoxyCodeLine{00015\ }
+\DoxyCodeLine{00021\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_interpreter}{Interpreter}}\ \{}
+\DoxyCodeLine{00022\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00026\ \ \ \ \ \mbox{\hyperlink{class_interpreter_a9faf0dca72cd27223e5c447b580de2a5}{Interpreter}}()\ :\ errorPrinter(nullptr)\ \{}
+\DoxyCodeLine{00027\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_interpreter_a51754c3f067cfd5f79672fc026a761e2}{environments}}.emplace();}
+\DoxyCodeLine{00028\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_interpreter_ac8d1b7617a8b385112b5ab528ed29f46}{globals}}\ =\ \&\mbox{\hyperlink{class_interpreter_a51754c3f067cfd5f79672fc026a761e2}{environments}}.top();}
+\DoxyCodeLine{00029\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_interpreter_ad2b78004f6586e9f90ae73140531b50c}{defineNativeFunctions}}();}
+\DoxyCodeLine{00030\ \ \ \ \ \}}
+\DoxyCodeLine{00031\ }
+\DoxyCodeLine{00036\ \ \ \ \ \textcolor{keyword}{explicit}\ \mbox{\hyperlink{class_interpreter_a619a2264f48541288bd7bf1eecc5248a}{Interpreter}}(\mbox{\hyperlink{class_error_printer}{ErrorPrinter}}\ *errorPrinter)\ :\ errorPrinter(errorPrinter)\ \{}
+\DoxyCodeLine{00037\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_interpreter_a51754c3f067cfd5f79672fc026a761e2}{environments}}.emplace();}
+\DoxyCodeLine{00038\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_interpreter_ac8d1b7617a8b385112b5ab528ed29f46}{globals}}\ =\ \&\mbox{\hyperlink{class_interpreter_a51754c3f067cfd5f79672fc026a761e2}{environments}}.top();}
+\DoxyCodeLine{00039\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_interpreter_ad2b78004f6586e9f90ae73140531b50c}{defineNativeFunctions}}();}
+\DoxyCodeLine{00040\ \ \ \ \ \}}
+\DoxyCodeLine{00041\ }
+\DoxyCodeLine{00042\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_interpreter_ad2b78004f6586e9f90ae73140531b50c}{defineNativeFunctions}}();}
+\DoxyCodeLine{00043\ }
+\DoxyCodeLine{00044\ \ \ \ \ \mbox{\hyperlink{class_interpreter_a0f96b57f8126e2b5bc63390121e4b5b1}{\string~Interpreter}}()\ \{}
+\DoxyCodeLine{00045\ \textcolor{comment}{//\ \ \ \ \ \ \ \ if(objects\ !=\ nullptr)\{}}
+\DoxyCodeLine{00046\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ Object*\ object\ =\ objects;}}
+\DoxyCodeLine{00047\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ while(object\ !=\ nullptr)\{}}
+\DoxyCodeLine{00048\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Object*\ next\ =\ object-\/>next;}}
+\DoxyCodeLine{00049\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ delete\ object;}}
+\DoxyCodeLine{00050\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ object\ =\ next;}}
+\DoxyCodeLine{00051\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \}}}
+\DoxyCodeLine{00052\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \}}}
+\DoxyCodeLine{00053\ \ \ \ \ \}}
+\DoxyCodeLine{00054\ }
+\DoxyCodeLine{00061\ \ \ \ \ \mbox{\hyperlink{struct_runtime_value}{RuntimeValue}}\ \mbox{\hyperlink{class_interpreter_a0d08edd5e92501d04c9cac6e01b126eb}{evaluate}}(\mbox{\hyperlink{class_expression}{Expression}}\ *expr);}
+\DoxyCodeLine{00062\ }
+\DoxyCodeLine{00068\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_interpreter_a54d8269cb7834e31ada8f989bb452f1d}{execute}}(\mbox{\hyperlink{class_statement}{Statement}}\ *stmt);}
 \DoxyCodeLine{00069\ }
-\DoxyCodeLine{00070\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//MATURSKI\_2\_INTERPRETER\_H}}
+\DoxyCodeLine{00074\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_interpreter_af6d6bb528dbc5a1a661182466ea6d987}{interpret}}(\mbox{\hyperlink{class_program}{Program}}\ *program);}
+\DoxyCodeLine{00075\ }
+\DoxyCodeLine{00076\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_interpreter_a174e5d01f8129ec93991681f49a0e779}{resolve}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_expression}{Expression}}\ *expr,\ \textcolor{keywordtype}{int}\ depth)\{}
+\DoxyCodeLine{00077\ \ \ \ \ \ \ \ \ locals[expr]\ =\ depth;}
+\DoxyCodeLine{00078\ \ \ \ \ \}}
+\DoxyCodeLine{00079\ }
+\DoxyCodeLine{00080\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_interpreter_a95ae7eb9c9fae9c61c7775a4974602dd}{hadError}}\ =\ \textcolor{keyword}{false};\ }
+\DoxyCodeLine{00081\ \ \ \ \ \mbox{\hyperlink{class_environment}{Environment}}\ *\mbox{\hyperlink{class_interpreter_ac8d1b7617a8b385112b5ab528ed29f46}{globals}};}
+\DoxyCodeLine{00082\ }
+\DoxyCodeLine{00083\ \ \ \ \ std::vector<Statement\ *>\ \mbox{\hyperlink{class_interpreter_acd8d4eae23e506ac006b5bb8f8194abd}{executedStatements}};\ }
+\DoxyCodeLine{00084\ \ \ \ \ std::vector<RuntimeValue>\ \mbox{\hyperlink{class_interpreter_a9ae1ff6d560682e621c696889c9259b0}{printHistory}};\ }
+\DoxyCodeLine{00085\ \ \ \ \ \mbox{\hyperlink{class_runtime_error}{RuntimeError}}*\ \mbox{\hyperlink{class_interpreter_a57c19f5e1b82cefccba83474ed01258d}{handledError}}\ =\ \textcolor{keyword}{nullptr};\ }
+\DoxyCodeLine{00087\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_interpreter_a4c64d99897a20ce300847700accc9c23}{executeBlock}}(\textcolor{keyword}{const}\ std::vector<StmtPtr>\ \&statements,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{class_environment}{Environment}}\&\ environment);}
+\DoxyCodeLine{00088\ }
+\DoxyCodeLine{00089\ \ \ \ \ \mbox{\hyperlink{struct_runtime_value}{RuntimeValue}}\ \mbox{\hyperlink{class_interpreter_a689836b6f73510fd3b98200ac67d6d50}{returnedValue}};}
+\DoxyCodeLine{00090\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_interpreter_a5237f122c259b5e120cb20478db387a1}{isReturning}}\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00091\ }
+\DoxyCodeLine{00092\ \ \ \ \ std::stack<Environment>\ \mbox{\hyperlink{class_interpreter_a51754c3f067cfd5f79672fc026a761e2}{environments}};}
+\DoxyCodeLine{00093\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00094\ \ \ \ \ std::unordered\_map<const\ Expression*,\ int>\ locals;}
+\DoxyCodeLine{00095\ }
+\DoxyCodeLine{00096\ \ \ \ \ \mbox{\hyperlink{class_error_printer}{ErrorPrinter}}\ *errorPrinter;}
+\DoxyCodeLine{00097\ }
+\DoxyCodeLine{00098\ \ \ \ \ \mbox{\hyperlink{struct_runtime_value}{RuntimeValue}}\ lookUpVariable(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_variable_expression}{VariableExpression}}\ *expr);}
+\DoxyCodeLine{00099\ }
+\DoxyCodeLine{00100\ \ \ \ \ \textcolor{keywordtype}{void}\ executeExpressionStatement(\mbox{\hyperlink{class_expression_statement}{ExpressionStatement}}\ *stmt);}
+\DoxyCodeLine{00101\ }
+\DoxyCodeLine{00102\ \ \ \ \ \textcolor{keywordtype}{void}\ executePrintStatement(\mbox{\hyperlink{class_print_statement}{PrintStatement}}\ *stmt);}
+\DoxyCodeLine{00103\ }
+\DoxyCodeLine{00104\ \ \ \ \ \textcolor{keywordtype}{void}\ executeVarDeclarationStatement(\mbox{\hyperlink{class_var_declaration_statement}{VarDeclarationStatement}}\ *stmt);}
+\DoxyCodeLine{00105\ }
+\DoxyCodeLine{00106\ \ \ \ \ \textcolor{keywordtype}{void}\ executeBlockStatement(\mbox{\hyperlink{class_block_statement}{BlockStatement}}\ *stmt);}
+\DoxyCodeLine{00107\ }
+\DoxyCodeLine{00108\ \ \ \ \ \textcolor{keywordtype}{void}\ executeIfStatement(\mbox{\hyperlink{class_if_statement}{IfStatement}}\ *stmt);}
+\DoxyCodeLine{00109\ }
+\DoxyCodeLine{00110\ \ \ \ \ \textcolor{keywordtype}{void}\ executeWhileStatement(\mbox{\hyperlink{class_while_statement}{WhileStatement}}\ *stmt);}
+\DoxyCodeLine{00111\ }
+\DoxyCodeLine{00112\ \ \ \ \ \textcolor{keywordtype}{void}\ executeFunctionDeclarationStatement(\mbox{\hyperlink{class_function_declaration_statement}{FunctionDeclarationStatement}}\ *stmt);}
+\DoxyCodeLine{00113\ }
+\DoxyCodeLine{00114\ \ \ \ \ \textcolor{keywordtype}{void}\ executeReturnStatement(\mbox{\hyperlink{class_return_statement}{ReturnStatement}}\ *stmt);}
+\DoxyCodeLine{00115\ }
+\DoxyCodeLine{00116\ \ \ \ \ \mbox{\hyperlink{struct_runtime_value}{RuntimeValue}}\ evaluateBinaryExpression(\mbox{\hyperlink{class_binary_expression}{BinaryExpression}}\ *expr);}
+\DoxyCodeLine{00117\ }
+\DoxyCodeLine{00118\ \ \ \ \ \mbox{\hyperlink{struct_runtime_value}{RuntimeValue}}\ evaluateLogicalExpression(\mbox{\hyperlink{class_logical_expression}{LogicalExpression}}\ *expr);}
+\DoxyCodeLine{00119\ }
+\DoxyCodeLine{00120\ \ \ \ \ \mbox{\hyperlink{struct_runtime_value}{RuntimeValue}}\ evaluateUnaryExpression(\mbox{\hyperlink{class_unary_expression}{UnaryExpression}}\ *expr);}
+\DoxyCodeLine{00121\ }
+\DoxyCodeLine{00122\ \ \ \ \ \mbox{\hyperlink{struct_runtime_value}{RuntimeValue}}\ evaluateNumericLiteralExpression(\mbox{\hyperlink{class_numeric_literal_expression}{NumericLiteralExpression}}\ *expr);}
+\DoxyCodeLine{00123\ }
+\DoxyCodeLine{00124\ \ \ \ \ \mbox{\hyperlink{struct_runtime_value}{RuntimeValue}}\ evaluateBooleanLiteralExpression(\mbox{\hyperlink{class_boolean_literal_expression}{BooleanLiteralExpression}}\ *expr);}
+\DoxyCodeLine{00125\ }
+\DoxyCodeLine{00126\ \ \ \ \ \mbox{\hyperlink{struct_runtime_value}{RuntimeValue}}\ evaluateStringLiteralExpression(\mbox{\hyperlink{class_string_literal_expression}{StringLiteralExpression}}\ *expr);}
+\DoxyCodeLine{00127\ }
+\DoxyCodeLine{00128\ \ \ \ \ \mbox{\hyperlink{struct_runtime_value}{RuntimeValue}}\ evaluateNullLiteralExpression(\mbox{\hyperlink{class_null_literal_expression}{NullLiteralExpression}}\ *expr);}
+\DoxyCodeLine{00129\ }
+\DoxyCodeLine{00130\ \ \ \ \ \mbox{\hyperlink{struct_runtime_value}{RuntimeValue}}\ evaluateVariableExpression(\mbox{\hyperlink{class_variable_expression}{VariableExpression}}\ *expr);}
+\DoxyCodeLine{00131\ }
+\DoxyCodeLine{00132\ \ \ \ \ \mbox{\hyperlink{struct_runtime_value}{RuntimeValue}}\ evaluateAssignmentExpression(\mbox{\hyperlink{class_assignment_expression}{AssignmentExpression}}\ *expr);}
+\DoxyCodeLine{00133\ }
+\DoxyCodeLine{00134\ \ \ \ \ \mbox{\hyperlink{struct_runtime_value}{RuntimeValue}}\ evaluateCallExpression(\mbox{\hyperlink{class_call_expression}{CallExpression}}\ *expr);}
+\DoxyCodeLine{00135\ }
+\DoxyCodeLine{00136\ \ \ \ \ \mbox{\hyperlink{struct_runtime_value}{RuntimeValue}}\ evaluateArrayLiteralExpression(\mbox{\hyperlink{class_array_literal_expression}{ArrayLiteralExpression}}\ *expr);}
+\DoxyCodeLine{00137\ }
+\DoxyCodeLine{00138\ \ \ \ \ \mbox{\hyperlink{struct_runtime_value}{RuntimeValue}}\ evaluateIndexingExpression(\mbox{\hyperlink{class_indexing_expression}{IndexingExpression}}\ *expr);}
+\DoxyCodeLine{00139\ }
+\DoxyCodeLine{00140\ \ \ \ \ \textcolor{keywordtype}{bool}\ isTruthy(\textcolor{keyword}{const}\ \mbox{\hyperlink{struct_runtime_value}{RuntimeValue}}\ \&value);}
+\DoxyCodeLine{00141\ }
+\DoxyCodeLine{00142\ \ \ \ \ \textcolor{keywordtype}{bool}\ isEqual(\textcolor{keyword}{const}\ \mbox{\hyperlink{struct_runtime_value}{RuntimeValue}}\ \&left,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{struct_runtime_value}{RuntimeValue}}\ \&right);}
+\DoxyCodeLine{00143\ }
+\DoxyCodeLine{00144\ \ \ \ \ \mbox{\hyperlink{struct_object}{Object}}\ *objects\ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00145\ }
+\DoxyCodeLine{00146\ \ \ \ \ \mbox{\hyperlink{struct_object_string}{ObjectString}}\ *allocateStringObject(\textcolor{keyword}{const}\ std::wstring\ \&value);}
+\DoxyCodeLine{00147\ \ \ \ \ \mbox{\hyperlink{struct_object_function}{ObjectFunction}}\ *allocateFunctionObject(\mbox{\hyperlink{class_function_declaration_statement}{FunctionDeclarationStatement}}\ *declaration);}
+\DoxyCodeLine{00148\ \ \ \ \ \mbox{\hyperlink{struct_object_array}{ObjectArray}}\ *allocateArrayObject(\textcolor{keyword}{const}\ std::vector<RuntimeValue>\ \&elements);}
+\DoxyCodeLine{00149\ }
+\DoxyCodeLine{00150\ \ \ \ \ \textcolor{comment}{//\ Used\ to\ ensure\ that\ errors\ don't\ go\ out\ of\ scope\ when\ running\ tests,\ since\ the\ type\ needs\ to\ be\ checked\ on\ the\ handledError\ field.}}
+\DoxyCodeLine{00151\ \ \ \ \ \textcolor{comment}{//\ This\ function\ just\ dynamically\ allocates\ a\ new\ error\ of\ the\ same\ type\ and\ returns\ it\ (so\ that\ handledError\ can\ be\ set\ and\ checked\ in\ tests).}}
+\DoxyCodeLine{00152\ \ \ \ \ \mbox{\hyperlink{class_runtime_error}{RuntimeError}}*\ reallocateError(\mbox{\hyperlink{class_runtime_error}{RuntimeError}}*\ error);}
+\DoxyCodeLine{00153\ \};}
+\DoxyCodeLine{00154\ }
+\DoxyCodeLine{00155\ }
+\DoxyCodeLine{00156\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//BAKLAVA\_INTERPRETER\_H}}
 
 \end{DoxyCode}

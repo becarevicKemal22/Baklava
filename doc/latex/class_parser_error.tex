@@ -12,7 +12,7 @@ Base class for all parser exceptions.
 Inheritance diagram for Parser\+Error\+:\begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[height=3.000000cm]{class_parser_error}
+\includegraphics[height=1.739130cm]{class_parser_error}
 \end{center}
 \end{figure}
 \doxysubsubsection*{Public Member Functions}
@@ -21,6 +21,8 @@ Inheritance diagram for Parser\+Error\+:\begin{figure}[H]
 \mbox{\hyperlink{class_parser_error_a04c2c577a5a638f50b7a340ebdd8a593}{Parser\+Error}} (\mbox{\hyperlink{_error_code_8h_a59e56af19e754a6aa26a612ebf91d05f}{Error\+Code}} \mbox{\hyperlink{class_parser_error_a7923d1c9d18cc0996e3b1f875e548de3}{code}})
 \item 
 \mbox{\hyperlink{class_parser_error_a58a4af6d0dfc0a5848cebbb7cf3788dc}{Parser\+Error}} (\mbox{\hyperlink{_error_code_8h_a59e56af19e754a6aa26a612ebf91d05f}{Error\+Code}} \mbox{\hyperlink{class_parser_error_a7923d1c9d18cc0996e3b1f875e548de3}{code}}, std\+::vector$<$ \mbox{\hyperlink{_error_message_argument_8h_a2ce8d7c0c01d40b6373946f75c36eee7}{Error\+Message\+Argument}} $>$ \mbox{\hyperlink{class_parser_error_afd3884bd1c9e5edf8321f7824a858657}{message\+Arguments}})
+\item 
+\mbox{\hyperlink{class_parser_error_a4e1e918bb6dd798c61ee72f480375a6c}{Parser\+Error}} (\mbox{\hyperlink{_error_code_8h_a59e56af19e754a6aa26a612ebf91d05f}{Error\+Code}} \mbox{\hyperlink{class_parser_error_a7923d1c9d18cc0996e3b1f875e548de3}{code}}, \mbox{\hyperlink{class_token}{Token}} \texorpdfstring{$\ast$}{*}token)
 \end{DoxyCompactItemize}
 \doxysubsubsection*{Public Attributes}
 \begin{DoxyCompactItemize}
@@ -28,6 +30,8 @@ Inheritance diagram for Parser\+Error\+:\begin{figure}[H]
 \mbox{\hyperlink{_error_code_8h_a59e56af19e754a6aa26a612ebf91d05f}{Error\+Code}} \mbox{\hyperlink{class_parser_error_a7923d1c9d18cc0996e3b1f875e548de3}{code}}
 \item 
 std\+::vector$<$ \mbox{\hyperlink{_error_message_argument_8h_a2ce8d7c0c01d40b6373946f75c36eee7}{Error\+Message\+Argument}} $>$ \mbox{\hyperlink{class_parser_error_afd3884bd1c9e5edf8321f7824a858657}{message\+Arguments}}
+\item 
+\mbox{\hyperlink{class_token}{Token}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{class_parser_error_a258c3acf41bb96de8ac24f313eb92e18}{my\+Token}} = nullptr
 \end{DoxyCompactItemize}
 
 
@@ -40,14 +44,20 @@ Contains at least an error code and a vector of message arguments so it can be p
 \Hypertarget{class_parser_error_a04c2c577a5a638f50b7a340ebdd8a593}\label{class_parser_error_a04c2c577a5a638f50b7a340ebdd8a593} 
 \index{ParserError@{ParserError}!ParserError@{ParserError}}
 \index{ParserError@{ParserError}!ParserError@{ParserError}}
-\doxysubsubsection{\texorpdfstring{ParserError()}{ParserError()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+\doxysubsubsection{\texorpdfstring{ParserError()}{ParserError()}\hspace{0.1cm}{\footnotesize\ttfamily [1/3]}}
 {\footnotesize\ttfamily Parser\+Error\+::\+Parser\+Error (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{_error_code_8h_a59e56af19e754a6aa26a612ebf91d05f}{Error\+Code}}}]{code }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
 \Hypertarget{class_parser_error_a58a4af6d0dfc0a5848cebbb7cf3788dc}\label{class_parser_error_a58a4af6d0dfc0a5848cebbb7cf3788dc} 
 \index{ParserError@{ParserError}!ParserError@{ParserError}}
 \index{ParserError@{ParserError}!ParserError@{ParserError}}
-\doxysubsubsection{\texorpdfstring{ParserError()}{ParserError()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+\doxysubsubsection{\texorpdfstring{ParserError()}{ParserError()}\hspace{0.1cm}{\footnotesize\ttfamily [2/3]}}
 {\footnotesize\ttfamily Parser\+Error\+::\+Parser\+Error (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{_error_code_8h_a59e56af19e754a6aa26a612ebf91d05f}{Error\+Code}}}]{code,  }\item[{std\+::vector$<$ \mbox{\hyperlink{_error_message_argument_8h_a2ce8d7c0c01d40b6373946f75c36eee7}{Error\+Message\+Argument}} $>$}]{message\+Arguments }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\Hypertarget{class_parser_error_a4e1e918bb6dd798c61ee72f480375a6c}\label{class_parser_error_a4e1e918bb6dd798c61ee72f480375a6c} 
+\index{ParserError@{ParserError}!ParserError@{ParserError}}
+\index{ParserError@{ParserError}!ParserError@{ParserError}}
+\doxysubsubsection{\texorpdfstring{ParserError()}{ParserError()}\hspace{0.1cm}{\footnotesize\ttfamily [3/3]}}
+{\footnotesize\ttfamily Parser\+Error\+::\+Parser\+Error (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{_error_code_8h_a59e56af19e754a6aa26a612ebf91d05f}{Error\+Code}}}]{code,  }\item[{\mbox{\hyperlink{class_token}{Token}} \texorpdfstring{$\ast$}{*}}]{token }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
 
 
@@ -63,6 +73,12 @@ Contains at least an error code and a vector of message arguments so it can be p
 \index{messageArguments@{messageArguments}!ParserError@{ParserError}}
 \doxysubsubsection{\texorpdfstring{messageArguments}{messageArguments}}
 {\footnotesize\ttfamily std\+::vector$<$\mbox{\hyperlink{_error_message_argument_8h_a2ce8d7c0c01d40b6373946f75c36eee7}{Error\+Message\+Argument}}$>$ Parser\+Error\+::message\+Arguments}
+
+\Hypertarget{class_parser_error_a258c3acf41bb96de8ac24f313eb92e18}\label{class_parser_error_a258c3acf41bb96de8ac24f313eb92e18} 
+\index{ParserError@{ParserError}!myToken@{myToken}}
+\index{myToken@{myToken}!ParserError@{ParserError}}
+\doxysubsubsection{\texorpdfstring{myToken}{myToken}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_token}{Token}}\texorpdfstring{$\ast$}{*} Parser\+Error\+::my\+Token = nullptr}
 
 
 

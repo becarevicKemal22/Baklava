@@ -84,6 +84,9 @@ $(function() {
 <div class="contents">
 <div class="textblock"><code>#include &lt;cstdint&gt;</code><br />
 <code>#include &lt;string&gt;</code><br />
+<code>#include &quot;<a class="el" href="_runtime_value_8h_source.html">RuntimeValue.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="_function_declaration_statement_8h_source.html">FunctionDeclarationStatement.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="_environment_8h_source.html">Environment.h</a>&quot;</code><br />
 </div>
 <p><a href="_object_8h_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
@@ -92,6 +95,12 @@ Classes</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_object.html">Object</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_object_string.html">ObjectString</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_object_callable.html">ObjectCallable</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_object_array.html">ObjectArray</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_object_function.html">ObjectFunction</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="define-members" name="define-members"></a>
@@ -102,14 +111,82 @@ Macros</h2></td></tr>
 <tr class="separator:a4ad71079a6c6836e3dbf1f67e5a792fe"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:adb34b6eedffa62f2d9080d65c05b2a1d" id="r_adb34b6eedffa62f2d9080d65c05b2a1d"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#adb34b6eedffa62f2d9080d65c05b2a1d">GET_STRING_OBJ_VALUE</a>(val)&#160;&#160;&#160;(<a class="el" href="#a4ad71079a6c6836e3dbf1f67e5a792fe">AS_STRING_OBJ</a>(val)-&gt;value)</td></tr>
 <tr class="separator:adb34b6eedffa62f2d9080d65c05b2a1d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0de5b8d46da4d1a7e7a8a8a6cd324ddb" id="r_a0de5b8d46da4d1a7e7a8a8a6cd324ddb"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a0de5b8d46da4d1a7e7a8a8a6cd324ddb">IS_CALLABLE_OBJ</a>(value)&#160;&#160;&#160;((value).as.object-&gt;type == <a class="el" href="#ad77a2400b6233b221e23bc962da32b0dab2bb3e0d350d5f22251bbd00ef47baa4">ObjectType::OBJECT_CALLABLE</a>)</td></tr>
+<tr class="separator:a0de5b8d46da4d1a7e7a8a8a6cd324ddb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa2c66e90dea8443140573c92a1eb4c3f" id="r_aa2c66e90dea8443140573c92a1eb4c3f"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa2c66e90dea8443140573c92a1eb4c3f">AS_CALLABLE_OBJ</a>(value)&#160;&#160;&#160;((<a class="el" href="struct_object_callable.html">ObjectCallable</a>*)value.as.object)</td></tr>
+<tr class="separator:aa2c66e90dea8443140573c92a1eb4c3f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae87f00e4d242634532ab352561c98449" id="r_ae87f00e4d242634532ab352561c98449"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae87f00e4d242634532ab352561c98449">IS_FUNCTION_OBJ</a>(value)&#160;&#160;&#160;((value).as.object-&gt;type == <a class="el" href="#ad77a2400b6233b221e23bc962da32b0da4dc52fbfa24848d7b9d066e3b4fbef7b">ObjectType::OBJECT_FUNCTION</a>)</td></tr>
+<tr class="separator:ae87f00e4d242634532ab352561c98449"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae49b9ada14bb350ca9ce11c2ed21eb83" id="r_ae49b9ada14bb350ca9ce11c2ed21eb83"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae49b9ada14bb350ca9ce11c2ed21eb83">AS_FUNCTION_OBJ</a>(value)&#160;&#160;&#160;((<a class="el" href="struct_object_function.html">ObjectFunction</a>*)value.as.object)</td></tr>
+<tr class="separator:ae49b9ada14bb350ca9ce11c2ed21eb83"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab592b6a120279cd1b55b2c6d94ea9ef2" id="r_ab592b6a120279cd1b55b2c6d94ea9ef2"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab592b6a120279cd1b55b2c6d94ea9ef2">IS_ARRAY_OBJ</a>(value)&#160;&#160;&#160;((value).as.object-&gt;type == <a class="el" href="#ad77a2400b6233b221e23bc962da32b0dae36513d39848f86e215e919f2ed78855">ObjectType::OBJECT_ARRAY</a>)</td></tr>
+<tr class="separator:ab592b6a120279cd1b55b2c6d94ea9ef2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a77d63b19e3f942faca07bbb49cf13484" id="r_a77d63b19e3f942faca07bbb49cf13484"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a77d63b19e3f942faca07bbb49cf13484">AS_ARRAY_OBJ</a>(value)&#160;&#160;&#160;((<a class="el" href="struct_object_array.html">ObjectArray</a>*)value.as.object)</td></tr>
+<tr class="separator:a77d63b19e3f942faca07bbb49cf13484"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a801fad1933d10b53292cebbe5dacc903" id="r_a801fad1933d10b53292cebbe5dacc903"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a801fad1933d10b53292cebbe5dacc903">GET_ARRAY_OBJ_ELEMENTS</a>(val)&#160;&#160;&#160;(<a class="el" href="#a77d63b19e3f942faca07bbb49cf13484">AS_ARRAY_OBJ</a>(val)-&gt;elements)</td></tr>
+<tr class="separator:a801fad1933d10b53292cebbe5dacc903"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="enum-members" name="enum-members"></a>
 Enumerations</h2></td></tr>
 <tr class="memitem:ad77a2400b6233b221e23bc962da32b0d" id="r_ad77a2400b6233b221e23bc962da32b0d"><td class="memItemLeft" align="right" valign="top">enum class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad77a2400b6233b221e23bc962da32b0d">ObjectType</a> : uint8_t { <a class="el" href="#ad77a2400b6233b221e23bc962da32b0da9fed860f78f69ed0723cd3588ef5267a">OBJECT_STRING</a>
+, <a class="el" href="#ad77a2400b6233b221e23bc962da32b0dab2bb3e0d350d5f22251bbd00ef47baa4">OBJECT_CALLABLE</a>
+, <a class="el" href="#ad77a2400b6233b221e23bc962da32b0da4dc52fbfa24848d7b9d066e3b4fbef7b">OBJECT_FUNCTION</a>
+, <a class="el" href="#ad77a2400b6233b221e23bc962da32b0dae36513d39848f86e215e919f2ed78855">OBJECT_ARRAY</a>
  }</td></tr>
 <tr class="separator:ad77a2400b6233b221e23bc962da32b0d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Macro Definition Documentation</h2>
+<a id="a77d63b19e3f942faca07bbb49cf13484" name="a77d63b19e3f942faca07bbb49cf13484"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a77d63b19e3f942faca07bbb49cf13484">&#9670;&#160;</a></span>AS_ARRAY_OBJ</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define AS_ARRAY_OBJ</td>
+          <td>(</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname">value</span></td><td>)</td>
+          <td>&#160;&#160;&#160;((<a class="el" href="struct_object_array.html">ObjectArray</a>*)value.as.object)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="aa2c66e90dea8443140573c92a1eb4c3f" name="aa2c66e90dea8443140573c92a1eb4c3f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa2c66e90dea8443140573c92a1eb4c3f">&#9670;&#160;</a></span>AS_CALLABLE_OBJ</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define AS_CALLABLE_OBJ</td>
+          <td>(</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname">value</span></td><td>)</td>
+          <td>&#160;&#160;&#160;((<a class="el" href="struct_object_callable.html">ObjectCallable</a>*)value.as.object)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ae49b9ada14bb350ca9ce11c2ed21eb83" name="ae49b9ada14bb350ca9ce11c2ed21eb83"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae49b9ada14bb350ca9ce11c2ed21eb83">&#9670;&#160;</a></span>AS_FUNCTION_OBJ</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define AS_FUNCTION_OBJ</td>
+          <td>(</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname">value</span></td><td>)</td>
+          <td>&#160;&#160;&#160;((<a class="el" href="struct_object_function.html">ObjectFunction</a>*)value.as.object)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="a4ad71079a6c6836e3dbf1f67e5a792fe" name="a4ad71079a6c6836e3dbf1f67e5a792fe"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a4ad71079a6c6836e3dbf1f67e5a792fe">&#9670;&#160;</a></span>AS_STRING_OBJ</h2>
 
@@ -127,6 +204,23 @@ Enumerations</h2></td></tr>
 
 </div>
 </div>
+<a id="a801fad1933d10b53292cebbe5dacc903" name="a801fad1933d10b53292cebbe5dacc903"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a801fad1933d10b53292cebbe5dacc903">&#9670;&#160;</a></span>GET_ARRAY_OBJ_ELEMENTS</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define GET_ARRAY_OBJ_ELEMENTS</td>
+          <td>(</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname">val</span></td><td>)</td>
+          <td>&#160;&#160;&#160;(<a class="el" href="#a77d63b19e3f942faca07bbb49cf13484">AS_ARRAY_OBJ</a>(val)-&gt;elements)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="adb34b6eedffa62f2d9080d65c05b2a1d" name="adb34b6eedffa62f2d9080d65c05b2a1d"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#adb34b6eedffa62f2d9080d65c05b2a1d">&#9670;&#160;</a></span>GET_STRING_OBJ_VALUE</h2>
 
@@ -138,6 +232,57 @@ Enumerations</h2></td></tr>
           <td>(</td>
           <td class="paramtype"></td>          <td class="paramname"><span class="paramname">val</span></td><td>)</td>
           <td>&#160;&#160;&#160;(<a class="el" href="#a4ad71079a6c6836e3dbf1f67e5a792fe">AS_STRING_OBJ</a>(val)-&gt;value)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ab592b6a120279cd1b55b2c6d94ea9ef2" name="ab592b6a120279cd1b55b2c6d94ea9ef2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab592b6a120279cd1b55b2c6d94ea9ef2">&#9670;&#160;</a></span>IS_ARRAY_OBJ</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define IS_ARRAY_OBJ</td>
+          <td>(</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname">value</span></td><td>)</td>
+          <td>&#160;&#160;&#160;((value).as.object-&gt;type == <a class="el" href="#ad77a2400b6233b221e23bc962da32b0dae36513d39848f86e215e919f2ed78855">ObjectType::OBJECT_ARRAY</a>)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a0de5b8d46da4d1a7e7a8a8a6cd324ddb" name="a0de5b8d46da4d1a7e7a8a8a6cd324ddb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0de5b8d46da4d1a7e7a8a8a6cd324ddb">&#9670;&#160;</a></span>IS_CALLABLE_OBJ</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define IS_CALLABLE_OBJ</td>
+          <td>(</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname">value</span></td><td>)</td>
+          <td>&#160;&#160;&#160;((value).as.object-&gt;type == <a class="el" href="#ad77a2400b6233b221e23bc962da32b0dab2bb3e0d350d5f22251bbd00ef47baa4">ObjectType::OBJECT_CALLABLE</a>)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ae87f00e4d242634532ab352561c98449" name="ae87f00e4d242634532ab352561c98449"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae87f00e4d242634532ab352561c98449">&#9670;&#160;</a></span>IS_FUNCTION_OBJ</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define IS_FUNCTION_OBJ</td>
+          <td>(</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname">value</span></td><td>)</td>
+          <td>&#160;&#160;&#160;((value).as.object-&gt;type == <a class="el" href="#ad77a2400b6233b221e23bc962da32b0da4dc52fbfa24848d7b9d066e3b4fbef7b">ObjectType::OBJECT_FUNCTION</a>)</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -183,6 +328,9 @@ Enumerations</h2></td></tr>
 </div><div class="memdoc">
 <table class="fieldtable">
 <tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="ad77a2400b6233b221e23bc962da32b0da9fed860f78f69ed0723cd3588ef5267a" name="ad77a2400b6233b221e23bc962da32b0da9fed860f78f69ed0723cd3588ef5267a"></a>OBJECT_STRING&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="ad77a2400b6233b221e23bc962da32b0dab2bb3e0d350d5f22251bbd00ef47baa4" name="ad77a2400b6233b221e23bc962da32b0dab2bb3e0d350d5f22251bbd00ef47baa4"></a>OBJECT_CALLABLE&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="ad77a2400b6233b221e23bc962da32b0da4dc52fbfa24848d7b9d066e3b4fbef7b" name="ad77a2400b6233b221e23bc962da32b0da4dc52fbfa24848d7b9d066e3b4fbef7b"></a>OBJECT_FUNCTION&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="ad77a2400b6233b221e23bc962da32b0dae36513d39848f86e215e919f2ed78855" name="ad77a2400b6233b221e23bc962da32b0dae36513d39848f86e215e919f2ed78855"></a>OBJECT_ARRAY&#160;</td><td class="fielddoc"></td></tr>
 </table>
 
 </div>

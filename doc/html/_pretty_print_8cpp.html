@@ -90,6 +90,18 @@ $(function() {
 <code>#include &quot;<a class="el" href="_boolean_literal_expression_8h_source.html">BooleanLiteralExpression.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="_numeric_literal_expression_8h_source.html">NumericLiteralExpression.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="_string_literal_expression_8h_source.html">StringLiteralExpression.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="_grouping_expression_8h_source.html">GroupingExpression.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="_expression_statement_8h_source.html">ExpressionStatement.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="_print_statement_8h_source.html">PrintStatement.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="_variable_expression_8h_source.html">VariableExpression.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="_var_declaration_statement_8h_source.html">VarDeclarationStatement.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="_block_statement_8h_source.html">BlockStatement.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="_while_statement_8h_source.html">WhileStatement.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="_assignment_expression_8h_source.html">AssignmentExpression.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="_call_expression_8h_source.html">CallExpression.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="_function_declaration_statement_8h_source.html">FunctionDeclarationStatement.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="_indexing_expression_8h_source.html">IndexingExpression.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="_array_literal_expression_8h_source.html">ArrayLiteralExpression.h</a>&quot;</code><br />
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
@@ -110,6 +122,12 @@ Functions</h2></td></tr>
 <tr class="separator:a4bf88a92cbfc29ca063fad48170d15d5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8cc04d78d8ee7610446a4b18dfcf8a64" id="r_a8cc04d78d8ee7610446a4b18dfcf8a64"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a8cc04d78d8ee7610446a4b18dfcf8a64">printStringLiteralExpression</a> (<a class="el" href="class_string_literal_expression.html">StringLiteralExpression</a> *expression, int depth)</td></tr>
 <tr class="separator:a8cc04d78d8ee7610446a4b18dfcf8a64"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a54152b90aca15e42c94ef57a9f5c5824" id="r_a54152b90aca15e42c94ef57a9f5c5824"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a54152b90aca15e42c94ef57a9f5c5824">printVariableExpression</a> (<a class="el" href="class_variable_expression.html">VariableExpression</a> *expression, int depth)</td></tr>
+<tr class="separator:a54152b90aca15e42c94ef57a9f5c5824"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a081216820757ead7e9714c1ab93f3b00" id="r_a081216820757ead7e9714c1ab93f3b00"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a081216820757ead7e9714c1ab93f3b00">printCallExpression</a> (<a class="el" href="class_call_expression.html">CallExpression</a> *expression, int depth)</td></tr>
+<tr class="separator:a081216820757ead7e9714c1ab93f3b00"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a12f47c441af662a4aea20a5b1b2edacd" id="r_a12f47c441af662a4aea20a5b1b2edacd"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a12f47c441af662a4aea20a5b1b2edacd">printIndexingExpression</a> (<a class="el" href="class_indexing_expression.html">IndexingExpression</a> *expression, int depth)</td></tr>
+<tr class="separator:a12f47c441af662a4aea20a5b1b2edacd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Function Documentation</h2>
 <a id="a55fd727dee8b0b9569300dfbfaec6fc9" name="a55fd727dee8b0b9569300dfbfaec6fc9"></a>
@@ -168,6 +186,48 @@ Functions</h2></td></tr>
           <td class="memname">void printBooleanLiteralExpression </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="class_boolean_literal_expression.html">BooleanLiteralExpression</a> *</td>          <td class="paramname"><span class="paramname"><em>expression</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>depth</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a081216820757ead7e9714c1ab93f3b00" name="a081216820757ead7e9714c1ab93f3b00"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a081216820757ead7e9714c1ab93f3b00">&#9670;&#160;</a></span>printCallExpression()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void printCallExpression </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="class_call_expression.html">CallExpression</a> *</td>          <td class="paramname"><span class="paramname"><em>expression</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>depth</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a12f47c441af662a4aea20a5b1b2edacd" name="a12f47c441af662a4aea20a5b1b2edacd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a12f47c441af662a4aea20a5b1b2edacd">&#9670;&#160;</a></span>printIndexingExpression()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void printIndexingExpression </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="class_indexing_expression.html">IndexingExpression</a> *</td>          <td class="paramname"><span class="paramname"><em>expression</em>, </span></td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -273,6 +333,27 @@ Functions</h2></td></tr>
           <td class="memname">void printUnaryExpression </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="class_unary_expression.html">UnaryExpression</a> *</td>          <td class="paramname"><span class="paramname"><em>expression</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>depth</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a54152b90aca15e42c94ef57a9f5c5824" name="a54152b90aca15e42c94ef57a9f5c5824"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a54152b90aca15e42c94ef57a9f5c5824">&#9670;&#160;</a></span>printVariableExpression()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void printVariableExpression </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="class_variable_expression.html">VariableExpression</a> *</td>          <td class="paramname"><span class="paramname"><em>expression</em>, </span></td>
         </tr>
         <tr>
           <td class="paramkey"></td>

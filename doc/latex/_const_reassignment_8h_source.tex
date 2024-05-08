@@ -1,0 +1,26 @@
+\doxysection{Const\+Reassignment.\+h}
+\hypertarget{_const_reassignment_8h_source}{}\label{_const_reassignment_8h_source}\index{src/error/exceptions/ConstReassignment.h@{src/error/exceptions/ConstReassignment.h}}
+\mbox{\hyperlink{_const_reassignment_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{//}}
+\DoxyCodeLine{00002\ \textcolor{comment}{//\ Created\ by\ kemal\ on\ 3/14/2024.}}
+\DoxyCodeLine{00003\ \textcolor{comment}{//}}
+\DoxyCodeLine{00004\ }
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#ifndef\ BAKLAVA\_CONSTREASSIGNMENT\_H}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#define\ BAKLAVA\_CONSTREASSIGNMENT\_H}}
+\DoxyCodeLine{00007\ }
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_runtime_error_8h}{RuntimeError.h}}"{}}}
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_token_8h}{Token.h}}"{}}}
+\DoxyCodeLine{00010\ }
+\DoxyCodeLine{00011\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_const_reassignment}{ConstReassignment}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{class_runtime_error}{RuntimeError}}\ \{}
+\DoxyCodeLine{00012\ \ \ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00013\ \ \ \ \ \textcolor{keyword}{explicit}\ \mbox{\hyperlink{class_const_reassignment_aa688f6e85f19b4a8a1adb34103198858}{ConstReassignment}}(\mbox{\hyperlink{class_token}{Token}}*\ \mbox{\hyperlink{class_const_reassignment_a1bdcee220b6b5a6d510817842517a9c0}{name}})\ :\ \mbox{\hyperlink{class_runtime_error}{RuntimeError}}(\mbox{\hyperlink{_error_code_8h_a59e56af19e754a6aa26a612ebf91d05fa32ad158063667cc5572823c961c1c4ef}{ERROR\_CONST\_REASSIGNMENT}}),\ \mbox{\hyperlink{class_const_reassignment_a1bdcee220b6b5a6d510817842517a9c0}{name}}(\mbox{\hyperlink{class_const_reassignment_a1bdcee220b6b5a6d510817842517a9c0}{name}})\ \{}
+\DoxyCodeLine{00014\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_runtime_error_a5d005928ddf618703012ce4c1f8e3f03}{messageArguments}}.push\_back(\mbox{\hyperlink{class_const_reassignment_a1bdcee220b6b5a6d510817842517a9c0}{name}}-\/>\mbox{\hyperlink{class_token_acfd9e64709c736211934e4b27ac20955}{value}});}
+\DoxyCodeLine{00015\ \ \ \ \ \}}
+\DoxyCodeLine{00016\ }
+\DoxyCodeLine{00017\ \ \ \ \ \mbox{\hyperlink{class_token}{Token}}*\ \mbox{\hyperlink{class_const_reassignment_a1bdcee220b6b5a6d510817842517a9c0}{name}};}
+\DoxyCodeLine{00018\ \};}
+\DoxyCodeLine{00019\ }
+\DoxyCodeLine{00020\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//BAKLAVA\_CONSTREASSIGNMENT\_H}}
+
+\end{DoxyCode}

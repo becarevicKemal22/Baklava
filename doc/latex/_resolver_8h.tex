@@ -1,0 +1,64 @@
+\doxysection{src/parser/\+Resolver.h File Reference}
+\hypertarget{_resolver_8h}{}\label{_resolver_8h}\index{src/parser/Resolver.h@{src/parser/Resolver.h}}
+{\ttfamily \#include $<$vector$>$}\newline
+{\ttfamily \#include $<$memory$>$}\newline
+{\ttfamily \#include $<$stack$>$}\newline
+{\ttfamily \#include $<$unordered\+\_\+map$>$}\newline
+{\ttfamily \#include "{}Interpreter.\+h"{}}\newline
+{\ttfamily \#include "{}Program.\+h"{}}\newline
+{\ttfamily \#include "{}Statement.\+h"{}}\newline
+{\ttfamily \#include "{}Expression.\+h"{}}\newline
+{\ttfamily \#include "{}Ast.\+h"{}}\newline
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{class_resolver}{Resolver}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+typedef std\+::unordered\+\_\+map$<$ std\+::wstring, bool $>$ \mbox{\hyperlink{_resolver_8h_a21e1451753a0b783ae5c4b921c44c963}{Scope}}
+\item 
+typedef std\+::stack$<$ \mbox{\hyperlink{_resolver_8h_a21e1451753a0b783ae5c4b921c44c963}{Scope}} $>$ \mbox{\hyperlink{_resolver_8h_ad6f880cdf75e7462a737aa17fa2295a0}{Scope\+Stack}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+enum class \mbox{\hyperlink{_resolver_8h_a42a11575cc237e37732d560240e04371}{Function\+Type}} \{ \mbox{\hyperlink{_resolver_8h_a42a11575cc237e37732d560240e04371ab50339a10e1de285ac99d4c3990b8693}{NONE}}
+, \mbox{\hyperlink{_resolver_8h_a42a11575cc237e37732d560240e04371a6a72a6a776662a244f82d31e9274a07b}{FUNCTION}}
+ \}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Typedef Documentation}
+\Hypertarget{_resolver_8h_a21e1451753a0b783ae5c4b921c44c963}\label{_resolver_8h_a21e1451753a0b783ae5c4b921c44c963} 
+\index{Resolver.h@{Resolver.h}!Scope@{Scope}}
+\index{Scope@{Scope}!Resolver.h@{Resolver.h}}
+\doxysubsubsection{\texorpdfstring{Scope}{Scope}}
+{\footnotesize\ttfamily typedef std\+::unordered\+\_\+map$<$std\+::wstring, bool$>$ \mbox{\hyperlink{_resolver_8h_a21e1451753a0b783ae5c4b921c44c963}{Scope}}}
+
+\Hypertarget{_resolver_8h_ad6f880cdf75e7462a737aa17fa2295a0}\label{_resolver_8h_ad6f880cdf75e7462a737aa17fa2295a0} 
+\index{Resolver.h@{Resolver.h}!ScopeStack@{ScopeStack}}
+\index{ScopeStack@{ScopeStack}!Resolver.h@{Resolver.h}}
+\doxysubsubsection{\texorpdfstring{ScopeStack}{ScopeStack}}
+{\footnotesize\ttfamily typedef std\+::stack$<$\mbox{\hyperlink{_resolver_8h_a21e1451753a0b783ae5c4b921c44c963}{Scope}}$>$ \mbox{\hyperlink{_resolver_8h_ad6f880cdf75e7462a737aa17fa2295a0}{Scope\+Stack}}}
+
+
+
+\doxysubsection{Enumeration Type Documentation}
+\Hypertarget{_resolver_8h_a42a11575cc237e37732d560240e04371}\label{_resolver_8h_a42a11575cc237e37732d560240e04371} 
+\index{Resolver.h@{Resolver.h}!FunctionType@{FunctionType}}
+\index{FunctionType@{FunctionType}!Resolver.h@{Resolver.h}}
+\doxysubsubsection{\texorpdfstring{FunctionType}{FunctionType}}
+{\footnotesize\ttfamily enum class \mbox{\hyperlink{_resolver_8h_a42a11575cc237e37732d560240e04371}{Function\+Type}}\hspace{0.3cm}{\ttfamily [strong]}}
+
+\begin{DoxyEnumFields}{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{NONE@{NONE}!Resolver.h@{Resolver.h}}\index{Resolver.h@{Resolver.h}!NONE@{NONE}}}\Hypertarget{_resolver_8h_a42a11575cc237e37732d560240e04371ab50339a10e1de285ac99d4c3990b8693}\label{_resolver_8h_a42a11575cc237e37732d560240e04371ab50339a10e1de285ac99d4c3990b8693} 
+NONE&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{FUNCTION@{FUNCTION}!Resolver.h@{Resolver.h}}\index{Resolver.h@{Resolver.h}!FUNCTION@{FUNCTION}}}\Hypertarget{_resolver_8h_a42a11575cc237e37732d560240e04371a6a72a6a776662a244f82d31e9274a07b}\label{_resolver_8h_a42a11575cc237e37732d560240e04371a6a72a6a776662a244f82d31e9274a07b} 
+FUNCTION&\\
+\hline
+
+\end{DoxyEnumFields}

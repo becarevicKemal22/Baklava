@@ -1,6 +1,5 @@
 var searchData=
 [
-  ['parser_0',['Parser',['../class_parser.html',1,'']]],
-  ['parsererror_1',['ParserError',['../class_parser_error.html',1,'']]],
-  ['program_2',['Program',['../class_program.html',1,'']]]
+  ['lexer_0',['Lexer',['../class_lexer.html',1,'']]],
+  ['logicalexpression_1',['LogicalExpression',['../class_logical_expression.html',1,'']]]
 ];

@@ -1,0 +1,30 @@
+\doxysection{Function\+Declaration\+Statement.\+h}
+\hypertarget{_function_declaration_statement_8h_source}{}\label{_function_declaration_statement_8h_source}\index{src/parser/ast/statements/FunctionDeclarationStatement.h@{src/parser/ast/statements/FunctionDeclarationStatement.h}}
+\mbox{\hyperlink{_function_declaration_statement_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{//}}
+\DoxyCodeLine{00002\ \textcolor{comment}{//\ Created\ by\ kemal\ on\ 3/17/2024.}}
+\DoxyCodeLine{00003\ \textcolor{comment}{//}}
+\DoxyCodeLine{00004\ }
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#ifndef\ BAKLAVA\_FUNCTIONDECLARATIONSTATEMENT\_H}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#define\ BAKLAVA\_FUNCTIONDECLARATIONSTATEMENT\_H}}
+\DoxyCodeLine{00007\ }
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_statement_8h}{Statement.h}}"{}}}
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_token_8h}{Token.h}}"{}}}
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#include\ <vector>}}
+\DoxyCodeLine{00011\ }
+\DoxyCodeLine{00012\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_function_declaration_statement}{FunctionDeclarationStatement}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{class_statement}{Statement}}\ \{}
+\DoxyCodeLine{00013\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00014\ \ \ \ \ \mbox{\hyperlink{class_function_declaration_statement_a1eb9a580a55765b9d1c922c0c0daef02}{FunctionDeclarationStatement}}(\mbox{\hyperlink{class_token}{TokenPtr}}\ \mbox{\hyperlink{class_function_declaration_statement_a2aaa97ad22d5d405cbdb1d28f16886e0}{name}},\ std::vector<TokenPtr>\ \mbox{\hyperlink{class_function_declaration_statement_a401e01a8c7a0d029c2635e8f49de322d}{parameters}},\ std::vector<StmtPtr>\ \mbox{\hyperlink{class_function_declaration_statement_a88b19e8401a44641ce669fc910739648}{body}})}
+\DoxyCodeLine{00015\ \ \ \ \ \ \ \ \ \ \ \ \ :\ \mbox{\hyperlink{class_function_declaration_statement_a2aaa97ad22d5d405cbdb1d28f16886e0}{name}}(\mbox{\hyperlink{class_function_declaration_statement_a2aaa97ad22d5d405cbdb1d28f16886e0}{name}}),\ \mbox{\hyperlink{class_function_declaration_statement_a401e01a8c7a0d029c2635e8f49de322d}{parameters}}(\mbox{\hyperlink{class_function_declaration_statement_a401e01a8c7a0d029c2635e8f49de322d}{parameters}}),\ \mbox{\hyperlink{class_function_declaration_statement_a88b19e8401a44641ce669fc910739648}{body}}(\mbox{\hyperlink{class_function_declaration_statement_a88b19e8401a44641ce669fc910739648}{body}})\ \{}
+\DoxyCodeLine{00016\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_statement_af799a81c3fbd31e741cc01d09324df30}{type}}\ =\ \mbox{\hyperlink{_ast_8h_abbed81ee894f251822f94201ef008817aef190250c7ddc22c8f9965ad6c9ac872}{AstNodeType::FunctionDeclarationStatement}};}
+\DoxyCodeLine{00017\ \ \ \ \ \}}
+\DoxyCodeLine{00018\ }
+\DoxyCodeLine{00019\ \ \ \ \ \mbox{\hyperlink{class_token}{TokenPtr}}\ \mbox{\hyperlink{class_function_declaration_statement_a2aaa97ad22d5d405cbdb1d28f16886e0}{name}};}
+\DoxyCodeLine{00020\ \ \ \ \ std::vector<TokenPtr>\ \mbox{\hyperlink{class_function_declaration_statement_a401e01a8c7a0d029c2635e8f49de322d}{parameters}};}
+\DoxyCodeLine{00021\ \ \ \ \ std::vector<StmtPtr>\ \mbox{\hyperlink{class_function_declaration_statement_a88b19e8401a44641ce669fc910739648}{body}};}
+\DoxyCodeLine{00022\ \};}
+\DoxyCodeLine{00023\ }
+\DoxyCodeLine{00024\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//BAKLAVA\_FUNCTIONDECLARATIONSTATEMENT\_H}}
+
+\end{DoxyCode}

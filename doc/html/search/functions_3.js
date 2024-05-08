@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['interpreter_0',['Interpreter',['../class_interpreter.html#a9faf0dca72cd27223e5c447b580de2a5',1,'Interpreter::Interpreter()'],['../class_interpreter.html#a619a2264f48541288bd7bf1eecc5248a',1,'Interpreter::Interpreter(ErrorPrinter *errorPrinter)']]]
+  ['define_0',['define',['../class_environment.html#a2d1f7187a5798f80bef070e24a7aa47c',1,'Environment']]],
+  ['definenativefunctions_1',['defineNativeFunctions',['../class_interpreter.html#ad2b78004f6586e9f90ae73140531b50c',1,'Interpreter']]]
 ];

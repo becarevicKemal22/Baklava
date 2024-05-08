@@ -6,21 +6,32 @@
 \DoxyCodeLine{00002\ \textcolor{comment}{//\ Created\ by\ kemal\ on\ 1/28/2024.}}
 \DoxyCodeLine{00003\ \textcolor{comment}{//}}
 \DoxyCodeLine{00004\ }
-\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#ifndef\ MATURSKI\_2\_ERRORCODE\_H}}
-\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#define\ MATURSKI\_2\_ERRORCODE\_H}}
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#ifndef\ BAKLAVA\_ERRORCODE\_H}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#define\ BAKLAVA\_ERRORCODE\_H}}
 \DoxyCodeLine{00007\ }
 \DoxyCodeLine{00018\ \textcolor{keyword}{enum}\ \mbox{\hyperlink{_error_code_8h_a59e56af19e754a6aa26a612ebf91d05f}{ErrorCode}}\ \{}
 \DoxyCodeLine{00019\ \ \ \ \ \mbox{\hyperlink{_error_code_8h_a59e56af19e754a6aa26a612ebf91d05fa2cfbedee4226e70e54cad70893f67d47}{ERROR\_CANNOT\_OPEN\_FILE}}\ =\ 100,}
 \DoxyCodeLine{00020\ }
 \DoxyCodeLine{00021\ \ \ \ \ \mbox{\hyperlink{_error_code_8h_a59e56af19e754a6aa26a612ebf91d05fa0808d39b709bff4c370987800c4713fa}{ERROR\_UNEXPECTED\_CHARACTER}}\ =\ 200,}
-\DoxyCodeLine{00022\ \ \ \ \ \mbox{\hyperlink{_error_code_8h_a59e56af19e754a6aa26a612ebf91d05fadd419a657a311f11c4ac1c0efb3a35a0}{ERROR\_UNTERMINATED\_STRING}}\ =\ 201,}
+\DoxyCodeLine{00022\ \ \ \ \ \mbox{\hyperlink{_error_code_8h_a59e56af19e754a6aa26a612ebf91d05fadd419a657a311f11c4ac1c0efb3a35a0}{ERROR\_UNTERMINATED\_STRING}},}
 \DoxyCodeLine{00023\ }
 \DoxyCodeLine{00024\ \ \ \ \ \mbox{\hyperlink{_error_code_8h_a59e56af19e754a6aa26a612ebf91d05fae7bd9c309ae19bbfc14f515e11283557}{ERROR\_EXPECTED\_X\_BEFORE\_Y}}\ =\ 300,}
-\DoxyCodeLine{00025\ }
-\DoxyCodeLine{00026\ \ \ \ \ \mbox{\hyperlink{_error_code_8h_a59e56af19e754a6aa26a612ebf91d05fa2e1a626d0a665069b6c81d59b1787d25}{ERROR\_WRONG\_TYPE\_OPERAND}}\ =\ 400,}
-\DoxyCodeLine{00027\ \ \ \ \ \mbox{\hyperlink{_error_code_8h_a59e56af19e754a6aa26a612ebf91d05fa105a71af2f532e023af49115dc047530}{ERROR\_WRONG\_TYPE\_OPERAND\_BINARY}}\ =\ 401,}
-\DoxyCodeLine{00028\ \};}
-\DoxyCodeLine{00029\ }
-\DoxyCodeLine{00030\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//MATURSKI\_2\_ERRORCODE\_H}}
+\DoxyCodeLine{00025\ \ \ \ \ \mbox{\hyperlink{_error_code_8h_a59e56af19e754a6aa26a612ebf91d05fa0243626839736039ea6469c74b2d9745}{ERROR\_UNINITIALIZED\_CONST}},}
+\DoxyCodeLine{00026\ \ \ \ \ \mbox{\hyperlink{_error_code_8h_a59e56af19e754a6aa26a612ebf91d05fae8f827fe28c0270722e6bd4a0dbd2b50}{ERROR\_EXPECTED\_X\_AFTER\_Y}},}
+\DoxyCodeLine{00027\ \ \ \ \ \mbox{\hyperlink{_error_code_8h_a59e56af19e754a6aa26a612ebf91d05faa5616dc9ba68e1ca97515b0b53da37b6}{ERROR\_VARIABLE\_REDECLARATION}},}
+\DoxyCodeLine{00028\ \ \ \ \ \mbox{\hyperlink{_error_code_8h_a59e56af19e754a6aa26a612ebf91d05fa83ddedd6f3fc495318b9e8d703399907}{ERROR\_UNDECLARED\_VARIABLE}},}
+\DoxyCodeLine{00029\ \ \ \ \ \mbox{\hyperlink{_error_code_8h_a59e56af19e754a6aa26a612ebf91d05fa32ad158063667cc5572823c961c1c4ef}{ERROR\_CONST\_REASSIGNMENT}},}
+\DoxyCodeLine{00030\ \ \ \ \ \mbox{\hyperlink{_error_code_8h_a59e56af19e754a6aa26a612ebf91d05fae67d45ba44d0f5215d200875e19c5de3}{ERROR\_EXPECTED\_EXPRESSION\_AT\_START}},}
+\DoxyCodeLine{00031\ \ \ \ \ \mbox{\hyperlink{_error_code_8h_a59e56af19e754a6aa26a612ebf91d05fa35a3bfe6f0bcbd43fdf4553876972ec5}{ERROR\_INVALID\_LVALUE}},}
+\DoxyCodeLine{00032\ \ \ \ \ \mbox{\hyperlink{_error_code_8h_a59e56af19e754a6aa26a612ebf91d05fa07213cc3dba5230ec5715a8e23b7a75b}{ERROR\_INVALID\_CALL}},}
+\DoxyCodeLine{00033\ \ \ \ \ \mbox{\hyperlink{_error_code_8h_a59e56af19e754a6aa26a612ebf91d05fab55db74ec6e0da76114fcde483042d2e}{ERROR\_INVALID\_ARGUMENT\_COUNT}},}
+\DoxyCodeLine{00034\ \ \ \ \ \mbox{\hyperlink{_error_code_8h_a59e56af19e754a6aa26a612ebf91d05fab8e0076acfdc964614d77b23ce15e112}{ERROR\_INVALID\_RETURN\_POSITION}},}
+\DoxyCodeLine{00035\ \ \ \ \ \mbox{\hyperlink{_error_code_8h_a59e56af19e754a6aa26a612ebf91d05fa425c0ce6580188f05fc03bd22e852c4b}{ERROR\_SELF\_REFERENCING\_INITIALIZER}},}
+\DoxyCodeLine{00036\ }
+\DoxyCodeLine{00037\ \ \ \ \ \mbox{\hyperlink{_error_code_8h_a59e56af19e754a6aa26a612ebf91d05fa2e1a626d0a665069b6c81d59b1787d25}{ERROR\_WRONG\_TYPE\_OPERAND}}\ =\ 400,}
+\DoxyCodeLine{00038\ \ \ \ \ \mbox{\hyperlink{_error_code_8h_a59e56af19e754a6aa26a612ebf91d05fa105a71af2f532e023af49115dc047530}{ERROR\_WRONG\_TYPE\_OPERAND\_BINARY}},}
+\DoxyCodeLine{00039\ \};}
+\DoxyCodeLine{00040\ }
+\DoxyCodeLine{00041\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//BAKLAVA\_ERRORCODE\_H}}
 
 \end{DoxyCode}

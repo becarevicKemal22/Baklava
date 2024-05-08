@@ -1,0 +1,41 @@
+\doxysection{Environment.\+h}
+\hypertarget{_environment_8h_source}{}\label{_environment_8h_source}\index{src/interpreter/Environment.h@{src/interpreter/Environment.h}}
+\mbox{\hyperlink{_environment_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{//}}
+\DoxyCodeLine{00002\ \textcolor{comment}{//\ Created\ by\ kemal\ on\ 3/13/2024.}}
+\DoxyCodeLine{00003\ \textcolor{comment}{//}}
+\DoxyCodeLine{00004\ }
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#ifndef\ BAKLAVA\_ENVIRONMENT\_H}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#define\ BAKLAVA\_ENVIRONMENT\_H}}
+\DoxyCodeLine{00007\ }
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#include\ <unordered\_map>}}
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#include\ <algorithm>}}
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_token_8h}{Token.h}}"{}}}
+\DoxyCodeLine{00011\ }
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#include\ <iostream>}}
+\DoxyCodeLine{00013\ }
+\DoxyCodeLine{00014\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct_runtime_value}{RuntimeValue}}\ \mbox{\hyperlink{struct_runtime_value}{RuntimeValue}};}
+\DoxyCodeLine{00015\ }
+\DoxyCodeLine{00016\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_environment}{Environment}}\ \{}
+\DoxyCodeLine{00017\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00018\ \ \ \ \ \mbox{\hyperlink{class_environment_a8b427c4448d8b7536666837521b9e83d}{Environment}}()\ :\ \mbox{\hyperlink{class_environment_af30fb756401cfd2e6201e8eadb10f9eb}{parent}}(nullptr)\ \{\};}
+\DoxyCodeLine{00019\ \ \ \ \ \textcolor{keyword}{explicit}\ \mbox{\hyperlink{class_environment_a030253266b5d549059c14984dfbb31da}{Environment}}(\mbox{\hyperlink{class_environment}{Environment}}*\ \mbox{\hyperlink{class_environment_af30fb756401cfd2e6201e8eadb10f9eb}{parent}})\ :\ \mbox{\hyperlink{class_environment_af30fb756401cfd2e6201e8eadb10f9eb}{parent}}(\mbox{\hyperlink{class_environment_af30fb756401cfd2e6201e8eadb10f9eb}{parent}})\ \{\}}
+\DoxyCodeLine{00020\ \ \ \ \ std::unordered\_map<std::wstring,\ std::pair<RuntimeValue,\ bool>>\ \mbox{\hyperlink{class_environment_ab55e88222ddba3ec2a7c34041aa6a253}{variables}}\{\};\ \textcolor{comment}{//\ Holds\ a\ map\ of\ variable\ names\ bound\ to\ a\ std::pair\ that\ holds\ the\ runtime\ value\ and\ whether\ the\ variable\ is\ constant}}
+\DoxyCodeLine{00021\ \ \ \ \ \mbox{\hyperlink{class_environment}{Environment}}*\ \mbox{\hyperlink{class_environment_af30fb756401cfd2e6201e8eadb10f9eb}{parent}};\ }
+\DoxyCodeLine{00030\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_environment_a2d1f7187a5798f80bef070e24a7aa47c}{define}}(\mbox{\hyperlink{class_token}{Token}}*\ name,\ \mbox{\hyperlink{struct_runtime_value}{RuntimeValue}}\ value,\ \textcolor{keywordtype}{bool}\ isConstant);}
+\DoxyCodeLine{00037\ \ \ \ \ \mbox{\hyperlink{struct_runtime_value}{RuntimeValue}}\ \mbox{\hyperlink{class_environment_a6153ea2b22a04d782a296d486072d813}{get}}(\mbox{\hyperlink{class_token}{Token}}*\ name);}
+\DoxyCodeLine{00038\ }
+\DoxyCodeLine{00046\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_environment_a5a30154eda3aac5cbcfbcd69fbae4d64}{assign}}(\mbox{\hyperlink{class_token}{Token}}*\ name,\ \mbox{\hyperlink{struct_runtime_value}{RuntimeValue}}\ value);}
+\DoxyCodeLine{00047\ }
+\DoxyCodeLine{00048\ \ \ \ \ \mbox{\hyperlink{struct_runtime_value}{RuntimeValue}}\ \mbox{\hyperlink{class_environment_ade6e0518ba8865c7a1d5de741b56785c}{getAt}}(\textcolor{keywordtype}{int}\ distance,\ \textcolor{keyword}{const}\ std::wstring\&\ name);}
+\DoxyCodeLine{00049\ }
+\DoxyCodeLine{00050\ \ \ \ \ \mbox{\hyperlink{class_environment}{Environment}}*\ \mbox{\hyperlink{class_environment_a9fa246b1e6815c9258733696d71918cc}{ancestor}}(\textcolor{keywordtype}{int}\ distance);}
+\DoxyCodeLine{00051\ }
+\DoxyCodeLine{00052\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_environment_a21b706d38ef774b1b8e2be72b67380d4}{assignAt}}(\textcolor{keywordtype}{int}\ distance,\ \textcolor{keyword}{const}\ std::wstring\&\ name,\ \mbox{\hyperlink{struct_runtime_value}{RuntimeValue}}\ value);}
+\DoxyCodeLine{00053\ \};}
+\DoxyCodeLine{00054\ }
+\DoxyCodeLine{00055\ }
+\DoxyCodeLine{00056\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//BAKLAVA\_ENVIRONMENT\_H}}
+
+\end{DoxyCode}

@@ -1,0 +1,74 @@
+\doxysection{Object\+Function Struct Reference}
+\hypertarget{struct_object_function}{}\label{struct_object_function}\index{ObjectFunction@{ObjectFunction}}
+
+
+{\ttfamily \#include $<$Object.\+h$>$}
+
+Inheritance diagram for Object\+Function\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{struct_object_function}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{struct_runtime_value}{Runtime\+Value}} \mbox{\hyperlink{struct_object_function_af0df1031d55045204e4d8eb0f2b9116f}{function\+Call}} (\mbox{\hyperlink{class_interpreter}{Interpreter}} \texorpdfstring{$\ast$}{*}interpreter, const std\+::vector$<$ \mbox{\hyperlink{struct_runtime_value}{Runtime\+Value}} $>$ \&arguments)
+\item 
+\mbox{\hyperlink{struct_object_function_abeeebdb397d9ccd964216c19f7ba5e31}{Object\+Function}} (\mbox{\hyperlink{class_function_declaration_statement}{Function\+Declaration\+Statement}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{struct_object_function_a2790d70c5d5047cfe4f87aef6213935a}{declaration}}, \mbox{\hyperlink{class_environment}{Environment}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{struct_object_function_a35514fcd543a1d90c228b755ce3e4bde}{closure}})
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_function_declaration_statement}{Function\+Declaration\+Statement}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{struct_object_function_a2790d70c5d5047cfe4f87aef6213935a}{declaration}}
+\item 
+\mbox{\hyperlink{class_environment}{Environment}} \mbox{\hyperlink{struct_object_function_a35514fcd543a1d90c228b755ce3e4bde}{closure}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes inherited from \mbox{\hyperlink{struct_object_callable}{Object\+Callable}}}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{struct_object}{Object}} \mbox{\hyperlink{struct_object_callable_a62c666df9b75f3d7d9019d2bbe809bdc}{obj}}
+\item 
+size\+\_\+t \mbox{\hyperlink{struct_object_callable_a5d11d07783d5a39adc09f98a921719ad}{arity}}
+\item 
+std\+::function$<$ \mbox{\hyperlink{struct_runtime_value}{Runtime\+Value}}(\mbox{\hyperlink{class_interpreter}{Interpreter}} \texorpdfstring{$\ast$}{*}, const std\+::vector$<$ \mbox{\hyperlink{struct_runtime_value}{Runtime\+Value}} $>$ \&) \mbox{\hyperlink{struct_object_callable_aaeeb9572e3e1deb69a8784c3616d3bbe}{call}} )
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{struct_object_function_abeeebdb397d9ccd964216c19f7ba5e31}\label{struct_object_function_abeeebdb397d9ccd964216c19f7ba5e31} 
+\index{ObjectFunction@{ObjectFunction}!ObjectFunction@{ObjectFunction}}
+\index{ObjectFunction@{ObjectFunction}!ObjectFunction@{ObjectFunction}}
+\doxysubsubsection{\texorpdfstring{ObjectFunction()}{ObjectFunction()}}
+{\footnotesize\ttfamily Object\+Function\+::\+Object\+Function (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_function_declaration_statement}{Function\+Declaration\+Statement}} \texorpdfstring{$\ast$}{*}}]{declaration,  }\item[{\mbox{\hyperlink{class_environment}{Environment}} \texorpdfstring{$\ast$}{*}}]{closure }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [explicit]}}
+
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{struct_object_function_af0df1031d55045204e4d8eb0f2b9116f}\label{struct_object_function_af0df1031d55045204e4d8eb0f2b9116f} 
+\index{ObjectFunction@{ObjectFunction}!functionCall@{functionCall}}
+\index{functionCall@{functionCall}!ObjectFunction@{ObjectFunction}}
+\doxysubsubsection{\texorpdfstring{functionCall()}{functionCall()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{struct_runtime_value}{Runtime\+Value}} Object\+Function\+::function\+Call (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_interpreter}{Interpreter}} \texorpdfstring{$\ast$}{*}}]{interpreter,  }\item[{const std\+::vector$<$ \mbox{\hyperlink{struct_runtime_value}{Runtime\+Value}} $>$ \&}]{arguments }\end{DoxyParamCaption})}
+
+
+
+\doxysubsection{Member Data Documentation}
+\Hypertarget{struct_object_function_a35514fcd543a1d90c228b755ce3e4bde}\label{struct_object_function_a35514fcd543a1d90c228b755ce3e4bde} 
+\index{ObjectFunction@{ObjectFunction}!closure@{closure}}
+\index{closure@{closure}!ObjectFunction@{ObjectFunction}}
+\doxysubsubsection{\texorpdfstring{closure}{closure}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_environment}{Environment}} Object\+Function\+::closure}
+
+\Hypertarget{struct_object_function_a2790d70c5d5047cfe4f87aef6213935a}\label{struct_object_function_a2790d70c5d5047cfe4f87aef6213935a} 
+\index{ObjectFunction@{ObjectFunction}!declaration@{declaration}}
+\index{declaration@{declaration}!ObjectFunction@{ObjectFunction}}
+\doxysubsubsection{\texorpdfstring{declaration}{declaration}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_function_declaration_statement}{Function\+Declaration\+Statement}}\texorpdfstring{$\ast$}{*} Object\+Function\+::declaration}
+
+
+
+The documentation for this struct was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+src/interpreter/\mbox{\hyperlink{_object_8h}{Object.\+h}}\item 
+src/interpreter/\mbox{\hyperlink{_object_8cpp}{Object.\+cpp}}\end{DoxyCompactItemize}

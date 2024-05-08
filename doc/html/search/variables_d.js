@@ -1,6 +1,7 @@
 var searchData=
 [
-  ['token_0',['token',['../class_wrong_binary_operand_types.html#add7daadf5087e248c34fc330cc04ffea',1,'WrongBinaryOperandTypes::token'],['../class_wrong_type_error.html#acbbcdb64f598cec8dc20dcee4ce90e0d',1,'WrongTypeError::token'],['../class_boolean_literal_expression.html#a5250cbcf95756222ec858ba50c504d96',1,'BooleanLiteralExpression::token'],['../class_null_literal_expression.html#ae93a87cbd9ea43ceed3d850e57f2806f',1,'NullLiteralExpression::token'],['../class_numeric_literal_expression.html#a692012756b58fe3d75025a528f5c5770',1,'NumericLiteralExpression::token'],['../class_string_literal_expression.html#a12a77c51d6639cd1dae8db68764c9228',1,'StringLiteralExpression::token']]],
-  ['tokens_1',['tokens',['../class_lexer.html#a67c5bb32cc0e7ce98e2554175ec6dc25',1,'Lexer::tokens'],['../class_parser.html#a249888403db5d3567b4369199c3128d9',1,'Parser::tokens']]],
-  ['type_2',['type',['../struct_object.html#a0075dcd793d09d14f5ff0b20ce4db4f7',1,'Object::type'],['../struct_runtime_value.html#a55cfd70a0d575cfeb00067649c097f36',1,'RuntimeValue::type'],['../class_token.html#a67919af9f3a80dc0b28a0ab1e6d5bf8a',1,'Token::type'],['../class_statement.html#af799a81c3fbd31e741cc01d09324df30',1,'Statement::type']]]
+  ['obj_0',['obj',['../struct_object_string.html#a97c831e5b4529998008d85768b8e9f4a',1,'ObjectString::obj'],['../struct_object_callable.html#a62c666df9b75f3d7d9019d2bbe809bdc',1,'ObjectCallable::obj'],['../struct_object_array.html#a15e468a6fad52017895b32b9fb30f581',1,'ObjectArray::obj']]],
+  ['object_1',['object',['../struct_runtime_value.html#a85ce2db7e607276ee195a82dc3f7890d',1,'RuntimeValue']]],
+  ['offset_2',['offset',['../class_token.html#a314f74c21d849846dd9c7b82b14de97b',1,'Token']]],
+  ['op_3',['op',['../class_binary_expression.html#a737ddafc2a22fa29b1830d4a21638bfa',1,'BinaryExpression::op'],['../class_logical_expression.html#a89d087bc8d061c3b4f3aa6dcb99a057a',1,'LogicalExpression::op'],['../class_unary_expression.html#a1c8a013bdf08c1ba4b14391721b974e9',1,'UnaryExpression::op']]]
 ];

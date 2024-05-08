@@ -2,12 +2,21 @@
 \hypertarget{_object_8h}{}\label{_object_8h}\index{src/interpreter/Object.h@{src/interpreter/Object.h}}
 {\ttfamily \#include $<$cstdint$>$}\newline
 {\ttfamily \#include $<$string$>$}\newline
+{\ttfamily \#include "{}Runtime\+Value.\+h"{}}\newline
+{\ttfamily \#include "{}Function\+Declaration\+Statement.\+h"{}}\newline
+{\ttfamily \#include "{}Environment.\+h"{}}\newline
 \doxysubsubsection*{Classes}
 \begin{DoxyCompactItemize}
 \item 
 struct \mbox{\hyperlink{struct_object}{Object}}
 \item 
 struct \mbox{\hyperlink{struct_object_string}{Object\+String}}
+\item 
+struct \mbox{\hyperlink{struct_object_callable}{Object\+Callable}}
+\item 
+struct \mbox{\hyperlink{struct_object_array}{Object\+Array}}
+\item 
+struct \mbox{\hyperlink{struct_object_function}{Object\+Function}}
 \end{DoxyCompactItemize}
 \doxysubsubsection*{Macros}
 \begin{DoxyCompactItemize}
@@ -17,27 +26,86 @@ struct \mbox{\hyperlink{struct_object_string}{Object\+String}}
 \#define \mbox{\hyperlink{_object_8h_a4ad71079a6c6836e3dbf1f67e5a792fe}{AS\+\_\+\+STRING\+\_\+\+OBJ}}(value)~((\mbox{\hyperlink{struct_object_string}{Object\+String}}\texorpdfstring{$\ast$}{*})value.\+as.\+object)
 \item 
 \#define \mbox{\hyperlink{_object_8h_adb34b6eedffa62f2d9080d65c05b2a1d}{GET\+\_\+\+STRING\+\_\+\+OBJ\+\_\+\+VALUE}}(val)~(\mbox{\hyperlink{_object_8h_a4ad71079a6c6836e3dbf1f67e5a792fe}{AS\+\_\+\+STRING\+\_\+\+OBJ}}(val)-\/$>$value)
+\item 
+\#define \mbox{\hyperlink{_object_8h_a0de5b8d46da4d1a7e7a8a8a6cd324ddb}{IS\+\_\+\+CALLABLE\+\_\+\+OBJ}}(value)~((value).as.\+object-\/$>$type == \mbox{\hyperlink{_object_8h_ad77a2400b6233b221e23bc962da32b0dab2bb3e0d350d5f22251bbd00ef47baa4}{Object\+Type\+::\+OBJECT\+\_\+\+CALLABLE}})
+\item 
+\#define \mbox{\hyperlink{_object_8h_aa2c66e90dea8443140573c92a1eb4c3f}{AS\+\_\+\+CALLABLE\+\_\+\+OBJ}}(value)~((\mbox{\hyperlink{struct_object_callable}{Object\+Callable}}\texorpdfstring{$\ast$}{*})value.\+as.\+object)
+\item 
+\#define \mbox{\hyperlink{_object_8h_ae87f00e4d242634532ab352561c98449}{IS\+\_\+\+FUNCTION\+\_\+\+OBJ}}(value)~((value).as.\+object-\/$>$type == \mbox{\hyperlink{_object_8h_ad77a2400b6233b221e23bc962da32b0da4dc52fbfa24848d7b9d066e3b4fbef7b}{Object\+Type\+::\+OBJECT\+\_\+\+FUNCTION}})
+\item 
+\#define \mbox{\hyperlink{_object_8h_ae49b9ada14bb350ca9ce11c2ed21eb83}{AS\+\_\+\+FUNCTION\+\_\+\+OBJ}}(value)~((\mbox{\hyperlink{struct_object_function}{Object\+Function}}\texorpdfstring{$\ast$}{*})value.\+as.\+object)
+\item 
+\#define \mbox{\hyperlink{_object_8h_ab592b6a120279cd1b55b2c6d94ea9ef2}{IS\+\_\+\+ARRAY\+\_\+\+OBJ}}(value)~((value).as.\+object-\/$>$type == \mbox{\hyperlink{_object_8h_ad77a2400b6233b221e23bc962da32b0dae36513d39848f86e215e919f2ed78855}{Object\+Type\+::\+OBJECT\+\_\+\+ARRAY}})
+\item 
+\#define \mbox{\hyperlink{_object_8h_a77d63b19e3f942faca07bbb49cf13484}{AS\+\_\+\+ARRAY\+\_\+\+OBJ}}(value)~((\mbox{\hyperlink{struct_object_array}{Object\+Array}}\texorpdfstring{$\ast$}{*})value.\+as.\+object)
+\item 
+\#define \mbox{\hyperlink{_object_8h_a801fad1933d10b53292cebbe5dacc903}{GET\+\_\+\+ARRAY\+\_\+\+OBJ\+\_\+\+ELEMENTS}}(val)~(\mbox{\hyperlink{_object_8h_a77d63b19e3f942faca07bbb49cf13484}{AS\+\_\+\+ARRAY\+\_\+\+OBJ}}(val)-\/$>$elements)
 \end{DoxyCompactItemize}
 \doxysubsubsection*{Enumerations}
 \begin{DoxyCompactItemize}
 \item 
 enum class \mbox{\hyperlink{_object_8h_ad77a2400b6233b221e23bc962da32b0d}{Object\+Type}} \+: uint8\+\_\+t \{ \mbox{\hyperlink{_object_8h_ad77a2400b6233b221e23bc962da32b0da9fed860f78f69ed0723cd3588ef5267a}{OBJECT\+\_\+\+STRING}}
+, \mbox{\hyperlink{_object_8h_ad77a2400b6233b221e23bc962da32b0dab2bb3e0d350d5f22251bbd00ef47baa4}{OBJECT\+\_\+\+CALLABLE}}
+, \mbox{\hyperlink{_object_8h_ad77a2400b6233b221e23bc962da32b0da4dc52fbfa24848d7b9d066e3b4fbef7b}{OBJECT\+\_\+\+FUNCTION}}
+, \mbox{\hyperlink{_object_8h_ad77a2400b6233b221e23bc962da32b0dae36513d39848f86e215e919f2ed78855}{OBJECT\+\_\+\+ARRAY}}
  \}
 \end{DoxyCompactItemize}
 
 
 \doxysubsection{Macro Definition Documentation}
+\Hypertarget{_object_8h_a77d63b19e3f942faca07bbb49cf13484}\label{_object_8h_a77d63b19e3f942faca07bbb49cf13484} 
+\index{Object.h@{Object.h}!AS\_ARRAY\_OBJ@{AS\_ARRAY\_OBJ}}
+\index{AS\_ARRAY\_OBJ@{AS\_ARRAY\_OBJ}!Object.h@{Object.h}}
+\doxysubsubsection{\texorpdfstring{AS\_ARRAY\_OBJ}{AS\_ARRAY\_OBJ}}
+{\footnotesize\ttfamily \#define AS\+\_\+\+ARRAY\+\_\+\+OBJ(\begin{DoxyParamCaption}\item[{}]{value }\end{DoxyParamCaption})~((\mbox{\hyperlink{struct_object_array}{Object\+Array}}\texorpdfstring{$\ast$}{*})value.\+as.\+object)}
+
+\Hypertarget{_object_8h_aa2c66e90dea8443140573c92a1eb4c3f}\label{_object_8h_aa2c66e90dea8443140573c92a1eb4c3f} 
+\index{Object.h@{Object.h}!AS\_CALLABLE\_OBJ@{AS\_CALLABLE\_OBJ}}
+\index{AS\_CALLABLE\_OBJ@{AS\_CALLABLE\_OBJ}!Object.h@{Object.h}}
+\doxysubsubsection{\texorpdfstring{AS\_CALLABLE\_OBJ}{AS\_CALLABLE\_OBJ}}
+{\footnotesize\ttfamily \#define AS\+\_\+\+CALLABLE\+\_\+\+OBJ(\begin{DoxyParamCaption}\item[{}]{value }\end{DoxyParamCaption})~((\mbox{\hyperlink{struct_object_callable}{Object\+Callable}}\texorpdfstring{$\ast$}{*})value.\+as.\+object)}
+
+\Hypertarget{_object_8h_ae49b9ada14bb350ca9ce11c2ed21eb83}\label{_object_8h_ae49b9ada14bb350ca9ce11c2ed21eb83} 
+\index{Object.h@{Object.h}!AS\_FUNCTION\_OBJ@{AS\_FUNCTION\_OBJ}}
+\index{AS\_FUNCTION\_OBJ@{AS\_FUNCTION\_OBJ}!Object.h@{Object.h}}
+\doxysubsubsection{\texorpdfstring{AS\_FUNCTION\_OBJ}{AS\_FUNCTION\_OBJ}}
+{\footnotesize\ttfamily \#define AS\+\_\+\+FUNCTION\+\_\+\+OBJ(\begin{DoxyParamCaption}\item[{}]{value }\end{DoxyParamCaption})~((\mbox{\hyperlink{struct_object_function}{Object\+Function}}\texorpdfstring{$\ast$}{*})value.\+as.\+object)}
+
 \Hypertarget{_object_8h_a4ad71079a6c6836e3dbf1f67e5a792fe}\label{_object_8h_a4ad71079a6c6836e3dbf1f67e5a792fe} 
 \index{Object.h@{Object.h}!AS\_STRING\_OBJ@{AS\_STRING\_OBJ}}
 \index{AS\_STRING\_OBJ@{AS\_STRING\_OBJ}!Object.h@{Object.h}}
 \doxysubsubsection{\texorpdfstring{AS\_STRING\_OBJ}{AS\_STRING\_OBJ}}
 {\footnotesize\ttfamily \#define AS\+\_\+\+STRING\+\_\+\+OBJ(\begin{DoxyParamCaption}\item[{}]{value }\end{DoxyParamCaption})~((\mbox{\hyperlink{struct_object_string}{Object\+String}}\texorpdfstring{$\ast$}{*})value.\+as.\+object)}
 
+\Hypertarget{_object_8h_a801fad1933d10b53292cebbe5dacc903}\label{_object_8h_a801fad1933d10b53292cebbe5dacc903} 
+\index{Object.h@{Object.h}!GET\_ARRAY\_OBJ\_ELEMENTS@{GET\_ARRAY\_OBJ\_ELEMENTS}}
+\index{GET\_ARRAY\_OBJ\_ELEMENTS@{GET\_ARRAY\_OBJ\_ELEMENTS}!Object.h@{Object.h}}
+\doxysubsubsection{\texorpdfstring{GET\_ARRAY\_OBJ\_ELEMENTS}{GET\_ARRAY\_OBJ\_ELEMENTS}}
+{\footnotesize\ttfamily \#define GET\+\_\+\+ARRAY\+\_\+\+OBJ\+\_\+\+ELEMENTS(\begin{DoxyParamCaption}\item[{}]{val }\end{DoxyParamCaption})~(\mbox{\hyperlink{_object_8h_a77d63b19e3f942faca07bbb49cf13484}{AS\+\_\+\+ARRAY\+\_\+\+OBJ}}(val)-\/$>$elements)}
+
 \Hypertarget{_object_8h_adb34b6eedffa62f2d9080d65c05b2a1d}\label{_object_8h_adb34b6eedffa62f2d9080d65c05b2a1d} 
 \index{Object.h@{Object.h}!GET\_STRING\_OBJ\_VALUE@{GET\_STRING\_OBJ\_VALUE}}
 \index{GET\_STRING\_OBJ\_VALUE@{GET\_STRING\_OBJ\_VALUE}!Object.h@{Object.h}}
 \doxysubsubsection{\texorpdfstring{GET\_STRING\_OBJ\_VALUE}{GET\_STRING\_OBJ\_VALUE}}
 {\footnotesize\ttfamily \#define GET\+\_\+\+STRING\+\_\+\+OBJ\+\_\+\+VALUE(\begin{DoxyParamCaption}\item[{}]{val }\end{DoxyParamCaption})~(\mbox{\hyperlink{_object_8h_a4ad71079a6c6836e3dbf1f67e5a792fe}{AS\+\_\+\+STRING\+\_\+\+OBJ}}(val)-\/$>$value)}
+
+\Hypertarget{_object_8h_ab592b6a120279cd1b55b2c6d94ea9ef2}\label{_object_8h_ab592b6a120279cd1b55b2c6d94ea9ef2} 
+\index{Object.h@{Object.h}!IS\_ARRAY\_OBJ@{IS\_ARRAY\_OBJ}}
+\index{IS\_ARRAY\_OBJ@{IS\_ARRAY\_OBJ}!Object.h@{Object.h}}
+\doxysubsubsection{\texorpdfstring{IS\_ARRAY\_OBJ}{IS\_ARRAY\_OBJ}}
+{\footnotesize\ttfamily \#define IS\+\_\+\+ARRAY\+\_\+\+OBJ(\begin{DoxyParamCaption}\item[{}]{value }\end{DoxyParamCaption})~((value).as.\+object-\/$>$type == \mbox{\hyperlink{_object_8h_ad77a2400b6233b221e23bc962da32b0dae36513d39848f86e215e919f2ed78855}{Object\+Type\+::\+OBJECT\+\_\+\+ARRAY}})}
+
+\Hypertarget{_object_8h_a0de5b8d46da4d1a7e7a8a8a6cd324ddb}\label{_object_8h_a0de5b8d46da4d1a7e7a8a8a6cd324ddb} 
+\index{Object.h@{Object.h}!IS\_CALLABLE\_OBJ@{IS\_CALLABLE\_OBJ}}
+\index{IS\_CALLABLE\_OBJ@{IS\_CALLABLE\_OBJ}!Object.h@{Object.h}}
+\doxysubsubsection{\texorpdfstring{IS\_CALLABLE\_OBJ}{IS\_CALLABLE\_OBJ}}
+{\footnotesize\ttfamily \#define IS\+\_\+\+CALLABLE\+\_\+\+OBJ(\begin{DoxyParamCaption}\item[{}]{value }\end{DoxyParamCaption})~((value).as.\+object-\/$>$type == \mbox{\hyperlink{_object_8h_ad77a2400b6233b221e23bc962da32b0dab2bb3e0d350d5f22251bbd00ef47baa4}{Object\+Type\+::\+OBJECT\+\_\+\+CALLABLE}})}
+
+\Hypertarget{_object_8h_ae87f00e4d242634532ab352561c98449}\label{_object_8h_ae87f00e4d242634532ab352561c98449} 
+\index{Object.h@{Object.h}!IS\_FUNCTION\_OBJ@{IS\_FUNCTION\_OBJ}}
+\index{IS\_FUNCTION\_OBJ@{IS\_FUNCTION\_OBJ}!Object.h@{Object.h}}
+\doxysubsubsection{\texorpdfstring{IS\_FUNCTION\_OBJ}{IS\_FUNCTION\_OBJ}}
+{\footnotesize\ttfamily \#define IS\+\_\+\+FUNCTION\+\_\+\+OBJ(\begin{DoxyParamCaption}\item[{}]{value }\end{DoxyParamCaption})~((value).as.\+object-\/$>$type == \mbox{\hyperlink{_object_8h_ad77a2400b6233b221e23bc962da32b0da4dc52fbfa24848d7b9d066e3b4fbef7b}{Object\+Type\+::\+OBJECT\+\_\+\+FUNCTION}})}
 
 \Hypertarget{_object_8h_ac9b6369d430651218b7315609898da08}\label{_object_8h_ac9b6369d430651218b7315609898da08} 
 \index{Object.h@{Object.h}!IS\_STRING\_OBJ@{IS\_STRING\_OBJ}}
@@ -57,6 +125,18 @@ enum class \mbox{\hyperlink{_object_8h_ad77a2400b6233b221e23bc962da32b0d}{Object
 \begin{DoxyEnumFields}{Enumerator}
 \raisebox{\heightof{T}}[0pt][0pt]{\index{OBJECT\_STRING@{OBJECT\_STRING}!Object.h@{Object.h}}\index{Object.h@{Object.h}!OBJECT\_STRING@{OBJECT\_STRING}}}\Hypertarget{_object_8h_ad77a2400b6233b221e23bc962da32b0da9fed860f78f69ed0723cd3588ef5267a}\label{_object_8h_ad77a2400b6233b221e23bc962da32b0da9fed860f78f69ed0723cd3588ef5267a} 
 OBJECT\+\_\+\+STRING&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{OBJECT\_CALLABLE@{OBJECT\_CALLABLE}!Object.h@{Object.h}}\index{Object.h@{Object.h}!OBJECT\_CALLABLE@{OBJECT\_CALLABLE}}}\Hypertarget{_object_8h_ad77a2400b6233b221e23bc962da32b0dab2bb3e0d350d5f22251bbd00ef47baa4}\label{_object_8h_ad77a2400b6233b221e23bc962da32b0dab2bb3e0d350d5f22251bbd00ef47baa4} 
+OBJECT\+\_\+\+CALLABLE&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{OBJECT\_FUNCTION@{OBJECT\_FUNCTION}!Object.h@{Object.h}}\index{Object.h@{Object.h}!OBJECT\_FUNCTION@{OBJECT\_FUNCTION}}}\Hypertarget{_object_8h_ad77a2400b6233b221e23bc962da32b0da4dc52fbfa24848d7b9d066e3b4fbef7b}\label{_object_8h_ad77a2400b6233b221e23bc962da32b0da4dc52fbfa24848d7b9d066e3b4fbef7b} 
+OBJECT\+\_\+\+FUNCTION&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{OBJECT\_ARRAY@{OBJECT\_ARRAY}!Object.h@{Object.h}}\index{Object.h@{Object.h}!OBJECT\_ARRAY@{OBJECT\_ARRAY}}}\Hypertarget{_object_8h_ad77a2400b6233b221e23bc962da32b0dae36513d39848f86e215e919f2ed78855}\label{_object_8h_ad77a2400b6233b221e23bc962da32b0dae36513d39848f86e215e919f2ed78855} 
+OBJECT\+\_\+\+ARRAY&\\
 \hline
 
 \end{DoxyEnumFields}

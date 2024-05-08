@@ -1,0 +1,26 @@
+\doxysection{Uninitialized\+Const.\+h}
+\hypertarget{_uninitialized_const_8h_source}{}\label{_uninitialized_const_8h_source}\index{src/error/exceptions/parser/UninitializedConst.h@{src/error/exceptions/parser/UninitializedConst.h}}
+\mbox{\hyperlink{_uninitialized_const_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{//}}
+\DoxyCodeLine{00002\ \textcolor{comment}{//\ Created\ by\ kemal\ on\ 3/13/2024.}}
+\DoxyCodeLine{00003\ \textcolor{comment}{//}}
+\DoxyCodeLine{00004\ }
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#ifndef\ BAKLAVA\_UNINITIALIZEDCONST\_H}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#define\ BAKLAVA\_UNINITIALIZEDCONST\_H}}
+\DoxyCodeLine{00007\ }
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_parser_error_8h}{ParserError.h}}"{}}}
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_token_8h}{Token.h}}"{}}}
+\DoxyCodeLine{00010\ }
+\DoxyCodeLine{00014\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_uninitialized_const}{UninitializedConst}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{class_parser_error}{ParserError}}\ \{}
+\DoxyCodeLine{00015\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00016\ \ \ \ \ \mbox{\hyperlink{class_uninitialized_const_a9f0a01a557f8989afbfa9674da724484}{UninitializedConst}}(\mbox{\hyperlink{class_token}{TokenPtr}}\ \mbox{\hyperlink{class_uninitialized_const_a4667bb6c6f461c86a9185c6329fe94f5}{identifier}})\ :\ \mbox{\hyperlink{class_parser_error}{ParserError}}(\mbox{\hyperlink{_error_code_8h_a59e56af19e754a6aa26a612ebf91d05fa0243626839736039ea6469c74b2d9745}{ERROR\_UNINITIALIZED\_CONST}}),\ \mbox{\hyperlink{class_uninitialized_const_a4667bb6c6f461c86a9185c6329fe94f5}{identifier}}(\mbox{\hyperlink{class_uninitialized_const_a4667bb6c6f461c86a9185c6329fe94f5}{identifier}})\{}
+\DoxyCodeLine{00017\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_parser_error_afd3884bd1c9e5edf8321f7824a858657}{messageArguments}}.push\_back(\mbox{\hyperlink{class_uninitialized_const_a4667bb6c6f461c86a9185c6329fe94f5}{identifier}}-\/>\mbox{\hyperlink{class_token_acfd9e64709c736211934e4b27ac20955}{value}});}
+\DoxyCodeLine{00018\ \ \ \ \ \}}
+\DoxyCodeLine{00019\ }
+\DoxyCodeLine{00020\ \ \ \ \ \mbox{\hyperlink{class_token}{TokenPtr}}\ \mbox{\hyperlink{class_uninitialized_const_a4667bb6c6f461c86a9185c6329fe94f5}{identifier}};}
+\DoxyCodeLine{00021\ \};}
+\DoxyCodeLine{00022\ }
+\DoxyCodeLine{00023\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//BAKLAVA\_UNINITIALIZEDCONST\_H}}
+
+\end{DoxyCode}

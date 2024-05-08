@@ -5,7 +5,7 @@
 %%For: 
 %Magnification: 1.00
 %%Orientation: Portrait
-%%BoundingBox: 0 0 500 609.756104
+%%BoundingBox: 0 0 500 585.106384
 %%Pages: 0
 %%BeginSetup
 %%EndSetup
@@ -19,12 +19,12 @@
 /marginwidth 10 def
 /distx 20 def
 /disty 40 def
-/boundaspect 0.820000 def  % aspect ratio of the BoundingBox (width/height)
+/boundaspect 0.854545 def  % aspect ratio of the BoundingBox (width/height)
 /boundx 500 def
 /boundy boundx boundaspect div def
 /xspacing 0 def
 /yspacing 0 def
-/rows 10 def
+/rows 11 def
 /cols 2 def
 /scalefactor 0 def
 /boxfont /Times-Roman findfont fontheight scalefont def
@@ -174,16 +174,16 @@
 boxfont setfont
 1 boundaspect scale
 (Statement) cw
+(BlockStatement) cw
 (Expression) cw
+(ExpressionStatement) cw
+(FunctionDeclarationStatement) cw
+(IfStatement) cw
+(PrintStatement) cw
 (Program) cw
-(BinaryExpression) cw
-(BooleanLiteralExpression) cw
-(GroupingExpression) cw
-(LogicalExpression) cw
-(NullLiteralExpression) cw
-(NumericLiteralExpression) cw
-(StringLiteralExpression) cw
-(UnaryExpression) cw
+(ReturnStatement) cw
+(VarDeclarationStatement) cw
+(WhileStatement) cw
 /boxwidth boxwidth marginwidth 2 mul add def
 /xspacing boxwidth distx add def
 /yspacing boxheight disty add def
@@ -195,30 +195,27 @@ boundx scalefactor div boundy scalefactor div scale
 
 % ----- classes -----
 
- (Statement) 0.500000 9.000000 box
- (Expression) 0.000000 8.000000 box
- (Program) 1.000000 8.000000 box
- (BinaryExpression) 1.000000 7.000000 box
- (BooleanLiteralExpression) 1.000000 6.000000 box
- (GroupingExpression) 1.000000 5.000000 box
- (LogicalExpression) 1.000000 4.000000 box
- (NullLiteralExpression) 1.000000 3.000000 box
- (NumericLiteralExpression) 1.000000 2.000000 box
- (StringLiteralExpression) 1.000000 1.000000 box
- (UnaryExpression) 1.000000 0.000000 box
+ (Statement) 0.000000 10.000000 box
+ (BlockStatement) 1.000000 9.000000 box
+ (Expression) 1.000000 8.000000 box
+1.000000 8.000000 mark
+ (ExpressionStatement) 1.000000 7.000000 box
+ (FunctionDeclarationStatement) 1.000000 6.000000 box
+ (IfStatement) 1.000000 5.000000 box
+ (PrintStatement) 1.000000 4.000000 box
+ (Program) 1.000000 3.000000 box
+ (ReturnStatement) 1.000000 2.000000 box
+ (VarDeclarationStatement) 1.000000 1.000000 box
+ (WhileStatement) 1.000000 0.000000 box
 
 % ----- relations -----
 
 solid
-1 0.500000 8.250000 out
+1 0.000000 9.250000 out
 solid
-0.000000 1.000000 9.000000 conn
+0 0.000000 9.500000 hedge
 solid
-0 0.000000 8.750000 in
-solid
-1 0.000000 7.250000 out
-solid
-0 1.000000 8.750000 in
+0 0.000000 8.500000 hedge
 solid
 0 0.000000 7.500000 hedge
 solid
@@ -236,4 +233,4 @@ solid
 solid
 0 0.000000 0.500000 hedge
 solid
-0.000000 8.000000 0.500000 vedge
+0.000000 10.000000 0.500000 vedge

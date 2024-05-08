@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['right_0',['right',['../class_binary_expression.html#afaac54e9347d5a49e8db04a2c7ba7501',1,'BinaryExpression::right'],['../class_logical_expression.html#aeb54326235af9a175d1af95792c4fb92',1,'LogicalExpression::right']]],
-  ['righttoken_1',['rightToken',['../class_wrong_binary_operand_types.html#ade0f2781613dc56c291806bf86dec132',1,'WrongBinaryOperandTypes']]]
+  ['messagearguments_0',['messageArguments',['../class_parser_error.html#afd3884bd1c9e5edf8321f7824a858657',1,'ParserError::messageArguments'],['../class_runtime_error.html#a5d005928ddf618703012ce4c1f8e3f03',1,'RuntimeError::messageArguments']]],
+  ['mytoken_1',['myToken',['../class_parser_error.html#a258c3acf41bb96de8ac24f313eb92e18',1,'ParserError']]]
 ];

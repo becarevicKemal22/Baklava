@@ -1,0 +1,27 @@
+\doxysection{Invalid\+Call.\+h}
+\hypertarget{_invalid_call_8h_source}{}\label{_invalid_call_8h_source}\index{src/error/exceptions/InvalidCall.h@{src/error/exceptions/InvalidCall.h}}
+\mbox{\hyperlink{_invalid_call_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{//}}
+\DoxyCodeLine{00002\ \textcolor{comment}{//\ Created\ by\ kemal\ on\ 3/19/2024.}}
+\DoxyCodeLine{00003\ \textcolor{comment}{//}}
+\DoxyCodeLine{00004\ }
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#ifndef\ BAKLAVA\_INVALIDCALL\_H}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#define\ BAKLAVA\_INVALIDCALL\_H}}
+\DoxyCodeLine{00007\ }
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_runtime_error_8h}{RuntimeError.h}}"{}}}
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_token_8h}{Token.h}}"{}}}
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_runtime_value_8h}{RuntimeValue.h}}"{}}}
+\DoxyCodeLine{00011\ }
+\DoxyCodeLine{00012\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_invalid_call}{InvalidCall}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{class_runtime_error}{RuntimeError}}\ \{}
+\DoxyCodeLine{00013\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00014\ \ \ \ \ \textcolor{keyword}{explicit}\ \mbox{\hyperlink{class_invalid_call_aa77b510366b5127947fd8407f8f4c5ce}{InvalidCall}}(\mbox{\hyperlink{struct_runtime_value}{RuntimeValue}}\ callee,\ \mbox{\hyperlink{class_token}{Token}}*\ \mbox{\hyperlink{class_invalid_call_a4f77152d8ff61dd00381734aaee33243}{name}})\ :\ \mbox{\hyperlink{class_runtime_error}{RuntimeError}}(\mbox{\hyperlink{_error_code_8h_a59e56af19e754a6aa26a612ebf91d05fa07213cc3dba5230ec5715a8e23b7a75b}{ERROR\_INVALID\_CALL}}),\ \mbox{\hyperlink{class_invalid_call_a4f77152d8ff61dd00381734aaee33243}{name}}(\mbox{\hyperlink{class_invalid_call_a4f77152d8ff61dd00381734aaee33243}{name}})\ \{}
+\DoxyCodeLine{00015\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_runtime_error_a5d005928ddf618703012ce4c1f8e3f03}{messageArguments}}.push\_back(\mbox{\hyperlink{_runtime_value_8cpp_adf30048625b9cbd3bc2c6ea783e7abe4}{getRuntimeValueTypeString}}(callee));}
+\DoxyCodeLine{00016\ \ \ \ \ \}}
+\DoxyCodeLine{00017\ }
+\DoxyCodeLine{00018\ \ \ \ \ \mbox{\hyperlink{class_token}{Token}}*\ \mbox{\hyperlink{class_invalid_call_a4f77152d8ff61dd00381734aaee33243}{name}};}
+\DoxyCodeLine{00019\ \};}
+\DoxyCodeLine{00020\ }
+\DoxyCodeLine{00021\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//BAKLAVA\_INVALIDCALL\_H}}
+
+\end{DoxyCode}

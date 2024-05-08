@@ -6,8 +6,8 @@
 \DoxyCodeLine{00002\ \textcolor{comment}{//\ Created\ by\ kemal\ on\ 2/4/2024.}}
 \DoxyCodeLine{00003\ \textcolor{comment}{//}}
 \DoxyCodeLine{00004\ }
-\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#ifndef\ MATURSKI\_2\_PARSER\_H}}
-\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#define\ MATURSKI\_2\_PARSER\_H}}
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#ifndef\ BAKLAVA\_PARSER\_H}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#define\ BAKLAVA\_PARSER\_H}}
 \DoxyCodeLine{00007\ }
 \DoxyCodeLine{00008\ \textcolor{preprocessor}{\#include\ <vector>}}
 \DoxyCodeLine{00009\ \textcolor{preprocessor}{\#include\ <memory>}}
@@ -36,17 +36,35 @@
 \DoxyCodeLine{00051\ \ \ \ \ \}}
 \DoxyCodeLine{00052\ }
 \DoxyCodeLine{00053\ \ \ \ \ \mbox{\hyperlink{class_statement}{Statement}}*\ statement();}
-\DoxyCodeLine{00054\ \ \ \ \ \mbox{\hyperlink{class_expression}{Expression}}*\ expression();}
-\DoxyCodeLine{00055\ \ \ \ \ \mbox{\hyperlink{class_expression}{Expression}}*\ logicalOrExpression();}
-\DoxyCodeLine{00056\ \ \ \ \ \mbox{\hyperlink{class_expression}{Expression}}*\ logicalAndExpression();}
-\DoxyCodeLine{00057\ \ \ \ \ \mbox{\hyperlink{class_expression}{Expression}}*\ equalityExpression();}
-\DoxyCodeLine{00058\ \ \ \ \ \mbox{\hyperlink{class_expression}{Expression}}*\ comparisonExpression();}
-\DoxyCodeLine{00059\ \ \ \ \ \mbox{\hyperlink{class_expression}{Expression}}*\ termExpression();}
-\DoxyCodeLine{00060\ \ \ \ \ \mbox{\hyperlink{class_expression}{Expression}}*\ factorExpression();}
-\DoxyCodeLine{00061\ \ \ \ \ \mbox{\hyperlink{class_expression}{Expression}}*\ unaryExpression();}
-\DoxyCodeLine{00062\ \ \ \ \ \mbox{\hyperlink{class_expression}{Expression}}*\ primaryExpression();}
-\DoxyCodeLine{00063\ \};}
+\DoxyCodeLine{00054\ \ \ \ \ \mbox{\hyperlink{class_statement}{Statement}}*\ declaration();}
+\DoxyCodeLine{00055\ \ \ \ \ \mbox{\hyperlink{class_statement}{Statement}}*\ varDeclarationStatement();}
+\DoxyCodeLine{00056\ \ \ \ \ \mbox{\hyperlink{class_statement}{Statement}}*\ expressionStatement();}
+\DoxyCodeLine{00057\ \ \ \ \ \mbox{\hyperlink{class_statement}{Statement}}*\ printStatement();}
+\DoxyCodeLine{00058\ \ \ \ \ std::vector<Statement*>\ block();}
+\DoxyCodeLine{00059\ \ \ \ \ \mbox{\hyperlink{class_statement}{Statement}}*\ ifStatement();}
+\DoxyCodeLine{00060\ \ \ \ \ \mbox{\hyperlink{class_statement}{Statement}}*\ whileStatement();}
+\DoxyCodeLine{00061\ \ \ \ \ \mbox{\hyperlink{class_statement}{Statement}}*\ forStatement();}
+\DoxyCodeLine{00062\ \ \ \ \ \mbox{\hyperlink{class_statement}{Statement}}*\ functionDeclarationStatement();}
+\DoxyCodeLine{00063\ \ \ \ \ \mbox{\hyperlink{class_statement}{Statement}}*\ returnStatement();}
 \DoxyCodeLine{00064\ }
-\DoxyCodeLine{00065\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//MATURSKI\_2\_PARSER\_H}}
+\DoxyCodeLine{00065\ \ \ \ \ \mbox{\hyperlink{class_expression}{Expression}}*\ expression();}
+\DoxyCodeLine{00066\ \ \ \ \ \mbox{\hyperlink{class_expression}{Expression}}*\ assignmentExpression();}
+\DoxyCodeLine{00067\ \ \ \ \ \mbox{\hyperlink{class_expression}{Expression}}*\ logicalOrExpression();}
+\DoxyCodeLine{00068\ \ \ \ \ \mbox{\hyperlink{class_expression}{Expression}}*\ logicalAndExpression();}
+\DoxyCodeLine{00069\ \ \ \ \ \mbox{\hyperlink{class_expression}{Expression}}*\ equalityExpression();}
+\DoxyCodeLine{00070\ \ \ \ \ \mbox{\hyperlink{class_expression}{Expression}}*\ comparisonExpression();}
+\DoxyCodeLine{00071\ \ \ \ \ \mbox{\hyperlink{class_expression}{Expression}}*\ termExpression();}
+\DoxyCodeLine{00072\ \ \ \ \ \mbox{\hyperlink{class_expression}{Expression}}*\ factorExpression();}
+\DoxyCodeLine{00073\ \ \ \ \ \mbox{\hyperlink{class_expression}{Expression}}*\ unaryExpression();}
+\DoxyCodeLine{00074\ \ \ \ \ \mbox{\hyperlink{class_expression}{Expression}}*\ postfixExpression();}
+\DoxyCodeLine{00075\ \ \ \ \ \mbox{\hyperlink{class_expression}{Expression}}*\ indexingExpression(\mbox{\hyperlink{class_expression}{ExprPtr}}\ left);}
+\DoxyCodeLine{00076\ \ \ \ \ \mbox{\hyperlink{class_expression}{Expression}}*\ callExpression(\mbox{\hyperlink{class_expression}{ExprPtr}}\ callee);}
+\DoxyCodeLine{00077\ \ \ \ \ \mbox{\hyperlink{class_expression}{Expression}}*\ finishCallExpression(\mbox{\hyperlink{class_expression}{Expression}}*\ callee);}
+\DoxyCodeLine{00078\ \ \ \ \ \mbox{\hyperlink{class_expression}{Expression}}*\ primaryExpression();}
+\DoxyCodeLine{00079\ }
+\DoxyCodeLine{00080\ \ \ \ \ \mbox{\hyperlink{class_expression}{Expression}}*\ parseArrayLiteral();}
+\DoxyCodeLine{00081\ \};}
+\DoxyCodeLine{00082\ }
+\DoxyCodeLine{00083\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//BAKLAVA\_PARSER\_H}}
 
 \end{DoxyCode}

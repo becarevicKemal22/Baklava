@@ -88,11 +88,25 @@ Enumerations</h2></td></tr>
 <tr class="memitem:a59e56af19e754a6aa26a612ebf91d05f" id="r_a59e56af19e754a6aa26a612ebf91d05f"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a59e56af19e754a6aa26a612ebf91d05f">ErrorCode</a> { <br />
 &#160;&#160;<a class="el" href="#a59e56af19e754a6aa26a612ebf91d05fa2cfbedee4226e70e54cad70893f67d47">ERROR_CANNOT_OPEN_FILE</a> = 100
 , <a class="el" href="#a59e56af19e754a6aa26a612ebf91d05fa0808d39b709bff4c370987800c4713fa">ERROR_UNEXPECTED_CHARACTER</a> = 200
-, <a class="el" href="#a59e56af19e754a6aa26a612ebf91d05fadd419a657a311f11c4ac1c0efb3a35a0">ERROR_UNTERMINATED_STRING</a> = 201
+, <a class="el" href="#a59e56af19e754a6aa26a612ebf91d05fadd419a657a311f11c4ac1c0efb3a35a0">ERROR_UNTERMINATED_STRING</a>
 , <a class="el" href="#a59e56af19e754a6aa26a612ebf91d05fae7bd9c309ae19bbfc14f515e11283557">ERROR_EXPECTED_X_BEFORE_Y</a> = 300
 , <br />
-&#160;&#160;<a class="el" href="#a59e56af19e754a6aa26a612ebf91d05fa2e1a626d0a665069b6c81d59b1787d25">ERROR_WRONG_TYPE_OPERAND</a> = 400
-, <a class="el" href="#a59e56af19e754a6aa26a612ebf91d05fa105a71af2f532e023af49115dc047530">ERROR_WRONG_TYPE_OPERAND_BINARY</a> = 401
+&#160;&#160;<a class="el" href="#a59e56af19e754a6aa26a612ebf91d05fa0243626839736039ea6469c74b2d9745">ERROR_UNINITIALIZED_CONST</a>
+, <a class="el" href="#a59e56af19e754a6aa26a612ebf91d05fae8f827fe28c0270722e6bd4a0dbd2b50">ERROR_EXPECTED_X_AFTER_Y</a>
+, <a class="el" href="#a59e56af19e754a6aa26a612ebf91d05faa5616dc9ba68e1ca97515b0b53da37b6">ERROR_VARIABLE_REDECLARATION</a>
+, <a class="el" href="#a59e56af19e754a6aa26a612ebf91d05fa83ddedd6f3fc495318b9e8d703399907">ERROR_UNDECLARED_VARIABLE</a>
+, <br />
+&#160;&#160;<a class="el" href="#a59e56af19e754a6aa26a612ebf91d05fa32ad158063667cc5572823c961c1c4ef">ERROR_CONST_REASSIGNMENT</a>
+, <a class="el" href="#a59e56af19e754a6aa26a612ebf91d05fae67d45ba44d0f5215d200875e19c5de3">ERROR_EXPECTED_EXPRESSION_AT_START</a>
+, <a class="el" href="#a59e56af19e754a6aa26a612ebf91d05fa35a3bfe6f0bcbd43fdf4553876972ec5">ERROR_INVALID_LVALUE</a>
+, <a class="el" href="#a59e56af19e754a6aa26a612ebf91d05fa07213cc3dba5230ec5715a8e23b7a75b">ERROR_INVALID_CALL</a>
+, <br />
+&#160;&#160;<a class="el" href="#a59e56af19e754a6aa26a612ebf91d05fab55db74ec6e0da76114fcde483042d2e">ERROR_INVALID_ARGUMENT_COUNT</a>
+, <a class="el" href="#a59e56af19e754a6aa26a612ebf91d05fab8e0076acfdc964614d77b23ce15e112">ERROR_INVALID_RETURN_POSITION</a>
+, <a class="el" href="#a59e56af19e754a6aa26a612ebf91d05fa425c0ce6580188f05fc03bd22e852c4b">ERROR_SELF_REFERENCING_INITIALIZER</a>
+, <a class="el" href="#a59e56af19e754a6aa26a612ebf91d05fa2e1a626d0a665069b6c81d59b1787d25">ERROR_WRONG_TYPE_OPERAND</a> = 400
+, <br />
+&#160;&#160;<a class="el" href="#a59e56af19e754a6aa26a612ebf91d05fa105a71af2f532e023af49115dc047530">ERROR_WRONG_TYPE_OPERAND_BINARY</a>
 <br />
  }</td></tr>
 <tr class="memdesc:a59e56af19e754a6aa26a612ebf91d05f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Standardized error codes for the interpreter that should be used by the entire project.  <a href="#a59e56af19e754a6aa26a612ebf91d05f">More...</a><br /></td></tr>
@@ -118,6 +132,17 @@ Enumerations</h2></td></tr>
 <tr><td class="fieldname"><a id="a59e56af19e754a6aa26a612ebf91d05fa0808d39b709bff4c370987800c4713fa" name="a59e56af19e754a6aa26a612ebf91d05fa0808d39b709bff4c370987800c4713fa"></a>ERROR_UNEXPECTED_CHARACTER&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="a59e56af19e754a6aa26a612ebf91d05fadd419a657a311f11c4ac1c0efb3a35a0" name="a59e56af19e754a6aa26a612ebf91d05fadd419a657a311f11c4ac1c0efb3a35a0"></a>ERROR_UNTERMINATED_STRING&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="a59e56af19e754a6aa26a612ebf91d05fae7bd9c309ae19bbfc14f515e11283557" name="a59e56af19e754a6aa26a612ebf91d05fae7bd9c309ae19bbfc14f515e11283557"></a>ERROR_EXPECTED_X_BEFORE_Y&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a59e56af19e754a6aa26a612ebf91d05fa0243626839736039ea6469c74b2d9745" name="a59e56af19e754a6aa26a612ebf91d05fa0243626839736039ea6469c74b2d9745"></a>ERROR_UNINITIALIZED_CONST&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a59e56af19e754a6aa26a612ebf91d05fae8f827fe28c0270722e6bd4a0dbd2b50" name="a59e56af19e754a6aa26a612ebf91d05fae8f827fe28c0270722e6bd4a0dbd2b50"></a>ERROR_EXPECTED_X_AFTER_Y&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a59e56af19e754a6aa26a612ebf91d05faa5616dc9ba68e1ca97515b0b53da37b6" name="a59e56af19e754a6aa26a612ebf91d05faa5616dc9ba68e1ca97515b0b53da37b6"></a>ERROR_VARIABLE_REDECLARATION&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a59e56af19e754a6aa26a612ebf91d05fa83ddedd6f3fc495318b9e8d703399907" name="a59e56af19e754a6aa26a612ebf91d05fa83ddedd6f3fc495318b9e8d703399907"></a>ERROR_UNDECLARED_VARIABLE&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a59e56af19e754a6aa26a612ebf91d05fa32ad158063667cc5572823c961c1c4ef" name="a59e56af19e754a6aa26a612ebf91d05fa32ad158063667cc5572823c961c1c4ef"></a>ERROR_CONST_REASSIGNMENT&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a59e56af19e754a6aa26a612ebf91d05fae67d45ba44d0f5215d200875e19c5de3" name="a59e56af19e754a6aa26a612ebf91d05fae67d45ba44d0f5215d200875e19c5de3"></a>ERROR_EXPECTED_EXPRESSION_AT_START&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a59e56af19e754a6aa26a612ebf91d05fa35a3bfe6f0bcbd43fdf4553876972ec5" name="a59e56af19e754a6aa26a612ebf91d05fa35a3bfe6f0bcbd43fdf4553876972ec5"></a>ERROR_INVALID_LVALUE&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a59e56af19e754a6aa26a612ebf91d05fa07213cc3dba5230ec5715a8e23b7a75b" name="a59e56af19e754a6aa26a612ebf91d05fa07213cc3dba5230ec5715a8e23b7a75b"></a>ERROR_INVALID_CALL&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a59e56af19e754a6aa26a612ebf91d05fab55db74ec6e0da76114fcde483042d2e" name="a59e56af19e754a6aa26a612ebf91d05fab55db74ec6e0da76114fcde483042d2e"></a>ERROR_INVALID_ARGUMENT_COUNT&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a59e56af19e754a6aa26a612ebf91d05fab8e0076acfdc964614d77b23ce15e112" name="a59e56af19e754a6aa26a612ebf91d05fab8e0076acfdc964614d77b23ce15e112"></a>ERROR_INVALID_RETURN_POSITION&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a59e56af19e754a6aa26a612ebf91d05fa425c0ce6580188f05fc03bd22e852c4b" name="a59e56af19e754a6aa26a612ebf91d05fa425c0ce6580188f05fc03bd22e852c4b"></a>ERROR_SELF_REFERENCING_INITIALIZER&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="a59e56af19e754a6aa26a612ebf91d05fa2e1a626d0a665069b6c81d59b1787d25" name="a59e56af19e754a6aa26a612ebf91d05fa2e1a626d0a665069b6c81d59b1787d25"></a>ERROR_WRONG_TYPE_OPERAND&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="a59e56af19e754a6aa26a612ebf91d05fa105a71af2f532e023af49115dc047530" name="a59e56af19e754a6aa26a612ebf91d05fa105a71af2f532e023af49115dc047530"></a>ERROR_WRONG_TYPE_OPERAND_BINARY&#160;</td><td class="fielddoc"></td></tr>
 </table>

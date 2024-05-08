@@ -6,31 +6,72 @@
 \DoxyCodeLine{00002\ \textcolor{comment}{//\ Created\ by\ kemal\ on\ 3/6/2024.}}
 \DoxyCodeLine{00003\ \textcolor{comment}{//}}
 \DoxyCodeLine{00004\ }
-\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#ifndef\ MATURSKI\_2\_OBJECT\_H}}
-\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#define\ MATURSKI\_2\_OBJECT\_H}}
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#ifndef\ BAKLAVA\_OBJECT\_H}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#define\ BAKLAVA\_OBJECT\_H}}
 \DoxyCodeLine{00007\ }
 \DoxyCodeLine{00008\ \textcolor{preprocessor}{\#include\ <cstdint>}}
 \DoxyCodeLine{00009\ \textcolor{preprocessor}{\#include\ <string>}}
 \DoxyCodeLine{00010\ }
-\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#define\ IS\_STRING\_OBJ(value)\ ((value).as.object-\/>type\ ==\ ObjectType::OBJECT\_STRING)}}
-\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#define\ AS\_STRING\_OBJ(value)\ ((ObjectString*)value.as.object)}}
-\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#define\ GET\_STRING\_OBJ\_VALUE(val)\ (AS\_STRING\_OBJ(val)-\/>value)}}
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_runtime_value_8h}{RuntimeValue.h}}"{}}}
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_function_declaration_statement_8h}{FunctionDeclarationStatement.h}}"{}}}
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_environment_8h}{Environment.h}}"{}}}
 \DoxyCodeLine{00014\ }
-\DoxyCodeLine{00015\ \textcolor{keyword}{enum\ class}\ \mbox{\hyperlink{_object_8h_ad77a2400b6233b221e23bc962da32b0d}{ObjectType}}\ :\ uint8\_t\{}
-\DoxyCodeLine{00016\ \ \ \mbox{\hyperlink{_object_8h_ad77a2400b6233b221e23bc962da32b0da9fed860f78f69ed0723cd3588ef5267a}{OBJECT\_STRING}},}
-\DoxyCodeLine{00017\ \};}
+\DoxyCodeLine{00015\ \textcolor{preprocessor}{\#define\ IS\_STRING\_OBJ(value)\ ((value).as.object-\/>type\ ==\ ObjectType::OBJECT\_STRING)}}
+\DoxyCodeLine{00016\ \textcolor{preprocessor}{\#define\ AS\_STRING\_OBJ(value)\ ((ObjectString*)value.as.object)}}
+\DoxyCodeLine{00017\ \textcolor{preprocessor}{\#define\ GET\_STRING\_OBJ\_VALUE(val)\ (AS\_STRING\_OBJ(val)-\/>value)}}
 \DoxyCodeLine{00018\ }
-\DoxyCodeLine{00019\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct_object}{Object}}\ \{}
-\DoxyCodeLine{00020\ \ \ \ \ \mbox{\hyperlink{_object_8h_ad77a2400b6233b221e23bc962da32b0d}{ObjectType}}\ \mbox{\hyperlink{struct_object_a0075dcd793d09d14f5ff0b20ce4db4f7}{type}};}
-\DoxyCodeLine{00021\ \ \ \ \ \mbox{\hyperlink{struct_object}{Object}}*\ \mbox{\hyperlink{struct_object_a29524055e3b5fe5df2e3c41fa81ff1ff}{next}};}
-\DoxyCodeLine{00022\ \};}
-\DoxyCodeLine{00023\ }
-\DoxyCodeLine{00024\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct_object_string}{ObjectString}}\ \{}
-\DoxyCodeLine{00025\ \ \ \ \ \mbox{\hyperlink{struct_object}{Object}}\ \mbox{\hyperlink{struct_object_string_a97c831e5b4529998008d85768b8e9f4a}{obj}};}
-\DoxyCodeLine{00026\ \ \ \ \ std::wstring\ \mbox{\hyperlink{struct_object_string_a521ee745aa1e11944ab13b91aa9d1078}{value}};}
-\DoxyCodeLine{00027\ \};}
+\DoxyCodeLine{00019\ \textcolor{preprocessor}{\#define\ IS\_CALLABLE\_OBJ(value)\ ((value).as.object-\/>type\ ==\ ObjectType::OBJECT\_CALLABLE)}}
+\DoxyCodeLine{00020\ \textcolor{preprocessor}{\#define\ AS\_CALLABLE\_OBJ(value)\ ((ObjectCallable*)value.as.object)}}
+\DoxyCodeLine{00021\ }
+\DoxyCodeLine{00022\ \textcolor{preprocessor}{\#define\ IS\_FUNCTION\_OBJ(value)\ ((value).as.object-\/>type\ ==\ ObjectType::OBJECT\_FUNCTION)}}
+\DoxyCodeLine{00023\ \textcolor{preprocessor}{\#define\ AS\_FUNCTION\_OBJ(value)\ ((ObjectFunction*)value.as.object)}}
+\DoxyCodeLine{00024\ }
+\DoxyCodeLine{00025\ \textcolor{preprocessor}{\#define\ IS\_ARRAY\_OBJ(value)\ ((value).as.object-\/>type\ ==\ ObjectType::OBJECT\_ARRAY)}}
+\DoxyCodeLine{00026\ \textcolor{preprocessor}{\#define\ AS\_ARRAY\_OBJ(value)\ ((ObjectArray*)value.as.object)}}
+\DoxyCodeLine{00027\ \textcolor{preprocessor}{\#define\ GET\_ARRAY\_OBJ\_ELEMENTS(val)\ (AS\_ARRAY\_OBJ(val)-\/>elements)}}
 \DoxyCodeLine{00028\ }
-\DoxyCodeLine{00029\ }
-\DoxyCodeLine{00030\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//MATURSKI\_2\_OBJECT\_H}}
+\DoxyCodeLine{00029\ \textcolor{keyword}{enum\ class}\ \mbox{\hyperlink{_object_8h_ad77a2400b6233b221e23bc962da32b0d}{ObjectType}}\ :\ uint8\_t\{}
+\DoxyCodeLine{00030\ \ \ \mbox{\hyperlink{_object_8h_ad77a2400b6233b221e23bc962da32b0da9fed860f78f69ed0723cd3588ef5267a}{OBJECT\_STRING}},}
+\DoxyCodeLine{00031\ \ \ \mbox{\hyperlink{_object_8h_ad77a2400b6233b221e23bc962da32b0dab2bb3e0d350d5f22251bbd00ef47baa4}{OBJECT\_CALLABLE}},}
+\DoxyCodeLine{00032\ \ \ \mbox{\hyperlink{_object_8h_ad77a2400b6233b221e23bc962da32b0da4dc52fbfa24848d7b9d066e3b4fbef7b}{OBJECT\_FUNCTION}},}
+\DoxyCodeLine{00033\ \ \ \mbox{\hyperlink{_object_8h_ad77a2400b6233b221e23bc962da32b0dae36513d39848f86e215e919f2ed78855}{OBJECT\_ARRAY}}}
+\DoxyCodeLine{00034\ \};}
+\DoxyCodeLine{00035\ }
+\DoxyCodeLine{00036\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct_object}{Object}}\ \{}
+\DoxyCodeLine{00037\ \ \ \ \ \mbox{\hyperlink{_object_8h_ad77a2400b6233b221e23bc962da32b0d}{ObjectType}}\ \mbox{\hyperlink{struct_object_a0075dcd793d09d14f5ff0b20ce4db4f7}{type}};}
+\DoxyCodeLine{00038\ \ \ \ \ \mbox{\hyperlink{struct_object}{Object}}*\ \mbox{\hyperlink{struct_object_a29524055e3b5fe5df2e3c41fa81ff1ff}{next}};}
+\DoxyCodeLine{00039\ \};}
+\DoxyCodeLine{00040\ }
+\DoxyCodeLine{00041\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct_object_string}{ObjectString}}\ \{}
+\DoxyCodeLine{00042\ \ \ \ \ \mbox{\hyperlink{struct_object}{Object}}\ \mbox{\hyperlink{struct_object_string_a97c831e5b4529998008d85768b8e9f4a}{obj}};}
+\DoxyCodeLine{00043\ \ \ \ \ std::wstring\ \mbox{\hyperlink{struct_object_string_a521ee745aa1e11944ab13b91aa9d1078}{value}};}
+\DoxyCodeLine{00044\ \};}
+\DoxyCodeLine{00045\ }
+\DoxyCodeLine{00046\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct_object_callable}{ObjectCallable}}\ \{}
+\DoxyCodeLine{00047\ \ \ \ \ \mbox{\hyperlink{struct_object}{Object}}\ \mbox{\hyperlink{struct_object_callable_a62c666df9b75f3d7d9019d2bbe809bdc}{obj}};}
+\DoxyCodeLine{00048\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ \mbox{\hyperlink{struct_object_callable_a5d11d07783d5a39adc09f98a921719ad}{arity}};}
+\DoxyCodeLine{00049\ \ \ \ \ std::function<\mbox{\hyperlink{_environment_8h_a96850234e3dbbb0c2e6e12c2c71fa3e4}{RuntimeValue}}(\mbox{\hyperlink{class_interpreter}{Interpreter}}*,\ \textcolor{keyword}{const}\ std::vector<RuntimeValue>\&)>\ \mbox{\hyperlink{struct_object_callable_aaeeb9572e3e1deb69a8784c3616d3bbe}{call}};}
+\DoxyCodeLine{00050\ \};}
+\DoxyCodeLine{00051\ }
+\DoxyCodeLine{00052\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct_object_array}{ObjectArray}}\ \{}
+\DoxyCodeLine{00053\ \ \ \ \ \mbox{\hyperlink{struct_object}{Object}}\ \mbox{\hyperlink{struct_object_array_a15e468a6fad52017895b32b9fb30f581}{obj}};}
+\DoxyCodeLine{00054\ \ \ \ \ std::vector<RuntimeValue>\ \mbox{\hyperlink{struct_object_array_a63154af57f178bb85eca0583afd1ef7b}{elements}};}
+\DoxyCodeLine{00055\ \};}
+\DoxyCodeLine{00056\ }
+\DoxyCodeLine{00057\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_environment}{Environment}};}
+\DoxyCodeLine{00058\ }
+\DoxyCodeLine{00059\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct_object_function}{ObjectFunction}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{struct_object_callable}{ObjectCallable}}\ \{}
+\DoxyCodeLine{00060\ \ \ \ \ \mbox{\hyperlink{class_function_declaration_statement}{FunctionDeclarationStatement}}*\ \mbox{\hyperlink{struct_object_function_a2790d70c5d5047cfe4f87aef6213935a}{declaration}};}
+\DoxyCodeLine{00061\ \ \ \ \ \mbox{\hyperlink{class_environment}{Environment}}\ \mbox{\hyperlink{struct_object_function_a35514fcd543a1d90c228b755ce3e4bde}{closure}};}
+\DoxyCodeLine{00062\ \ \ \ \ \mbox{\hyperlink{struct_runtime_value}{RuntimeValue}}\ \mbox{\hyperlink{struct_object_function_af0df1031d55045204e4d8eb0f2b9116f}{functionCall}}(\mbox{\hyperlink{class_interpreter}{Interpreter}}*\ interpreter,\ \textcolor{keyword}{const}\ std::vector<RuntimeValue>\&\ arguments);}
+\DoxyCodeLine{00063\ \ \ \ \ \textcolor{keyword}{explicit}\ \mbox{\hyperlink{struct_object_function_abeeebdb397d9ccd964216c19f7ba5e31}{ObjectFunction}}(\mbox{\hyperlink{class_function_declaration_statement}{FunctionDeclarationStatement}}*\ \mbox{\hyperlink{struct_object_function_a2790d70c5d5047cfe4f87aef6213935a}{declaration}},\ \mbox{\hyperlink{class_environment}{Environment}}*\ \mbox{\hyperlink{struct_object_function_a35514fcd543a1d90c228b755ce3e4bde}{closure}})\ :\ \mbox{\hyperlink{struct_object_function_a2790d70c5d5047cfe4f87aef6213935a}{declaration}}(\mbox{\hyperlink{struct_object_function_a2790d70c5d5047cfe4f87aef6213935a}{declaration}})\{}
+\DoxyCodeLine{00064\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_object_callable_a62c666df9b75f3d7d9019d2bbe809bdc}{obj}}.\mbox{\hyperlink{struct_object_a0075dcd793d09d14f5ff0b20ce4db4f7}{type}}\ =\ \mbox{\hyperlink{_object_8h_ad77a2400b6233b221e23bc962da32b0da4dc52fbfa24848d7b9d066e3b4fbef7b}{ObjectType::OBJECT\_FUNCTION}};}
+\DoxyCodeLine{00065\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_object_callable_a5d11d07783d5a39adc09f98a921719ad}{arity}}\ =\ \mbox{\hyperlink{struct_object_function_a2790d70c5d5047cfe4f87aef6213935a}{declaration}}-\/>\mbox{\hyperlink{class_function_declaration_statement_a401e01a8c7a0d029c2635e8f49de322d}{parameters}}.size();}
+\DoxyCodeLine{00066\ \ \ \ \ \ \ \ \ this-\/>closure\ =\ *\mbox{\hyperlink{struct_object_function_a35514fcd543a1d90c228b755ce3e4bde}{closure}};}
+\DoxyCodeLine{00067\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_object_callable_aaeeb9572e3e1deb69a8784c3616d3bbe}{call}}\ =\ [\textcolor{keyword}{this}](\textcolor{keyword}{auto}\ \&\&\ PH1,\ \textcolor{keyword}{auto}\ \&\&\ PH2)\ \{\ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{struct_object_function_af0df1031d55045204e4d8eb0f2b9116f}{functionCall}}(std::forward<\textcolor{keyword}{decltype}(PH1)>(PH1),\ std::forward<\textcolor{keyword}{decltype}(PH2)>(PH2));\ \};}
+\DoxyCodeLine{00068\ \ \ \ \ \}}
+\DoxyCodeLine{00069\ \};}
+\DoxyCodeLine{00070\ }
+\DoxyCodeLine{00071\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//BAKLAVA\_OBJECT\_H}}
 
 \end{DoxyCode}

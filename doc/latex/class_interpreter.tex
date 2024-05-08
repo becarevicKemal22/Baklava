@@ -13,15 +13,41 @@ Class that runs a program.
 \begin{DoxyCompactItemize}
 \item 
 \mbox{\hyperlink{class_interpreter_a9faf0dca72cd27223e5c447b580de2a5}{Interpreter}} ()
-\begin{DoxyCompactList}\small\item\em Constructor with no error printer. Should almost never be used, as it leaves the interpreter with no error printing capability. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em Constructor with no error printer. Should almost never be used, as it leaves the interpreter with no error printing capability. Useful for testing. \end{DoxyCompactList}\item 
 \mbox{\hyperlink{class_interpreter_a619a2264f48541288bd7bf1eecc5248a}{Interpreter}} (\mbox{\hyperlink{class_error_printer}{Error\+Printer}} \texorpdfstring{$\ast$}{*}error\+Printer)
 \begin{DoxyCompactList}\small\item\em Constructor with an error printer. Recommended constructor. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_interpreter_ad2b78004f6586e9f90ae73140531b50c}{define\+Native\+Functions}} ()
+\item 
+\mbox{\hyperlink{class_interpreter_a0f96b57f8126e2b5bc63390121e4b5b1}{\texorpdfstring{$\sim$}{\string~}\+Interpreter}} ()
+\item 
 \mbox{\hyperlink{struct_runtime_value}{Runtime\+Value}} \mbox{\hyperlink{class_interpreter_a0d08edd5e92501d04c9cac6e01b126eb}{evaluate}} (\mbox{\hyperlink{class_expression}{Expression}} \texorpdfstring{$\ast$}{*}expr)
-\begin{DoxyCompactList}\small\item\em Evaluates the given expression. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em Evaluates the given expression. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_interpreter_a54d8269cb7834e31ada8f989bb452f1d}{execute}} (\mbox{\hyperlink{class_statement}{Statement}} \texorpdfstring{$\ast$}{*}stmt)
+\begin{DoxyCompactList}\small\item\em Executes the given statement. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_interpreter_af6d6bb528dbc5a1a661182466ea6d987}{interpret}} (\mbox{\hyperlink{class_program}{Program}} \texorpdfstring{$\ast$}{*}program)
+\begin{DoxyCompactList}\small\item\em Interprets the given program. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_interpreter_a174e5d01f8129ec93991681f49a0e779}{resolve}} (const \mbox{\hyperlink{class_expression}{Expression}} \texorpdfstring{$\ast$}{*}expr, int depth)
+\item 
+void \mbox{\hyperlink{class_interpreter_a4c64d99897a20ce300847700accc9c23}{execute\+Block}} (const std\+::vector$<$ \mbox{\hyperlink{_ast_8h_ad591697d8b5c0c7de8add763ec2e67ef}{Stmt\+Ptr}} $>$ \&statements, const \mbox{\hyperlink{class_environment}{Environment}} \&environment)
+\end{DoxyCompactItemize}
 \doxysubsubsection*{Public Attributes}
 \begin{DoxyCompactItemize}
 \item 
 bool \mbox{\hyperlink{class_interpreter_a95ae7eb9c9fae9c61c7775a4974602dd}{had\+Error}} = false
+\item 
+\mbox{\hyperlink{class_environment}{Environment}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{class_interpreter_ac8d1b7617a8b385112b5ab528ed29f46}{globals}}
+\item 
+std\+::vector$<$ \mbox{\hyperlink{class_statement}{Statement}} \texorpdfstring{$\ast$}{*} $>$ \mbox{\hyperlink{class_interpreter_acd8d4eae23e506ac006b5bb8f8194abd}{executed\+Statements}}
+\item 
+std\+::vector$<$ \mbox{\hyperlink{struct_runtime_value}{Runtime\+Value}} $>$ \mbox{\hyperlink{class_interpreter_a9ae1ff6d560682e621c696889c9259b0}{print\+History}}
+\item 
+\mbox{\hyperlink{class_runtime_error}{Runtime\+Error}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{class_interpreter_a57c19f5e1b82cefccba83474ed01258d}{handled\+Error}} = nullptr
+\item 
+\mbox{\hyperlink{struct_runtime_value}{Runtime\+Value}} \mbox{\hyperlink{class_interpreter_a689836b6f73510fd3b98200ac67d6d50}{returned\+Value}}
+\item 
+bool \mbox{\hyperlink{class_interpreter_a5237f122c259b5e120cb20478db387a1}{is\+Returning}} = false
+\item 
+std\+::stack$<$ \mbox{\hyperlink{class_environment}{Environment}} $>$ \mbox{\hyperlink{class_interpreter_a51754c3f067cfd5f79672fc026a761e2}{environments}}
 \end{DoxyCompactItemize}
 
 
@@ -39,7 +65,7 @@ The \doxylink{class_interpreter}{Interpreter} class is responsible for evaluatin
 
 
 
-Constructor with no error printer. Should almost never be used, as it leaves the interpreter with no error printing capability. 
+Constructor with no error printer. Should almost never be used, as it leaves the interpreter with no error printing capability. Useful for testing. 
 
 \Hypertarget{class_interpreter_a619a2264f48541288bd7bf1eecc5248a}\label{class_interpreter_a619a2264f48541288bd7bf1eecc5248a} 
 \index{Interpreter@{Interpreter}!Interpreter@{Interpreter}}
@@ -56,9 +82,21 @@ Constructor with an error printer. Recommended constructor.
 {\em error\+Printer} & Error printer to use for printing errors. \\
 \hline
 \end{DoxyParams}
+\Hypertarget{class_interpreter_a0f96b57f8126e2b5bc63390121e4b5b1}\label{class_interpreter_a0f96b57f8126e2b5bc63390121e4b5b1} 
+\index{Interpreter@{Interpreter}!````~Interpreter@{\texorpdfstring{$\sim$}{\string~}Interpreter}}
+\index{````~Interpreter@{\texorpdfstring{$\sim$}{\string~}Interpreter}!Interpreter@{Interpreter}}
+\doxysubsubsection{\texorpdfstring{\texorpdfstring{$\sim$}{\string~}Interpreter()}{\string~Interpreter()}}
+{\footnotesize\ttfamily Interpreter\+::\texorpdfstring{$\sim$}{\string~}\+Interpreter (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
 
 
 \doxysubsection{Member Function Documentation}
+\Hypertarget{class_interpreter_ad2b78004f6586e9f90ae73140531b50c}\label{class_interpreter_ad2b78004f6586e9f90ae73140531b50c} 
+\index{Interpreter@{Interpreter}!defineNativeFunctions@{defineNativeFunctions}}
+\index{defineNativeFunctions@{defineNativeFunctions}!Interpreter@{Interpreter}}
+\doxysubsubsection{\texorpdfstring{defineNativeFunctions()}{defineNativeFunctions()}}
+{\footnotesize\ttfamily void Interpreter\+::define\+Native\+Functions (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
 \Hypertarget{class_interpreter_a0d08edd5e92501d04c9cac6e01b126eb}\label{class_interpreter_a0d08edd5e92501d04c9cac6e01b126eb} 
 \index{Interpreter@{Interpreter}!evaluate@{evaluate}}
 \index{evaluate@{evaluate}!Interpreter@{Interpreter}}
@@ -82,16 +120,105 @@ Evaluates the given expression.
 {\em \doxylink{class_runtime_error}{Runtime\+Error}} & Throws \doxylink{class_runtime_error}{Runtime\+Error} and its derived classes if an error occurs during evaluation. \\
 \hline
 \end{DoxyExceptions}
+\Hypertarget{class_interpreter_a54d8269cb7834e31ada8f989bb452f1d}\label{class_interpreter_a54d8269cb7834e31ada8f989bb452f1d} 
+\index{Interpreter@{Interpreter}!execute@{execute}}
+\index{execute@{execute}!Interpreter@{Interpreter}}
+\doxysubsubsection{\texorpdfstring{execute()}{execute()}}
+{\footnotesize\ttfamily void Interpreter\+::execute (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_statement}{Statement}} \texorpdfstring{$\ast$}{*}}]{stmt }\end{DoxyParamCaption})}
+
+
+
+Executes the given statement. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em stmt} & \doxylink{class_statement}{Statement} to execute. \\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em \doxylink{class_runtime_error}{Runtime\+Error}} & Throws \doxylink{class_runtime_error}{Runtime\+Error} and its derived classes if an error occurs during execution. \\
+\hline
+\end{DoxyExceptions}
+\Hypertarget{class_interpreter_a4c64d99897a20ce300847700accc9c23}\label{class_interpreter_a4c64d99897a20ce300847700accc9c23} 
+\index{Interpreter@{Interpreter}!executeBlock@{executeBlock}}
+\index{executeBlock@{executeBlock}!Interpreter@{Interpreter}}
+\doxysubsubsection{\texorpdfstring{executeBlock()}{executeBlock()}}
+{\footnotesize\ttfamily void Interpreter\+::execute\+Block (\begin{DoxyParamCaption}\item[{const std\+::vector$<$ \mbox{\hyperlink{_ast_8h_ad591697d8b5c0c7de8add763ec2e67ef}{Stmt\+Ptr}} $>$ \&}]{statements,  }\item[{const \mbox{\hyperlink{class_environment}{Environment}} \&}]{environment }\end{DoxyParamCaption})}
+
+\Hypertarget{class_interpreter_af6d6bb528dbc5a1a661182466ea6d987}\label{class_interpreter_af6d6bb528dbc5a1a661182466ea6d987} 
+\index{Interpreter@{Interpreter}!interpret@{interpret}}
+\index{interpret@{interpret}!Interpreter@{Interpreter}}
+\doxysubsubsection{\texorpdfstring{interpret()}{interpret()}}
+{\footnotesize\ttfamily void Interpreter\+::interpret (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_program}{Program}} \texorpdfstring{$\ast$}{*}}]{program }\end{DoxyParamCaption})}
+
+
+
+Interprets the given program. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em program} & \doxylink{class_program}{Program} to interpret. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_interpreter_a174e5d01f8129ec93991681f49a0e779}\label{class_interpreter_a174e5d01f8129ec93991681f49a0e779} 
+\index{Interpreter@{Interpreter}!resolve@{resolve}}
+\index{resolve@{resolve}!Interpreter@{Interpreter}}
+\doxysubsubsection{\texorpdfstring{resolve()}{resolve()}}
+{\footnotesize\ttfamily void Interpreter\+::resolve (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{class_expression}{Expression}} \texorpdfstring{$\ast$}{*}}]{expr,  }\item[{int}]{depth }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
 
 
 \doxysubsection{Member Data Documentation}
+\Hypertarget{class_interpreter_a51754c3f067cfd5f79672fc026a761e2}\label{class_interpreter_a51754c3f067cfd5f79672fc026a761e2} 
+\index{Interpreter@{Interpreter}!environments@{environments}}
+\index{environments@{environments}!Interpreter@{Interpreter}}
+\doxysubsubsection{\texorpdfstring{environments}{environments}}
+{\footnotesize\ttfamily std\+::stack$<$\mbox{\hyperlink{class_environment}{Environment}}$>$ Interpreter\+::environments}
+
+\Hypertarget{class_interpreter_acd8d4eae23e506ac006b5bb8f8194abd}\label{class_interpreter_acd8d4eae23e506ac006b5bb8f8194abd} 
+\index{Interpreter@{Interpreter}!executedStatements@{executedStatements}}
+\index{executedStatements@{executedStatements}!Interpreter@{Interpreter}}
+\doxysubsubsection{\texorpdfstring{executedStatements}{executedStatements}}
+{\footnotesize\ttfamily std\+::vector$<$\mbox{\hyperlink{class_statement}{Statement}} \texorpdfstring{$\ast$}{*}$>$ Interpreter\+::executed\+Statements}
+
+List of pointers to all statements that have been executed. Only written to when DEBUG\+\_\+\+TRACK\+\_\+\+EXECUTION is set \Hypertarget{class_interpreter_ac8d1b7617a8b385112b5ab528ed29f46}\label{class_interpreter_ac8d1b7617a8b385112b5ab528ed29f46} 
+\index{Interpreter@{Interpreter}!globals@{globals}}
+\index{globals@{globals}!Interpreter@{Interpreter}}
+\doxysubsubsection{\texorpdfstring{globals}{globals}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_environment}{Environment}}\texorpdfstring{$\ast$}{*} Interpreter\+::globals}
+
 \Hypertarget{class_interpreter_a95ae7eb9c9fae9c61c7775a4974602dd}\label{class_interpreter_a95ae7eb9c9fae9c61c7775a4974602dd} 
 \index{Interpreter@{Interpreter}!hadError@{hadError}}
 \index{hadError@{hadError}!Interpreter@{Interpreter}}
 \doxysubsubsection{\texorpdfstring{hadError}{hadError}}
 {\footnotesize\ttfamily bool Interpreter\+::had\+Error = false}
 
-Holds whether an error has occurred during the interpretation. Interpretation should stop if this is set to true. 
+Holds whether an error has occurred during the interpretation. Interpretation should stop if this is set to true. \Hypertarget{class_interpreter_a57c19f5e1b82cefccba83474ed01258d}\label{class_interpreter_a57c19f5e1b82cefccba83474ed01258d} 
+\index{Interpreter@{Interpreter}!handledError@{handledError}}
+\index{handledError@{handledError}!Interpreter@{Interpreter}}
+\doxysubsubsection{\texorpdfstring{handledError}{handledError}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_runtime_error}{Runtime\+Error}}\texorpdfstring{$\ast$}{*} Interpreter\+::handled\+Error = nullptr}
+
+Holds the last error that has been handled. No flags needed as this is only done when the program has to quit so performance is not an issue. \Hypertarget{class_interpreter_a5237f122c259b5e120cb20478db387a1}\label{class_interpreter_a5237f122c259b5e120cb20478db387a1} 
+\index{Interpreter@{Interpreter}!isReturning@{isReturning}}
+\index{isReturning@{isReturning}!Interpreter@{Interpreter}}
+\doxysubsubsection{\texorpdfstring{isReturning}{isReturning}}
+{\footnotesize\ttfamily bool Interpreter\+::is\+Returning = false}
+
+\Hypertarget{class_interpreter_a9ae1ff6d560682e621c696889c9259b0}\label{class_interpreter_a9ae1ff6d560682e621c696889c9259b0} 
+\index{Interpreter@{Interpreter}!printHistory@{printHistory}}
+\index{printHistory@{printHistory}!Interpreter@{Interpreter}}
+\doxysubsubsection{\texorpdfstring{printHistory}{printHistory}}
+{\footnotesize\ttfamily std\+::vector$<$\mbox{\hyperlink{struct_runtime_value}{Runtime\+Value}}$>$ Interpreter\+::print\+History}
+
+List of all values that have been printed. Only written to when DEBUG\+\_\+\+TRACK\+\_\+\+PRINTING is set \Hypertarget{class_interpreter_a689836b6f73510fd3b98200ac67d6d50}\label{class_interpreter_a689836b6f73510fd3b98200ac67d6d50} 
+\index{Interpreter@{Interpreter}!returnedValue@{returnedValue}}
+\index{returnedValue@{returnedValue}!Interpreter@{Interpreter}}
+\doxysubsubsection{\texorpdfstring{returnedValue}{returnedValue}}
+{\footnotesize\ttfamily \mbox{\hyperlink{struct_runtime_value}{Runtime\+Value}} Interpreter\+::returned\+Value}
+
+
 
 The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
 \item 

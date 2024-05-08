@@ -6,8 +6,8 @@
 \DoxyCodeLine{00002\ \textcolor{comment}{//\ Created\ by\ kemal\ on\ 1/28/2024.}}
 \DoxyCodeLine{00003\ \textcolor{comment}{//}}
 \DoxyCodeLine{00004\ }
-\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#ifndef\ MATURSKI\_2\_TOKENTYPE\_H}}
-\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#define\ MATURSKI\_2\_TOKENTYPE\_H}}
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#ifndef\ BAKLAVA\_TOKENTYPE\_H}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#define\ BAKLAVA\_TOKENTYPE\_H}}
 \DoxyCodeLine{00007\ }
 \DoxyCodeLine{00008\ \textcolor{preprocessor}{\#include\ <cstdint>}}
 \DoxyCodeLine{00009\ }
@@ -25,33 +25,44 @@
 \DoxyCodeLine{00024\ \ \ \ \ \mbox{\hyperlink{_token_type_8h_afa91e1934f818659a4e2b0c8ce1214b0aaf6c6cf7a454b4ef4a850ac4d960a2cc}{Dot}},}
 \DoxyCodeLine{00025\ \ \ \ \ \textcolor{comment}{//\ Operators}}
 \DoxyCodeLine{00026\ \ \ \ \ \mbox{\hyperlink{_token_type_8h_afa91e1934f818659a4e2b0c8ce1214b0a32ba78fe43257d3e7f88e3935a8ea0d4}{Plus}},}
-\DoxyCodeLine{00027\ \ \ \ \ \mbox{\hyperlink{_token_type_8h_afa91e1934f818659a4e2b0c8ce1214b0a453fb623e752c5993f65bc410fd74fe5}{Minus}},}
-\DoxyCodeLine{00028\ \ \ \ \ \mbox{\hyperlink{_token_type_8h_afa91e1934f818659a4e2b0c8ce1214b0a26f93e6e68e28a698377e941cb59f29a}{Star}},}
-\DoxyCodeLine{00029\ \ \ \ \ \mbox{\hyperlink{_token_type_8h_afa91e1934f818659a4e2b0c8ce1214b0a358cfe58715d680d9ab09f82e4010cbc}{Slash}},}
-\DoxyCodeLine{00030\ \ \ \ \ \mbox{\hyperlink{_token_type_8h_afa91e1934f818659a4e2b0c8ce1214b0aadaaee4b22041c27198d410c68d952c9}{Percent}},}
-\DoxyCodeLine{00031\ \ \ \ \ \mbox{\hyperlink{_token_type_8h_afa91e1934f818659a4e2b0c8ce1214b0a526e67744f0b90739ec17c191c62d24c}{Bang}},}
-\DoxyCodeLine{00032\ \ \ \ \ \mbox{\hyperlink{_token_type_8h_afa91e1934f818659a4e2b0c8ce1214b0a5278bcb93db8ac282d71486badfa20e5}{BangEqual}},}
-\DoxyCodeLine{00033\ \ \ \ \ \mbox{\hyperlink{_token_type_8h_afa91e1934f818659a4e2b0c8ce1214b0a1cfdf0e8d0c87a228c1f40d9bee7888b}{Less}},}
-\DoxyCodeLine{00034\ \ \ \ \ \mbox{\hyperlink{_token_type_8h_afa91e1934f818659a4e2b0c8ce1214b0ad3e6fdac55bb7b0edd7834c968ba1f38}{LessEqual}},}
-\DoxyCodeLine{00035\ \ \ \ \ \mbox{\hyperlink{_token_type_8h_afa91e1934f818659a4e2b0c8ce1214b0a8768a6821cd735aea4f5b0df88c1fc6a}{Greater}},}
-\DoxyCodeLine{00036\ \ \ \ \ \mbox{\hyperlink{_token_type_8h_afa91e1934f818659a4e2b0c8ce1214b0a758b05d899def79c9eb864ad4f96be1f}{GreaterEqual}},}
-\DoxyCodeLine{00037\ \ \ \ \ \mbox{\hyperlink{_token_type_8h_afa91e1934f818659a4e2b0c8ce1214b0af5f286e73bda105e538310b3190f75c5}{Equal}},}
-\DoxyCodeLine{00038\ \ \ \ \ \mbox{\hyperlink{_token_type_8h_afa91e1934f818659a4e2b0c8ce1214b0a13c24a0518fdd7d00972977786c7d993}{DoubleEqual}},}
-\DoxyCodeLine{00039\ \ \ \ \ \mbox{\hyperlink{_token_type_8h_afa91e1934f818659a4e2b0c8ce1214b0af485de241625459d23b3de0868a67e59}{DoublePipe}},}
-\DoxyCodeLine{00040\ \ \ \ \ \mbox{\hyperlink{_token_type_8h_afa91e1934f818659a4e2b0c8ce1214b0ac14d53d0f682a4896e2a129ad7b94273}{DoubleAmpersand}},}
-\DoxyCodeLine{00041\ \ \ \ \ \textcolor{comment}{//\ Types\ and\ identifiers}}
-\DoxyCodeLine{00042\ \ \ \ \ \mbox{\hyperlink{_token_type_8h_afa91e1934f818659a4e2b0c8ce1214b0a29ee5d1ebcc033234938a5234f1f2075}{Identifier}},}
-\DoxyCodeLine{00043\ \ \ \ \ \mbox{\hyperlink{_token_type_8h_afa91e1934f818659a4e2b0c8ce1214b0ab2ee912b91d69b435159c7c3f6df7f5f}{Number}},}
-\DoxyCodeLine{00044\ \ \ \ \ \mbox{\hyperlink{_token_type_8h_afa91e1934f818659a4e2b0c8ce1214b0a27118326006d3829667a400ad23d5d98}{String}},}
-\DoxyCodeLine{00045\ \ \ \ \ \mbox{\hyperlink{_token_type_8h_afa91e1934f818659a4e2b0c8ce1214b0af827cf462f62848df37c5e1e94a4da74}{True}},}
-\DoxyCodeLine{00046\ \ \ \ \ \mbox{\hyperlink{_token_type_8h_afa91e1934f818659a4e2b0c8ce1214b0af8320b26d30ab433c5a54546d21f414c}{False}},}
-\DoxyCodeLine{00047\ \ \ \ \ \mbox{\hyperlink{_token_type_8h_afa91e1934f818659a4e2b0c8ce1214b0abbb93ef26e3c101ff11cdd21cab08a94}{Null}},}
-\DoxyCodeLine{00048\ \ \ \ \ \textcolor{comment}{//\ Keywords}}
-\DoxyCodeLine{00049\ \ \ \ \ \mbox{\hyperlink{_token_type_8h_afa91e1934f818659a4e2b0c8ce1214b0a786887572f6ef1c20f2d8177cb2f1639}{If}},}
-\DoxyCodeLine{00050\ }
-\DoxyCodeLine{00051\ \ \ \ \ \mbox{\hyperlink{_token_type_8h_afa91e1934f818659a4e2b0c8ce1214b0a49650dcc55dc413da4032cbe44b15d37}{Eof}}}
-\DoxyCodeLine{00052\ \};}
-\DoxyCodeLine{00053\ }
-\DoxyCodeLine{00054\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//MATURSKI\_2\_TOKENTYPE\_H}}
+\DoxyCodeLine{00027\ \ \ \ \ \mbox{\hyperlink{_token_type_8h_afa91e1934f818659a4e2b0c8ce1214b0abb3b7458ee8c4c7f40622e1055098219}{DoublePlus}},}
+\DoxyCodeLine{00028\ \ \ \ \ \mbox{\hyperlink{_token_type_8h_afa91e1934f818659a4e2b0c8ce1214b0a453fb623e752c5993f65bc410fd74fe5}{Minus}},}
+\DoxyCodeLine{00029\ \ \ \ \ \mbox{\hyperlink{_token_type_8h_afa91e1934f818659a4e2b0c8ce1214b0aec652f6fc23e09b0bbf940216f18ecfc}{DoubleMinus}},}
+\DoxyCodeLine{00030\ \ \ \ \ \mbox{\hyperlink{_token_type_8h_afa91e1934f818659a4e2b0c8ce1214b0a26f93e6e68e28a698377e941cb59f29a}{Star}},}
+\DoxyCodeLine{00031\ \ \ \ \ \mbox{\hyperlink{_token_type_8h_afa91e1934f818659a4e2b0c8ce1214b0a358cfe58715d680d9ab09f82e4010cbc}{Slash}},}
+\DoxyCodeLine{00032\ \ \ \ \ \mbox{\hyperlink{_token_type_8h_afa91e1934f818659a4e2b0c8ce1214b0aadaaee4b22041c27198d410c68d952c9}{Percent}},}
+\DoxyCodeLine{00033\ \ \ \ \ \mbox{\hyperlink{_token_type_8h_afa91e1934f818659a4e2b0c8ce1214b0a526e67744f0b90739ec17c191c62d24c}{Bang}},}
+\DoxyCodeLine{00034\ \ \ \ \ \mbox{\hyperlink{_token_type_8h_afa91e1934f818659a4e2b0c8ce1214b0a5278bcb93db8ac282d71486badfa20e5}{BangEqual}},}
+\DoxyCodeLine{00035\ \ \ \ \ \mbox{\hyperlink{_token_type_8h_afa91e1934f818659a4e2b0c8ce1214b0a1cfdf0e8d0c87a228c1f40d9bee7888b}{Less}},}
+\DoxyCodeLine{00036\ \ \ \ \ \mbox{\hyperlink{_token_type_8h_afa91e1934f818659a4e2b0c8ce1214b0ad3e6fdac55bb7b0edd7834c968ba1f38}{LessEqual}},}
+\DoxyCodeLine{00037\ \ \ \ \ \mbox{\hyperlink{_token_type_8h_afa91e1934f818659a4e2b0c8ce1214b0a8768a6821cd735aea4f5b0df88c1fc6a}{Greater}},}
+\DoxyCodeLine{00038\ \ \ \ \ \mbox{\hyperlink{_token_type_8h_afa91e1934f818659a4e2b0c8ce1214b0a758b05d899def79c9eb864ad4f96be1f}{GreaterEqual}},}
+\DoxyCodeLine{00039\ \ \ \ \ \mbox{\hyperlink{_token_type_8h_afa91e1934f818659a4e2b0c8ce1214b0af5f286e73bda105e538310b3190f75c5}{Equal}},}
+\DoxyCodeLine{00040\ \ \ \ \ \mbox{\hyperlink{_token_type_8h_afa91e1934f818659a4e2b0c8ce1214b0a13c24a0518fdd7d00972977786c7d993}{DoubleEqual}},}
+\DoxyCodeLine{00041\ \ \ \ \ \mbox{\hyperlink{_token_type_8h_afa91e1934f818659a4e2b0c8ce1214b0af485de241625459d23b3de0868a67e59}{DoublePipe}},}
+\DoxyCodeLine{00042\ \ \ \ \ \mbox{\hyperlink{_token_type_8h_afa91e1934f818659a4e2b0c8ce1214b0ac14d53d0f682a4896e2a129ad7b94273}{DoubleAmpersand}},}
+\DoxyCodeLine{00043\ \ \ \ \ \textcolor{comment}{//\ Types\ and\ identifiers}}
+\DoxyCodeLine{00044\ \ \ \ \ \mbox{\hyperlink{_token_type_8h_afa91e1934f818659a4e2b0c8ce1214b0a29ee5d1ebcc033234938a5234f1f2075}{Identifier}},}
+\DoxyCodeLine{00045\ \ \ \ \ \mbox{\hyperlink{_token_type_8h_afa91e1934f818659a4e2b0c8ce1214b0ab2ee912b91d69b435159c7c3f6df7f5f}{Number}},}
+\DoxyCodeLine{00046\ \ \ \ \ \mbox{\hyperlink{_token_type_8h_afa91e1934f818659a4e2b0c8ce1214b0a27118326006d3829667a400ad23d5d98}{String}},}
+\DoxyCodeLine{00047\ \ \ \ \ \mbox{\hyperlink{_token_type_8h_afa91e1934f818659a4e2b0c8ce1214b0af827cf462f62848df37c5e1e94a4da74}{True}},}
+\DoxyCodeLine{00048\ \ \ \ \ \mbox{\hyperlink{_token_type_8h_afa91e1934f818659a4e2b0c8ce1214b0af8320b26d30ab433c5a54546d21f414c}{False}},}
+\DoxyCodeLine{00049\ \ \ \ \ \mbox{\hyperlink{_token_type_8h_afa91e1934f818659a4e2b0c8ce1214b0abbb93ef26e3c101ff11cdd21cab08a94}{Null}},}
+\DoxyCodeLine{00050\ \ \ \ \ \textcolor{comment}{//\ Keywords}}
+\DoxyCodeLine{00051\ \ \ \ \ \mbox{\hyperlink{_token_type_8h_afa91e1934f818659a4e2b0c8ce1214b0a13dba24862cf9128167a59100e154c8d}{Print}},}
+\DoxyCodeLine{00052\ \ \ \ \ \mbox{\hyperlink{_token_type_8h_afa91e1934f818659a4e2b0c8ce1214b0a786887572f6ef1c20f2d8177cb2f1639}{If}},}
+\DoxyCodeLine{00053\ \ \ \ \ \mbox{\hyperlink{_token_type_8h_afa91e1934f818659a4e2b0c8ce1214b0a6a0053231db40a4539b8f783a719a54a}{Else}},}
+\DoxyCodeLine{00054\ \ \ \ \ \mbox{\hyperlink{_token_type_8h_afa91e1934f818659a4e2b0c8ce1214b0a5a92344ee95acf10c31901b36418be77}{Var}},}
+\DoxyCodeLine{00055\ \ \ \ \ \mbox{\hyperlink{_token_type_8h_afa91e1934f818659a4e2b0c8ce1214b0a79ceee9f8e3c1f0cc74223e05d2448bf}{Const}},}
+\DoxyCodeLine{00056\ \ \ \ \ \mbox{\hyperlink{_token_type_8h_afa91e1934f818659a4e2b0c8ce1214b0a3cddbb8f43a4e074e2c2ce3e8622f43e}{While}},}
+\DoxyCodeLine{00057\ \ \ \ \ \mbox{\hyperlink{_token_type_8h_afa91e1934f818659a4e2b0c8ce1214b0a39e61d57e9209611edd4f884e9e47c11}{For}},}
+\DoxyCodeLine{00058\ \ \ \ \ \mbox{\hyperlink{_token_type_8h_afa91e1934f818659a4e2b0c8ce1214b0a86408593c34af77fdd90df932f8b5261}{Function}},}
+\DoxyCodeLine{00059\ \ \ \ \ \mbox{\hyperlink{_token_type_8h_afa91e1934f818659a4e2b0c8ce1214b0a988fd738de9c6d177440c5dcf69e73ce}{Return}},}
+\DoxyCodeLine{00060\ }
+\DoxyCodeLine{00061\ \ \ \ \ \textcolor{comment}{//\ End\ of\ file}}
+\DoxyCodeLine{00062\ \ \ \ \ \mbox{\hyperlink{_token_type_8h_afa91e1934f818659a4e2b0c8ce1214b0a49650dcc55dc413da4032cbe44b15d37}{Eof}}}
+\DoxyCodeLine{00063\ \};}
+\DoxyCodeLine{00064\ }
+\DoxyCodeLine{00065\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//BAKLAVA\_TOKENTYPE\_H}}
 
 \end{DoxyCode}
