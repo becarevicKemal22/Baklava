@@ -76,5 +76,12 @@ add_executable(tests ../src/error/printer/ErrorPrinter.cpp ../src/lexer/Lexer.cp
         parser/ParserIndexingOperatorTest.cpp
         ../src/parser/ast/expressions/IndexingExpression.h
         ../src/parser/ast/expressions/ArrayLiteralExpression.h
+        ../src/parser/ast/expressions/IndexAssignmentExpression.h
+        parser/ParserIndexAssignmentExpressionTest.cpp
+        interpreter/InterpreterIndexingExpressionTest.cpp
+        ../src/error/exceptions/IndexOutOfBounds.h
+        ../src/error/exceptions/NonIntegerIndex.h
+        ../src/error/exceptions/IndexingNonArray.h
+        interpreter/InterpreterIndexAssignmentExpressionTest.cpp
 )
 target_link_libraries(tests PRIVATE Catch2::Catch2WithMain)

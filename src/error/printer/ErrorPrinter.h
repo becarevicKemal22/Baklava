@@ -27,6 +27,9 @@
 #include "InvalidArgumentCount.h"
 #include "InvalidReturnPosition.h"
 #include "SelfReferencingInitializer.h"
+#include "IndexOutOfBounds.h"
+#include "NonIntegerIndex.h"
+#include "IndexingNonArray.h"
 
 typedef std::pair<std::pair<int, int>, std::wstring> colorHighlight;
 
@@ -85,6 +88,9 @@ private:
 
     void printWrongTypeError(const WrongTypeError* error);
     void printWrongBinaryOperandTypeError(const WrongBinaryOperandTypes* error);
+    void printIndexOutOfBoundsError(const IndexOutOfBounds* error);
+    void printNonIntegerIndexError(const NonIntegerIndex* error);
+    void printIndexingNonArrayError(const IndexingNonArray* error);
 
     void printVariableRedeclarationError(const VariableRedeclaration* error);
     void printExpectedXBeforeYError(const ExpectedXBeforeY* error);

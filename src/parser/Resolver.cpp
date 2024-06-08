@@ -25,6 +25,9 @@
 #include "StringLiteralExpression.h"
 #include "NullLiteralExpression.h"
 #include "InvalidReturnPosition.h"
+#include "IndexAssignmentExpression.h"
+#include "IndexingExpression.h"
+#include "ArrayLiteralExpression.h"
 
 void Resolver::resolve(std::unique_ptr<Program>& program) {
     for (auto& statement : program->statements) {
@@ -64,6 +67,8 @@ void Resolver::resolve(Statement* statement) {
         case AstNodeType::ReturnStatement:
             resolveReturnStatement(static_cast<ReturnStatement*>(statement));
             break;
+        default:
+            std::wcout << L"Unknown statement type in resolver." << std::endl;
     }
 }
 
@@ -102,6 +107,17 @@ void Resolver::resolve(Expression* expression) {
         case AstNodeType::NullLiteralExpression:
             resolveNullLiteralExpression(static_cast<NullLiteralExpression*>(expression));
             break;
+        case AstNodeType::IndexingExpression:
+            resolveIndexingExpression(static_cast<IndexingExpression*>(expression));
+            break;
+        case AstNodeType::ArrayLiteralExpression:
+            resolveArrayLiteralExpression(static_cast<ArrayLiteralExpression*>(expression));
+            break;
+        case AstNodeType::IndexAssignmentExpression:
+            resolveIndexAssignmentExpression(static_cast<IndexAssignmentExpression*>(expression));
+            break;
+        default:
+            std::wcout << L"Unknown expression type in resolver." << std::endl;
     }
 }
 
@@ -238,6 +254,24 @@ void Resolver::resolveLogicalExpression(LogicalExpression *expression) {
 
 void Resolver::resolveUnaryExpression(UnaryExpression *expression) {
     resolve(expression->expr);
+}
+
+void Resolver::resolveIndexingExpression(IndexingExpression *expression) {
+    resolve(expression->left);
+    resolve(expression->index);
+}
+
+void Resolver::resolveIndexAssignmentExpression(IndexAssignmentExpression *expression) {
+    resolve(expression->left);
+    resolve(expression->index);
+    resolve(expression->value);
+}
+
+
+void Resolver::resolveArrayLiteralExpression(ArrayLiteralExpression *expression) {
+    for(auto &element : expression->elements){
+        resolve(element);
+    }
 }
 
 void Resolver::resolveNumericLiteralExpression(NumericLiteralExpression *expression) {}

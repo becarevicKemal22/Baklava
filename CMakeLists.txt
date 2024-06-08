@@ -70,6 +70,10 @@ add_executable(baklava main.cpp
         src/error/exceptions/parser/SelfReferencingInitializer.h
         src/parser/ast/expressions/IndexingExpression.h
         src/parser/ast/expressions/ArrayLiteralExpression.h
+        src/parser/ast/expressions/IndexAssignmentExpression.h
+        src/error/exceptions/IndexOutOfBounds.h
+        src/error/exceptions/NonIntegerIndex.h
+        src/error/exceptions/IndexingNonArray.h
 )
 
 add_subdirectory(tests)

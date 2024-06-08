@@ -30,6 +30,7 @@
 #include "ReturnStatement.h"
 #include "IndexingExpression.h"
 #include "ArrayLiteralExpression.h"
+#include "IndexAssignmentExpression.h"
 
 std::unique_ptr<Program> Parser::parse() {
     std::unique_ptr<Program> program = std::make_unique<Program>();
@@ -260,6 +261,9 @@ ExprPtr Parser::assignmentExpression() {
         if(expr->type == AstNodeType::VariableExpression){
             auto* var = static_cast<VariableExpression*>(expr);
             return new AssignmentExpression(var->name, value);
+        } else if(expr->type == AstNodeType::IndexingExpression){
+            auto* indexing = static_cast<IndexingExpression*>(expr);
+            return new IndexAssignmentExpression(indexing->left, indexing->index, value);
         }
         throw InvalidLValue(getMostRelevantToken(expr));
     }
@@ -332,23 +336,15 @@ ExprPtr Parser::unaryExpression() {
         ExprPtr right = unaryExpression();
         return new UnaryExpression(op, right);
     }
-    return postfixExpression();
+    return callExpression();
 }
-// ma treba svakom ovom ustvari kao u callExpression da ima expr = primary nekako da se stavi jer svaki zahtijeva nesto prije njega, mada mi nije jasno kako je ovaj primary u callexpr prije ovih zagrada, jer valjda na call dolazi kada dodje do zagrade.
-ExprPtr Parser::postfixExpression() {
+// ovo "call" se odnosi i na poziv funkcije i na indeksiranje, i eventualno kasnije na property access
+ExprPtr Parser::callExpression() {
     ExprPtr expr = primaryExpression();
-    if(atType(TokenType::OpenParenthesis)){
-        return callExpression(expr);
-    }
-    if(atType(TokenType::OpenBracket)){
-        return indexingExpression(expr);
-    }
-    return expr;
-}
-
-ExprPtr Parser::indexingExpression(ExprPtr expr) {
     while(true){
-        if(match({TokenType::OpenBracket})){
+        if(match({TokenType::OpenParenthesis})){
+            expr = finishCallExpression(expr);
+        } else if(match({TokenType::OpenBracket})){
             auto bracket = previous();
             ExprPtr index = expression();
             if(!atType(TokenType::ClosedBracket)){
@@ -356,18 +352,6 @@ ExprPtr Parser::indexingExpression(ExprPtr expr) {
             }
             advance();
             expr = new IndexingExpression(expr, bracket, index);
-        } else {
-            break;
-        }
-    }
-    return expr;
-
-}
-
-ExprPtr Parser::callExpression(ExprPtr expr) {
-    while(true){
-        if(match({TokenType::OpenParenthesis})){
-            expr = finishCallExpression(expr);
         } else {
             break;
         }

@@ -137,6 +137,8 @@ private:
 
     RuntimeValue evaluateIndexingExpression(IndexingExpression *expr);
 
+    RuntimeValue evaluateIndexAssignmentExpression(IndexAssignmentExpression *expr);
+
     bool isTruthy(const RuntimeValue &value);
 
     bool isEqual(const RuntimeValue &left, const RuntimeValue &right);
