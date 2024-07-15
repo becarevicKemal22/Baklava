@@ -23,6 +23,7 @@
 #include "CallExpression.h"
 #include "ArrayLiteralExpression.h"
 #include "IndexingExpression.h"
+#include "IndexAssignmentExpression.h"
 
 #include "WrongTypeError.h"
 #include "WrongBinaryOperandTypes.h"
@@ -33,11 +34,14 @@
 #include "RuntimeValue.h"
 #include "ReturnStatement.h"
 #include "Resolver.h"
+#include "IndexOutOfBounds.h"
+#include "NonIntegerIndex.h"
+#include "IndexingNonArray.h"
 
 #include <iostream>
 #include <cmath>
 
-void Interpreter::defineNativeFunctions()  {
+void Interpreter::defineNativeFunctions() {
     RuntimeValue clockFunction;
     clockFunction.type = ValueType::Object;
     auto *clockCallable = new ObjectCallable();
@@ -75,13 +79,12 @@ void Interpreter::defineNativeFunctions()  {
         RuntimeValue message = arguments[0];
         if (message.type != ValueType::Object) {
             std::wcout << "Unos: ";
-        }
-        else if(IS_OBJ(message) && !IS_STRING_OBJ(message)){
+        } else if (IS_OBJ(message) && !IS_STRING_OBJ(message)) {
             std::wcout << "Unos: ";
-        }else std::wcout << GET_STRING_OBJ_VALUE(message);
+        } else std::wcout << GET_STRING_OBJ_VALUE(message);
         std::wstring input;
         std::wcin >> input;
-        return {ValueType::Object, {.object = (Object*)allocateStringObject(input)}};
+        return {ValueType::Object, {.object = (Object *) allocateStringObject(input)}};
     };
 
     inputFunction.as.object = (Object *) inputCallable;
@@ -94,22 +97,23 @@ void Interpreter::defineNativeFunctions()  {
     ObjectCallable *numConversionCallable = new ObjectCallable();
     numConversionCallable->obj.type = ObjectType::OBJECT_CALLABLE;
     numConversionCallable->arity = 1;
-    numConversionCallable->call = [this](Interpreter *interpreter, const std::vector<RuntimeValue> &arguments) -> RuntimeValue {
+    numConversionCallable->call = [this](Interpreter *interpreter,
+                                         const std::vector<RuntimeValue> &arguments) -> RuntimeValue {
         RuntimeValue value = arguments[0];
-        if(value.type == ValueType::Number){
+        if (value.type == ValueType::Number) {
             return value;
         }
-        if(value.type == ValueType::Object && IS_STRING_OBJ(value)){
-            try{
+        if (value.type == ValueType::Object && IS_STRING_OBJ(value)) {
+            try {
                 return {ValueType::Number, {.number = std::stod(GET_STRING_OBJ_VALUE(value))}};
-            } catch (std::invalid_argument& e){
+            } catch (std::invalid_argument &e) {
                 throw WrongTypeError(L"konverzija u broj", value, nullptr);
             }
         }
-        if(value.type == ValueType::Null || value.type == ValueType::Boolean){
+        if (value.type == ValueType::Null || value.type == ValueType::Boolean) {
             return {ValueType::Number, {.number = 0}};
         }
-        if(value.type == ValueType::Boolean){
+        if (value.type == ValueType::Boolean) {
             return {ValueType::Number, {.number = value.as.boolean ? 1. : 0.}};
         }
         throw WrongTypeError(L"konverzija u broj", value, nullptr);
@@ -178,22 +182,46 @@ void Interpreter::executePrintStatement(PrintStatement *stmt) {
 #ifdef DEBUG_TRACK_PRINTING
     printHistory.push_back(value);
 #endif
+    printValue(value);
+    std::wcout << std::endl;
+}
+
+void Interpreter::printValue(const RuntimeValue &value) {
     switch (value.type) {
         case ValueType::Number:
-            std::wcout << value.as.number << std::endl;
+            std::wcout << value.as.number;
             return;
         case ValueType::Boolean:
-            std::wcout << (value.as.boolean ? L"tačno" : L"netačno") << std::endl;
+            std::wcout << (value.as.boolean ? L"tačno" : L"netačno");
             return;
         case ValueType::Null:
-            std::wcout << L"null" << std::endl;
+            std::wcout << L"null";
             return;
         case ValueType::Object:
             if (IS_STRING_OBJ(value)) {
-                std::wcout << GET_STRING_OBJ_VALUE(value) << std::endl;
+                std::wcout << GET_STRING_OBJ_VALUE(value);
+                return;
+            } else if(IS_ARRAY_OBJ(value)){
+                std::wcout << L"[";
+                const auto& elements = GET_ARRAY_OBJ_ELEMENTS(value);
+                for(const auto& element : elements){
+                    printValue(element);
+                    if(&element != &elements.back()){
+                        std::wcout << L", ";
+                    }
+                }
+                std::wcout << L"]";
+                return;
+            } else if(IS_FUNCTION_OBJ(value)){
+                std::wcout << L"<funkcija ";
+                std::wcout << AS_FUNCTION_OBJ(value)->declaration->name->value;
+                std::wcout << L">";
+                return;
+            } else if(IS_CALLABLE_OBJ(value)){
+                std::wcout << L"<funkcija>";
                 return;
             }
-            throw "PRINT NOT YET IMPLEMENTED FOR NON STRING OBJECTS!";
+            throw "PRINT NOT YET IMPLEMENTED FOR THIS OBJECT TYPE!";
         default:
             throw "UNKNOWN TYPE TO PRINT";
     }
@@ -214,16 +242,16 @@ void Interpreter::executeBlockStatement(BlockStatement *stmt) {
     executeBlock(stmt->statements, Environment(&environments.top()));
 }
 
-void Interpreter::executeBlock(const std::vector<Statement*>& statements, const Environment& environment){
+void Interpreter::executeBlock(const std::vector<Statement *> &statements, const Environment &environment) {
     environments.push(environment);
-    try{
-        for(auto s: statements){
+    try {
+        for (auto s: statements) {
             execute(s);
-            if(isReturning){
+            if (isReturning) {
                 break;
             }
         }
-    } catch (RuntimeError& e){
+    } catch (RuntimeError &e) {
         environments.pop();
         throw;
     }
@@ -245,12 +273,13 @@ void Interpreter::executeWhileStatement(WhileStatement *stmt) {
 }
 
 void Interpreter::executeFunctionDeclarationStatement(FunctionDeclarationStatement *stmt) {
-    environments.top().define(stmt->name, {ValueType::Object, {.object = (Object*)allocateFunctionObject(stmt)}}, false);
+    environments.top().define(stmt->name, {ValueType::Object, {.object = (Object *) allocateFunctionObject(stmt)}},
+                              false);
 }
 
 void Interpreter::executeReturnStatement(ReturnStatement *stmt) {
     RuntimeValue value = {ValueType::Null};
-    if(stmt->value != nullptr){
+    if (stmt->value != nullptr) {
         value = evaluate(stmt->value);
     }
     returnedValue = value;
@@ -285,8 +314,10 @@ RuntimeValue Interpreter::evaluate(Expression *expr) {
             return evaluateArrayLiteralExpression(static_cast<ArrayLiteralExpression *>(expr));
         case AstNodeType::IndexingExpression:
             return evaluateIndexingExpression(static_cast<IndexingExpression *>(expr));
+        case AstNodeType::IndexAssignmentExpression:
+            return evaluateIndexAssignmentExpression(static_cast<IndexAssignmentExpression *>(expr));
         default:
-            throw std::runtime_error("Unknown expression type");
+            throw std::runtime_error("Unknown expression type in interpreter");
     }
 }
 
@@ -403,13 +434,55 @@ RuntimeValue Interpreter::evaluateAssignmentExpression(AssignmentExpression *exp
     RuntimeValue value = evaluate(expr->value);
 
     auto distance = locals.find(expr);
-    if(distance != locals.end()){
+    if (distance != locals.end()) {
         environments.top().assignAt(distance->second, expr->name->value, value);
     } else {
         globals->assign(expr->name, value);
     }
 
     return value;
+}
+
+RuntimeValue Interpreter::evaluateIndexAssignmentExpression(IndexAssignmentExpression *expr) {
+
+    TokenPtr name = nullptr;
+    if (expr->left->type == AstNodeType::VariableExpression) {
+        name = static_cast<VariableExpression *>(expr->left)->name;
+    }
+
+    RuntimeValue array = evaluate(expr->left);
+    RuntimeValue index = evaluate(expr->index);
+    RuntimeValue value = evaluate(expr->value);
+
+    // it needs to be || here because a segfault occurs when trying to check if an obj is an array when it is not
+    // an object to begin with. || short circuits it, so it doesn't check the second part if the first is true, but still
+    // fails if it is a non array object.
+    if (!IS_OBJ(array) || !IS_ARRAY_OBJ(array)) {
+        throw IndexingNonArray(expr, array);
+    }
+    if (index.type != ValueType::Number) {
+        throw WrongTypeError(L"[]", index, expr->index);
+    }
+
+    auto elements = GET_ARRAY_OBJ_ELEMENTS(array);
+    if (index.as.number < 0 || index.as.number >= elements.size()) {
+        throw IndexOutOfBounds(expr->index, index.as.number);
+    }
+
+    if (index.as.number != (int) index.as.number) {
+        throw NonIntegerIndex(expr->index, index.as.number);
+    }
+    AS_ARRAY_OBJ(array)->elements[(size_t) index.as.number] = value; // array is modified in place, so that the actual array or its memory location is not changed.
+
+//    auto distance = locals.find(expr);
+//    if(distance != locals.end()){
+//        environments.top().assignAt(distance->second, name->value, elements);
+//    } else {
+//        globals->assign(name, elements);
+//    } ne modifikuje se varijabla ustvari, vec samo element niza "in place", pogotovo bitno ako ce nizovi biti prenosivi po referenci
+
+    return value;
+
 }
 
 RuntimeValue Interpreter::evaluateNumericLiteralExpression(NumericLiteralExpression *expr) {
@@ -456,19 +529,19 @@ RuntimeValue Interpreter::evaluateCallExpression(CallExpression *expr) {
     RuntimeValue callee = evaluate(expr->callee);
 
     std::vector<RuntimeValue> arguments;
-    for(auto arg: expr->arguments){
+    for (auto arg: expr->arguments) {
         arguments.push_back(evaluate(arg));
     }
 
-    if(!IS_OBJ(callee)){
+    if (!IS_OBJ(callee)) {
         throw InvalidCall(callee, getMostRelevantToken(expr->callee));
     }
-    if(!IS_CALLABLE_OBJ(callee) && !IS_FUNCTION_OBJ(callee)){
+    if (!IS_CALLABLE_OBJ(callee) && !IS_FUNCTION_OBJ(callee)) {
         throw InvalidCall(callee, getMostRelevantToken(expr->callee));
     }
 
-    ObjectCallable* callable = AS_CALLABLE_OBJ(callee);
-    if(arguments.size() != callable->arity){
+    ObjectCallable *callable = AS_CALLABLE_OBJ(callee);
+    if (arguments.size() != callable->arity) {
         throw InvalidArgumentCount(callable->arity, arguments.size(), getMostRelevantToken(expr->callee), expr->paren);
     }
     return callable->call(this, arguments);
@@ -485,29 +558,33 @@ RuntimeValue Interpreter::evaluateCallExpression(CallExpression *expr) {
 
 RuntimeValue Interpreter::evaluateArrayLiteralExpression(ArrayLiteralExpression *expr) {
     std::vector<RuntimeValue> elements;
-    for(auto element: expr->elements){
+    for (auto element: expr->elements) {
         elements.push_back(evaluate(element));
     }
-    return {ValueType::Object, {.object = (Object*)allocateArrayObject(elements)}};
+    return {ValueType::Object, {.object = (Object *) allocateArrayObject(elements)}};
 }
 
 RuntimeValue Interpreter::evaluateIndexingExpression(IndexingExpression *expr) {
     RuntimeValue array = evaluate(expr->left);
     RuntimeValue index = evaluate(expr->index);
 
-    if(array.type != ValueType::Object || !IS_ARRAY_OBJ(array)){
-        throw WrongTypeError(L"[]", array, expr);
+    if (!IS_OBJ(array) || !IS_ARRAY_OBJ(array)) {
+        throw IndexingNonArray(expr, array);
     }
-    if(index.type != ValueType::Number){
-        throw WrongTypeError(L"[]", index, expr);
+    if (index.type != ValueType::Number) {
+        throw WrongTypeError(L"[]", index, expr->index);
     }
 
     auto elements = GET_ARRAY_OBJ_ELEMENTS(array);
-    if(index.as.number < 0 || index.as.number >= elements.size()){
-        throw std::runtime_error("Index out of bounds"); // Napraviti custom exception i malo ovaj kod prepraviti da nije copilot bas i provjeriti
+    if (index.as.number < 0 || index.as.number >= elements.size()) {
+        throw IndexOutOfBounds(expr->index, index.as.number);
     }
 
-    return elements[(size_t)index.as.number];
+    if (index.as.number != (int) index.as.number) {
+        throw NonIntegerIndex(expr->index, index.as.number);
+    }
+
+    return elements[(size_t) index.as.number];
 }
 
 bool Interpreter::isTruthy(const RuntimeValue &value) {
@@ -536,8 +613,8 @@ bool Interpreter::isEqual(const RuntimeValue &left, const RuntimeValue &right) {
             if (IS_STRING_OBJ(left) && IS_STRING_OBJ(right)) {
                 return GET_STRING_OBJ_VALUE(left) == GET_STRING_OBJ_VALUE(right);
             }
-            throw "EQUALITY NOT YET IMPLEMENTED FOR NON STRING!";
-//            return left.as.object == right.as.object;
+            return left.as.object == right.as.object;
+//            throw "EQUALITY NOT YET IMPLEMENTED FOR NON STRING!";
         default:
             return false;
     }
@@ -568,25 +645,32 @@ ObjectArray *Interpreter::allocateArrayObject(const std::vector<RuntimeValue> &e
     return obj;
 }
 
-RuntimeError* Interpreter::reallocateError(RuntimeError* error){
+RuntimeError *Interpreter::reallocateError(RuntimeError *error) {
 
     delete handledError; // In case one was already allocated
 
-    if(dynamic_cast<WrongTypeError*>(error) != nullptr){
-        handledError = new WrongTypeError(*dynamic_cast<WrongTypeError*>(error));
-    } else if(dynamic_cast<WrongBinaryOperandTypes*>(error) != nullptr){
-        handledError = new WrongBinaryOperandTypes(*dynamic_cast<WrongBinaryOperandTypes*>(error));
-    } else if(dynamic_cast<InvalidCall*>(error) != nullptr){
-        handledError = new InvalidCall(*dynamic_cast<InvalidCall*>(error));
-    } else if(dynamic_cast<InvalidArgumentCount*>(error) != nullptr){
-        handledError = new InvalidArgumentCount(*dynamic_cast<InvalidArgumentCount*>(error));
-    } else if(dynamic_cast<UndeclaredVariable*>(error) != nullptr){
-        handledError = new UndeclaredVariable(*dynamic_cast<UndeclaredVariable*>(error));
-    } else if(dynamic_cast<VariableRedeclaration*>(error) != nullptr){
-        handledError = new VariableRedeclaration(*dynamic_cast<VariableRedeclaration*>(error));
-    } else if(dynamic_cast<ConstReassignment*>(error) != nullptr){
-        handledError = new ConstReassignment(*dynamic_cast<ConstReassignment*>(error));
-    } else {
+    if (dynamic_cast<WrongTypeError *>(error) != nullptr) {
+        handledError = new WrongTypeError(*dynamic_cast<WrongTypeError *>(error));
+    } else if (dynamic_cast<WrongBinaryOperandTypes *>(error) != nullptr) {
+        handledError = new WrongBinaryOperandTypes(*dynamic_cast<WrongBinaryOperandTypes *>(error));
+    } else if (dynamic_cast<InvalidCall *>(error) != nullptr) {
+        handledError = new InvalidCall(*dynamic_cast<InvalidCall *>(error));
+    } else if (dynamic_cast<InvalidArgumentCount *>(error) != nullptr) {
+        handledError = new InvalidArgumentCount(*dynamic_cast<InvalidArgumentCount *>(error));
+    } else if (dynamic_cast<UndeclaredVariable *>(error) != nullptr) {
+        handledError = new UndeclaredVariable(*dynamic_cast<UndeclaredVariable *>(error));
+    } else if (dynamic_cast<VariableRedeclaration *>(error) != nullptr) {
+        handledError = new VariableRedeclaration(*dynamic_cast<VariableRedeclaration *>(error));
+    } else if (dynamic_cast<ConstReassignment *>(error) != nullptr) {
+        handledError = new ConstReassignment(*dynamic_cast<ConstReassignment *>(error));
+    } else if (dynamic_cast<IndexOutOfBounds *>(error) != nullptr) {
+        handledError = new IndexOutOfBounds(*dynamic_cast<IndexOutOfBounds *>(error));
+    } else if (dynamic_cast<NonIntegerIndex *>(error) != nullptr) {
+        handledError = new NonIntegerIndex(*dynamic_cast<NonIntegerIndex *>(error));
+    } else if (dynamic_cast<IndexingNonArray*>(error) != nullptr) {
+        handledError = new IndexingNonArray(*dynamic_cast<IndexingNonArray*>(error));
+    }
+    else {
         throw std::runtime_error("ERROR REALLOCATION ERROR: Unknown error type");
     }
     return handledError;
@@ -594,7 +678,7 @@ RuntimeError* Interpreter::reallocateError(RuntimeError* error){
 
 RuntimeValue Interpreter::lookUpVariable(const VariableExpression *expr) {
     auto distance = locals.find(expr);
-    if(distance != locals.end()){
+    if (distance != locals.end()) {
         return environments.top().getAt(distance->second, expr->name->value);
     } else {
         return globals->get(expr->name);

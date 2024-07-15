@@ -26,6 +26,7 @@
 #include "FunctionDeclarationStatement.h"
 #include "IndexingExpression.h"
 #include "ArrayLiteralExpression.h"
+#include "IndexAssignmentExpression.h"
 
 void printStatement(Statement *statement, int depth);
 
@@ -130,6 +131,13 @@ void printStatement(Statement *statement, int depth) {
             printStatement(static_cast<AssignmentExpression *>(statement)->value, depth + 1);
             std::wcout << L" ) \n";
             break;
+        case AstNodeType::IndexAssignmentExpression:
+            std::wcout << L"IndexAssignmentExpression ( ";
+            printStatement(static_cast<IndexAssignmentExpression *>(statement)->left, depth + 1);
+            printStatement(static_cast<IndexAssignmentExpression *>(statement)->index, depth + 1);
+            printStatement(static_cast<IndexAssignmentExpression *>(statement)->value, depth + 1);
+            std::wcout << L" ) \n";
+            break;
         case AstNodeType::VarDeclarationStatement:
             if (static_cast<VarDeclarationStatement *>(statement)->isConst)
                 std::wcout << L"ConstDeclarationStatement ( ";
@@ -173,6 +181,6 @@ void printStatement(Statement *statement, int depth) {
             std::wcout << L" ) \n";
             break;
         default:
-            std::wcout << L"Unknown statement type" << std::endl;
+            std::wcout << L"Unknown statement type in PrintAST" << std::endl;
     }
 }

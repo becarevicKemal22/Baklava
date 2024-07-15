@@ -14,6 +14,9 @@
 #include "LogicalExpression.h"
 #include "GroupingExpression.h"
 #include "AssignmentExpression.h"
+#include "IndexAssignmentExpression.h"
+#include "IndexingExpression.h"
+#include "ArrayLiteralExpression.h"
 
 Token* getMostRelevantToken(const Expression* expression) {
     if (expression->type == AstNodeType::BinaryExpression) {
@@ -59,6 +62,18 @@ Token* getMostRelevantToken(const Expression* expression) {
     if(expression->type == AstNodeType::AssignmentExpression) {
         auto assignmentExpression = static_cast<const AssignmentExpression*>(expression);
         return assignmentExpression->name;
+    }
+    if(expression->type == AstNodeType::IndexingExpression) {
+        auto indexingExpression = static_cast<const IndexingExpression*>(expression);
+        return getMostRelevantToken(indexingExpression->left);
+    }
+    if(expression->type == AstNodeType::IndexAssignmentExpression) {
+        auto indexAssignmentExpression = static_cast<const IndexAssignmentExpression*>(expression);
+        return getMostRelevantToken(indexAssignmentExpression->left);
+    }
+    if(expression->type == AstNodeType::ArrayLiteralExpression) {
+        auto arrayLiteralExpression = static_cast<const ArrayLiteralExpression*>(expression);
+        return arrayLiteralExpression->bracket;
     }
     throw std::runtime_error("INTERNAL ERROR IN GET MOST RELEVANT TOKEN: Unknown expression type");
 }

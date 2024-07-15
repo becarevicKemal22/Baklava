@@ -28,9 +28,9 @@ void ErrorPrinter::printErrorMessage(ErrorCode errorCode, const std::vector<Erro
     wcout << message << "\n";
 }
 
-// ***********************************************************************
+// ******************************************************************************
 // ----------------------- RUNTIME ERROR PRINTING METHODS -----------------------
-// ***********************************************************************
+// ******************************************************************************
 
 void ErrorPrinter::printRuntimeError(const RuntimeError *error) {
     if (dynamic_cast<const WrongTypeError *>(error) != nullptr) {
@@ -53,6 +53,15 @@ void ErrorPrinter::printRuntimeError(const RuntimeError *error) {
     }
     if(dynamic_cast<const InvalidArgumentCount*>(error) != nullptr){
         printInvalidArgumentCountError(static_cast<const InvalidArgumentCount*>(error));
+    }
+    if(dynamic_cast<const IndexOutOfBounds*>(error) != nullptr){
+        printIndexOutOfBoundsError(static_cast<const IndexOutOfBounds*>(error));
+    }
+    if(dynamic_cast<const NonIntegerIndex*>(error) != nullptr){
+        printNonIntegerIndexError(static_cast<const NonIntegerIndex*>(error));
+    }
+    if(dynamic_cast<const IndexingNonArray*>(error) != nullptr){
+        printIndexingNonArrayError(static_cast<const IndexingNonArray*>(error));
     }
     std::wcout << "\n";
 }
@@ -138,6 +147,29 @@ void ErrorPrinter::printInvalidArgumentCountError(const InvalidArgumentCount *er
                                                   { {error->paren->offset, error->paren->offset + getTokenValue(error->paren).size() - 1}, ANSI_RED}});
 }
 
+void ErrorPrinter::printIndexOutOfBoundsError(const IndexOutOfBounds *error) {
+    std::wstring message = formattedErrorMessage(error->code, error->messageArguments, getMostRelevantToken(error->index)->line);
+    wcout << message << "\n";
+    auto indexToken = getMostRelevantToken(error->index);
+    printSourceLine(indexToken->line, {{ {indexToken->offset, indexToken->offset + getTokenValue(indexToken).size() - 1}, ANSI_RED}});
+    printSquiggleSupportLine(indexToken->line, {{ {indexToken->offset, indexToken->offset + getTokenValue(indexToken).size() - 1}, ANSI_RED}});
+}
+
+void ErrorPrinter::printNonIntegerIndexError(const NonIntegerIndex *error) {
+    std::wstring message = formattedErrorMessage(error->code, error->messageArguments, getMostRelevantToken(error->index)->line);
+    wcout << message << "\n";
+    auto indexToken = getMostRelevantToken(error->index);
+    printSourceLine(indexToken->line, {{ {indexToken->offset, indexToken->offset + getTokenValue(indexToken).size() - 1}, ANSI_RED}});
+    printSquiggleSupportLine(indexToken->line, {{ {indexToken->offset, indexToken->offset + getTokenValue(indexToken).size() - 1}, ANSI_RED}});
+
+}
+
+void ErrorPrinter::printIndexingNonArrayError(const IndexingNonArray *error) {
+    std::wstring message = formattedErrorMessage(error->code, error->messageArguments, error->token->line);
+    wcout << message << "\n";
+    printSourceLine(error->token->line, {{ {error->token->offset, error->token->offset + getTokenValue(error->token).size() - 1}, ANSI_RED}});
+    printSquiggleSupportLine(error->token->line, {{ {error->token->offset, error->token->offset + getTokenValue(error->token).size() - 1}, ANSI_RED}});
+}
 
 // ***********************************************************************
 // ----------------------- PARSER ERROR PRINTING METHODS -----------------------

@@ -41,7 +41,10 @@ const std::unordered_map<int , std::wstring> ERRORMESSAGES = {
 
         // 4xx
         {ERROR_WRONG_TYPE_OPERAND,           L"Tip '{}' nije dozvoljen za operator '{}'."},
-        {ERROR_WRONG_TYPE_OPERAND_BINARY,    L"Tipovi '{}' i '{}' nisu dozvoljeni za operator '{}'."}
+        {ERROR_WRONG_TYPE_OPERAND_BINARY,    L"Tipovi '{}' i '{}' nisu dozvoljeni za operator '{}'."},
+        {ERROR_INDEX_OUT_OF_BOUNDS,          L"Indeks '{}' je izvan granica niza."},
+        {ERROR_NON_INTEGER_INDEX,            L"Indeksiranje brojem '{}' nije moguće. Indeks mora biti cijeli broj."},
+        {ERROR_INDEXING_NON_ARRAY,           L"Tip '{}' nije dozvoljen za operator '[]'. Indeksiranje je moguće vršiti samo nad nizovima."},
 };
 
 #endif //BAKLAVA_ERRORMESSAGES_H

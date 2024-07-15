@@ -26,6 +26,7 @@ enum class AstNodeType : uint8_t {
 
     // Expressions
     AssignmentExpression,
+    IndexAssignmentExpression,
     BinaryExpression,
     LogicalExpression,
     UnaryExpression,
@@ -64,6 +65,7 @@ class VariableExpression;
 class CallExpression;
 class IndexingExpression;
 class ArrayLiteralExpression;
+class IndexAssignmentExpression;
 
 typedef Statement* StmtPtr;
 typedef Expression* ExprPtr;

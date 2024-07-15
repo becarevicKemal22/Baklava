@@ -71,9 +71,7 @@ private:
     Expression* termExpression();
     Expression* factorExpression();
     Expression* unaryExpression();
-    Expression* postfixExpression();
-    Expression* indexingExpression(ExprPtr left);
-    Expression* callExpression(ExprPtr callee);
+    Expression* callExpression();
     Expression* finishCallExpression(Expression* callee);
     Expression* primaryExpression();
 

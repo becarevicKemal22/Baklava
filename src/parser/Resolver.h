@@ -98,6 +98,11 @@ private:
 
     void resolveNullLiteralExpression(NullLiteralExpression *expression);
 
+    void resolveIndexingExpression(IndexingExpression *expression);
+
+    void resolveIndexAssignmentExpression(IndexAssignmentExpression *expression);
+
+    void resolveArrayLiteralExpression(ArrayLiteralExpression *expression);
 };
 
 
