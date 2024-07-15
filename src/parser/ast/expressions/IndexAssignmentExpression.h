@@ -9,7 +9,7 @@
 #include "Token.h"
 
 /**
- * @brief Represents an assignment at an array index.
+ * @brief Represents an assignment at an array index (e.g. a[1]=5;).
  */
 class IndexAssignmentExpression : public Expression {
 public:

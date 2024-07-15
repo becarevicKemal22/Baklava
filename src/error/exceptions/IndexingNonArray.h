@@ -10,6 +10,10 @@
 #include "RuntimeValue.h"
 #include "Expression.h"
 
+
+/**
+ * @brief Exception thrown when trying to index a non-array value, such as a string or a number.
+ */
 class IndexingNonArray : public RuntimeError {
 public:
     IndexingNonArray(Expression* expression, RuntimeValue value) : RuntimeError(ErrorCode::ERROR_INDEXING_NON_ARRAY) {

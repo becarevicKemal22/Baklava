@@ -82,7 +82,7 @@ public:
 
     std::vector<Statement *> executedStatements; /**< List of pointers to all statements that have been executed. Only written to when DEBUG_TRACK_EXECUTION is set */
     std::vector<RuntimeValue> printHistory; /**< List of all values that have been printed. Only written to when DEBUG_TRACK_PRINTING is set */
-    RuntimeError* handledError = nullptr; /**< Holds the last error that has been handled. No flags needed as this is only done when the program has to quit so performance is not an issue.*/
+    RuntimeError* handledError = nullptr; /**< Holds the last error that has been handled. No flags needed as this is only done when the program has to quit so performance is not an issue. Mainly used to check correct error throws during testing.*/
 
     void executeBlock(const std::vector<StmtPtr> &statements, const Environment& environment);
 
@@ -152,6 +152,8 @@ private:
     // Used to ensure that errors don't go out of scope when running tests, since the type needs to be checked on the handledError field.
     // This function just dynamically allocates a new error of the same type and returns it (so that handledError can be set and checked in tests).
     RuntimeError* reallocateError(RuntimeError* error);
+
+    void printValue(const RuntimeValue &value);
 };
 
 

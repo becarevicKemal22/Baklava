@@ -9,6 +9,9 @@
 #include "Token.h"
 #include <vector>
 
+/**
+ * @brief Represents an indexing expression. Can be used to chain multiple indexings.
+ */
 class IndexingExpression : public Expression {
 public:
     IndexingExpression(ExprPtr left, TokenPtr bracket, ExprPtr index) : left(left), bracket(bracket), index(index){

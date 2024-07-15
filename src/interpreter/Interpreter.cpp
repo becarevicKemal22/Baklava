@@ -182,22 +182,46 @@ void Interpreter::executePrintStatement(PrintStatement *stmt) {
 #ifdef DEBUG_TRACK_PRINTING
     printHistory.push_back(value);
 #endif
+    printValue(value);
+    std::wcout << std::endl;
+}
+
+void Interpreter::printValue(const RuntimeValue &value) {
     switch (value.type) {
         case ValueType::Number:
-            std::wcout << value.as.number << std::endl;
+            std::wcout << value.as.number;
             return;
         case ValueType::Boolean:
-            std::wcout << (value.as.boolean ? L"tačno" : L"netačno") << std::endl;
+            std::wcout << (value.as.boolean ? L"tačno" : L"netačno");
             return;
         case ValueType::Null:
-            std::wcout << L"null" << std::endl;
+            std::wcout << L"null";
             return;
         case ValueType::Object:
             if (IS_STRING_OBJ(value)) {
-                std::wcout << GET_STRING_OBJ_VALUE(value) << std::endl;
+                std::wcout << GET_STRING_OBJ_VALUE(value);
+                return;
+            } else if(IS_ARRAY_OBJ(value)){
+                std::wcout << L"[";
+                const auto& elements = GET_ARRAY_OBJ_ELEMENTS(value);
+                for(const auto& element : elements){
+                    printValue(element);
+                    if(&element != &elements.back()){
+                        std::wcout << L", ";
+                    }
+                }
+                std::wcout << L"]";
+                return;
+            } else if(IS_FUNCTION_OBJ(value)){
+                std::wcout << L"<funkcija ";
+                std::wcout << AS_FUNCTION_OBJ(value)->declaration->name->value;
+                std::wcout << L">";
+                return;
+            } else if(IS_CALLABLE_OBJ(value)){
+                std::wcout << L"<funkcija>";
                 return;
             }
-            throw "PRINT NOT YET IMPLEMENTED FOR NON STRING OBJECTS!";
+            throw "PRINT NOT YET IMPLEMENTED FOR THIS OBJECT TYPE!";
         default:
             throw "UNKNOWN TYPE TO PRINT";
     }
@@ -448,7 +472,7 @@ RuntimeValue Interpreter::evaluateIndexAssignmentExpression(IndexAssignmentExpre
     if (index.as.number != (int) index.as.number) {
         throw NonIntegerIndex(expr->index, index.as.number);
     }
-    AS_ARRAY_OBJ(array)->elements[(size_t) index.as.number] = value;
+    AS_ARRAY_OBJ(array)->elements[(size_t) index.as.number] = value; // array is modified in place, so that the actual array or its memory location is not changed.
 
 //    auto distance = locals.find(expr);
 //    if(distance != locals.end()){
@@ -589,8 +613,8 @@ bool Interpreter::isEqual(const RuntimeValue &left, const RuntimeValue &right) {
             if (IS_STRING_OBJ(left) && IS_STRING_OBJ(right)) {
                 return GET_STRING_OBJ_VALUE(left) == GET_STRING_OBJ_VALUE(right);
             }
-            throw "EQUALITY NOT YET IMPLEMENTED FOR NON STRING!";
-//            return left.as.object == right.as.object;
+            return left.as.object == right.as.object;
+//            throw "EQUALITY NOT YET IMPLEMENTED FOR NON STRING!";
         default:
             return false;
     }

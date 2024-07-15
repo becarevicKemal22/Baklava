@@ -69,6 +69,18 @@ TEST_CASE("Shadows arrays correctly", "[interpreter][indexing][array]") {
     REQUIRE(interpreter.printHistory[1].as.number == 2);
 }
 
+TEST_CASE("Indexes array returned from function correctly", "[interpreter][indexing][array]") {
+    // additional scope added just for a larger chance of failure
+    std::wstring source = L"funkcija getArray() { vrati [1, 2, 3]; } { ispiši getArray()[1]; }";
+    Interpreter interpreter;
+    std::unique_ptr<Program> program = parseSource(source);
+    Resolver resolver(&interpreter);
+    resolver.resolve(program);
+    interpreter.interpret(program.get());
+    REQUIRE(interpreter.printHistory.size() == 1);
+    REQUIRE(interpreter.printHistory[0].as.number == 2);
+}
+
 TEST_CASE("Gives error on out-of-bounds array access", "[interpreter][indexing][array]") {
     std::wstring source = L"var a = [1, 2, 3]; ispiši a[3];";
     Interpreter interpreter;
