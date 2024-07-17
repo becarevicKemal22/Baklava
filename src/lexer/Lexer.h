@@ -105,7 +105,13 @@ private:
      * It also handles the case of CR+LF sequence. If there is issues with line numbering it is most likely here.
      */
     void handleNewLine();
-    void handleString();
+
+    /**
+     * @brief Handles string literals.
+     *
+     * @param startQuote The quote that starts the string. Can be either a double quote or a single quote. Required so that a string cannot start and end with a different symbol.
+     */
+    void handleString(wchar_t startQuote);
     void handleComment();
 };
 

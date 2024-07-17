@@ -129,8 +129,8 @@ void Lexer::tokenize() {
             }
         }
 
-        else if(c == '"'){
-            handleString();
+        else if(c == '"' || c == '\''){
+            handleString(c);
         }
 
         else if(c == ' '){
@@ -206,14 +206,14 @@ void Lexer::handleNewLine() {
     charIndexOnLine = 0;
 }
 
-void Lexer::handleString(){
+void Lexer::handleString(wchar_t startQuote){
     unsigned int startLine = line;
     unsigned int startOffset = charIndexOnLine;
     unsigned int startChar = currentChar;
     advance();
     std::wstring string;
     while(source[currentChar] != '\0'){
-        if(source[currentChar] == '"'){
+        if(source[currentChar] == startQuote){
             advance();
             addStringToken(string, startLine, startOffset);
             return;

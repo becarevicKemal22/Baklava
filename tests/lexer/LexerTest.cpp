@@ -94,8 +94,19 @@ TEST_CASE("Tokenizes empty string", "[lexer]"){
     checkToken(tokens[0], TokenType::String, L"", 1, 0);
 }
 
-TEST_CASE("Tokenizes string", "[lexer]"){
+TEST_CASE("Tokenizes double quote string", "[lexer]"){
     std::wstring source = L"\"neki stringić\"";
+
+    Lexer lexer(source);
+    lexer.tokenize();
+    auto tokens = lexer.tokens;
+
+    REQUIRE(tokens.size() == 2);
+    checkToken(tokens[0], TokenType::String, L"neki stringić", 1, 0);
+}
+
+TEST_CASE("Tokenizes single quote string", "[lexer]"){
+    std::wstring source = L"'neki stringić'";
 
     Lexer lexer(source);
     lexer.tokenize();
@@ -110,6 +121,42 @@ TEST_CASE("Throws error on unterminated string", "[lexer]"){
 
     Lexer lexer(source);
     REQUIRE_THROWS(lexer.tokenize());
+}
+
+TEST_CASE("Throws unterminated string error on double-single string"){
+std::wstring source = L"\"neki string\'";
+
+    Lexer lexer(source);
+    REQUIRE_THROWS(lexer.tokenize());
+}
+
+TEST_CASE("Throws unterminated string error on single-double string"){
+    std::wstring source = L"'neki string\"";
+
+    Lexer lexer(source);
+    REQUIRE_THROWS(lexer.tokenize());
+}
+
+TEST_CASE("Allows normal use of single quotes in double-quoted string literal"){
+    std::wstring source = L"\"neki 'string'\"";
+
+    Lexer lexer(source);
+    lexer.tokenize();
+    auto tokens = lexer.tokens;
+
+    REQUIRE(tokens.size() == 2);
+    checkToken(tokens[0], TokenType::String, L"neki 'string'", 1, 0);
+}
+
+TEST_CASE("Allows normal use of double quotes in single-quoted string literal"){
+    std::wstring source = L"'neki \"string\"'";
+
+    Lexer lexer(source);
+    lexer.tokenize();
+    auto tokens = lexer.tokens;
+
+    REQUIRE(tokens.size() == 2);
+    checkToken(tokens[0], TokenType::String, L"neki \"string\"", 1, 0);
 }
 
 TEST_CASE("Tokenizes special characters", "[lexer]"){

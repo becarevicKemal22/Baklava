@@ -23,7 +23,7 @@ const std::unordered_map<int , std::wstring> ERRORMESSAGES = {
 
         // 2xx
         {ERROR_UNEXPECTED_CHARACTER,         L"Pronađen nepoznat znak '{}' na liniji {}, pozicija {}."},
-        {ERROR_UNTERMINATED_STRING,          L"Neterminiran STRING pronađen na liniji {}, pozicija {}."},
+        {ERROR_UNTERMINATED_STRING,          L"Neterminiran string pronađen na liniji {}, pozicija {}."},
 
         // 3xx
         {ERROR_EXPECTED_X_BEFORE_Y,          L"Očekivano '{}' prije '{}'."},
