@@ -90,6 +90,13 @@ public:
     bool isReturning = false;
 
     std::stack<Environment> environments;
+
+    /**
+     * @brief Prints the given value to the given output stream. Only reason this is public is for testing. NOT to be used outside of print statement execution in interpreter.
+     * @param value value to be printed.
+     * @param os output stream to print to. This is necessary for testing purposes, since that is the only time this function should not use wcout, hence that is the defaulted value.
+     */
+    static void printValue(const RuntimeValue &value, std::wostream& os = std::wcout);
 private:
     std::unordered_map<const Expression*, int> locals;
 
@@ -152,8 +159,6 @@ private:
     // Used to ensure that errors don't go out of scope when running tests, since the type needs to be checked on the handledError field.
     // This function just dynamically allocates a new error of the same type and returns it (so that handledError can be set and checked in tests).
     RuntimeError* reallocateError(RuntimeError* error);
-
-    void printValue(const RuntimeValue &value);
 };
 
 

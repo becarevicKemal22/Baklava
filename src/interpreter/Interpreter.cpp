@@ -186,39 +186,39 @@ void Interpreter::executePrintStatement(PrintStatement *stmt) {
     std::wcout << std::endl;
 }
 
-void Interpreter::printValue(const RuntimeValue &value) {
+void Interpreter::printValue(const RuntimeValue &value, std::wostream& os) {
     switch (value.type) {
         case ValueType::Number:
-            std::wcout << value.as.number;
+            os << value.as.number;
             return;
         case ValueType::Boolean:
-            std::wcout << (value.as.boolean ? L"tačno" : L"netačno");
+            os << (value.as.boolean ? L"tačno" : L"netačno");
             return;
         case ValueType::Null:
-            std::wcout << L"null";
+            os << L"null";
             return;
         case ValueType::Object:
             if (IS_STRING_OBJ(value)) {
-                std::wcout << GET_STRING_OBJ_VALUE(value);
+                os << GET_STRING_OBJ_VALUE(value);
                 return;
             } else if(IS_ARRAY_OBJ(value)){
-                std::wcout << L"[";
+                os << L"[";
                 const auto& elements = GET_ARRAY_OBJ_ELEMENTS(value);
                 for(const auto& element : elements){
                     printValue(element);
                     if(&element != &elements.back()){
-                        std::wcout << L", ";
+                        os << L", ";
                     }
                 }
-                std::wcout << L"]";
+                os << L"]";
                 return;
             } else if(IS_FUNCTION_OBJ(value)){
-                std::wcout << L"<funkcija ";
-                std::wcout << AS_FUNCTION_OBJ(value)->declaration->name->value;
-                std::wcout << L">";
+                os << L"<funkcija ";
+                os << AS_FUNCTION_OBJ(value)->declaration->name->value;
+                os << L">";
                 return;
             } else if(IS_CALLABLE_OBJ(value)){
-                std::wcout << L"<funkcija>";
+                os << L"<funkcija>";
                 return;
             }
             throw "PRINT NOT YET IMPLEMENTED FOR THIS OBJECT TYPE!";

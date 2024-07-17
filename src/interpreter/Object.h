@@ -60,6 +60,7 @@ struct ObjectFunction : public ObjectCallable {
     FunctionDeclarationStatement* declaration;
     Environment closure;
     RuntimeValue functionCall(Interpreter* interpreter, const std::vector<RuntimeValue>& arguments);
+    // Constructor, too scared to move it to the top of the struct
     explicit ObjectFunction(FunctionDeclarationStatement* declaration, Environment* closure) : declaration(declaration){
         obj.type = ObjectType::OBJECT_FUNCTION;
         arity = declaration->parameters.size();

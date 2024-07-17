@@ -238,6 +238,7 @@ void ErrorPrinter::printExpectedXBeforeYError(const ExpectedXBeforeY *error) {
     }
 }
 
+//currently not used for any errors
 void ErrorPrinter::printExpectedXAfterYError(const ExpectedXAfterY *error) {
     std::wstring message = formattedErrorMessage(error->code, error->messageArguments, error->found->line);
     wcout << message << "\n";
