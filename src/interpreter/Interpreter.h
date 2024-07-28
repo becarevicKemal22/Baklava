@@ -97,6 +97,17 @@ public:
      * @param os output stream to print to. This is necessary for testing purposes, since that is the only time this function should not use wcout, hence that is the defaulted value.
      */
     static void printValue(const RuntimeValue &value, std::wostream& os = std::wcout);
+
+    void runGarbageCollector();
+    void markRoots();
+    void markValue(const RuntimeValue& value);
+    void markObject(Object* object);
+    std::stack<Object*> grayObjects;
+    void traceReferences();
+    void blackenObject(Object* object);
+    void sweep();
+    void deleteObject(Object* object);
+    std::wstring getObjectLogString(Object* object);
 private:
     std::unordered_map<const Expression*, int> locals;
 
@@ -160,6 +171,5 @@ private:
     // This function just dynamically allocates a new error of the same type and returns it (so that handledError can be set and checked in tests).
     RuntimeError* reallocateError(RuntimeError* error);
 };
-
 
 #endif //BAKLAVA_INTERPRETER_H

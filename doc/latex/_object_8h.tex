@@ -50,6 +50,13 @@ enum class \mbox{\hyperlink{_object_8h_ad77a2400b6233b221e23bc962da32b0d}{Object
 , \mbox{\hyperlink{_object_8h_ad77a2400b6233b221e23bc962da32b0dae36513d39848f86e215e919f2ed78855}{OBJECT\+\_\+\+ARRAY}}
  \}
 \end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+std\+::wstring \mbox{\hyperlink{_object_8h_aa9e8bee6df2f5fe6aaa00413d092d266}{get\+Object\+Type\+Name}} (\mbox{\hyperlink{_object_8h_ad77a2400b6233b221e23bc962da32b0d}{Object\+Type}} type)
+\begin{DoxyCompactList}\small\item\em Stringifies the object type name. \end{DoxyCompactList}\item 
+std\+::wstring \mbox{\hyperlink{_object_8h_a66ace020f21bada23650f641c8403e34}{get\+Object\+Identifier}} (\mbox{\hyperlink{struct_object}{Object}} \texorpdfstring{$\ast$}{*}object)
+\begin{DoxyCompactList}\small\item\em Gets the identifier of the object. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
 \doxysubsection{Macro Definition Documentation}
@@ -140,3 +147,44 @@ OBJECT\+\_\+\+ARRAY&\\
 \hline
 
 \end{DoxyEnumFields}
+
+
+\doxysubsection{Function Documentation}
+\Hypertarget{_object_8h_a66ace020f21bada23650f641c8403e34}\label{_object_8h_a66ace020f21bada23650f641c8403e34} 
+\index{Object.h@{Object.h}!getObjectIdentifier@{getObjectIdentifier}}
+\index{getObjectIdentifier@{getObjectIdentifier}!Object.h@{Object.h}}
+\doxysubsubsection{\texorpdfstring{getObjectIdentifier()}{getObjectIdentifier()}}
+{\footnotesize\ttfamily std\+::wstring get\+Object\+Identifier (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct_object}{Object}} \texorpdfstring{$\ast$}{*}}]{object }\end{DoxyParamCaption})}
+
+
+
+Gets the identifier of the object. 
+
+It is a string that can be used to identify the object when printing or logging. It is not guaranteed to be unique. Can be a name, value, or anything else appropriate for the passed object type.
+
+
+\begin{DoxyParams}{Parameters}
+{\em object} & The object to get the identifier of. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+String representing the identifier of the object. 
+\end{DoxyReturn}
+\Hypertarget{_object_8h_aa9e8bee6df2f5fe6aaa00413d092d266}\label{_object_8h_aa9e8bee6df2f5fe6aaa00413d092d266} 
+\index{Object.h@{Object.h}!getObjectTypeName@{getObjectTypeName}}
+\index{getObjectTypeName@{getObjectTypeName}!Object.h@{Object.h}}
+\doxysubsubsection{\texorpdfstring{getObjectTypeName()}{getObjectTypeName()}}
+{\footnotesize\ttfamily std\+::wstring get\+Object\+Type\+Name (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{_object_8h_ad77a2400b6233b221e23bc962da32b0d}{Object\+Type}}}]{type }\end{DoxyParamCaption})}
+
+
+
+Stringifies the object type name. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em type} & The type of the object to stringify. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+String value of the name of the object type. 
+\end{DoxyReturn}

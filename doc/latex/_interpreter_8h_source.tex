@@ -66,69 +66,82 @@
 \DoxyCodeLine{00090\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_interpreter_a5237f122c259b5e120cb20478db387a1}{isReturning}}\ =\ \textcolor{keyword}{false};}
 \DoxyCodeLine{00091\ }
 \DoxyCodeLine{00092\ \ \ \ \ std::stack<Environment>\ \mbox{\hyperlink{class_interpreter_a51754c3f067cfd5f79672fc026a761e2}{environments}};}
-\DoxyCodeLine{00093\ \textcolor{keyword}{private}:}
-\DoxyCodeLine{00094\ \ \ \ \ std::unordered\_map<const\ Expression*,\ int>\ locals;}
-\DoxyCodeLine{00095\ }
-\DoxyCodeLine{00096\ \ \ \ \ \mbox{\hyperlink{class_error_printer}{ErrorPrinter}}\ *errorPrinter;}
-\DoxyCodeLine{00097\ }
-\DoxyCodeLine{00098\ \ \ \ \ \mbox{\hyperlink{struct_runtime_value}{RuntimeValue}}\ lookUpVariable(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_variable_expression}{VariableExpression}}\ *expr);}
-\DoxyCodeLine{00099\ }
-\DoxyCodeLine{00100\ \ \ \ \ \textcolor{keywordtype}{void}\ executeExpressionStatement(\mbox{\hyperlink{class_expression_statement}{ExpressionStatement}}\ *stmt);}
-\DoxyCodeLine{00101\ }
-\DoxyCodeLine{00102\ \ \ \ \ \textcolor{keywordtype}{void}\ executePrintStatement(\mbox{\hyperlink{class_print_statement}{PrintStatement}}\ *stmt);}
-\DoxyCodeLine{00103\ }
-\DoxyCodeLine{00104\ \ \ \ \ \textcolor{keywordtype}{void}\ executeVarDeclarationStatement(\mbox{\hyperlink{class_var_declaration_statement}{VarDeclarationStatement}}\ *stmt);}
-\DoxyCodeLine{00105\ }
-\DoxyCodeLine{00106\ \ \ \ \ \textcolor{keywordtype}{void}\ executeBlockStatement(\mbox{\hyperlink{class_block_statement}{BlockStatement}}\ *stmt);}
-\DoxyCodeLine{00107\ }
-\DoxyCodeLine{00108\ \ \ \ \ \textcolor{keywordtype}{void}\ executeIfStatement(\mbox{\hyperlink{class_if_statement}{IfStatement}}\ *stmt);}
-\DoxyCodeLine{00109\ }
-\DoxyCodeLine{00110\ \ \ \ \ \textcolor{keywordtype}{void}\ executeWhileStatement(\mbox{\hyperlink{class_while_statement}{WhileStatement}}\ *stmt);}
-\DoxyCodeLine{00111\ }
-\DoxyCodeLine{00112\ \ \ \ \ \textcolor{keywordtype}{void}\ executeFunctionDeclarationStatement(\mbox{\hyperlink{class_function_declaration_statement}{FunctionDeclarationStatement}}\ *stmt);}
-\DoxyCodeLine{00113\ }
-\DoxyCodeLine{00114\ \ \ \ \ \textcolor{keywordtype}{void}\ executeReturnStatement(\mbox{\hyperlink{class_return_statement}{ReturnStatement}}\ *stmt);}
-\DoxyCodeLine{00115\ }
-\DoxyCodeLine{00116\ \ \ \ \ \mbox{\hyperlink{struct_runtime_value}{RuntimeValue}}\ evaluateBinaryExpression(\mbox{\hyperlink{class_binary_expression}{BinaryExpression}}\ *expr);}
-\DoxyCodeLine{00117\ }
-\DoxyCodeLine{00118\ \ \ \ \ \mbox{\hyperlink{struct_runtime_value}{RuntimeValue}}\ evaluateLogicalExpression(\mbox{\hyperlink{class_logical_expression}{LogicalExpression}}\ *expr);}
-\DoxyCodeLine{00119\ }
-\DoxyCodeLine{00120\ \ \ \ \ \mbox{\hyperlink{struct_runtime_value}{RuntimeValue}}\ evaluateUnaryExpression(\mbox{\hyperlink{class_unary_expression}{UnaryExpression}}\ *expr);}
-\DoxyCodeLine{00121\ }
-\DoxyCodeLine{00122\ \ \ \ \ \mbox{\hyperlink{struct_runtime_value}{RuntimeValue}}\ evaluateNumericLiteralExpression(\mbox{\hyperlink{class_numeric_literal_expression}{NumericLiteralExpression}}\ *expr);}
-\DoxyCodeLine{00123\ }
-\DoxyCodeLine{00124\ \ \ \ \ \mbox{\hyperlink{struct_runtime_value}{RuntimeValue}}\ evaluateBooleanLiteralExpression(\mbox{\hyperlink{class_boolean_literal_expression}{BooleanLiteralExpression}}\ *expr);}
-\DoxyCodeLine{00125\ }
-\DoxyCodeLine{00126\ \ \ \ \ \mbox{\hyperlink{struct_runtime_value}{RuntimeValue}}\ evaluateStringLiteralExpression(\mbox{\hyperlink{class_string_literal_expression}{StringLiteralExpression}}\ *expr);}
-\DoxyCodeLine{00127\ }
-\DoxyCodeLine{00128\ \ \ \ \ \mbox{\hyperlink{struct_runtime_value}{RuntimeValue}}\ evaluateNullLiteralExpression(\mbox{\hyperlink{class_null_literal_expression}{NullLiteralExpression}}\ *expr);}
-\DoxyCodeLine{00129\ }
-\DoxyCodeLine{00130\ \ \ \ \ \mbox{\hyperlink{struct_runtime_value}{RuntimeValue}}\ evaluateVariableExpression(\mbox{\hyperlink{class_variable_expression}{VariableExpression}}\ *expr);}
-\DoxyCodeLine{00131\ }
-\DoxyCodeLine{00132\ \ \ \ \ \mbox{\hyperlink{struct_runtime_value}{RuntimeValue}}\ evaluateAssignmentExpression(\mbox{\hyperlink{class_assignment_expression}{AssignmentExpression}}\ *expr);}
-\DoxyCodeLine{00133\ }
-\DoxyCodeLine{00134\ \ \ \ \ \mbox{\hyperlink{struct_runtime_value}{RuntimeValue}}\ evaluateCallExpression(\mbox{\hyperlink{class_call_expression}{CallExpression}}\ *expr);}
-\DoxyCodeLine{00135\ }
-\DoxyCodeLine{00136\ \ \ \ \ \mbox{\hyperlink{struct_runtime_value}{RuntimeValue}}\ evaluateArrayLiteralExpression(\mbox{\hyperlink{class_array_literal_expression}{ArrayLiteralExpression}}\ *expr);}
-\DoxyCodeLine{00137\ }
-\DoxyCodeLine{00138\ \ \ \ \ \mbox{\hyperlink{struct_runtime_value}{RuntimeValue}}\ evaluateIndexingExpression(\mbox{\hyperlink{class_indexing_expression}{IndexingExpression}}\ *expr);}
-\DoxyCodeLine{00139\ }
-\DoxyCodeLine{00140\ \ \ \ \ \textcolor{keywordtype}{bool}\ isTruthy(\textcolor{keyword}{const}\ \mbox{\hyperlink{struct_runtime_value}{RuntimeValue}}\ \&value);}
-\DoxyCodeLine{00141\ }
-\DoxyCodeLine{00142\ \ \ \ \ \textcolor{keywordtype}{bool}\ isEqual(\textcolor{keyword}{const}\ \mbox{\hyperlink{struct_runtime_value}{RuntimeValue}}\ \&left,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{struct_runtime_value}{RuntimeValue}}\ \&right);}
-\DoxyCodeLine{00143\ }
-\DoxyCodeLine{00144\ \ \ \ \ \mbox{\hyperlink{struct_object}{Object}}\ *objects\ =\ \textcolor{keyword}{nullptr};}
-\DoxyCodeLine{00145\ }
-\DoxyCodeLine{00146\ \ \ \ \ \mbox{\hyperlink{struct_object_string}{ObjectString}}\ *allocateStringObject(\textcolor{keyword}{const}\ std::wstring\ \&value);}
-\DoxyCodeLine{00147\ \ \ \ \ \mbox{\hyperlink{struct_object_function}{ObjectFunction}}\ *allocateFunctionObject(\mbox{\hyperlink{class_function_declaration_statement}{FunctionDeclarationStatement}}\ *declaration);}
-\DoxyCodeLine{00148\ \ \ \ \ \mbox{\hyperlink{struct_object_array}{ObjectArray}}\ *allocateArrayObject(\textcolor{keyword}{const}\ std::vector<RuntimeValue>\ \&elements);}
-\DoxyCodeLine{00149\ }
-\DoxyCodeLine{00150\ \ \ \ \ \textcolor{comment}{//\ Used\ to\ ensure\ that\ errors\ don't\ go\ out\ of\ scope\ when\ running\ tests,\ since\ the\ type\ needs\ to\ be\ checked\ on\ the\ handledError\ field.}}
-\DoxyCodeLine{00151\ \ \ \ \ \textcolor{comment}{//\ This\ function\ just\ dynamically\ allocates\ a\ new\ error\ of\ the\ same\ type\ and\ returns\ it\ (so\ that\ handledError\ can\ be\ set\ and\ checked\ in\ tests).}}
-\DoxyCodeLine{00152\ \ \ \ \ \mbox{\hyperlink{class_runtime_error}{RuntimeError}}*\ reallocateError(\mbox{\hyperlink{class_runtime_error}{RuntimeError}}*\ error);}
-\DoxyCodeLine{00153\ \};}
+\DoxyCodeLine{00093\ }
+\DoxyCodeLine{00099\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_interpreter_ae93b3a683a2f91b11657fd42370f59da}{printValue}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{struct_runtime_value}{RuntimeValue}}\ \&value,\ std::wostream\&\ os\ =\ std::wcout);}
+\DoxyCodeLine{00100\ }
+\DoxyCodeLine{00101\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_interpreter_afa8edefac7963c7ce85a2d69232f90c3}{runGarbageCollector}}();}
+\DoxyCodeLine{00102\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_interpreter_af240ca70adc4e4c1a07b94b3e64490e3}{markRoots}}();}
+\DoxyCodeLine{00103\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_interpreter_a2700742a7b27e4f3a08d32816114f597}{markValue}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{struct_runtime_value}{RuntimeValue}}\&\ value);}
+\DoxyCodeLine{00104\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_interpreter_a592be22bc131b57a7dc2b1e150667657}{markObject}}(\mbox{\hyperlink{struct_object}{Object}}*\ \textcolor{keywordtype}{object});}
+\DoxyCodeLine{00105\ \ \ \ \ std::stack<Object*>\ \mbox{\hyperlink{class_interpreter_a78e7d8730697e60f7dbec2760b57fb8b}{grayObjects}};}
+\DoxyCodeLine{00106\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_interpreter_a60c66e0bb274f9df6b6a24b203feb2b5}{traceReferences}}();}
+\DoxyCodeLine{00107\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_interpreter_adf6c2029969dce0d71ab20d0fcfa401c}{blackenObject}}(\mbox{\hyperlink{struct_object}{Object}}*\ \textcolor{keywordtype}{object});}
+\DoxyCodeLine{00108\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_interpreter_ae077cd84ca800a5213370f1e2dd621d3}{sweep}}();}
+\DoxyCodeLine{00109\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_interpreter_ace90285a0eefb962418bcf4f5af15d41}{deleteObject}}(\mbox{\hyperlink{struct_object}{Object}}*\ \textcolor{keywordtype}{object});}
+\DoxyCodeLine{00110\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00111\ \ \ \ \ std::unordered\_map<const\ Expression*,\ int>\ locals;}
+\DoxyCodeLine{00112\ }
+\DoxyCodeLine{00113\ \ \ \ \ \mbox{\hyperlink{class_error_printer}{ErrorPrinter}}\ *errorPrinter;}
+\DoxyCodeLine{00114\ }
+\DoxyCodeLine{00115\ \ \ \ \ \mbox{\hyperlink{struct_runtime_value}{RuntimeValue}}\ lookUpVariable(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_variable_expression}{VariableExpression}}\ *expr);}
+\DoxyCodeLine{00116\ }
+\DoxyCodeLine{00117\ \ \ \ \ \textcolor{keywordtype}{void}\ executeExpressionStatement(\mbox{\hyperlink{class_expression_statement}{ExpressionStatement}}\ *stmt);}
+\DoxyCodeLine{00118\ }
+\DoxyCodeLine{00119\ \ \ \ \ \textcolor{keywordtype}{void}\ executePrintStatement(\mbox{\hyperlink{class_print_statement}{PrintStatement}}\ *stmt);}
+\DoxyCodeLine{00120\ }
+\DoxyCodeLine{00121\ \ \ \ \ \textcolor{keywordtype}{void}\ executeVarDeclarationStatement(\mbox{\hyperlink{class_var_declaration_statement}{VarDeclarationStatement}}\ *stmt);}
+\DoxyCodeLine{00122\ }
+\DoxyCodeLine{00123\ \ \ \ \ \textcolor{keywordtype}{void}\ executeBlockStatement(\mbox{\hyperlink{class_block_statement}{BlockStatement}}\ *stmt);}
+\DoxyCodeLine{00124\ }
+\DoxyCodeLine{00125\ \ \ \ \ \textcolor{keywordtype}{void}\ executeIfStatement(\mbox{\hyperlink{class_if_statement}{IfStatement}}\ *stmt);}
+\DoxyCodeLine{00126\ }
+\DoxyCodeLine{00127\ \ \ \ \ \textcolor{keywordtype}{void}\ executeWhileStatement(\mbox{\hyperlink{class_while_statement}{WhileStatement}}\ *stmt);}
+\DoxyCodeLine{00128\ }
+\DoxyCodeLine{00129\ \ \ \ \ \textcolor{keywordtype}{void}\ executeFunctionDeclarationStatement(\mbox{\hyperlink{class_function_declaration_statement}{FunctionDeclarationStatement}}\ *stmt);}
+\DoxyCodeLine{00130\ }
+\DoxyCodeLine{00131\ \ \ \ \ \textcolor{keywordtype}{void}\ executeReturnStatement(\mbox{\hyperlink{class_return_statement}{ReturnStatement}}\ *stmt);}
+\DoxyCodeLine{00132\ }
+\DoxyCodeLine{00133\ \ \ \ \ \mbox{\hyperlink{struct_runtime_value}{RuntimeValue}}\ evaluateBinaryExpression(\mbox{\hyperlink{class_binary_expression}{BinaryExpression}}\ *expr);}
+\DoxyCodeLine{00134\ }
+\DoxyCodeLine{00135\ \ \ \ \ \mbox{\hyperlink{struct_runtime_value}{RuntimeValue}}\ evaluateLogicalExpression(\mbox{\hyperlink{class_logical_expression}{LogicalExpression}}\ *expr);}
+\DoxyCodeLine{00136\ }
+\DoxyCodeLine{00137\ \ \ \ \ \mbox{\hyperlink{struct_runtime_value}{RuntimeValue}}\ evaluateUnaryExpression(\mbox{\hyperlink{class_unary_expression}{UnaryExpression}}\ *expr);}
+\DoxyCodeLine{00138\ }
+\DoxyCodeLine{00139\ \ \ \ \ \mbox{\hyperlink{struct_runtime_value}{RuntimeValue}}\ evaluateNumericLiteralExpression(\mbox{\hyperlink{class_numeric_literal_expression}{NumericLiteralExpression}}\ *expr);}
+\DoxyCodeLine{00140\ }
+\DoxyCodeLine{00141\ \ \ \ \ \mbox{\hyperlink{struct_runtime_value}{RuntimeValue}}\ evaluateBooleanLiteralExpression(\mbox{\hyperlink{class_boolean_literal_expression}{BooleanLiteralExpression}}\ *expr);}
+\DoxyCodeLine{00142\ }
+\DoxyCodeLine{00143\ \ \ \ \ \mbox{\hyperlink{struct_runtime_value}{RuntimeValue}}\ evaluateStringLiteralExpression(\mbox{\hyperlink{class_string_literal_expression}{StringLiteralExpression}}\ *expr);}
+\DoxyCodeLine{00144\ }
+\DoxyCodeLine{00145\ \ \ \ \ \mbox{\hyperlink{struct_runtime_value}{RuntimeValue}}\ evaluateNullLiteralExpression(\mbox{\hyperlink{class_null_literal_expression}{NullLiteralExpression}}\ *expr);}
+\DoxyCodeLine{00146\ }
+\DoxyCodeLine{00147\ \ \ \ \ \mbox{\hyperlink{struct_runtime_value}{RuntimeValue}}\ evaluateVariableExpression(\mbox{\hyperlink{class_variable_expression}{VariableExpression}}\ *expr);}
+\DoxyCodeLine{00148\ }
+\DoxyCodeLine{00149\ \ \ \ \ \mbox{\hyperlink{struct_runtime_value}{RuntimeValue}}\ evaluateAssignmentExpression(\mbox{\hyperlink{class_assignment_expression}{AssignmentExpression}}\ *expr);}
+\DoxyCodeLine{00150\ }
+\DoxyCodeLine{00151\ \ \ \ \ \mbox{\hyperlink{struct_runtime_value}{RuntimeValue}}\ evaluateCallExpression(\mbox{\hyperlink{class_call_expression}{CallExpression}}\ *expr);}
+\DoxyCodeLine{00152\ }
+\DoxyCodeLine{00153\ \ \ \ \ \mbox{\hyperlink{struct_runtime_value}{RuntimeValue}}\ evaluateArrayLiteralExpression(\mbox{\hyperlink{class_array_literal_expression}{ArrayLiteralExpression}}\ *expr);}
 \DoxyCodeLine{00154\ }
-\DoxyCodeLine{00155\ }
-\DoxyCodeLine{00156\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//BAKLAVA\_INTERPRETER\_H}}
+\DoxyCodeLine{00155\ \ \ \ \ \mbox{\hyperlink{struct_runtime_value}{RuntimeValue}}\ evaluateIndexingExpression(\mbox{\hyperlink{class_indexing_expression}{IndexingExpression}}\ *expr);}
+\DoxyCodeLine{00156\ }
+\DoxyCodeLine{00157\ \ \ \ \ \mbox{\hyperlink{struct_runtime_value}{RuntimeValue}}\ evaluateIndexAssignmentExpression(\mbox{\hyperlink{class_index_assignment_expression}{IndexAssignmentExpression}}\ *expr);}
+\DoxyCodeLine{00158\ }
+\DoxyCodeLine{00159\ \ \ \ \ \textcolor{keywordtype}{bool}\ isTruthy(\textcolor{keyword}{const}\ \mbox{\hyperlink{struct_runtime_value}{RuntimeValue}}\ \&value);}
+\DoxyCodeLine{00160\ }
+\DoxyCodeLine{00161\ \ \ \ \ \textcolor{keywordtype}{bool}\ isEqual(\textcolor{keyword}{const}\ \mbox{\hyperlink{struct_runtime_value}{RuntimeValue}}\ \&left,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{struct_runtime_value}{RuntimeValue}}\ \&right);}
+\DoxyCodeLine{00162\ }
+\DoxyCodeLine{00163\ \ \ \ \ \mbox{\hyperlink{struct_object}{Object}}\ *objects\ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00164\ }
+\DoxyCodeLine{00165\ \ \ \ \ \mbox{\hyperlink{struct_object_string}{ObjectString}}\ *allocateStringObject(\textcolor{keyword}{const}\ std::wstring\ \&value);}
+\DoxyCodeLine{00166\ \ \ \ \ \mbox{\hyperlink{struct_object_function}{ObjectFunction}}\ *allocateFunctionObject(\mbox{\hyperlink{class_function_declaration_statement}{FunctionDeclarationStatement}}\ *declaration);}
+\DoxyCodeLine{00167\ \ \ \ \ \mbox{\hyperlink{struct_object_array}{ObjectArray}}\ *allocateArrayObject(\textcolor{keyword}{const}\ std::vector<RuntimeValue>\ \&elements);}
+\DoxyCodeLine{00168\ }
+\DoxyCodeLine{00169\ \ \ \ \ \textcolor{comment}{//\ Used\ to\ ensure\ that\ errors\ don't\ go\ out\ of\ scope\ when\ running\ tests,\ since\ the\ type\ needs\ to\ be\ checked\ on\ the\ handledError\ field.}}
+\DoxyCodeLine{00170\ \ \ \ \ \textcolor{comment}{//\ This\ function\ just\ dynamically\ allocates\ a\ new\ error\ of\ the\ same\ type\ and\ returns\ it\ (so\ that\ handledError\ can\ be\ set\ and\ checked\ in\ tests).}}
+\DoxyCodeLine{00171\ \ \ \ \ \mbox{\hyperlink{class_runtime_error}{RuntimeError}}*\ reallocateError(\mbox{\hyperlink{class_runtime_error}{RuntimeError}}*\ error);}
+\DoxyCodeLine{00172\ \};}
+\DoxyCodeLine{00173\ }
+\DoxyCodeLine{00174\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//BAKLAVA\_INTERPRETER\_H}}
 
 \end{DoxyCode}

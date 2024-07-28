@@ -36,6 +36,7 @@ enum class ObjectType : uint8_t{
 struct Object {
     ObjectType type;
     Object* next;
+    bool isMarked {false};
 };
 
 struct ObjectString {
@@ -68,5 +69,23 @@ struct ObjectFunction : public ObjectCallable {
         call = [this](auto && PH1, auto && PH2) { return functionCall(std::forward<decltype(PH1)>(PH1), std::forward<decltype(PH2)>(PH2)); };
     }
 };
+
+/**
+ * @brief Stringifies the object type name.
+ *
+ * @param type The type of the object to stringify.
+ * @return String value of the name of the object type.
+ */
+std::wstring getObjectTypeName(ObjectType type);
+
+/**
+ * @brief Gets the identifier of the object.
+ *
+ * It is a string that can be used to identify the object when printing or logging. It is not guaranteed to be unique. Can be a name, value, or anything else appropriate for the passed object type.
+ *
+ * @param object The object to get the identifier of.
+ * @return String representing the identifier of the object.
+ */
+std::wstring getObjectIdentifier(Object* object);
 
 #endif //BAKLAVA_OBJECT_H

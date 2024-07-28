@@ -29,7 +29,28 @@ void \mbox{\hyperlink{class_interpreter_af6d6bb528dbc5a1a661182466ea6d987}{inter
 void \mbox{\hyperlink{class_interpreter_a174e5d01f8129ec93991681f49a0e779}{resolve}} (const \mbox{\hyperlink{class_expression}{Expression}} \texorpdfstring{$\ast$}{*}expr, int depth)
 \item 
 void \mbox{\hyperlink{class_interpreter_a4c64d99897a20ce300847700accc9c23}{execute\+Block}} (const std\+::vector$<$ \mbox{\hyperlink{_ast_8h_ad591697d8b5c0c7de8add763ec2e67ef}{Stmt\+Ptr}} $>$ \&statements, const \mbox{\hyperlink{class_environment}{Environment}} \&environment)
+\item 
+void \mbox{\hyperlink{class_interpreter_afa8edefac7963c7ce85a2d69232f90c3}{run\+Garbage\+Collector}} ()
+\item 
+void \mbox{\hyperlink{class_interpreter_af240ca70adc4e4c1a07b94b3e64490e3}{mark\+Roots}} ()
+\item 
+void \mbox{\hyperlink{class_interpreter_a2700742a7b27e4f3a08d32816114f597}{mark\+Value}} (const \mbox{\hyperlink{struct_runtime_value}{Runtime\+Value}} \&value)
+\item 
+void \mbox{\hyperlink{class_interpreter_a592be22bc131b57a7dc2b1e150667657}{mark\+Object}} (\mbox{\hyperlink{struct_object}{Object}} \texorpdfstring{$\ast$}{*}object)
+\item 
+void \mbox{\hyperlink{class_interpreter_a60c66e0bb274f9df6b6a24b203feb2b5}{trace\+References}} ()
+\item 
+void \mbox{\hyperlink{class_interpreter_adf6c2029969dce0d71ab20d0fcfa401c}{blacken\+Object}} (\mbox{\hyperlink{struct_object}{Object}} \texorpdfstring{$\ast$}{*}object)
+\item 
+void \mbox{\hyperlink{class_interpreter_ae077cd84ca800a5213370f1e2dd621d3}{sweep}} ()
+\item 
+void \mbox{\hyperlink{class_interpreter_ace90285a0eefb962418bcf4f5af15d41}{delete\+Object}} (\mbox{\hyperlink{struct_object}{Object}} \texorpdfstring{$\ast$}{*}object)
 \end{DoxyCompactItemize}
+\doxysubsubsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static void \mbox{\hyperlink{class_interpreter_ae93b3a683a2f91b11657fd42370f59da}{print\+Value}} (const \mbox{\hyperlink{struct_runtime_value}{Runtime\+Value}} \&value, std\+::wostream \&os=std\+::wcout)
+\begin{DoxyCompactList}\small\item\em Prints the given value to the given output stream. Only reason this is public is for testing. NOT to be used outside of print statement execution in interpreter. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsubsection*{Public Attributes}
 \begin{DoxyCompactItemize}
 \item 
@@ -48,6 +69,8 @@ std\+::vector$<$ \mbox{\hyperlink{struct_runtime_value}{Runtime\+Value}} $>$ \mb
 bool \mbox{\hyperlink{class_interpreter_a5237f122c259b5e120cb20478db387a1}{is\+Returning}} = false
 \item 
 std\+::stack$<$ \mbox{\hyperlink{class_environment}{Environment}} $>$ \mbox{\hyperlink{class_interpreter_a51754c3f067cfd5f79672fc026a761e2}{environments}}
+\item 
+std\+::stack$<$ \mbox{\hyperlink{struct_object}{Object}} \texorpdfstring{$\ast$}{*} $>$ \mbox{\hyperlink{class_interpreter_a78e7d8730697e60f7dbec2760b57fb8b}{gray\+Objects}}
 \end{DoxyCompactItemize}
 
 
@@ -91,11 +114,23 @@ Constructor with an error printer. Recommended constructor.
 
 
 \doxysubsection{Member Function Documentation}
+\Hypertarget{class_interpreter_adf6c2029969dce0d71ab20d0fcfa401c}\label{class_interpreter_adf6c2029969dce0d71ab20d0fcfa401c} 
+\index{Interpreter@{Interpreter}!blackenObject@{blackenObject}}
+\index{blackenObject@{blackenObject}!Interpreter@{Interpreter}}
+\doxysubsubsection{\texorpdfstring{blackenObject()}{blackenObject()}}
+{\footnotesize\ttfamily void Interpreter\+::blacken\+Object (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct_object}{Object}} \texorpdfstring{$\ast$}{*}}]{object }\end{DoxyParamCaption})}
+
 \Hypertarget{class_interpreter_ad2b78004f6586e9f90ae73140531b50c}\label{class_interpreter_ad2b78004f6586e9f90ae73140531b50c} 
 \index{Interpreter@{Interpreter}!defineNativeFunctions@{defineNativeFunctions}}
 \index{defineNativeFunctions@{defineNativeFunctions}!Interpreter@{Interpreter}}
 \doxysubsubsection{\texorpdfstring{defineNativeFunctions()}{defineNativeFunctions()}}
 {\footnotesize\ttfamily void Interpreter\+::define\+Native\+Functions (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\Hypertarget{class_interpreter_ace90285a0eefb962418bcf4f5af15d41}\label{class_interpreter_ace90285a0eefb962418bcf4f5af15d41} 
+\index{Interpreter@{Interpreter}!deleteObject@{deleteObject}}
+\index{deleteObject@{deleteObject}!Interpreter@{Interpreter}}
+\doxysubsubsection{\texorpdfstring{deleteObject()}{deleteObject()}}
+{\footnotesize\ttfamily void Interpreter\+::delete\+Object (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct_object}{Object}} \texorpdfstring{$\ast$}{*}}]{object }\end{DoxyParamCaption})}
 
 \Hypertarget{class_interpreter_a0d08edd5e92501d04c9cac6e01b126eb}\label{class_interpreter_a0d08edd5e92501d04c9cac6e01b126eb} 
 \index{Interpreter@{Interpreter}!evaluate@{evaluate}}
@@ -161,11 +196,64 @@ Interprets the given program.
 {\em program} & \doxylink{class_program}{Program} to interpret. \\
 \hline
 \end{DoxyParams}
+\Hypertarget{class_interpreter_a592be22bc131b57a7dc2b1e150667657}\label{class_interpreter_a592be22bc131b57a7dc2b1e150667657} 
+\index{Interpreter@{Interpreter}!markObject@{markObject}}
+\index{markObject@{markObject}!Interpreter@{Interpreter}}
+\doxysubsubsection{\texorpdfstring{markObject()}{markObject()}}
+{\footnotesize\ttfamily void Interpreter\+::mark\+Object (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct_object}{Object}} \texorpdfstring{$\ast$}{*}}]{object }\end{DoxyParamCaption})}
+
+\Hypertarget{class_interpreter_af240ca70adc4e4c1a07b94b3e64490e3}\label{class_interpreter_af240ca70adc4e4c1a07b94b3e64490e3} 
+\index{Interpreter@{Interpreter}!markRoots@{markRoots}}
+\index{markRoots@{markRoots}!Interpreter@{Interpreter}}
+\doxysubsubsection{\texorpdfstring{markRoots()}{markRoots()}}
+{\footnotesize\ttfamily void Interpreter\+::mark\+Roots (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\Hypertarget{class_interpreter_a2700742a7b27e4f3a08d32816114f597}\label{class_interpreter_a2700742a7b27e4f3a08d32816114f597} 
+\index{Interpreter@{Interpreter}!markValue@{markValue}}
+\index{markValue@{markValue}!Interpreter@{Interpreter}}
+\doxysubsubsection{\texorpdfstring{markValue()}{markValue()}}
+{\footnotesize\ttfamily void Interpreter\+::mark\+Value (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{struct_runtime_value}{Runtime\+Value}} \&}]{value }\end{DoxyParamCaption})}
+
+\Hypertarget{class_interpreter_ae93b3a683a2f91b11657fd42370f59da}\label{class_interpreter_ae93b3a683a2f91b11657fd42370f59da} 
+\index{Interpreter@{Interpreter}!printValue@{printValue}}
+\index{printValue@{printValue}!Interpreter@{Interpreter}}
+\doxysubsubsection{\texorpdfstring{printValue()}{printValue()}}
+{\footnotesize\ttfamily void Interpreter\+::print\+Value (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{struct_runtime_value}{Runtime\+Value}} \&}]{value,  }\item[{std\+::wostream \&}]{os = {\ttfamily std\+:\+:wcout} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Prints the given value to the given output stream. Only reason this is public is for testing. NOT to be used outside of print statement execution in interpreter. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em value} & value to be printed. \\
+\hline
+{\em os} & output stream to print to. This is necessary for testing purposes, since that is the only time this function should not use wcout, hence that is the defaulted value. \\
+\hline
+\end{DoxyParams}
 \Hypertarget{class_interpreter_a174e5d01f8129ec93991681f49a0e779}\label{class_interpreter_a174e5d01f8129ec93991681f49a0e779} 
 \index{Interpreter@{Interpreter}!resolve@{resolve}}
 \index{resolve@{resolve}!Interpreter@{Interpreter}}
 \doxysubsubsection{\texorpdfstring{resolve()}{resolve()}}
 {\footnotesize\ttfamily void Interpreter\+::resolve (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{class_expression}{Expression}} \texorpdfstring{$\ast$}{*}}]{expr,  }\item[{int}]{depth }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\Hypertarget{class_interpreter_afa8edefac7963c7ce85a2d69232f90c3}\label{class_interpreter_afa8edefac7963c7ce85a2d69232f90c3} 
+\index{Interpreter@{Interpreter}!runGarbageCollector@{runGarbageCollector}}
+\index{runGarbageCollector@{runGarbageCollector}!Interpreter@{Interpreter}}
+\doxysubsubsection{\texorpdfstring{runGarbageCollector()}{runGarbageCollector()}}
+{\footnotesize\ttfamily void Interpreter\+::run\+Garbage\+Collector (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\Hypertarget{class_interpreter_ae077cd84ca800a5213370f1e2dd621d3}\label{class_interpreter_ae077cd84ca800a5213370f1e2dd621d3} 
+\index{Interpreter@{Interpreter}!sweep@{sweep}}
+\index{sweep@{sweep}!Interpreter@{Interpreter}}
+\doxysubsubsection{\texorpdfstring{sweep()}{sweep()}}
+{\footnotesize\ttfamily void Interpreter\+::sweep (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\Hypertarget{class_interpreter_a60c66e0bb274f9df6b6a24b203feb2b5}\label{class_interpreter_a60c66e0bb274f9df6b6a24b203feb2b5} 
+\index{Interpreter@{Interpreter}!traceReferences@{traceReferences}}
+\index{traceReferences@{traceReferences}!Interpreter@{Interpreter}}
+\doxysubsubsection{\texorpdfstring{traceReferences()}{traceReferences()}}
+{\footnotesize\ttfamily void Interpreter\+::trace\+References (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
 
 
 
@@ -188,6 +276,12 @@ List of pointers to all statements that have been executed. Only written to when
 \doxysubsubsection{\texorpdfstring{globals}{globals}}
 {\footnotesize\ttfamily \mbox{\hyperlink{class_environment}{Environment}}\texorpdfstring{$\ast$}{*} Interpreter\+::globals}
 
+\Hypertarget{class_interpreter_a78e7d8730697e60f7dbec2760b57fb8b}\label{class_interpreter_a78e7d8730697e60f7dbec2760b57fb8b} 
+\index{Interpreter@{Interpreter}!grayObjects@{grayObjects}}
+\index{grayObjects@{grayObjects}!Interpreter@{Interpreter}}
+\doxysubsubsection{\texorpdfstring{grayObjects}{grayObjects}}
+{\footnotesize\ttfamily std\+::stack$<$\mbox{\hyperlink{struct_object}{Object}}\texorpdfstring{$\ast$}{*}$>$ Interpreter\+::gray\+Objects}
+
 \Hypertarget{class_interpreter_a95ae7eb9c9fae9c61c7775a4974602dd}\label{class_interpreter_a95ae7eb9c9fae9c61c7775a4974602dd} 
 \index{Interpreter@{Interpreter}!hadError@{hadError}}
 \index{hadError@{hadError}!Interpreter@{Interpreter}}
@@ -200,7 +294,7 @@ Holds whether an error has occurred during the interpretation. Interpretation sh
 \doxysubsubsection{\texorpdfstring{handledError}{handledError}}
 {\footnotesize\ttfamily \mbox{\hyperlink{class_runtime_error}{Runtime\+Error}}\texorpdfstring{$\ast$}{*} Interpreter\+::handled\+Error = nullptr}
 
-Holds the last error that has been handled. No flags needed as this is only done when the program has to quit so performance is not an issue. \Hypertarget{class_interpreter_a5237f122c259b5e120cb20478db387a1}\label{class_interpreter_a5237f122c259b5e120cb20478db387a1} 
+Holds the last error that has been handled. No flags needed as this is only done when the program has to quit so performance is not an issue. Mainly used to check correct error throws during testing. \Hypertarget{class_interpreter_a5237f122c259b5e120cb20478db387a1}\label{class_interpreter_a5237f122c259b5e120cb20478db387a1} 
 \index{Interpreter@{Interpreter}!isReturning@{isReturning}}
 \index{isReturning@{isReturning}!Interpreter@{Interpreter}}
 \doxysubsubsection{\texorpdfstring{isReturning}{isReturning}}

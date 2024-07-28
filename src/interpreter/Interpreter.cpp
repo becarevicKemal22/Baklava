@@ -2,6 +2,9 @@
 // Created by kemal on 2/6/2024.
 //
 
+#define DEBUG_LOG_GC
+#define DEBUG_STRESS_GC
+
 #include "Interpreter.h"
 #include "Program.h"
 #include "Expression.h"
@@ -40,6 +43,8 @@
 
 #include <iostream>
 #include <cmath>
+#include <iomanip>
+#include <sstream>
 
 void Interpreter::defineNativeFunctions() {
     RuntimeValue clockFunction;
@@ -621,6 +626,9 @@ bool Interpreter::isEqual(const RuntimeValue &left, const RuntimeValue &right) {
 }
 
 ObjectString *Interpreter::allocateStringObject(const std::wstring &value) {
+#ifdef DEBUG_STRESS_GC
+    runGarbageCollector();
+#endif
     auto *obj = new ObjectString();
     obj->obj.type = ObjectType::OBJECT_STRING;
     obj->value = value;
@@ -630,6 +638,9 @@ ObjectString *Interpreter::allocateStringObject(const std::wstring &value) {
 }
 
 ObjectFunction *Interpreter::allocateFunctionObject(FunctionDeclarationStatement *declaration) {
+#ifdef DEBUG_STRESS_GC
+    runGarbageCollector();
+#endif
     auto *obj = new ObjectFunction(declaration, &environments.top());
     obj->obj.next = objects;
     objects = (Object *) obj;
@@ -637,12 +648,175 @@ ObjectFunction *Interpreter::allocateFunctionObject(FunctionDeclarationStatement
 }
 
 ObjectArray *Interpreter::allocateArrayObject(const std::vector<RuntimeValue> &elements) {
+#ifdef DEBUG_STRESS_GC
+    runGarbageCollector();
+#endif
     auto *obj = new ObjectArray();
     obj->obj.type = ObjectType::OBJECT_ARRAY;
     obj->elements = elements;
     obj->obj.next = objects;
     objects = (Object *) obj;
     return obj;
+}
+
+void Interpreter::runGarbageCollector() {
+#ifdef DEBUG_LOG_GC
+    std::wcout << L"bk: ---------- gc begin ---------" << std::endl;
+    std::wcout << L"bk: ---------- marking ----------" << std::endl;
+//    size_t before = 0;
+//    size_t after = 0;
+//    for (Object *obj = objects; obj != nullptr; obj = obj->next) {
+//        after++;
+//    }
+//    std::wcout << L"Collected " << before - after << L" objects." << std::endl;
+//    std::wcout << L"-- gc end" << std::endl;
+#endif
+
+    // traverse objects linked list and delete each one JUST DEBUGGING
+//    Object* previous = nullptr;
+//    Object* object = objects;
+//    while(object != nullptr){
+//
+//        Object* unreached = object;
+//        object = object->next;
+//        if(previous != nullptr){
+//            previous->next = object;
+//        } else {
+//            objects = object;
+//        }
+//        deleteObject(unreached);
+//    }
+
+    markRoots();
+#ifdef DEBUG_LOG_GC
+    std::wcout << L"bk: ---------- tracing ----------" << std::endl;
+#endif
+    traceReferences();
+#ifdef DEBUG_LOG_GC
+    std::wcout << L"bk: ---------- sweeping ----------" << std::endl;
+    sweep();
+#endif
+
+#ifdef DEBUG_LOG_GC
+    std::wcout << L"bk: ---------- gc end -----------" << std::endl;
+#endif
+}
+
+void Interpreter::markRoots() {
+    std::stack<Environment> envCopy = environments;
+    while(!envCopy.empty()){
+        Environment& environment = envCopy.top();
+        for(auto& variable : environment.variables){
+            markValue(variable.second.first);
+        }
+        envCopy.pop();
+    }
+
+    markValue(returnedValue); // so that the returned value is not collected in case it has not yet been used.
+
+//    for(auto& variable : globals->variables){
+//        markValue(variable.second.first);
+//    } seems not to be necessary as globals is actually the top environment of the stack that has already been copied and traversed.
+}
+
+void Interpreter::markValue(const RuntimeValue &value) {
+    if (value.type == ValueType::Object) {
+        markObject(value.as.object);
+    }
+}
+
+void Interpreter::markObject(Object *object) {
+    if (object == nullptr) return;
+    if (object->isMarked) return;
+#ifdef DEBUG_LOG_GC
+    std::wcout << L"bk: Marking object  " << object << L", " << getObjectLogString(object) << std::endl;
+#endif
+    object->isMarked = true;
+    grayObjects.push(object);
+}
+
+void Interpreter::traceReferences() {
+    while (!grayObjects.empty()) {
+        Object *object = grayObjects.top();
+        grayObjects.pop();
+        blackenObject(object);
+    }
+}
+
+void Interpreter::blackenObject(Object* object){
+#ifdef DEBUG_LOG_GC
+    std::wcout << L"bk: Blacken object  " << object << L", " << getObjectLogString(object) << std::endl;
+#endif
+    switch (object->type) {
+        case ObjectType::OBJECT_STRING:
+        case ObjectType::OBJECT_CALLABLE: // check if callable is just used for native functions
+        case ObjectType::OBJECT_FUNCTION: // function has nothing to have marked, since the functions environment will get pushed onto the stack by executeBlock and hence it will be scanned by markRoots. This includes local variables as well as the function arguments, since they are all part of the function's environment that gets pushed onto the stack.
+            break;
+        case ObjectType::OBJECT_ARRAY: {
+            auto *array = (ObjectArray *) object;
+            for (auto &element: array->elements) {
+                markValue(element);
+            }
+            break;
+        }
+        default:
+            throw std::runtime_error("INTERNAL ERROR: Unknown object type in garbage collector");
+    }
+}
+
+void Interpreter::sweep(){
+    Object* previous = nullptr;
+    Object* object = objects;
+    while(object != nullptr){
+        if(object->isMarked){
+            object->isMarked = false;
+            previous = object;
+            object = object->next;
+        } else {
+            Object* unreached = object;
+            object = object->next;
+            if(previous != nullptr){
+                previous->next = object;
+            } else {
+                objects = object;
+            }
+            deleteObject(unreached);
+        }
+    }
+}
+
+void Interpreter::deleteObject(Object *object) {
+#ifdef DEBUG_LOG_GC
+    std::wcout << L"bk: Deleting object " << object << L", " << getObjectLogString(object) << std::endl;
+#endif
+    switch (object->type) {
+        case ObjectType::OBJECT_STRING:
+            delete (ObjectString *) object;
+            break;
+        case ObjectType::OBJECT_CALLABLE:
+            delete (ObjectCallable *) object;
+            break;
+        case ObjectType::OBJECT_FUNCTION:
+            delete (ObjectFunction *) object;
+            break;
+        case ObjectType::OBJECT_ARRAY:
+            for(auto& element : ((ObjectArray*)object)->elements){
+                if(element.type == ValueType::Object){
+                    deleteObject(element.as.object);
+                }
+            }
+            delete (ObjectArray *) object;
+            break;
+        default:
+            throw std::runtime_error("INTERNAL ERROR: Unknown object type in garbage collector");
+    }
+
+}
+
+std::wstring Interpreter::getObjectLogString(Object* object){
+    std::wstringstream log;
+    log << L"object type: " << std::setw(10) << std::left << getObjectTypeName(object->type) << L"identifier: " << getObjectIdentifier(object);
+    return log.str();
 }
 
 RuntimeError *Interpreter::reallocateError(RuntimeError *error) {
