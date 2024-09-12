@@ -563,9 +563,12 @@ RuntimeValue Interpreter::evaluateCallExpression(CallExpression *expr) {
 
 RuntimeValue Interpreter::evaluateArrayLiteralExpression(ArrayLiteralExpression *expr) {
     std::vector<RuntimeValue> elements;
+    disallowGC = true;
     for (auto element: expr->elements) {
         elements.push_back(evaluate(element));
+        disallowGC = true; // should be set again in case one of the elements is an array, which would have set it back to false, this just puts it back on true, and the final array will make it false again.
     }
+    disallowGC = false;
     return {ValueType::Object, {.object = (Object *) allocateArrayObject(elements)}};
 }
 
@@ -648,9 +651,8 @@ ObjectFunction *Interpreter::allocateFunctionObject(FunctionDeclarationStatement
 }
 
 ObjectArray *Interpreter::allocateArrayObject(const std::vector<RuntimeValue> &elements) {
-#ifdef DEBUG_STRESS_GC
-    runGarbageCollector();
-#endif
+    // Arrays don't trigger GC because it could potentially lead to its elements being deleted.
+
     auto *obj = new ObjectArray();
     obj->obj.type = ObjectType::OBJECT_ARRAY;
     obj->elements = elements;
@@ -660,6 +662,14 @@ ObjectArray *Interpreter::allocateArrayObject(const std::vector<RuntimeValue> &e
 }
 
 void Interpreter::runGarbageCollector() {
+    if(disallowGC){
+#ifdef DEBUG_LOG_GC
+        std::wcout << L"bk: ---------- gc begin ---------" << std::endl;
+        std::wcout << L"bk: GC disallowed" << std::endl;
+        std::wcout << L"bk: ---------- gc end -----------\n" << std::endl;
+#endif
+        return;
+    }
 #ifdef DEBUG_LOG_GC
     std::wcout << L"bk: ---------- gc begin ---------" << std::endl;
     std::wcout << L"bk: ---------- marking ----------" << std::endl;
@@ -698,7 +708,7 @@ void Interpreter::runGarbageCollector() {
 #endif
 
 #ifdef DEBUG_LOG_GC
-    std::wcout << L"bk: ---------- gc end -----------" << std::endl;
+    std::wcout << L"bk: ---------- gc end -----------\n" << std::endl;
 #endif
 }
 
@@ -800,11 +810,11 @@ void Interpreter::deleteObject(Object *object) {
             delete (ObjectFunction *) object;
             break;
         case ObjectType::OBJECT_ARRAY:
-            for(auto& element : ((ObjectArray*)object)->elements){
-                if(element.type == ValueType::Object){
-                    deleteObject(element.as.object);
-                }
-            }
+//            for(auto& element : ((ObjectArray*)object)->elements){
+//                if(element.type == ValueType::Object){
+//                    deleteObject(element.as.object);
+//                }
+//            } maybe isn't necessary since if the array itself isn't marked its elements won't be either, so they'll get deleted anyway. This seems to cause double deletion of objects / segfault.
             delete (ObjectArray *) object;
             break;
         default:

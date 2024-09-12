@@ -108,6 +108,7 @@ public:
     void sweep();
     void deleteObject(Object* object);
     std::wstring getObjectLogString(Object* object);
+    bool disallowGC; /**< Forbids garbage collection while set to true. Used to pause GC while array elements are being potentially allocated. If this is not present, if the GC runs while the array has not yet been allocated but elements have, it causes SEGFAULTS when array goes out of scope or is deleted for any other reason. Probably causes other problems as well. */
 private:
     std::unordered_map<const Expression*, int> locals;
 
