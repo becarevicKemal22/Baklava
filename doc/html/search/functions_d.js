@@ -4,6 +4,7 @@ var searchData=
   ['resolver_1',['Resolver',['../class_resolver.html#aede661a50a7e07603fcd2cbd3fadd4b6',1,'Resolver']]],
   ['returnstatement_2',['ReturnStatement',['../class_return_statement.html#a98e7c12064523b228b44ae2462ac9417',1,'ReturnStatement']]],
   ['runfile_3',['runFile',['../main_8cpp.html#af587df7c9342305e14cb01484d821ce6',1,'main.cpp']]],
-  ['runrepl_4',['runRepl',['../main_8cpp.html#ad3517f629bcf46589a4bdbeca260d287',1,'main.cpp']]],
-  ['runtimeerror_5',['RuntimeError',['../class_runtime_error.html#a4b2ece5f02f3de2b26c499a90fdc9488',1,'RuntimeError::RuntimeError(ErrorCode code)'],['../class_runtime_error.html#a85ba7b49af277d483e07d2b274da4697',1,'RuntimeError::RuntimeError(ErrorCode code, std::vector&lt; ErrorMessageArgument &gt; messageArguments)']]]
+  ['rungarbagecollector_4',['runGarbageCollector',['../class_interpreter.html#afa8edefac7963c7ce85a2d69232f90c3',1,'Interpreter']]],
+  ['runrepl_5',['runRepl',['../main_8cpp.html#ad3517f629bcf46589a4bdbeca260d287',1,'main.cpp']]],
+  ['runtimeerror_6',['RuntimeError',['../class_runtime_error.html#a4b2ece5f02f3de2b26c499a90fdc9488',1,'RuntimeError::RuntimeError(ErrorCode code)'],['../class_runtime_error.html#a85ba7b49af277d483e07d2b274da4697',1,'RuntimeError::RuntimeError(ErrorCode code, std::vector&lt; ErrorMessageArgument &gt; messageArguments)']]]
 ];

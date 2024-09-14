@@ -1,0 +1,26 @@
+\doxysection{Non\+Integer\+Index.\+h}
+\hypertarget{_non_integer_index_8h_source}{}\label{_non_integer_index_8h_source}\index{src/error/exceptions/NonIntegerIndex.h@{src/error/exceptions/NonIntegerIndex.h}}
+\mbox{\hyperlink{_non_integer_index_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{//}}
+\DoxyCodeLine{00002\ \textcolor{comment}{//\ Created\ by\ kemal\ on\ 6/8/2024.}}
+\DoxyCodeLine{00003\ \textcolor{comment}{//}}
+\DoxyCodeLine{00004\ }
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#ifndef\ BAKLAVA\_NONINTEGERINDEX\_H}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#define\ BAKLAVA\_NONINTEGERINDEX\_H}}
+\DoxyCodeLine{00007\ }
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_runtime_error_8h}{RuntimeError.h}}"{}}}
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_expression_8h}{Expression.h}}"{}}}
+\DoxyCodeLine{00010\ }
+\DoxyCodeLine{00017\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_non_integer_index}{NonIntegerIndex}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{class_runtime_error}{RuntimeError}}\ \{}
+\DoxyCodeLine{00018\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00019\ \ \ \ \ \mbox{\hyperlink{class_non_integer_index_a36f3f0bf5eb4ee88ba3523b6d540006d}{NonIntegerIndex}}(\mbox{\hyperlink{class_expression}{Expression}}*\ \mbox{\hyperlink{class_non_integer_index_af8125e39664cb1714e7c6839b02e78b6}{index}},\ \textcolor{keywordtype}{double}\ indexValue)\ :\ \mbox{\hyperlink{class_runtime_error}{RuntimeError}}(\mbox{\hyperlink{_error_code_8h_a59e56af19e754a6aa26a612ebf91d05fa73063bc6e0e77dbe2d2942eb99c14762}{ERROR\_NON\_INTEGER\_INDEX}}),\ \mbox{\hyperlink{class_non_integer_index_af8125e39664cb1714e7c6839b02e78b6}{index}}(\mbox{\hyperlink{class_non_integer_index_af8125e39664cb1714e7c6839b02e78b6}{index}})\ \{}
+\DoxyCodeLine{00020\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_runtime_error_a5d005928ddf618703012ce4c1f8e3f03}{messageArguments}}.push\_back(std::to\_wstring(indexValue));}
+\DoxyCodeLine{00021\ \ \ \ \ \}}
+\DoxyCodeLine{00022\ }
+\DoxyCodeLine{00023\ \ \ \ \ \mbox{\hyperlink{class_expression}{Expression}}*\ \mbox{\hyperlink{class_non_integer_index_af8125e39664cb1714e7c6839b02e78b6}{index}};}
+\DoxyCodeLine{00024\ \};}
+\DoxyCodeLine{00025\ }
+\DoxyCodeLine{00026\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//BAKLAVA\_NONINTEGERINDEX\_H}}
+
+\end{DoxyCode}

@@ -14,5 +14,6 @@ var searchData=
   ['stmtptr_11',['StmtPtr',['../_ast_8h.html#ad591697d8b5c0c7de8add763ec2e67ef',1,'Ast.h']]],
   ['string_12',['String',['../_token_type_8h.html#afa91e1934f818659a4e2b0c8ce1214b0a27118326006d3829667a400ad23d5d98',1,'TokenType.h']]],
   ['stringliteralexpression_13',['StringLiteralExpression',['../class_string_literal_expression.html',1,'StringLiteralExpression'],['../class_string_literal_expression.html#ad82b7bf5c7cbaf8f41141e7339dd156b',1,'StringLiteralExpression::StringLiteralExpression()'],['../_ast_8h.html#abbed81ee894f251822f94201ef008817ac630f88540b8851ac6098772bb517e83',1,'StringLiteralExpression:&#160;Ast.h']]],
-  ['stringliteralexpression_2eh_14',['StringLiteralExpression.h',['../_string_literal_expression_8h.html',1,'']]]
+  ['stringliteralexpression_2eh_14',['StringLiteralExpression.h',['../_string_literal_expression_8h.html',1,'']]],
+  ['sweep_15',['sweep',['../class_interpreter.html#ae077cd84ca800a5213370f1e2dd621d3',1,'Interpreter']]]
 ];

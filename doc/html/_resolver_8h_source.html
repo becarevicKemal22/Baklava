@@ -188,11 +188,16 @@ $(function() { codefold.init(0); });
 <div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span> </div>
 <div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span>    <span class="keywordtype">void</span> resolveNullLiteralExpression(<a class="code hl_class" href="class_null_literal_expression.html">NullLiteralExpression</a> *expression);</div>
 <div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span> </div>
-<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span>};</div>
-</div>
+<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span>    <span class="keywordtype">void</span> resolveIndexingExpression(<a class="code hl_class" href="class_indexing_expression.html">IndexingExpression</a> *expression);</div>
 <div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span> </div>
-<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span> </div>
-<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span><span class="preprocessor">#endif </span><span class="comment">//BAKLAVA_RESOLVER_H</span></div>
+<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span>    <span class="keywordtype">void</span> resolveIndexAssignmentExpression(<a class="code hl_class" href="class_index_assignment_expression.html">IndexAssignmentExpression</a> *expression);</div>
+<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span> </div>
+<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span>    <span class="keywordtype">void</span> resolveArrayLiteralExpression(<a class="code hl_class" href="class_array_literal_expression.html">ArrayLiteralExpression</a> *expression);</div>
+<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span>};</div>
+</div>
+<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span> </div>
+<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span> </div>
+<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span><span class="preprocessor">#endif </span><span class="comment">//BAKLAVA_RESOLVER_H</span></div>
 <div class="ttc" id="a_ast_8h_html"><div class="ttname"><a href="_ast_8h.html">Ast.h</a></div></div>
 <div class="ttc" id="a_expression_8h_html"><div class="ttname"><a href="_expression_8h.html">Expression.h</a></div></div>
 <div class="ttc" id="a_interpreter_8h_html"><div class="ttname"><a href="_interpreter_8h.html">Interpreter.h</a></div></div>
@@ -203,6 +208,7 @@ $(function() { codefold.init(0); });
 <div class="ttc" id="a_resolver_8h_html_a42a11575cc237e37732d560240e04371ab50339a10e1de285ac99d4c3990b8693"><div class="ttname"><a href="_resolver_8h.html#a42a11575cc237e37732d560240e04371ab50339a10e1de285ac99d4c3990b8693">FunctionType::NONE</a></div><div class="ttdeci">@ NONE</div></div>
 <div class="ttc" id="a_resolver_8h_html_ad6f880cdf75e7462a737aa17fa2295a0"><div class="ttname"><a href="_resolver_8h.html#ad6f880cdf75e7462a737aa17fa2295a0">ScopeStack</a></div><div class="ttdeci">std::stack&lt; Scope &gt; ScopeStack</div><div class="ttdef"><b>Definition</b> Resolver.h:19</div></div>
 <div class="ttc" id="a_statement_8h_html"><div class="ttname"><a href="_statement_8h.html">Statement.h</a></div></div>
+<div class="ttc" id="aclass_array_literal_expression_html"><div class="ttname"><a href="class_array_literal_expression.html">ArrayLiteralExpression</a></div><div class="ttdoc">Represents an array literal expression.</div><div class="ttdef"><b>Definition</b> ArrayLiteralExpression.h:16</div></div>
 <div class="ttc" id="aclass_assignment_expression_html"><div class="ttname"><a href="class_assignment_expression.html">AssignmentExpression</a></div><div class="ttdoc">Represents an assignment expression.</div><div class="ttdef"><b>Definition</b> AssignmentExpression.h:14</div></div>
 <div class="ttc" id="aclass_binary_expression_html"><div class="ttname"><a href="class_binary_expression.html">BinaryExpression</a></div><div class="ttdoc">Represents a binary expression.</div><div class="ttdef"><b>Definition</b> BinaryExpression.h:17</div></div>
 <div class="ttc" id="aclass_block_statement_html"><div class="ttname"><a href="class_block_statement.html">BlockStatement</a></div><div class="ttdef"><b>Definition</b> BlockStatement.h:12</div></div>
@@ -213,6 +219,8 @@ $(function() { codefold.init(0); });
 <div class="ttc" id="aclass_function_declaration_statement_html"><div class="ttname"><a href="class_function_declaration_statement.html">FunctionDeclarationStatement</a></div><div class="ttdef"><b>Definition</b> FunctionDeclarationStatement.h:12</div></div>
 <div class="ttc" id="aclass_grouping_expression_html"><div class="ttname"><a href="class_grouping_expression.html">GroupingExpression</a></div><div class="ttdoc">Represents a parenthesized grouping expression.</div><div class="ttdef"><b>Definition</b> GroupingExpression.h:15</div></div>
 <div class="ttc" id="aclass_if_statement_html"><div class="ttname"><a href="class_if_statement.html">IfStatement</a></div><div class="ttdef"><b>Definition</b> IfStatement.h:10</div></div>
+<div class="ttc" id="aclass_index_assignment_expression_html"><div class="ttname"><a href="class_index_assignment_expression.html">IndexAssignmentExpression</a></div><div class="ttdoc">Represents an assignment at an array index (e.g. a[1]=5;).</div><div class="ttdef"><b>Definition</b> IndexAssignmentExpression.h:14</div></div>
+<div class="ttc" id="aclass_indexing_expression_html"><div class="ttname"><a href="class_indexing_expression.html">IndexingExpression</a></div><div class="ttdoc">Represents an indexing expression. Can be used to chain multiple indexings.</div><div class="ttdef"><b>Definition</b> IndexingExpression.h:15</div></div>
 <div class="ttc" id="aclass_interpreter_html"><div class="ttname"><a href="class_interpreter.html">Interpreter</a></div><div class="ttdoc">Class that runs a program.</div><div class="ttdef"><b>Definition</b> Interpreter.h:21</div></div>
 <div class="ttc" id="aclass_logical_expression_html"><div class="ttname"><a href="class_logical_expression.html">LogicalExpression</a></div><div class="ttdoc">Represents a logical binary expression.</div><div class="ttdef"><b>Definition</b> LogicalExpression.h:16</div></div>
 <div class="ttc" id="aclass_null_literal_expression_html"><div class="ttname"><a href="class_null_literal_expression.html">NullLiteralExpression</a></div><div class="ttdoc">Represents a null literal expression.</div><div class="ttdef"><b>Definition</b> NullLiteralExpression.h:14</div></div>
@@ -220,7 +228,7 @@ $(function() { codefold.init(0); });
 <div class="ttc" id="aclass_print_statement_html"><div class="ttname"><a href="class_print_statement.html">PrintStatement</a></div><div class="ttdef"><b>Definition</b> PrintStatement.h:10</div></div>
 <div class="ttc" id="aclass_resolver_html"><div class="ttname"><a href="class_resolver.html">Resolver</a></div><div class="ttdef"><b>Definition</b> Resolver.h:26</div></div>
 <div class="ttc" id="aclass_resolver_html_a761b0b79ba0aeac72adbeec4674197d9"><div class="ttname"><a href="class_resolver.html#a761b0b79ba0aeac72adbeec4674197d9">Resolver::~Resolver</a></div><div class="ttdeci">~Resolver()=default</div></div>
-<div class="ttc" id="aclass_resolver_html_a7cbd1c72e8ae8b75a64cbbbf037d1bd7"><div class="ttname"><a href="class_resolver.html#a7cbd1c72e8ae8b75a64cbbbf037d1bd7">Resolver::resolve</a></div><div class="ttdeci">void resolve(std::unique_ptr&lt; Program &gt; &amp;program)</div><div class="ttdef"><b>Definition</b> Resolver.cpp:29</div></div>
+<div class="ttc" id="aclass_resolver_html_a7cbd1c72e8ae8b75a64cbbbf037d1bd7"><div class="ttname"><a href="class_resolver.html#a7cbd1c72e8ae8b75a64cbbbf037d1bd7">Resolver::resolve</a></div><div class="ttdeci">void resolve(std::unique_ptr&lt; Program &gt; &amp;program)</div><div class="ttdef"><b>Definition</b> Resolver.cpp:32</div></div>
 <div class="ttc" id="aclass_resolver_html_aede661a50a7e07603fcd2cbd3fadd4b6"><div class="ttname"><a href="class_resolver.html#aede661a50a7e07603fcd2cbd3fadd4b6">Resolver::Resolver</a></div><div class="ttdeci">Resolver(Interpreter *interpreter)</div><div class="ttdef"><b>Definition</b> Resolver.h:28</div></div>
 <div class="ttc" id="aclass_return_statement_html"><div class="ttname"><a href="class_return_statement.html">ReturnStatement</a></div><div class="ttdef"><b>Definition</b> ReturnStatement.h:11</div></div>
 <div class="ttc" id="aclass_statement_html"><div class="ttname"><a href="class_statement.html">Statement</a></div><div class="ttdoc">Base class for all AST nodes. Not meant to be used aside from achieving polymorphism.</div><div class="ttdef"><b>Definition</b> Statement.h:15</div></div>

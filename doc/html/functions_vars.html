@@ -120,6 +120,7 @@ $(function() {
 
 <h3><a id="index_g" name="index_g"></a>- g -</h3><ul>
 <li>globals&#160;:&#160;<a class="el" href="class_interpreter.html#ac8d1b7617a8b385112b5ab528ed29f46">Interpreter</a></li>
+<li>grayObjects&#160;:&#160;<a class="el" href="class_interpreter.html#a78e7d8730697e60f7dbec2760b57fb8b">Interpreter</a></li>
 </ul>
 
 
@@ -131,9 +132,10 @@ $(function() {
 
 <h3><a id="index_i" name="index_i"></a>- i -</h3><ul>
 <li>identifier&#160;:&#160;<a class="el" href="class_uninitialized_const.html#a4667bb6c6f461c86a9185c6329fe94f5">UninitializedConst</a></li>
-<li>index&#160;:&#160;<a class="el" href="class_indexing_expression.html#a1821d3a16362be2c46ae2352dedc8157">IndexingExpression</a></li>
+<li>index&#160;:&#160;<a class="el" href="class_index_assignment_expression.html#af85401d7bb607e8a82c406f598a580f9">IndexAssignmentExpression</a>, <a class="el" href="class_indexing_expression.html#a1821d3a16362be2c46ae2352dedc8157">IndexingExpression</a>, <a class="el" href="class_index_out_of_bounds.html#a28416476778ce42e6b4e735b66c1fb81">IndexOutOfBounds</a>, <a class="el" href="class_non_integer_index.html#af8125e39664cb1714e7c6839b02e78b6">NonIntegerIndex</a></li>
 <li>initializer&#160;:&#160;<a class="el" href="class_var_declaration_statement.html#af4285554730341dd0f1665ac1530b9a5">VarDeclarationStatement</a></li>
 <li>isConst&#160;:&#160;<a class="el" href="class_var_declaration_statement.html#aad51c605b229eee1bab0aa99d5cc51e3">VarDeclarationStatement</a></li>
+<li>isMarked&#160;:&#160;<a class="el" href="struct_object.html#af2261c57b14733748c2d801800a79f0f">Object</a></li>
 <li>isReturning&#160;:&#160;<a class="el" href="class_interpreter.html#a5237f122c259b5e120cb20478db387a1">Interpreter</a></li>
 </ul>
 
@@ -144,7 +146,7 @@ $(function() {
 
 
 <h3><a id="index_l" name="index_l"></a>- l -</h3><ul>
-<li>left&#160;:&#160;<a class="el" href="class_binary_expression.html#a10b156c09c5c7e344a0922f2b865c60d">BinaryExpression</a>, <a class="el" href="class_indexing_expression.html#aba8dce5d4daa0b2820e3ad20732f9b36">IndexingExpression</a>, <a class="el" href="class_logical_expression.html#a954500430e5b6f9dcf1db232067a6053">LogicalExpression</a></li>
+<li>left&#160;:&#160;<a class="el" href="class_binary_expression.html#a10b156c09c5c7e344a0922f2b865c60d">BinaryExpression</a>, <a class="el" href="class_index_assignment_expression.html#a7c77e12daa513a665fb230441425cfcb">IndexAssignmentExpression</a>, <a class="el" href="class_indexing_expression.html#aba8dce5d4daa0b2820e3ad20732f9b36">IndexingExpression</a>, <a class="el" href="class_logical_expression.html#a954500430e5b6f9dcf1db232067a6053">LogicalExpression</a></li>
 <li>leftToken&#160;:&#160;<a class="el" href="class_wrong_binary_operand_types.html#ae24e20ae247c161e457a2370a7f0dd47">WrongBinaryOperandTypes</a></li>
 <li>line&#160;:&#160;<a class="el" href="class_token.html#addf8630713f51d489c62396c97312f21">Token</a></li>
 </ul>
@@ -193,14 +195,14 @@ $(function() {
 
 <h3><a id="index_t" name="index_t"></a>- t -</h3><ul>
 <li>thenBranch&#160;:&#160;<a class="el" href="class_if_statement.html#a9daa333e12531d02073714e835dfb664">IfStatement</a></li>
-<li>token&#160;:&#160;<a class="el" href="class_boolean_literal_expression.html#a5250cbcf95756222ec858ba50c504d96">BooleanLiteralExpression</a>, <a class="el" href="class_invalid_argument_count.html#a7291b52798426a115da16eafcb03a754">InvalidArgumentCount</a>, <a class="el" href="class_invalid_l_value.html#af9f2e1438b380e8d61f90feb28395390">InvalidLValue</a>, <a class="el" href="class_invalid_return_position.html#ad42e0bace5f2b7ef516a242bf43de913">InvalidReturnPosition</a>, <a class="el" href="class_null_literal_expression.html#ae93a87cbd9ea43ceed3d850e57f2806f">NullLiteralExpression</a>, <a class="el" href="class_numeric_literal_expression.html#a692012756b58fe3d75025a528f5c5770">NumericLiteralExpression</a>, <a class="el" href="class_self_referencing_initializer.html#a801070472e9782b443afdd6e52174bbd">SelfReferencingInitializer</a>, <a class="el" href="class_string_literal_expression.html#a12a77c51d6639cd1dae8db68764c9228">StringLiteralExpression</a>, <a class="el" href="class_variable_redeclaration.html#a4680aeefeb7063317a4091ab681e587a">VariableRedeclaration</a>, <a class="el" href="class_wrong_binary_operand_types.html#add7daadf5087e248c34fc330cc04ffea">WrongBinaryOperandTypes</a>, <a class="el" href="class_wrong_type_error.html#acbbcdb64f598cec8dc20dcee4ce90e0d">WrongTypeError</a></li>
+<li>token&#160;:&#160;<a class="el" href="class_boolean_literal_expression.html#a5250cbcf95756222ec858ba50c504d96">BooleanLiteralExpression</a>, <a class="el" href="class_indexing_non_array.html#af0ac8d54cd11cd138f8ad7df5e709fdf">IndexingNonArray</a>, <a class="el" href="class_invalid_argument_count.html#a7291b52798426a115da16eafcb03a754">InvalidArgumentCount</a>, <a class="el" href="class_invalid_l_value.html#af9f2e1438b380e8d61f90feb28395390">InvalidLValue</a>, <a class="el" href="class_invalid_return_position.html#ad42e0bace5f2b7ef516a242bf43de913">InvalidReturnPosition</a>, <a class="el" href="class_null_literal_expression.html#ae93a87cbd9ea43ceed3d850e57f2806f">NullLiteralExpression</a>, <a class="el" href="class_numeric_literal_expression.html#a692012756b58fe3d75025a528f5c5770">NumericLiteralExpression</a>, <a class="el" href="class_self_referencing_initializer.html#a801070472e9782b443afdd6e52174bbd">SelfReferencingInitializer</a>, <a class="el" href="class_string_literal_expression.html#a12a77c51d6639cd1dae8db68764c9228">StringLiteralExpression</a>, <a class="el" href="class_variable_redeclaration.html#a4680aeefeb7063317a4091ab681e587a">VariableRedeclaration</a>, <a class="el" href="class_wrong_binary_operand_types.html#add7daadf5087e248c34fc330cc04ffea">WrongBinaryOperandTypes</a>, <a class="el" href="class_wrong_type_error.html#acbbcdb64f598cec8dc20dcee4ce90e0d">WrongTypeError</a></li>
 <li>tokens&#160;:&#160;<a class="el" href="class_lexer.html#a67c5bb32cc0e7ce98e2554175ec6dc25">Lexer</a>, <a class="el" href="class_parser.html#a249888403db5d3567b4369199c3128d9">Parser</a></li>
 <li>type&#160;:&#160;<a class="el" href="struct_object.html#a0075dcd793d09d14f5ff0b20ce4db4f7">Object</a>, <a class="el" href="struct_runtime_value.html#a55cfd70a0d575cfeb00067649c097f36">RuntimeValue</a>, <a class="el" href="class_statement.html#af799a81c3fbd31e741cc01d09324df30">Statement</a>, <a class="el" href="class_token.html#a67919af9f3a80dc0b28a0ab1e6d5bf8a">Token</a></li>
 </ul>
 
 
 <h3><a id="index_v" name="index_v"></a>- v -</h3><ul>
-<li>value&#160;:&#160;<a class="el" href="class_assignment_expression.html#a2a10546399f07b1fd660a5bc737cae29">AssignmentExpression</a>, <a class="el" href="class_boolean_literal_expression.html#af506f7513b28805d936d8c43283bf41f">BooleanLiteralExpression</a>, <a class="el" href="class_numeric_literal_expression.html#aaceabee9863f3fc9b96fb0790c6ee2b8">NumericLiteralExpression</a>, <a class="el" href="struct_object_string.html#a521ee745aa1e11944ab13b91aa9d1078">ObjectString</a>, <a class="el" href="class_return_statement.html#a6ca295e1c0496c89ad5eac34d7bae24d">ReturnStatement</a>, <a class="el" href="class_string_literal_expression.html#a5dec0246f492d5f7f73faa24256c1598">StringLiteralExpression</a>, <a class="el" href="class_token.html#acfd9e64709c736211934e4b27ac20955">Token</a></li>
+<li>value&#160;:&#160;<a class="el" href="class_assignment_expression.html#a2a10546399f07b1fd660a5bc737cae29">AssignmentExpression</a>, <a class="el" href="class_boolean_literal_expression.html#af506f7513b28805d936d8c43283bf41f">BooleanLiteralExpression</a>, <a class="el" href="class_index_assignment_expression.html#aa5ace0150e4cb276b6b11f3189a1c6c6">IndexAssignmentExpression</a>, <a class="el" href="class_numeric_literal_expression.html#aaceabee9863f3fc9b96fb0790c6ee2b8">NumericLiteralExpression</a>, <a class="el" href="struct_object_string.html#a521ee745aa1e11944ab13b91aa9d1078">ObjectString</a>, <a class="el" href="class_return_statement.html#a6ca295e1c0496c89ad5eac34d7bae24d">ReturnStatement</a>, <a class="el" href="class_string_literal_expression.html#a5dec0246f492d5f7f73faa24256c1598">StringLiteralExpression</a>, <a class="el" href="class_token.html#acfd9e64709c736211934e4b27ac20955">Token</a></li>
 <li>variables&#160;:&#160;<a class="el" href="class_environment.html#ab55e88222ddba3ec2a7c34041aa6a253">Environment</a></li>
 </ul>
 </div><!-- contents -->

@@ -3,3 +3,51 @@
 {\ttfamily \#include "{}Object.\+h"{}}\newline
 {\ttfamily \#include "{}Interpreter.\+h"{}}\newline
 {\ttfamily \#include "{}Environment.\+h"{}}\newline
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+std\+::wstring \mbox{\hyperlink{_object_8cpp_aa9e8bee6df2f5fe6aaa00413d092d266}{get\+Object\+Type\+Name}} (\mbox{\hyperlink{_object_8h_ad77a2400b6233b221e23bc962da32b0d}{Object\+Type}} type)
+\begin{DoxyCompactList}\small\item\em Stringifies the object type name. \end{DoxyCompactList}\item 
+std\+::wstring \mbox{\hyperlink{_object_8cpp_a66ace020f21bada23650f641c8403e34}{get\+Object\+Identifier}} (\mbox{\hyperlink{struct_object}{Object}} \texorpdfstring{$\ast$}{*}object)
+\begin{DoxyCompactList}\small\item\em Gets the identifier of the object. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\Hypertarget{_object_8cpp_a66ace020f21bada23650f641c8403e34}\label{_object_8cpp_a66ace020f21bada23650f641c8403e34} 
+\index{Object.cpp@{Object.cpp}!getObjectIdentifier@{getObjectIdentifier}}
+\index{getObjectIdentifier@{getObjectIdentifier}!Object.cpp@{Object.cpp}}
+\doxysubsubsection{\texorpdfstring{getObjectIdentifier()}{getObjectIdentifier()}}
+{\footnotesize\ttfamily std\+::wstring get\+Object\+Identifier (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct_object}{Object}} \texorpdfstring{$\ast$}{*}}]{object }\end{DoxyParamCaption})}
+
+
+
+Gets the identifier of the object. 
+
+It is a string that can be used to identify the object when printing or logging. It is not guaranteed to be unique. Can be a name, value, or anything else appropriate for the passed object type.
+
+
+\begin{DoxyParams}{Parameters}
+{\em object} & The object to get the identifier of. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+String representing the identifier of the object. 
+\end{DoxyReturn}
+\Hypertarget{_object_8cpp_aa9e8bee6df2f5fe6aaa00413d092d266}\label{_object_8cpp_aa9e8bee6df2f5fe6aaa00413d092d266} 
+\index{Object.cpp@{Object.cpp}!getObjectTypeName@{getObjectTypeName}}
+\index{getObjectTypeName@{getObjectTypeName}!Object.cpp@{Object.cpp}}
+\doxysubsubsection{\texorpdfstring{getObjectTypeName()}{getObjectTypeName()}}
+{\footnotesize\ttfamily std\+::wstring get\+Object\+Type\+Name (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{_object_8h_ad77a2400b6233b221e23bc962da32b0d}{Object\+Type}}}]{type }\end{DoxyParamCaption})}
+
+
+
+Stringifies the object type name. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em type} & The type of the object to stringify. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+String value of the name of the object type. 
+\end{DoxyReturn}

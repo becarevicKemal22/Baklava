@@ -73,6 +73,7 @@ $(function() {
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pub-static-methods">Static Public Member Functions</a> &#124;
 <a href="#pub-attribs">Public Attributes</a> &#124;
 <a href="class_interpreter-members.html">List of all members</a>  </div>
   <div class="headertitle"><div class="title">Interpreter Class Reference</div></div>
@@ -109,6 +110,28 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a174e5d01f8129ec93991681f49a0e779"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4c64d99897a20ce300847700accc9c23" id="r_a4c64d99897a20ce300847700accc9c23"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a4c64d99897a20ce300847700accc9c23">executeBlock</a> (const std::vector&lt; <a class="el" href="_ast_8h.html#ad591697d8b5c0c7de8add763ec2e67ef">StmtPtr</a> &gt; &amp;statements, const <a class="el" href="class_environment.html">Environment</a> &amp;environment)</td></tr>
 <tr class="separator:a4c64d99897a20ce300847700accc9c23"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afa8edefac7963c7ce85a2d69232f90c3" id="r_afa8edefac7963c7ce85a2d69232f90c3"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#afa8edefac7963c7ce85a2d69232f90c3">runGarbageCollector</a> ()</td></tr>
+<tr class="separator:afa8edefac7963c7ce85a2d69232f90c3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af240ca70adc4e4c1a07b94b3e64490e3" id="r_af240ca70adc4e4c1a07b94b3e64490e3"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af240ca70adc4e4c1a07b94b3e64490e3">markRoots</a> ()</td></tr>
+<tr class="separator:af240ca70adc4e4c1a07b94b3e64490e3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2700742a7b27e4f3a08d32816114f597" id="r_a2700742a7b27e4f3a08d32816114f597"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a2700742a7b27e4f3a08d32816114f597">markValue</a> (const <a class="el" href="struct_runtime_value.html">RuntimeValue</a> &amp;value)</td></tr>
+<tr class="separator:a2700742a7b27e4f3a08d32816114f597"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a592be22bc131b57a7dc2b1e150667657" id="r_a592be22bc131b57a7dc2b1e150667657"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a592be22bc131b57a7dc2b1e150667657">markObject</a> (<a class="el" href="struct_object.html">Object</a> *object)</td></tr>
+<tr class="separator:a592be22bc131b57a7dc2b1e150667657"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a60c66e0bb274f9df6b6a24b203feb2b5" id="r_a60c66e0bb274f9df6b6a24b203feb2b5"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a60c66e0bb274f9df6b6a24b203feb2b5">traceReferences</a> ()</td></tr>
+<tr class="separator:a60c66e0bb274f9df6b6a24b203feb2b5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adf6c2029969dce0d71ab20d0fcfa401c" id="r_adf6c2029969dce0d71ab20d0fcfa401c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#adf6c2029969dce0d71ab20d0fcfa401c">blackenObject</a> (<a class="el" href="struct_object.html">Object</a> *object)</td></tr>
+<tr class="separator:adf6c2029969dce0d71ab20d0fcfa401c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae077cd84ca800a5213370f1e2dd621d3" id="r_ae077cd84ca800a5213370f1e2dd621d3"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae077cd84ca800a5213370f1e2dd621d3">sweep</a> ()</td></tr>
+<tr class="separator:ae077cd84ca800a5213370f1e2dd621d3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ace90285a0eefb962418bcf4f5af15d41" id="r_ace90285a0eefb962418bcf4f5af15d41"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ace90285a0eefb962418bcf4f5af15d41">deleteObject</a> (<a class="el" href="struct_object.html">Object</a> *object)</td></tr>
+<tr class="separator:ace90285a0eefb962418bcf4f5af15d41"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-static-methods" name="pub-static-methods"></a>
+Static Public Member Functions</h2></td></tr>
+<tr class="memitem:ae93b3a683a2f91b11657fd42370f59da" id="r_ae93b3a683a2f91b11657fd42370f59da"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae93b3a683a2f91b11657fd42370f59da">printValue</a> (const <a class="el" href="struct_runtime_value.html">RuntimeValue</a> &amp;value, std::wostream &amp;os=std::wcout)</td></tr>
+<tr class="memdesc:ae93b3a683a2f91b11657fd42370f59da"><td class="mdescLeft">&#160;</td><td class="mdescRight">Prints the given value to the given output stream. Only reason this is public is for testing. NOT to be used outside of print statement execution in interpreter.  <br /></td></tr>
+<tr class="separator:ae93b3a683a2f91b11657fd42370f59da"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
@@ -128,6 +151,8 @@ Public Attributes</h2></td></tr>
 <tr class="separator:a5237f122c259b5e120cb20478db387a1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a51754c3f067cfd5f79672fc026a761e2" id="r_a51754c3f067cfd5f79672fc026a761e2"><td class="memItemLeft" align="right" valign="top">std::stack&lt; <a class="el" href="class_environment.html">Environment</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a51754c3f067cfd5f79672fc026a761e2">environments</a></td></tr>
 <tr class="separator:a51754c3f067cfd5f79672fc026a761e2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a78e7d8730697e60f7dbec2760b57fb8b" id="r_a78e7d8730697e60f7dbec2760b57fb8b"><td class="memItemLeft" align="right" valign="top">std::stack&lt; <a class="el" href="struct_object.html">Object</a> * &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a78e7d8730697e60f7dbec2760b57fb8b">grayObjects</a></td></tr>
+<tr class="separator:a78e7d8730697e60f7dbec2760b57fb8b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Class that runs a program. </p>
@@ -219,6 +244,23 @@ Public Attributes</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
+<a id="adf6c2029969dce0d71ab20d0fcfa401c" name="adf6c2029969dce0d71ab20d0fcfa401c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adf6c2029969dce0d71ab20d0fcfa401c">&#9670;&#160;</a></span>blackenObject()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Interpreter::blackenObject </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_object.html">Object</a> *</td>          <td class="paramname"><span class="paramname"><em>object</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="ad2b78004f6586e9f90ae73140531b50c" name="ad2b78004f6586e9f90ae73140531b50c"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ad2b78004f6586e9f90ae73140531b50c">&#9670;&#160;</a></span>defineNativeFunctions()</h2>
 
@@ -229,6 +271,23 @@ Public Attributes</h2></td></tr>
           <td class="memname">void Interpreter::defineNativeFunctions </td>
           <td>(</td>
           <td class="paramname"><span class="paramname"></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ace90285a0eefb962418bcf4f5af15d41" name="ace90285a0eefb962418bcf4f5af15d41"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ace90285a0eefb962418bcf4f5af15d41">&#9670;&#160;</a></span>deleteObject()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Interpreter::deleteObject </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_object.html">Object</a> *</td>          <td class="paramname"><span class="paramname"><em>object</em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -345,6 +404,95 @@ Public Attributes</h2></td></tr>
 
 </div>
 </div>
+<a id="a592be22bc131b57a7dc2b1e150667657" name="a592be22bc131b57a7dc2b1e150667657"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a592be22bc131b57a7dc2b1e150667657">&#9670;&#160;</a></span>markObject()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Interpreter::markObject </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_object.html">Object</a> *</td>          <td class="paramname"><span class="paramname"><em>object</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="af240ca70adc4e4c1a07b94b3e64490e3" name="af240ca70adc4e4c1a07b94b3e64490e3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af240ca70adc4e4c1a07b94b3e64490e3">&#9670;&#160;</a></span>markRoots()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Interpreter::markRoots </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a2700742a7b27e4f3a08d32816114f597" name="a2700742a7b27e4f3a08d32816114f597"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2700742a7b27e4f3a08d32816114f597">&#9670;&#160;</a></span>markValue()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Interpreter::markValue </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="struct_runtime_value.html">RuntimeValue</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>value</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ae93b3a683a2f91b11657fd42370f59da" name="ae93b3a683a2f91b11657fd42370f59da"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae93b3a683a2f91b11657fd42370f59da">&#9670;&#160;</a></span>printValue()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Interpreter::printValue </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="struct_runtime_value.html">RuntimeValue</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>value</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::wostream &amp;</td>          <td class="paramname"><span class="paramname"><em>os</em><span class="paramdefsep"> = </span><span class="paramdefval">std::wcout</span></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Prints the given value to the given output stream. Only reason this is public is for testing. NOT to be used outside of print statement execution in interpreter. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">value</td><td>value to be printed. </td></tr>
+    <tr><td class="paramname">os</td><td>output stream to print to. This is necessary for testing purposes, since that is the only time this function should not use wcout, hence that is the defaulted value. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
 <a id="a174e5d01f8129ec93991681f49a0e779" name="a174e5d01f8129ec93991681f49a0e779"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a174e5d01f8129ec93991681f49a0e779">&#9670;&#160;</a></span>resolve()</h2>
 
@@ -370,6 +518,57 @@ Public Attributes</h2></td></tr>
 <span class="mlabels"><span class="mlabel">inline</span></span>  </td>
   </tr>
 </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="afa8edefac7963c7ce85a2d69232f90c3" name="afa8edefac7963c7ce85a2d69232f90c3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afa8edefac7963c7ce85a2d69232f90c3">&#9670;&#160;</a></span>runGarbageCollector()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Interpreter::runGarbageCollector </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ae077cd84ca800a5213370f1e2dd621d3" name="ae077cd84ca800a5213370f1e2dd621d3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae077cd84ca800a5213370f1e2dd621d3">&#9670;&#160;</a></span>sweep()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Interpreter::sweep </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a60c66e0bb274f9df6b6a24b203feb2b5" name="a60c66e0bb274f9df6b6a24b203feb2b5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a60c66e0bb274f9df6b6a24b203feb2b5">&#9670;&#160;</a></span>traceReferences()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Interpreter::traceReferences </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
 </div><div class="memdoc">
 
 </div>
@@ -418,6 +617,20 @@ Public Attributes</h2></td></tr>
 
 </div>
 </div>
+<a id="a78e7d8730697e60f7dbec2760b57fb8b" name="a78e7d8730697e60f7dbec2760b57fb8b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a78e7d8730697e60f7dbec2760b57fb8b">&#9670;&#160;</a></span>grayObjects</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::stack&lt;<a class="el" href="struct_object.html">Object</a>*&gt; Interpreter::grayObjects</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="a95ae7eb9c9fae9c61c7775a4974602dd" name="a95ae7eb9c9fae9c61c7775a4974602dd"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a95ae7eb9c9fae9c61c7775a4974602dd">&#9670;&#160;</a></span>hadError</h2>
 
@@ -444,7 +657,7 @@ Public Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Holds the last error that has been handled. No flags needed as this is only done when the program has to quit so performance is not an issue. </p>
+<p>Holds the last error that has been handled. No flags needed as this is only done when the program has to quit so performance is not an issue. Mainly used to check correct error throws during testing. </p>
 
 </div>
 </div>

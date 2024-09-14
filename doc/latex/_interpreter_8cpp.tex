@@ -21,6 +21,7 @@
 {\ttfamily \#include "{}Call\+Expression.\+h"{}}\newline
 {\ttfamily \#include "{}Array\+Literal\+Expression.\+h"{}}\newline
 {\ttfamily \#include "{}Indexing\+Expression.\+h"{}}\newline
+{\ttfamily \#include "{}Index\+Assignment\+Expression.\+h"{}}\newline
 {\ttfamily \#include "{}Wrong\+Type\+Error.\+h"{}}\newline
 {\ttfamily \#include "{}Wrong\+Binary\+Operand\+Types.\+h"{}}\newline
 {\ttfamily \#include "{}Grouping\+Expression.\+h"{}}\newline
@@ -29,5 +30,30 @@
 {\ttfamily \#include "{}Invalid\+Argument\+Count.\+h"{}}\newline
 {\ttfamily \#include "{}Return\+Statement.\+h"{}}\newline
 {\ttfamily \#include "{}Resolver.\+h"{}}\newline
+{\ttfamily \#include "{}Index\+Out\+Of\+Bounds.\+h"{}}\newline
+{\ttfamily \#include "{}Non\+Integer\+Index.\+h"{}}\newline
+{\ttfamily \#include "{}Indexing\+Non\+Array.\+h"{}}\newline
 {\ttfamily \#include $<$iostream$>$}\newline
 {\ttfamily \#include $<$cmath$>$}\newline
+\doxysubsubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{_interpreter_8cpp_aff9e2030c1d8e05000adff76ad24c193}{DEBUG\+\_\+\+LOG\+\_\+\+GC}}
+\item 
+\#define \mbox{\hyperlink{_interpreter_8cpp_aa245836c244a5b559b27d39031ce675c}{DEBUG\+\_\+\+STRESS\+\_\+\+GC}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Macro Definition Documentation}
+\Hypertarget{_interpreter_8cpp_aff9e2030c1d8e05000adff76ad24c193}\label{_interpreter_8cpp_aff9e2030c1d8e05000adff76ad24c193} 
+\index{Interpreter.cpp@{Interpreter.cpp}!DEBUG\_LOG\_GC@{DEBUG\_LOG\_GC}}
+\index{DEBUG\_LOG\_GC@{DEBUG\_LOG\_GC}!Interpreter.cpp@{Interpreter.cpp}}
+\doxysubsubsection{\texorpdfstring{DEBUG\_LOG\_GC}{DEBUG\_LOG\_GC}}
+{\footnotesize\ttfamily \#define DEBUG\+\_\+\+LOG\+\_\+\+GC}
+
+\Hypertarget{_interpreter_8cpp_aa245836c244a5b559b27d39031ce675c}\label{_interpreter_8cpp_aa245836c244a5b559b27d39031ce675c} 
+\index{Interpreter.cpp@{Interpreter.cpp}!DEBUG\_STRESS\_GC@{DEBUG\_STRESS\_GC}}
+\index{DEBUG\_STRESS\_GC@{DEBUG\_STRESS\_GC}!Interpreter.cpp@{Interpreter.cpp}}
+\doxysubsubsection{\texorpdfstring{DEBUG\_STRESS\_GC}{DEBUG\_STRESS\_GC}}
+{\footnotesize\ttfamily \#define DEBUG\+\_\+\+STRESS\+\_\+\+GC}
+

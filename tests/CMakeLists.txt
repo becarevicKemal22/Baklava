@@ -1,7 +1,7 @@
 project(tests)
 add_subdirectory(lib/Catch2)
 
-add_definitions(-DDEBUG_TRACK_EXECUTION -DDEBUG_TRACK_PRINTING -DDEBUG_TRACK_ERRORS)
+add_definitions(-DDEBUG_TRACK_EXECUTION -DDEBUG_TRACK_PRINTING -DDEBUG_TRACK_ERRORS -DDEBUG_STRESS_GC)
 
 add_executable(tests ../src/error/printer/ErrorPrinter.cpp ../src/lexer/Lexer.cpp ../src/parser/Parser.cpp
         lexer/LexerTest.cpp

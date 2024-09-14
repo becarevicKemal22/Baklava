@@ -31,56 +31,62 @@
 \DoxyCodeLine{00027\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_invalid_argument_count_8h}{InvalidArgumentCount.h}}"{}}}
 \DoxyCodeLine{00028\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_invalid_return_position_8h}{InvalidReturnPosition.h}}"{}}}
 \DoxyCodeLine{00029\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_self_referencing_initializer_8h}{SelfReferencingInitializer.h}}"{}}}
-\DoxyCodeLine{00030\ }
-\DoxyCodeLine{00031\ \textcolor{keyword}{typedef}\ std::pair<std::pair<int,\ int>,\ std::wstring>\ \mbox{\hyperlink{_error_printer_8h_a3068300149e83846a81e377fdcfdb5b6}{colorHighlight}};}
-\DoxyCodeLine{00032\ }
-\DoxyCodeLine{00040\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_error_printer}{ErrorPrinter}}\ \{}
-\DoxyCodeLine{00041\ \textcolor{keyword}{public}:}
-\DoxyCodeLine{00042\ \ \ \ \ \mbox{\hyperlink{class_error_printer_a6d80ea428e5b9e6ca3be856ba2970324}{ErrorPrinter}}(\textcolor{keyword}{const}\ std::wstring\&\ source)\ :\ source(source)\ \{}
-\DoxyCodeLine{00043\ \ \ \ \ \ \ \ \ makeLines();}
-\DoxyCodeLine{00044\ \ \ \ \ \};}
-\DoxyCodeLine{00045\ \ \ \ \ \mbox{\hyperlink{class_error_printer_a962f248b48c52c988f1bcb815f2a9886}{\string~ErrorPrinter}}()\ =\ \textcolor{keywordflow}{default};}
-\DoxyCodeLine{00046\ }
-\DoxyCodeLine{00054\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_error_printer_a917eb0aee677b76e3843cebf54de4ec0}{printErrorMessage}}(\mbox{\hyperlink{_error_code_8h_a59e56af19e754a6aa26a612ebf91d05f}{ErrorCode}}\ errorCode,\ \textcolor{keyword}{const}\ std::vector<ErrorMessageArgument>\&\ args);}
-\DoxyCodeLine{00055\ }
-\DoxyCodeLine{00065\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_error_printer_a54a5112127cf20b101c492be54d2d27f}{printLexerError}}(\mbox{\hyperlink{_error_code_8h_a59e56af19e754a6aa26a612ebf91d05f}{ErrorCode}}\ errorCode,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ lineNumber,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ offset,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ currentChar);}
-\DoxyCodeLine{00066\ }
-\DoxyCodeLine{00067\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_error_printer_aac05ec1fe434c60ed889497e5619429b}{printParserError}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_parser_error}{ParserError}}*\ error);}
-\DoxyCodeLine{00068\ }
-\DoxyCodeLine{00069\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_error_printer_a1fa3e12596c5085ed323dda469c9a526}{printRuntimeError}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_runtime_error}{RuntimeError}}*\ error);}
-\DoxyCodeLine{00070\ }
-\DoxyCodeLine{00071\ \textcolor{keyword}{private}:}
-\DoxyCodeLine{00072\ \ \ \ \ std::wstring\ source;}
-\DoxyCodeLine{00073\ \ \ \ \ std::vector<std::wstring>\ lines;}
-\DoxyCodeLine{00074\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ DEFAULT\_MARGIN\_LEFT\ =\ 6;}
-\DoxyCodeLine{00075\ }
-\DoxyCodeLine{00076\ \ \ \ \ \textcolor{keywordtype}{void}\ makeLines();}
-\DoxyCodeLine{00077\ }
-\DoxyCodeLine{00078\ \ \ \ \ \textcolor{keywordtype}{void}\ printSourceLine(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ line,\ std::vector<colorHighlight>\ colorHighlights);}
-\DoxyCodeLine{00079\ \ \ \ \ \textcolor{keyword}{static}\ std::wstring\ formattedErrorMessage(\mbox{\hyperlink{_error_code_8h_a59e56af19e754a6aa26a612ebf91d05f}{ErrorCode}}\ errorCode,\ \textcolor{keyword}{const}\ std::vector<ErrorMessageArgument>\&\ args,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ line\ =\ 0);}
-\DoxyCodeLine{00080\ \ \ \ \ \textcolor{keywordtype}{void}\ printLineDivider(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ lineNum);}
-\DoxyCodeLine{00081\ \ \ \ \ \textcolor{keywordtype}{void}\ printCaretSupportLine(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ offset);}
-\DoxyCodeLine{00082\ \ \ \ \ \textcolor{keywordtype}{void}\ printSquiggleSupportLine(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ lineNum,\ std::vector<colorHighlight>\ colorHighlights);}
-\DoxyCodeLine{00083\ \ \ \ \ \textcolor{keyword}{static}\ std::wstring\ getTokenValue(\mbox{\hyperlink{class_token}{Token}}\ *token);}
-\DoxyCodeLine{00084\ \ \ \ \ \mbox{\hyperlink{_error_printer_8h_a3068300149e83846a81e377fdcfdb5b6}{colorHighlight}}\ makeTokenHighlight(\mbox{\hyperlink{class_token}{Token}}\ *token,\ std::wstring\ color);}
-\DoxyCodeLine{00085\ }
-\DoxyCodeLine{00086\ \ \ \ \ \textcolor{keywordtype}{void}\ printWrongTypeError(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_wrong_type_error}{WrongTypeError}}*\ error);}
-\DoxyCodeLine{00087\ \ \ \ \ \textcolor{keywordtype}{void}\ printWrongBinaryOperandTypeError(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_wrong_binary_operand_types}{WrongBinaryOperandTypes}}*\ error);}
+\DoxyCodeLine{00030\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_index_out_of_bounds_8h}{IndexOutOfBounds.h}}"{}}}
+\DoxyCodeLine{00031\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_non_integer_index_8h}{NonIntegerIndex.h}}"{}}}
+\DoxyCodeLine{00032\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_indexing_non_array_8h}{IndexingNonArray.h}}"{}}}
+\DoxyCodeLine{00033\ }
+\DoxyCodeLine{00034\ \textcolor{keyword}{typedef}\ std::pair<std::pair<int,\ int>,\ std::wstring>\ \mbox{\hyperlink{_error_printer_8h_a3068300149e83846a81e377fdcfdb5b6}{colorHighlight}};}
+\DoxyCodeLine{00035\ }
+\DoxyCodeLine{00043\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_error_printer}{ErrorPrinter}}\ \{}
+\DoxyCodeLine{00044\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00045\ \ \ \ \ \mbox{\hyperlink{class_error_printer_a6d80ea428e5b9e6ca3be856ba2970324}{ErrorPrinter}}(\textcolor{keyword}{const}\ std::wstring\&\ source)\ :\ source(source)\ \{}
+\DoxyCodeLine{00046\ \ \ \ \ \ \ \ \ makeLines();}
+\DoxyCodeLine{00047\ \ \ \ \ \};}
+\DoxyCodeLine{00048\ \ \ \ \ \mbox{\hyperlink{class_error_printer_a962f248b48c52c988f1bcb815f2a9886}{\string~ErrorPrinter}}()\ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{00049\ }
+\DoxyCodeLine{00057\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_error_printer_a917eb0aee677b76e3843cebf54de4ec0}{printErrorMessage}}(\mbox{\hyperlink{_error_code_8h_a59e56af19e754a6aa26a612ebf91d05f}{ErrorCode}}\ errorCode,\ \textcolor{keyword}{const}\ std::vector<ErrorMessageArgument>\&\ args);}
+\DoxyCodeLine{00058\ }
+\DoxyCodeLine{00068\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_error_printer_a54a5112127cf20b101c492be54d2d27f}{printLexerError}}(\mbox{\hyperlink{_error_code_8h_a59e56af19e754a6aa26a612ebf91d05f}{ErrorCode}}\ errorCode,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ lineNumber,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ offset,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ currentChar);}
+\DoxyCodeLine{00069\ }
+\DoxyCodeLine{00070\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_error_printer_aac05ec1fe434c60ed889497e5619429b}{printParserError}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_parser_error}{ParserError}}*\ error);}
+\DoxyCodeLine{00071\ }
+\DoxyCodeLine{00072\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_error_printer_a1fa3e12596c5085ed323dda469c9a526}{printRuntimeError}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_runtime_error}{RuntimeError}}*\ error);}
+\DoxyCodeLine{00073\ }
+\DoxyCodeLine{00074\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00075\ \ \ \ \ std::wstring\ source;}
+\DoxyCodeLine{00076\ \ \ \ \ std::vector<std::wstring>\ lines;}
+\DoxyCodeLine{00077\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ DEFAULT\_MARGIN\_LEFT\ =\ 6;}
+\DoxyCodeLine{00078\ }
+\DoxyCodeLine{00079\ \ \ \ \ \textcolor{keywordtype}{void}\ makeLines();}
+\DoxyCodeLine{00080\ }
+\DoxyCodeLine{00081\ \ \ \ \ \textcolor{keywordtype}{void}\ printSourceLine(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ line,\ std::vector<colorHighlight>\ colorHighlights);}
+\DoxyCodeLine{00082\ \ \ \ \ \textcolor{keyword}{static}\ std::wstring\ formattedErrorMessage(\mbox{\hyperlink{_error_code_8h_a59e56af19e754a6aa26a612ebf91d05f}{ErrorCode}}\ errorCode,\ \textcolor{keyword}{const}\ std::vector<ErrorMessageArgument>\&\ args,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ line\ =\ 0);}
+\DoxyCodeLine{00083\ \ \ \ \ \textcolor{keywordtype}{void}\ printLineDivider(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ lineNum);}
+\DoxyCodeLine{00084\ \ \ \ \ \textcolor{keywordtype}{void}\ printCaretSupportLine(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ offset);}
+\DoxyCodeLine{00085\ \ \ \ \ \textcolor{keywordtype}{void}\ printSquiggleSupportLine(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ lineNum,\ std::vector<colorHighlight>\ colorHighlights);}
+\DoxyCodeLine{00086\ \ \ \ \ \textcolor{keyword}{static}\ std::wstring\ getTokenValue(\mbox{\hyperlink{class_token}{Token}}\ *token);}
+\DoxyCodeLine{00087\ \ \ \ \ \mbox{\hyperlink{_error_printer_8h_a3068300149e83846a81e377fdcfdb5b6}{colorHighlight}}\ makeTokenHighlight(\mbox{\hyperlink{class_token}{Token}}\ *token,\ std::wstring\ color);}
 \DoxyCodeLine{00088\ }
-\DoxyCodeLine{00089\ \ \ \ \ \textcolor{keywordtype}{void}\ printVariableRedeclarationError(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_variable_redeclaration}{VariableRedeclaration}}*\ error);}
-\DoxyCodeLine{00090\ \ \ \ \ \textcolor{keywordtype}{void}\ printExpectedXBeforeYError(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_expected_x_before_y}{ExpectedXBeforeY}}*\ error);}
-\DoxyCodeLine{00091\ \ \ \ \ \textcolor{keywordtype}{void}\ printExpectedXAfterYError(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_expected_x_after_y}{ExpectedXAfterY}}*\ error);}
-\DoxyCodeLine{00092\ \ \ \ \ \textcolor{keywordtype}{void}\ printUninitializedConstError(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_uninitialized_const}{UninitializedConst}}*\ error);}
-\DoxyCodeLine{00093\ \ \ \ \ \textcolor{keywordtype}{void}\ printUndeclaredVariableError(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_undeclared_variable}{UndeclaredVariable}}*\ error);}
-\DoxyCodeLine{00094\ \ \ \ \ \textcolor{keywordtype}{void}\ printConstReassignmentError(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_const_reassignment}{ConstReassignment}}*\ error);}
-\DoxyCodeLine{00095\ \ \ \ \ \textcolor{keywordtype}{void}\ printInvalidLValue(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_invalid_l_value}{InvalidLValue}}*\ error);}
-\DoxyCodeLine{00096\ \ \ \ \ \textcolor{keywordtype}{void}\ printInvalidCallError(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_invalid_call}{InvalidCall}}*\ error);}
-\DoxyCodeLine{00097\ \ \ \ \ \textcolor{keywordtype}{void}\ printInvalidArgumentCountError(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_invalid_argument_count}{InvalidArgumentCount}}*\ error);}
-\DoxyCodeLine{00098\ \ \ \ \ \textcolor{keywordtype}{void}\ printInvalidReturnPositionError(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_invalid_return_position}{InvalidReturnPosition}}*\ error);}
-\DoxyCodeLine{00099\ \ \ \ \ \textcolor{keywordtype}{void}\ printSelfReferencingInitializerError(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_self_referencing_initializer}{SelfReferencingInitializer}}*\ error);}
-\DoxyCodeLine{00100\ \};}
-\DoxyCodeLine{00101\ }
-\DoxyCodeLine{00102\ }
-\DoxyCodeLine{00103\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//BAKLAVA\_ERRORPRINTER\_H}}
+\DoxyCodeLine{00089\ \ \ \ \ \textcolor{keywordtype}{void}\ printWrongTypeError(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_wrong_type_error}{WrongTypeError}}*\ error);}
+\DoxyCodeLine{00090\ \ \ \ \ \textcolor{keywordtype}{void}\ printWrongBinaryOperandTypeError(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_wrong_binary_operand_types}{WrongBinaryOperandTypes}}*\ error);}
+\DoxyCodeLine{00091\ \ \ \ \ \textcolor{keywordtype}{void}\ printIndexOutOfBoundsError(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_index_out_of_bounds}{IndexOutOfBounds}}*\ error);}
+\DoxyCodeLine{00092\ \ \ \ \ \textcolor{keywordtype}{void}\ printNonIntegerIndexError(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_non_integer_index}{NonIntegerIndex}}*\ error);}
+\DoxyCodeLine{00093\ \ \ \ \ \textcolor{keywordtype}{void}\ printIndexingNonArrayError(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_indexing_non_array}{IndexingNonArray}}*\ error);}
+\DoxyCodeLine{00094\ }
+\DoxyCodeLine{00095\ \ \ \ \ \textcolor{keywordtype}{void}\ printVariableRedeclarationError(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_variable_redeclaration}{VariableRedeclaration}}*\ error);}
+\DoxyCodeLine{00096\ \ \ \ \ \textcolor{keywordtype}{void}\ printExpectedXBeforeYError(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_expected_x_before_y}{ExpectedXBeforeY}}*\ error);}
+\DoxyCodeLine{00097\ \ \ \ \ \textcolor{keywordtype}{void}\ printExpectedXAfterYError(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_expected_x_after_y}{ExpectedXAfterY}}*\ error);}
+\DoxyCodeLine{00098\ \ \ \ \ \textcolor{keywordtype}{void}\ printUninitializedConstError(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_uninitialized_const}{UninitializedConst}}*\ error);}
+\DoxyCodeLine{00099\ \ \ \ \ \textcolor{keywordtype}{void}\ printUndeclaredVariableError(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_undeclared_variable}{UndeclaredVariable}}*\ error);}
+\DoxyCodeLine{00100\ \ \ \ \ \textcolor{keywordtype}{void}\ printConstReassignmentError(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_const_reassignment}{ConstReassignment}}*\ error);}
+\DoxyCodeLine{00101\ \ \ \ \ \textcolor{keywordtype}{void}\ printInvalidLValue(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_invalid_l_value}{InvalidLValue}}*\ error);}
+\DoxyCodeLine{00102\ \ \ \ \ \textcolor{keywordtype}{void}\ printInvalidCallError(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_invalid_call}{InvalidCall}}*\ error);}
+\DoxyCodeLine{00103\ \ \ \ \ \textcolor{keywordtype}{void}\ printInvalidArgumentCountError(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_invalid_argument_count}{InvalidArgumentCount}}*\ error);}
+\DoxyCodeLine{00104\ \ \ \ \ \textcolor{keywordtype}{void}\ printInvalidReturnPositionError(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_invalid_return_position}{InvalidReturnPosition}}*\ error);}
+\DoxyCodeLine{00105\ \ \ \ \ \textcolor{keywordtype}{void}\ printSelfReferencingInitializerError(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_self_referencing_initializer}{SelfReferencingInitializer}}*\ error);}
+\DoxyCodeLine{00106\ \};}
+\DoxyCodeLine{00107\ }
+\DoxyCodeLine{00108\ }
+\DoxyCodeLine{00109\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//BAKLAVA\_ERRORPRINTER\_H}}
 
 \end{DoxyCode}
