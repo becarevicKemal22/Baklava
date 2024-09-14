@@ -98,7 +98,8 @@ public:
      */
     static void printValue(const RuntimeValue &value, std::wostream& os = std::wcout);
 
-    void runGarbageCollector();
+    void invokeGarbageCollector();
+    void collectGarbage();
     void markRoots();
     void markValue(const RuntimeValue& value);
     void markObject(Object* object);
@@ -109,6 +110,8 @@ public:
     void deleteObject(Object* object);
     std::wstring getObjectLogString(Object* object);
     bool disallowGC = false; /**< Forbids garbage collection while set to true. Used to pause GC while array elements are being potentially allocated. If this is not present, if the GC runs while the array has not yet been allocated but elements have, it causes SEGFAULTS when array goes out of scope or is deleted for any other reason. Probably causes other problems as well. */
+    size_t bytesAllocated = 0;
+    size_t nextGC = 26214400; // 25MB
 private:
     std::unordered_map<const Expression*, int> locals;
 

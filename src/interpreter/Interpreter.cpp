@@ -2,8 +2,27 @@
 // Created by kemal on 2/6/2024.
 //
 
-#define DEBUG_LOG_GC
-#define DEBUG_STRESS_GC
+/*
+ * Listed below are the flags that can be set to alter the behaviour of the interpreter.
+ *
+ * DEBUG_STRESS_GC: If set, the garbage collector will be invoked after every object allocation (excluding arrays).
+ * DEBUG_LOG_GC: Has two levels, the first level just logs that the garbage collector has been invoked, as well as the
+ *               amount of memory that has been allocated / freed and the new limit of memory that can be allocated before
+ *               gc is run again. The second level additionally logs the entire process during marking and tracing,
+ *               including the identifiers and addresses of objects that have been freed, marked, etc. It is only necessary
+ *               to enable one of them, as the level 2 flag will enable all the logging that the level 1 flag does.
+ * DEBUG_TRACK_EXECUTION: If set, the interpreter will store all executed statement nodes in a vector. Main intended
+ *               purpose is for interpreter tests.
+ * DEBUG_TRACK_PRINTING: If set, the interpreter will store all printed values in a vector. Also intended for testing,
+ *               so that the output of the program can be checked in tests that would otherwise be difficult to inspect.
+ */
+
+//#define DEBUG_STRESS_GC
+//#define DEBUG_LOG_GC 1
+//#define DEBUG_LOG_GC 2
+//#define DEBUG_TRACK_EXECUTION
+//#define DEBUG_TRACK_PRINTING
+
 
 #include "Interpreter.h"
 #include "Program.h"
@@ -191,7 +210,7 @@ void Interpreter::executePrintStatement(PrintStatement *stmt) {
     std::wcout << std::endl;
 }
 
-void Interpreter::printValue(const RuntimeValue &value, std::wostream& os) {
+void Interpreter::printValue(const RuntimeValue &value, std::wostream &os) {
     switch (value.type) {
         case ValueType::Number:
             os << value.as.number;
@@ -206,23 +225,23 @@ void Interpreter::printValue(const RuntimeValue &value, std::wostream& os) {
             if (IS_STRING_OBJ(value)) {
                 os << GET_STRING_OBJ_VALUE(value);
                 return;
-            } else if(IS_ARRAY_OBJ(value)){
+            } else if (IS_ARRAY_OBJ(value)) {
                 os << L"[";
-                const auto& elements = GET_ARRAY_OBJ_ELEMENTS(value);
-                for(const auto& element : elements){
+                const auto &elements = GET_ARRAY_OBJ_ELEMENTS(value);
+                for (const auto &element: elements) {
                     printValue(element);
-                    if(&element != &elements.back()){
+                    if (&element != &elements.back()) {
                         os << L", ";
                     }
                 }
                 os << L"]";
                 return;
-            } else if(IS_FUNCTION_OBJ(value)){
+            } else if (IS_FUNCTION_OBJ(value)) {
                 os << L"<funkcija ";
                 os << AS_FUNCTION_OBJ(value)->declaration->name->value;
                 os << L">";
                 return;
-            } else if(IS_CALLABLE_OBJ(value)){
+            } else if (IS_CALLABLE_OBJ(value)) {
                 os << L"<funkcija>";
                 return;
             }
@@ -293,8 +312,12 @@ void Interpreter::executeReturnStatement(ReturnStatement *stmt) {
 
 RuntimeValue Interpreter::evaluate(Expression *expr) {
     switch (expr->type) {
-        case AstNodeType::BinaryExpression:
-            return evaluateBinaryExpression(static_cast<BinaryExpression *>(expr));
+        case AstNodeType::BinaryExpression: {
+            disallowGC = true; // trenutno nisam siguran da li je moguce da dodje do problema zbog brisanja objekata tokom izvrsavanja nizanih binarnih operacija tipa konkatenacije stringova tako da je najbolje da bude disallowed jer onda nema sanse da ce se izbrisati nesto sto ne treba tokom izvrsavanja binarnih operacija.
+            RuntimeValue result = evaluateBinaryExpression(static_cast<BinaryExpression *>(expr));
+            disallowGC = false;
+            return result;
+        }
         case AstNodeType::LogicalExpression:
             return evaluateLogicalExpression(static_cast<LogicalExpression *>(expr));
         case AstNodeType::UnaryExpression:
@@ -343,8 +366,12 @@ RuntimeValue Interpreter::evaluateLogicalExpression(LogicalExpression *expr) {
 }
 
 RuntimeValue Interpreter::evaluateBinaryExpression(BinaryExpression *expr) {
+    // GC gets disallowed in general evaluate expression switch
     RuntimeValue left = evaluate(expr->left);
     RuntimeValue right = evaluate(expr->right);
+    //maybe make left and right interpreter attributes like returned value so that they are always kept until another expression is done. Maybe not the most effective or efficient but it works, since it will make sure that the values wont get deleted. Check if it is actually true tho, especially for chained binary expressions.
+    // actually i think it wont because if right is a binary expression then it will be free to delete the last left / the one in the current binary expr, but it will keep the other one that may even get discarded.
+    // seems to be better just to pause GC until binary expression yields its final result.
     switch (expr->op->type) {
         case TokenType::Plus:
             if (left.type == ValueType::Number && right.type == ValueType::Number) {
@@ -477,7 +504,8 @@ RuntimeValue Interpreter::evaluateIndexAssignmentExpression(IndexAssignmentExpre
     if (index.as.number != (int) index.as.number) {
         throw NonIntegerIndex(expr->index, index.as.number);
     }
-    AS_ARRAY_OBJ(array)->elements[(size_t) index.as.number] = value; // array is modified in place, so that the actual array or its memory location is not changed.
+    AS_ARRAY_OBJ(
+            array)->elements[(size_t) index.as.number] = value; // array is modified in place, so that the actual array or its memory location is not changed.
 
 //    auto distance = locals.find(expr);
 //    if(distance != locals.end()){
@@ -505,6 +533,7 @@ RuntimeValue Interpreter::evaluateUnaryExpression(UnaryExpression *expr) {
         case TokenType::Bang: {
             return {ValueType::Boolean, {.boolean = !isTruthy(value)}};
         }
+            // This doesnt work? Check if it even exists in parser?
         case TokenType::DoublePlus: {
             if (value.type != ValueType::Number) throw WrongTypeError(L"++", value, expr);
             return {ValueType::Number, {.number = value.as.number + 1}};
@@ -533,10 +562,12 @@ RuntimeValue Interpreter::evaluateStringLiteralExpression(StringLiteralExpressio
 RuntimeValue Interpreter::evaluateCallExpression(CallExpression *expr) {
     RuntimeValue callee = evaluate(expr->callee);
 
+    disallowGC = true;
     std::vector<RuntimeValue> arguments;
     for (auto arg: expr->arguments) {
         arguments.push_back(evaluate(arg));
     }
+    disallowGC = false;
 
     if (!IS_OBJ(callee)) {
         throw InvalidCall(callee, getMostRelevantToken(expr->callee));
@@ -629,24 +660,24 @@ bool Interpreter::isEqual(const RuntimeValue &left, const RuntimeValue &right) {
 }
 
 ObjectString *Interpreter::allocateStringObject(const std::wstring &value) {
-#ifdef DEBUG_STRESS_GC
-    runGarbageCollector();
-#endif
+    invokeGarbageCollector();
+
     auto *obj = new ObjectString();
     obj->obj.type = ObjectType::OBJECT_STRING;
     obj->value = value;
     obj->obj.next = objects;
     objects = (Object *) obj;
+    bytesAllocated += sizeof(ObjectString) + sizeof(wchar_t) * value.size();
     return obj;
 }
 
 ObjectFunction *Interpreter::allocateFunctionObject(FunctionDeclarationStatement *declaration) {
-#ifdef DEBUG_STRESS_GC
-    runGarbageCollector();
-#endif
+    invokeGarbageCollector();
+
     auto *obj = new ObjectFunction(declaration, &environments.top());
     obj->obj.next = objects;
     objects = (Object *) obj;
+    bytesAllocated += sizeof(ObjectFunction);
     return obj;
 }
 
@@ -658,19 +689,47 @@ ObjectArray *Interpreter::allocateArrayObject(const std::vector<RuntimeValue> &e
     obj->elements = elements;
     obj->obj.next = objects;
     objects = (Object *) obj;
+    bytesAllocated += sizeof(ObjectArray) + sizeof(RuntimeValue) * elements.size();
     return obj;
 }
 
-void Interpreter::runGarbageCollector() {
-    if(disallowGC){
-#ifdef DEBUG_LOG_GC
-        std::wcout << L"bk: ---------- gc begin ---------" << std::endl;
-        std::wcout << L"bk: GC disallowed" << std::endl;
-        std::wcout << L"bk: ---------- gc end -----------\n" << std::endl;
+void Interpreter::invokeGarbageCollector() {
+    if (disallowGC) {
+#if DEBUG_LOG_GC == 2
+//        std::wcout << L"bk: ---------- gc begin ---------" << std::endl;
+//        std::wcout << L"bk: GC disallowed" << std::endl;
+//        std::wcout << L"bk: ---------- gc end -----------\n" << std::endl;
 #endif
         return;
     }
-#ifdef DEBUG_LOG_GC
+
+#ifdef DEBUG_STRESS_GC
+    collectGarbage();
+    return;
+#endif
+    if(bytesAllocated > nextGC) {
+#if DEBUG_LOG_GC == 1 || DEBUG_LOG_GC == 2
+        std::wcout << "\n--------------------------------------------------" << std::endl;
+        std::wcout << "Reached current allocation limit of: " << nextGC << " bytes" << std::endl;
+        std::wcout << "Bytes allocated before GC: " << bytesAllocated << std::endl;
+        clock_t start = clock();
+#endif
+        collectGarbage();
+#if DEBUG_LOG_GC == 1 || DEBUG_LOG_GC == 2
+        std::wcout << "Bytes allocated after GC: " << bytesAllocated << std::endl;
+        std::wcout << "New limit: " << nextGC << std::endl;
+        clock_t end = clock();
+        double elapsed = 1000.0 * (end - start) / CLOCKS_PER_SEC;
+        std::wcout << "GC took: " << elapsed << " miliseconds" << std::endl;
+        std::wcout << "--------------------------------------------------\n" << std::endl;
+#endif
+    }
+
+
+}
+
+void Interpreter::collectGarbage() {
+#if DEBUG_LOG_GC == 2
     std::wcout << L"bk: ---------- gc begin ---------" << std::endl;
     std::wcout << L"bk: ---------- marking ----------" << std::endl;
 //    size_t before = 0;
@@ -698,30 +757,34 @@ void Interpreter::runGarbageCollector() {
 //    }
 
     markRoots();
-#ifdef DEBUG_LOG_GC
+#if DEBUG_LOG_GC == 2
     std::wcout << L"bk: ---------- tracing ----------" << std::endl;
 #endif
     traceReferences();
-#ifdef DEBUG_LOG_GC
+#if DEBUG_LOG_GC == 2
     std::wcout << L"bk: ---------- sweeping ----------" << std::endl;
-    sweep();
 #endif
+    sweep();
 
-#ifdef DEBUG_LOG_GC
+    nextGC = bytesAllocated * 2;
+
+#if DEBUG_LOG_GC == 2
     std::wcout << L"bk: ---------- gc end -----------\n" << std::endl;
 #endif
 }
 
 void Interpreter::markRoots() {
     std::stack<Environment> envCopy = environments;
-    while(!envCopy.empty()){
-        Environment& environment = envCopy.top();
-        for(auto& variable : environment.variables){
+    while (!envCopy.empty()) {
+        Environment &environment = envCopy.top();
+        for (auto &variable: environment.variables) {
             markValue(variable.second.first);
         }
         envCopy.pop();
     }
-
+#if DEBUG_LOG_GC == 2
+    std::wcout << L"bk: Marking last returned value:" << std::endl;
+#endif
     markValue(returnedValue); // so that the returned value is not collected in case it has not yet been used.
 
 //    for(auto& variable : globals->variables){
@@ -738,7 +801,7 @@ void Interpreter::markValue(const RuntimeValue &value) {
 void Interpreter::markObject(Object *object) {
     if (object == nullptr) return;
     if (object->isMarked) return;
-#ifdef DEBUG_LOG_GC
+#if DEBUG_LOG_GC == 2
     std::wcout << L"bk: Marking object  " << object << L", " << getObjectLogString(object) << std::endl;
 #endif
     object->isMarked = true;
@@ -753,8 +816,8 @@ void Interpreter::traceReferences() {
     }
 }
 
-void Interpreter::blackenObject(Object* object){
-#ifdef DEBUG_LOG_GC
+void Interpreter::blackenObject(Object *object) {
+#if DEBUG_LOG_GC == 2
     std::wcout << L"bk: Blacken object  " << object << L", " << getObjectLogString(object) << std::endl;
 #endif
     switch (object->type) {
@@ -774,18 +837,18 @@ void Interpreter::blackenObject(Object* object){
     }
 }
 
-void Interpreter::sweep(){
-    Object* previous = nullptr;
-    Object* object = objects;
-    while(object != nullptr){
-        if(object->isMarked){
+void Interpreter::sweep() {
+    Object *previous = nullptr;
+    Object *object = objects;
+    while (object != nullptr) {
+        if (object->isMarked) {
             object->isMarked = false;
             previous = object;
             object = object->next;
         } else {
-            Object* unreached = object;
+            Object *unreached = object;
             object = object->next;
-            if(previous != nullptr){
+            if (previous != nullptr) {
                 previous->next = object;
             } else {
                 objects = object;
@@ -796,17 +859,19 @@ void Interpreter::sweep(){
 }
 
 void Interpreter::deleteObject(Object *object) {
-#ifdef DEBUG_LOG_GC
+#if DEBUG_LOG_GC == 2
     std::wcout << L"bk: Deleting object " << object << L", " << getObjectLogString(object) << std::endl;
 #endif
     switch (object->type) {
         case ObjectType::OBJECT_STRING:
+            bytesAllocated -= sizeof(ObjectString) + sizeof(wchar_t) * ((ObjectString *) object)->value.size();
             delete (ObjectString *) object;
             break;
         case ObjectType::OBJECT_CALLABLE:
             delete (ObjectCallable *) object;
             break;
         case ObjectType::OBJECT_FUNCTION:
+            bytesAllocated -= sizeof(ObjectFunction);
             delete (ObjectFunction *) object;
             break;
         case ObjectType::OBJECT_ARRAY:
@@ -815,6 +880,7 @@ void Interpreter::deleteObject(Object *object) {
 //                    deleteObject(element.as.object);
 //                }
 //            } maybe isn't necessary since if the array itself isn't marked its elements won't be either, so they'll get deleted anyway. This seems to cause double deletion of objects / segfault.
+            bytesAllocated -= sizeof(ObjectArray);
             delete (ObjectArray *) object;
             break;
         default:
@@ -823,9 +889,10 @@ void Interpreter::deleteObject(Object *object) {
 
 }
 
-std::wstring Interpreter::getObjectLogString(Object* object){
+std::wstring Interpreter::getObjectLogString(Object *object) {
     std::wstringstream log;
-    log << L"object type: " << std::setw(10) << std::left << getObjectTypeName(object->type) << L"identifier: " << getObjectIdentifier(object);
+    log << L"object type: " << std::setw(10) << std::left << getObjectTypeName(object->type) << L"identifier: "
+        << getObjectIdentifier(object);
     return log.str();
 }
 
@@ -851,10 +918,9 @@ RuntimeError *Interpreter::reallocateError(RuntimeError *error) {
         handledError = new IndexOutOfBounds(*dynamic_cast<IndexOutOfBounds *>(error));
     } else if (dynamic_cast<NonIntegerIndex *>(error) != nullptr) {
         handledError = new NonIntegerIndex(*dynamic_cast<NonIntegerIndex *>(error));
-    } else if (dynamic_cast<IndexingNonArray*>(error) != nullptr) {
-        handledError = new IndexingNonArray(*dynamic_cast<IndexingNonArray*>(error));
-    }
-    else {
+    } else if (dynamic_cast<IndexingNonArray *>(error) != nullptr) {
+        handledError = new IndexingNonArray(*dynamic_cast<IndexingNonArray *>(error));
+    } else {
         throw std::runtime_error("ERROR REALLOCATION ERROR: Unknown error type");
     }
     return handledError;
