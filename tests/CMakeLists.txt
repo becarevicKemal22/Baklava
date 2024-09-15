@@ -86,5 +86,9 @@ add_executable(tests ../src/error/printer/ErrorPrinter.cpp ../src/lexer/Lexer.cp
         benchmarks/test.cpp
         interpreter/RuntimeValueStringificationTest.cpp
         interpreter/ValuePrintingTest.cpp
+        ../src/interpreter/nativeFunctions/BaseFunctions.h
+        ../src/interpreter/nativeFunctions/BaseFunctions.cpp
+        ../src/interpreter/nativeFunctions/NativeFunction.h
+        ../src/interpreter/nativeFunctions/NativeFunction.cpp
 )
 target_link_libraries(tests PRIVATE Catch2::Catch2WithMain)

@@ -21,6 +21,7 @@ std::unique_ptr<Program> parseSource(const std::wstring& source){
     return program;
 }
 
+// Seems not to be in use anymore
 Expression* bypassExpressionStatement(Program* program){
     if(program->statements.size() != 1){
         throw std::runtime_error("Expected single expression");

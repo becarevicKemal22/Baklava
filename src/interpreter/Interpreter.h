@@ -42,14 +42,14 @@ public:
     void defineNativeFunctions();
 
     ~Interpreter() {
-//        if(objects != nullptr){
-//            Object* object = objects;
-//            while(object != nullptr){
-//                Object* next = object->next;
-//                delete object;
-//                object = next;
-//            }
-//        }
+        if(objects != nullptr){
+            Object* object = objects;
+            while(object != nullptr){
+                Object* next = object->next;
+                delete object;
+                object = next;
+            }
+        }
     }
 
     /**
@@ -73,30 +73,29 @@ public:
      */
     void interpret(Program *program);
 
-    void resolve(const Expression *expr, int depth){
-        locals[expr] = depth;
-    }
-
-    bool hadError = false; /**< Holds whether an error has occurred during the interpretation. Interpretation should stop if this is set to true. */
-    Environment *globals;
-
-    std::vector<Statement *> executedStatements; /**< List of pointers to all statements that have been executed. Only written to when DEBUG_TRACK_EXECUTION is set */
-    std::vector<RuntimeValue> printHistory; /**< List of all values that have been printed. Only written to when DEBUG_TRACK_PRINTING is set */
-    RuntimeError* handledError = nullptr; /**< Holds the last error that has been handled. No flags needed as this is only done when the program has to quit so performance is not an issue. Mainly used to check correct error throws during testing.*/
-
-    void executeBlock(const std::vector<StmtPtr> &statements, const Environment& environment);
-
-    RuntimeValue returnedValue;
-    bool isReturning = false;
-
-    std::stack<Environment> environments;
-
     /**
      * @brief Prints the given value to the given output stream. Only reason this is public is for testing. NOT to be used outside of print statement execution in interpreter.
      * @param value value to be printed.
      * @param os output stream to print to. This is necessary for testing purposes, since that is the only time this function should not use wcout, hence that is the defaulted value.
      */
     static void printValue(const RuntimeValue &value, std::wostream& os = std::wcout);
+
+    void resolve(const Expression *expr, int depth){
+        locals[expr] = depth;
+    }
+
+    void executeBlock(const std::vector<StmtPtr> &statements, const Environment& environment);
+
+    bool hadError = false; /**< Holds whether an error has occurred during the interpretation. Interpretation should stop if this is set to true. */
+    std::vector<Statement *> executedStatements; /**< List of pointers to all statements that have been executed. Only written to when DEBUG_TRACK_EXECUTION is set */
+    std::vector<RuntimeValue> printHistory; /**< List of all values that have been printed. Only written to when DEBUG_TRACK_PRINTING is set */
+    RuntimeError* handledError = nullptr; /**< Holds the last error that has been handled. No flags needed as this is only done when the program has to quit so performance is not an issue. Mainly used to check correct error throws during testing.*/
+
+    bool isReturning = false;
+    RuntimeValue returnedValue;
+
+    Environment *globals;
+    std::stack<Environment> environments;
 
     void invokeGarbageCollector();
     void collectGarbage();
@@ -112,7 +111,10 @@ public:
     bool disallowGC = false; /**< Forbids garbage collection while set to true. Used to pause GC while array elements are being potentially allocated. If this is not present, if the GC runs while the array has not yet been allocated but elements have, it causes SEGFAULTS when array goes out of scope or is deleted for any other reason. Probably causes other problems as well. */
     size_t bytesAllocated = 0;
     size_t nextGC = 26214400; // 25MB
+
 private:
+    friend class BaseFunctions;
+
     std::unordered_map<const Expression*, int> locals;
 
     ErrorPrinter *errorPrinter;

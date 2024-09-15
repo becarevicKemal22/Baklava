@@ -3,7 +3,7 @@ project(Baklava)
 
 set(CMAKE_CXX_STANDARD 20)
 
-include_directories("src/interpreter/controlFlowExceptions" "src/lexer" "src/error" "src/error/exceptions/parser" "src/error/printer" "src/parser" "src/parser/ast/" "src/parser/ast/expressions" "src/parser/ast/statements" "src/interpreter/" "src/interpreter/runtimeValues" "src/error/exceptions" )
+include_directories("src/interpreter/controlFlowExceptions" "src/lexer" "src/error" "src/error/exceptions/parser" "src/error/printer" "src/parser" "src/parser/ast/" "src/parser/ast/expressions" "src/parser/ast/statements" "src/interpreter/" "src/interpreter/runtimeValues" "src/error/exceptions" "src/interpreter/nativeFunctions" )
 add_executable(baklava main.cpp
         src/lexer/Lexer.cpp
         src/lexer/Lexer.h
@@ -74,6 +74,10 @@ add_executable(baklava main.cpp
         src/error/exceptions/IndexOutOfBounds.h
         src/error/exceptions/NonIntegerIndex.h
         src/error/exceptions/IndexingNonArray.h
+        src/interpreter/nativeFunctions/BaseFunctions.h
+        src/interpreter/nativeFunctions/BaseFunctions.cpp
+        src/interpreter/nativeFunctions/NativeFunction.h
+        src/interpreter/nativeFunctions/NativeFunction.cpp
 )
 
 add_subdirectory(tests)
