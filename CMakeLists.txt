@@ -78,6 +78,7 @@ add_executable(baklava main.cpp
         src/interpreter/nativeFunctions/BaseFunctions.cpp
         src/interpreter/nativeFunctions/NativeFunction.h
         src/interpreter/nativeFunctions/NativeFunction.cpp
+        src/error/printer/isOutputANSICompatible.cpp
 )
 
 add_subdirectory(tests)
