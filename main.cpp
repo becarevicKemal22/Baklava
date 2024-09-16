@@ -20,7 +20,8 @@ void runRepl() {
 void loadFile(const char *path, std::wstring &source) {
     std::wifstream file(path, std::ios::binary);
     if (!file.is_open()) {
-        ErrorPrinter::printErrorMessage(ERROR_CANNOT_OPEN_FILE, {path});
+        ErrorPrinter printer(L"");
+        printer.printErrorMessage(ERROR_CANNOT_OPEN_FILE, {path});
     }
     file.imbue(std::locale(file.getloc(), new std::codecvt_utf8<wchar_t>));
 

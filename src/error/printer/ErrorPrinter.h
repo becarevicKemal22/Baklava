@@ -33,17 +33,25 @@
 
 typedef std::pair<std::pair<int, int>, std::wstring> colorHighlight;
 
+// Forward declaration only, explanation as to why this is not a method of the class is found in the cpp file.
+bool isOutputANSICompatible();
+
 /**
  * @brief Base class used for printing error messages to the console.
  *
  * Should be passed as a pointer to the lexer, parser and interpreter and is used to print all error messages.
  * All error messages should go through the error printer or a class derived from it.
  */
-
 class ErrorPrinter {
 public:
     ErrorPrinter(const std::wstring& source) : source(source) {
         makeLines();
+        if(!isOutputANSICompatible()){
+            ANSI_RED = L"";
+            ANSI_RESET = L"";
+            ANSI_GREEN = L"";
+            ANSI_BLUE = L"";
+        }
     };
     ~ErrorPrinter() = default;
 
@@ -54,7 +62,7 @@ public:
      * @param errorCode one of the error codes defined in ErrorCode.h
      * @param args vector of arguments that will be used to format the error message, according to the message definition in ErrorMessages.h
      */
-    static void printErrorMessage(ErrorCode errorCode, const std::vector<ErrorMessageArgument>& args);
+    void printErrorMessage(ErrorCode errorCode, const std::vector<ErrorMessageArgument>& args);
 
     /**
      * @brief Prints a lexer error message to the console.
@@ -70,8 +78,13 @@ public:
     void printParserError(const ParserError* error);
 
     void printRuntimeError(const RuntimeError* error);
-
 private:
+
+    std::wstring ANSI_RED = L"\033[31m";
+    std::wstring ANSI_RESET = L"\033[0m";
+    std::wstring ANSI_GREEN = L"\033[32m";
+    std::wstring ANSI_BLUE = L"\033[34m";
+
     std::wstring source;
     std::vector<std::wstring> lines;
     const int DEFAULT_MARGIN_LEFT = 6;
@@ -79,7 +92,7 @@ private:
     void makeLines();
 
     void printSourceLine(unsigned int line, std::vector<colorHighlight> colorHighlights);
-    static std::wstring formattedErrorMessage(ErrorCode errorCode, const std::vector<ErrorMessageArgument>& args, unsigned int line = 0);
+    std::wstring formattedErrorMessage(ErrorCode errorCode, const std::vector<ErrorMessageArgument>& args, unsigned int line = 0);
     void printLineDivider(unsigned int lineNum);
     void printCaretSupportLine(unsigned int offset);
     void printSquiggleSupportLine(unsigned int lineNum, std::vector<colorHighlight> colorHighlights);

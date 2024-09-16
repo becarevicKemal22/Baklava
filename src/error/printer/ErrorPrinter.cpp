@@ -3,6 +3,8 @@
 //
 
 #include <iostream>
+#include <cstdlib>
+
 #include "ErrorPrinter.h"
 #include "ErrorMessages.h"
 #include "RuntimeError.h"
@@ -17,11 +19,6 @@
 #include "ConstReassignment.h"
 
 using std::wcout;
-
-const std::wstring ANSI_RED = L"\033[31m";
-const std::wstring ANSI_RESET = L"\033[0m";
-const std::wstring ANSI_GREEN = L"\033[32m";
-const std::wstring ANSI_BLUE = L"\033[34m";
 
 void ErrorPrinter::printErrorMessage(ErrorCode errorCode, const std::vector<ErrorMessageArgument> &args) {
     std::wstring message = formattedErrorMessage(errorCode, args);
