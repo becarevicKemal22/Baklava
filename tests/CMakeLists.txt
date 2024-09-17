@@ -66,7 +66,7 @@ add_executable(tests ../src/error/printer/ErrorPrinter.cpp ../src/lexer/Lexer.cp
         ../src/parser/ast/statements/FunctionDeclarationStatement.h
         parser/ParserFunctionDeclarationTest.cpp
         ../src/error/exceptions/InvalidCall.h
-        ../src/error/exceptions/InvalidArgumentCount.h
+        ../src/error/exceptions/TooManyArguments.h
         interpreter/InterpreterFunctionTest.cpp
         ../src/parser/ast/statements/ReturnStatement.h
         ../src/parser/Resolver.cpp
@@ -91,5 +91,6 @@ add_executable(tests ../src/error/printer/ErrorPrinter.cpp ../src/lexer/Lexer.cp
         ../src/interpreter/nativeFunctions/NativeFunction.h
         ../src/interpreter/nativeFunctions/NativeFunction.cpp
         ../src/error/printer/isOutputANSICompatible.cpp
+        ../src/error/exceptions/TooFewArguments.h
 )
 target_link_libraries(tests PRIVATE Catch2::Catch2WithMain)

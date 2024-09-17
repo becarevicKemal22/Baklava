@@ -12,6 +12,7 @@ std::vector<NativeFunction> BaseFunctions::getFunctions(Interpreter* _interprete
     auto *clockCallable = new ObjectCallable();
     clockCallable->obj.type = ObjectType::OBJECT_CALLABLE;
     clockCallable->arity = 0;
+    clockCallable->minArity = 0;
     clockCallable->call = [](Interpreter *interpreter, const std::vector<RuntimeValue> &arguments) -> RuntimeValue {
         return {ValueType::Number, {.number = (double) clock() / CLOCKS_PER_SEC}};
     };
@@ -27,6 +28,7 @@ std::vector<NativeFunction> BaseFunctions::getFunctions(Interpreter* _interprete
     ObjectCallable *emptyCallable = new ObjectCallable();
     emptyCallable->obj.type = ObjectType::OBJECT_CALLABLE;
     emptyCallable->arity = 0;
+    emptyCallable->minArity = 0;
     emptyCallable->call = [](Interpreter *interpreter, const std::vector<RuntimeValue> &arguments) -> RuntimeValue {
         return {ValueType::Null};
     };
@@ -42,8 +44,12 @@ std::vector<NativeFunction> BaseFunctions::getFunctions(Interpreter* _interprete
     ObjectCallable *inputCallable = new ObjectCallable();
     inputCallable->obj.type = ObjectType::OBJECT_CALLABLE;
     inputCallable->arity = 1;
+    inputCallable->minArity = 0;
+    // obavezno ovo promijeniti da ne koristi allocate object jer ce ga staviti u objects gdje ce ga pokupiti GC. Treba te sve alokacije malo refaktorisati i staviti u svoj neki file, gdje ce biti jos jedna funkcija koja samo alocira i vrati bez da ga stavi u objects i tako to
+    inputCallable->defaultArguments.push_back({ValueType::Object, {.object = (Object *) _interpreter->allocateStringObject(L"")}});
     inputCallable->call = [_interpreter](Interpreter *interpreter, const std::vector<RuntimeValue> &arguments) -> RuntimeValue {
         RuntimeValue message = arguments[0];
+        // skontat sta sa ovim, ima i u trellu za ove funkcije sto su u problemu generalno
         if (message.type != ValueType::Object) {
             std::wcout << "Unos: ";
         } else if (IS_OBJ(message) && !IS_STRING_OBJ(message)) {
@@ -65,6 +71,7 @@ std::vector<NativeFunction> BaseFunctions::getFunctions(Interpreter* _interprete
     ObjectCallable *numConversionCallable = new ObjectCallable();
     numConversionCallable->obj.type = ObjectType::OBJECT_CALLABLE;
     numConversionCallable->arity = 1;
+    numConversionCallable->minArity = 1;
     numConversionCallable->call = [_interpreter](Interpreter *interpreter,
                                          const std::vector<RuntimeValue> &arguments) -> RuntimeValue {
         RuntimeValue value = arguments[0];

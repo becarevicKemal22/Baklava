@@ -20,7 +20,7 @@
 //#define DEBUG_STRESS_GC
 //#define DEBUG_LOG_GC 1
 //#define DEBUG_LOG_GC 2
-//#define DEBUG_TRACK_EXin ECUTION
+//#define DEBUG_TRACK_EXECUTION
 //#define DEBUG_TRACK_PRINTING
 
 
@@ -54,7 +54,8 @@
 #include "GroupingExpression.h"
 #include "FunctionDeclarationStatement.h"
 #include "InvalidCall.h"
-#include "InvalidArgumentCount.h"
+#include "TooManyArguments.h"
+#include "TooFewArguments.h"
 #include "RuntimeValue.h"
 #include "ReturnStatement.h"
 #include "Resolver.h"
@@ -66,9 +67,13 @@
 #include <cmath>
 #include <iomanip>
 #include <sstream>
+#include <cassert>
 
 void Interpreter::defineNativeFunctions() {
     for(auto& nativeFunction : BaseFunctions::getFunctions(this)){
+        ObjectCallable* callable = ((ObjectCallable*)nativeFunction.function.as.object);
+        int expectedDefaultArgumentCount = callable->arity - callable->minArity;
+        assert(expectedDefaultArgumentCount == callable->defaultArguments.size());
         globals->define(nativeFunction.name, nativeFunction.function, true);
     }
 }
@@ -500,8 +505,16 @@ RuntimeValue Interpreter::evaluateCallExpression(CallExpression *expr) {
     }
 
     ObjectCallable *callable = AS_CALLABLE_OBJ(callee);
-    if (arguments.size() != callable->arity) {
-        throw InvalidArgumentCount(callable->arity, arguments.size(), getMostRelevantToken(expr->callee), expr->paren);
+    if (arguments.size() > callable->arity) {
+        throw TooManyArguments(callable->arity, arguments.size(), getMostRelevantToken(expr->callee), expr->paren);
+    }
+    if(arguments.size() < callable->minArity){
+        throw TooFewArguments(callable->minArity, arguments.size(), getMostRelevantToken(expr->callee), expr->paren);
+    }
+    if(arguments.size() < callable->arity){
+        for(size_t i = arguments.size(); i < callable->arity; i++){
+            arguments.push_back(callable->defaultArguments[i]);
+        }
     }
     return callable->call(this, arguments);
 //    if(callee.as.object->type == ObjectType::OBJECT_CALLABLE){
@@ -829,8 +842,10 @@ RuntimeError *Interpreter::reallocateError(RuntimeError *error) {
         handledError = new WrongBinaryOperandTypes(*dynamic_cast<WrongBinaryOperandTypes *>(error));
     } else if (dynamic_cast<InvalidCall *>(error) != nullptr) {
         handledError = new InvalidCall(*dynamic_cast<InvalidCall *>(error));
-    } else if (dynamic_cast<InvalidArgumentCount *>(error) != nullptr) {
-        handledError = new InvalidArgumentCount(*dynamic_cast<InvalidArgumentCount *>(error));
+    } else if (dynamic_cast<TooManyArguments *>(error) != nullptr) {
+        handledError = new TooManyArguments(*dynamic_cast<TooManyArguments *>(error));
+    } else if (dynamic_cast<TooFewArguments *>(error) != nullptr){
+        handledError = new TooFewArguments(*dynamic_cast<TooFewArguments *>(error));
     } else if (dynamic_cast<UndeclaredVariable *>(error) != nullptr) {
         handledError = new UndeclaredVariable(*dynamic_cast<UndeclaredVariable *>(error));
     } else if (dynamic_cast<VariableRedeclaration *>(error) != nullptr) {

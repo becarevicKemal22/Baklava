@@ -48,8 +48,11 @@ void ErrorPrinter::printRuntimeError(const RuntimeError *error) {
     if(dynamic_cast<const InvalidCall*>(error) != nullptr){
         printInvalidCallError(static_cast<const InvalidCall*>(error));
     }
-    if(dynamic_cast<const InvalidArgumentCount*>(error) != nullptr){
-        printInvalidArgumentCountError(static_cast<const InvalidArgumentCount*>(error));
+    if(dynamic_cast<const TooManyArguments*>(error) != nullptr){
+        printTooManyArgumentsError(static_cast<const TooManyArguments *>(error));
+    }
+    if(dynamic_cast<const TooFewArguments*>(error) != nullptr){
+        printTooFewArgumentsError(static_cast<const TooFewArguments *>(error));
     }
     if(dynamic_cast<const IndexOutOfBounds*>(error) != nullptr){
         printIndexOutOfBoundsError(static_cast<const IndexOutOfBounds*>(error));
@@ -135,7 +138,16 @@ void ErrorPrinter::printInvalidCallError(const InvalidCall *error) {
     printSquiggleSupportLine(error->name->line, {{ {error->name->offset, error->name->offset + getTokenValue(error->name).size() - 1}, ANSI_RED}});
 }
 
-void ErrorPrinter::printInvalidArgumentCountError(const InvalidArgumentCount *error) {
+void ErrorPrinter::printTooManyArgumentsError(const TooManyArguments *error) {
+    std::wstring message = formattedErrorMessage(error->code, error->messageArguments, error->token->line);
+    wcout << message << "\n";
+    printSourceLine(error->token->line, {{ {error->token->offset, error->token->offset + getTokenValue(error->token).size() - 1}, ANSI_BLUE},
+                                         { {error->paren->offset, error->paren->offset + getTokenValue(error->paren).size() - 1}, ANSI_RED}});
+    printSquiggleSupportLine(error->token->line, {{ {error->token->offset, error->token->offset + getTokenValue(error->token).size() - 1}, ANSI_BLUE},
+                                                  { {error->paren->offset, error->paren->offset + getTokenValue(error->paren).size() - 1}, ANSI_RED}});
+}
+
+void ErrorPrinter::printTooFewArgumentsError(const TooFewArguments *error) {
     std::wstring message = formattedErrorMessage(error->code, error->messageArguments, error->token->line);
     wcout << message << "\n";
     printSourceLine(error->token->line, {{ {error->token->offset, error->token->offset + getTokenValue(error->token).size() - 1}, ANSI_BLUE},
