@@ -39,6 +39,7 @@ const std::unordered_map<int , std::wstring> ERRORMESSAGES = {
         {ERROR_TOO_FEW_ARGUMENTS,           L"Nedozvoljen broj argumenata. Nedostaje '{}' obaveznih argumenata."},
         {ERROR_INVALID_RETURN_POSITION,      L"Izjava 'vrati' ne smije se nalaziti izvan tijela funkcije."},
         {ERROR_SELF_REFERENCING_INITIALIZER, L"Varijabla '{}' ne može se inicijalizirati sama sobom."},
+        {ERROR_SELF_REFERENCING_INITIALIZER, L"Podrazumjevani argumenti ne smiju se nalaziti prije obaveznih argumenata."},
 
         // 4xx
         {ERROR_WRONG_TYPE_OPERAND,           L"Tip '{}' nije dozvoljen za operator '{}'."},

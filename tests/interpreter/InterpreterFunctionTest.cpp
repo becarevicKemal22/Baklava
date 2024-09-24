@@ -176,7 +176,7 @@ TEST_CASE("Throws on function call with too few arguments", "[interpreter][funct
 
     REQUIRE_NOTHROW(interpreter.interpret(parseSource(source).get()));
     REQUIRE(interpreter.hadError);
-    checkHandledError<TooManyArguments>(&interpreter);
+    checkHandledError<TooFewArguments>(&interpreter);
 }
 
 TEST_CASE("Throws on number call", "[interpreter][function]") {

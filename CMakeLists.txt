@@ -82,6 +82,7 @@ add_executable(baklava main.cpp
         src/interpreter/nativeFunctions/NativeFunction.cpp
         src/error/printer/isOutputANSICompatible.cpp
         src/error/exceptions/TooFewArguments.h
+        src/error/exceptions/parser/InvalidDefaultArgumentPosition.h
 )
 
 add_subdirectory(tests)
