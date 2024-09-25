@@ -92,8 +92,9 @@ add_executable(tests ../src/error/printer/ErrorPrinter.cpp ../src/lexer/Lexer.cp
         ../src/interpreter/nativeFunctions/NativeFunction.cpp
         ../src/error/printer/isOutputANSICompatible.cpp
         ../src/error/exceptions/TooFewArguments.h
-        parser/DefaultArgumentsTest.cpp
+        parser/ParserDefaultParameterTest.cpp
         ../src/error/exceptions/parser/InvalidDefaultParameterPosition.h
         ../src/error/exceptions/parser/InvalidDefaultParameterValue.h
+        interpreter/InterpreterDefaultParameterTest.cpp
 )
 target_link_libraries(tests PRIVATE Catch2::Catch2WithMain)

@@ -720,7 +720,7 @@ void Interpreter::collectGarbage() {
 #endif
     sweep();
 
-    nextGC = bytesAllocated * 2;
+//    nextGC = bytesAllocated * 2;
 
 #if DEBUG_LOG_GC == 2
     std::wcout << L"bk: ---------- gc end -----------\n" << std::endl;
