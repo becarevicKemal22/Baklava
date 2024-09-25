@@ -228,7 +228,7 @@ Statement* Parser::functionDeclarationStatement() {
             if(match({TokenType::Equal})) {
                 ExprPtr value = expression();
                 if(!IS_LITERAL(value)){
-                    throw InvalidDefaultParameterValue(getMostRelevantToken(value));
+                    throw InvalidDefaultParameterValue(parameters[parameters.size() - 1]);
                 }
 
                 defaultParameters.push_back(value);

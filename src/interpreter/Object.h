@@ -67,7 +67,7 @@ struct ObjectFunction : public ObjectCallable {
     explicit ObjectFunction(FunctionDeclarationStatement* declaration, Environment* closure) : declaration(declaration){
         obj.type = ObjectType::OBJECT_FUNCTION;
         arity = declaration->parameters.size();
-        minArity = arity; // Temporary until i sort out the parser, currently only enabling it for native callables
+        minArity = arity - declaration->defaultParameters.size();
         this->closure = *closure;
         call = [this](auto && PH1, auto && PH2) { return functionCall(std::forward<decltype(PH1)>(PH1), std::forward<decltype(PH2)>(PH2)); };
     }

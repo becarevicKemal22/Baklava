@@ -9,7 +9,7 @@
 
 RuntimeValue ObjectFunction::functionCall(Interpreter* interpreter, const std::vector<RuntimeValue>& arguments){
     Environment environment(&closure);
-    for (int i = 0; i < declaration->parameters.size(); i++) {
+    for (int i = 0; i < arity; i++) {
         environment.define(declaration->parameters[i], arguments[i], false);
     }
     interpreter->executeBlock(declaration->body, environment);

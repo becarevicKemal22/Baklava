@@ -504,16 +504,34 @@ RuntimeValue Interpreter::evaluateCallExpression(CallExpression *expr) {
         throw InvalidCall(callee, getMostRelevantToken(expr->callee));
     }
 
-    ObjectCallable *callable = AS_CALLABLE_OBJ(callee);
-    if (arguments.size() > callable->arity) {
-        throw TooManyArguments(callable->arity, arguments.size(), getMostRelevantToken(expr->callee), expr->paren);
+    ObjectCallable *callable = AS_CALLABLE_OBJ(callee); // this narrows functions to callables but its fine for the first two checks.
+    int arity = callable->arity;
+    int minArity = callable->minArity;
+    if (arguments.size() > arity) {
+        throw TooManyArguments(arity, arguments.size(), getMostRelevantToken(expr->callee), expr->paren);
     }
-    if(arguments.size() < callable->minArity){
-        throw TooFewArguments(callable->minArity, arguments.size(), getMostRelevantToken(expr->callee), expr->paren);
+    if(arguments.size() < minArity){
+        throw TooFewArguments(minArity, arguments.size(), getMostRelevantToken(expr->callee), expr->paren);
     }
-    if(arguments.size() < callable->arity){
-        for(size_t i = arguments.size(); i < callable->arity; i++){
-            arguments.push_back(callable->defaultArguments[i]);
+    // general note on this part: callables are created with pre-evaluated runtime values in the nativeFunctions folder or wherever it is,
+    // while functions' default arguments have to be evaluated every time the function is called, since its possible for
+    // the user to write code which changes the value of the default parameter from one execution to the next. That's also why the callables' default
+    // arguments can be 'pre-evaluated', as I write the code for those and can ensure that the value of default params
+    // is never changed.
+    if(arguments.size() < arity){
+        if(IS_CALLABLE_OBJ(callee)){
+            for(size_t i = arguments.size(); i < arity; i++){
+                arguments.push_back(callable->defaultArguments[i]);
+            }
+        }else{ // depends on the fact that only callables and functions are allowed to pass down to this point.
+            ObjectFunction* function = AS_FUNCTION_OBJ(callee);
+            disallowGC = true;
+            int numOfOptionalAllowedParams = arity - minArity;
+            int indexOfFirstMissingParam = numOfOptionalAllowedParams - (arity - arguments.size());
+            for(size_t i = indexOfFirstMissingParam; i < numOfOptionalAllowedParams; i++){
+                arguments.push_back(evaluate(function->declaration->defaultParameters[i]));
+            }
+            disallowGC = false;
         }
     }
     return callable->call(this, arguments);
