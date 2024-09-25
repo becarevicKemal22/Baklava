@@ -70,7 +70,7 @@ TEST_CASE("Prints string value", "[interpreter][runtimeValue]") {
 
 TEST_CASE("Prints function", "[interpreter][runtimeValue]") {
     Token token(TokenType::Identifier, L"test", 1, 1);
-    FunctionDeclarationStatement* declaration = new FunctionDeclarationStatement(&token, {}, {});
+    FunctionDeclarationStatement* declaration = new FunctionDeclarationStatement(&token, {}, {}, {});
 
     Object base(ObjectType::OBJECT_FUNCTION);
     Environment env;

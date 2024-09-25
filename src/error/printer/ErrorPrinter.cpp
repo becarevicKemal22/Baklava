@@ -17,7 +17,8 @@
 #include "VariableRedeclaration.h"
 #include "UndeclaredVariable.h"
 #include "ConstReassignment.h"
-#include "InvalidDefaultArgumentPosition.h"
+#include "InvalidDefaultParameterPosition.h"
+#include "InvalidDefaultParameterValue.h"
 
 using std::wcout;
 
@@ -203,9 +204,14 @@ void ErrorPrinter::printParserError(const ParserError *error) {
     }
     else if(dynamic_cast<const SelfReferencingInitializer*>(error) != nullptr) {
         printSelfReferencingInitializerError(static_cast<const SelfReferencingInitializer *>(error));
-    } else if(dynamic_cast<const InvalidDefaultArgumentPosition*>(error) != nullptr) {
-        printInvalidDefaultArgumentPositionError(static_cast<const InvalidDefaultArgumentPosition *>(error));
-    } else{ // Generic parser error, ne moze se koristiti ni sa cim drugim, jer samo bazni ima ovaj myToken atribut
+    }
+    else if(dynamic_cast<const InvalidDefaultParameterPosition*>(error) != nullptr) {
+        printInvalidDefaultParameterPositionError(static_cast<const InvalidDefaultParameterPosition *>(error));
+    }
+    else if(dynamic_cast<const InvalidDefaultParameterValue*>(error) != nullptr) {
+        printInvalidDefaultParameterValueError(static_cast<const InvalidDefaultParameterValue *>(error));
+    }
+    else{ // Generic parser error, ne moze se koristiti ni sa cim drugim, jer samo bazni ima ovaj myToken atribut
         std::wstring message = formattedErrorMessage(error->code, error->messageArguments, error->myToken->line);
         wcout << message << "\n";
         printSourceLine(error->myToken->line, {{ {error->myToken->offset, error->myToken->offset + getTokenValue(error->myToken).size() - 1}, ANSI_RED}});
@@ -315,7 +321,14 @@ void ErrorPrinter::printSelfReferencingInitializerError(const SelfReferencingIni
     printSquiggleSupportLine(error->token->line, {{ {error->token->offset, error->token->offset + getTokenValue(error->token).size() - 1}, ANSI_RED}});
 }
 
-void ErrorPrinter::printInvalidDefaultArgumentPositionError(const InvalidDefaultArgumentPosition *error) {
+void ErrorPrinter::printInvalidDefaultParameterPositionError(const InvalidDefaultParameterPosition *error) {
+    std::wstring message = formattedErrorMessage(error->code, error->messageArguments, error->token->line);
+    wcout << message << "\n";
+    printSourceLine(error->token->line, {{ {error->token->offset, error->token->offset + getTokenValue(error->token).size() - 1}, ANSI_RED}});
+    printSquiggleSupportLine(error->token->line, {{ {error->token->offset, error->token->offset + getTokenValue(error->token).size() - 1}, ANSI_RED}});
+}
+
+void ErrorPrinter::printInvalidDefaultParameterValueError(const InvalidDefaultParameterValue *error) {
     std::wstring message = formattedErrorMessage(error->code, error->messageArguments, error->token->line);
     wcout << message << "\n";
     printSourceLine(error->token->line, {{ {error->token->offset, error->token->offset + getTokenValue(error->token).size() - 1}, ANSI_RED}});

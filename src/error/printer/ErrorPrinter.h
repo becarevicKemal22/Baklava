@@ -31,7 +31,8 @@
 #include "IndexOutOfBounds.h"
 #include "NonIntegerIndex.h"
 #include "IndexingNonArray.h"
-#include "InvalidDefaultArgumentPosition.h"
+#include "InvalidDefaultParameterPosition.h"
+#include "InvalidDefaultParameterValue.h"
 
 typedef std::pair<std::pair<int, int>, std::wstring> colorHighlight;
 
@@ -119,7 +120,8 @@ private:
     void printTooFewArgumentsError(const TooFewArguments* error);
     void printInvalidReturnPositionError(const InvalidReturnPosition* error);
     void printSelfReferencingInitializerError(const SelfReferencingInitializer* error);
-    void printInvalidDefaultArgumentPositionError(const InvalidDefaultArgumentPosition* error);
+    void printInvalidDefaultParameterPositionError(const InvalidDefaultParameterPosition* error);
+    void printInvalidDefaultParameterValueError(const InvalidDefaultParameterValue* error);
 };
 
 
