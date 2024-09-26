@@ -188,6 +188,76 @@ TEST_CASE("Assumes equality operator when 'je' is used (null literal)", "[parser
     REQUIRE(ifStatement->thenBranch->type == AstNodeType::PrintStatement);
 }
 
+TEST_CASE("Allows omition of 'onda' when then branch is block", "[parser][controlFlow]") {
+    std::wstring source = L"ako tačno { ispiši 1; }";
+    Lexer lexer(source);
+    lexer.tokenize();
+    Parser parser(lexer.tokens);
+    auto program = parser.parse();
+    REQUIRE(program->statements.size() == 1);
+    auto ifStatement = getNode<IfStatement>(program->statements[0]);
+    auto condition = getNode<BooleanLiteralExpression>(ifStatement->condition);
+    REQUIRE(condition->value == true);
+    REQUIRE(ifStatement->thenBranch->type == AstNodeType::BlockStatement);
+    auto block = getNode<BlockStatement>(ifStatement->thenBranch);
+    REQUIRE(block->statements.size() == 1);
+    auto printStatement = getNode<PrintStatement>(block->statements[0]);
+    auto literal = getNode<NumericLiteralExpression>(printStatement->expr);
+    REQUIRE(literal->value == 1);
+}
+
+TEST_CASE("Allows omition of 'onda' when then branch is block (shorthand if)", "[parser][controlFlow]") {
+    std::wstring source = L"ako je tačno {ispisi 1;}";
+    Lexer lexer(source);
+    lexer.tokenize();
+    Parser parser(lexer.tokens);
+    auto program = parser.parse();
+    REQUIRE(program->statements.size() == 1);
+    auto ifStatement = getNode<IfStatement>(program->statements[0]);
+    auto condition = getNode<BooleanLiteralExpression>(ifStatement->condition);
+    REQUIRE(condition->value == true);
+    REQUIRE(ifStatement->thenBranch->type == AstNodeType::BlockStatement);
+    auto block = getNode<BlockStatement>(ifStatement->thenBranch);
+    REQUIRE(block->statements.size() == 1);
+    auto printStatement = getNode<PrintStatement>(block->statements[0]);
+    auto literal = getNode<NumericLiteralExpression>(printStatement->expr);
+    REQUIRE(literal->value == 1);
+}
+
+TEST_CASE("Allows both 'onda' and block", "[parser][controlFlow]") {
+    std::wstring source = L"ako tačno onda { ispiši 1; }";
+    Lexer lexer(source);
+    lexer.tokenize();
+    Parser parser(lexer.tokens);
+    auto program = parser.parse();
+    REQUIRE(program->statements.size() == 1);
+    auto ifStatement = getNode<IfStatement>(program->statements[0]);
+    auto condition = getNode<BooleanLiteralExpression>(ifStatement->condition);
+    REQUIRE(condition->value == true);
+    REQUIRE(ifStatement->thenBranch->type == AstNodeType::BlockStatement);
+    auto block = getNode<BlockStatement>(ifStatement->thenBranch);
+    REQUIRE(block->statements.size() == 1);
+    auto printStatement = getNode<PrintStatement>(block->statements[0]);
+    auto literal = getNode<NumericLiteralExpression>(printStatement->expr);
+    REQUIRE(literal->value == 1);
+}
+
+TEST_CASE("Requires onda when no block is used", "[parser][controlFlow]") {
+    std::wstring source = L"ako tačno ispiši 1;";
+    Lexer lexer(source);
+    lexer.tokenize();
+    Parser parser(lexer.tokens);
+    REQUIRE_THROWS_AS(parser.parse(), ExpectedXBeforeY);
+}
+
+TEST_CASE("Requires onda when no block is used (shorthand if)", "[parser][controlFlow]") {
+    std::wstring source = L"ako je a tačno ispiši 1;";
+    Lexer lexer(source);
+    lexer.tokenize();
+    Parser parser(lexer.tokens);
+    REQUIRE_THROWS_AS(parser.parse(), ExpectedXBeforeY);
+}
+
 TEST_CASE("Throws error if no condition in if statement", "[parser][controlFlow]") {
     std::wstring source = L"ako onda{ ispiši 1; }";
     Lexer lexer(source);
@@ -195,14 +265,14 @@ TEST_CASE("Throws error if no condition in if statement", "[parser][controlFlow]
     Parser parser(lexer.tokens);
     REQUIRE_THROWS_AS(parser.parse(), ExpectedXBeforeY);
 }
-
-TEST_CASE("Throws error on missing 'then'", "[parser][controlFlow]") {
-    std::wstring source = L"ako tačno { ispiši 1; }";
-    Lexer lexer(source);
-    lexer.tokenize();
-    Parser parser(lexer.tokens);
-    REQUIRE_THROWS_AS(parser.parse(), ExpectedXBeforeY);
-}
+// No longer necessary, now then can be omitted when using a block
+//TEST_CASE("Throws error on missing 'then'", "[parser][controlFlow]") {
+//    std::wstring source = L"ako tačno { ispiši 1; }";
+//    Lexer lexer(source);
+//    lexer.tokenize();
+//    Parser parser(lexer.tokens);
+//    REQUIRE_THROWS_AS(parser.parse(), ExpectedXBeforeY);
+//}
 
 //TEST_CASE("Throws error on no closing parenthesis", "[parser][controlFlow]") {
 //    std::wstring source = L"ako (tačno { ispiši 1; }";

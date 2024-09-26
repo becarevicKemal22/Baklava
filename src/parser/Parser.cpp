@@ -130,12 +130,9 @@ Statement* Parser::ifStatement(){
         hasIs = true;
         isToken = previous();
     }
-//    if(!atType(TokenType::OpenParenthesis)){
-//        throw ExpectedXBeforeY(L"(", previous(), at());
-//    }
-//    advance();
+
     ExprPtr condition = expression();
-    if(!atType(TokenType::Then) && hasIs){
+    if(!atType(TokenType::Then) && !atType(TokenType::OpenBrace) && hasIs){
         ExprPtr literal;
         try{
             literal = primaryExpression();
@@ -151,10 +148,10 @@ Statement* Parser::ifStatement(){
         isToken->type = TokenType::DoubleEqual; // Required so that in testing this appears as a equality operator, but I can't create a new token becuase I don't have the position and it doesn't exist anyway. So the is token is used in case an error needs to be printed, and the type is changed for testing, maybe its required somewhere else as well idk.
         condition = new BinaryExpression(condition, isToken, literal);
     }
-    if(!atType(TokenType::Then)){
+    if(!atType(TokenType::Then) && !atType(TokenType::OpenBrace)){
         throw ExpectedXBeforeY(L"onda", previous(), at());
     }
-    advance();
+    if(atType(TokenType::Then)) advance();
 
     StmtPtr thenBranch = statement();
     StmtPtr elseBranch = nullptr;
