@@ -167,7 +167,7 @@ TEST_CASE("Throws on function call with too many arguments", "[interpreter][func
 
     REQUIRE_NOTHROW(interpreter.interpret(parseSource(source).get()));
     REQUIRE(interpreter.hadError);
-    checkHandledError<InvalidArgumentCount>(&interpreter);
+    checkHandledError<TooManyArguments>(&interpreter);
 }
 
 TEST_CASE("Throws on function call with too few arguments", "[interpreter][function]") {
@@ -176,7 +176,7 @@ TEST_CASE("Throws on function call with too few arguments", "[interpreter][funct
 
     REQUIRE_NOTHROW(interpreter.interpret(parseSource(source).get()));
     REQUIRE(interpreter.hadError);
-    checkHandledError<InvalidArgumentCount>(&interpreter);
+    checkHandledError<TooFewArguments>(&interpreter);
 }
 
 TEST_CASE("Throws on number call", "[interpreter][function]") {

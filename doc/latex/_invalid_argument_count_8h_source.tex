@@ -1,5 +1,5 @@
 \doxysection{Invalid\+Argument\+Count.\+h}
-\hypertarget{_invalid_argument_count_8h_source}{}\label{_invalid_argument_count_8h_source}\index{src/error/exceptions/InvalidArgumentCount.h@{src/error/exceptions/InvalidArgumentCount.h}}
+\hypertarget{_invalid_argument_count_8h_source}{}\label{_invalid_argument_count_8h_source}\index{src/error/exceptions/TooManyArguments.h@{src/error/exceptions/TooManyArguments.h}}
 \mbox{\hyperlink{_invalid_argument_count_8h}{Go to the documentation of this file.}}
 \begin{DoxyCode}{0}
 \DoxyCodeLine{00001\ \textcolor{comment}{//}}
@@ -12,9 +12,9 @@
 \DoxyCodeLine{00008\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_runtime_error_8h}{RuntimeError.h}}"{}}}
 \DoxyCodeLine{00009\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_token_8h}{Token.h}}"{}}}
 \DoxyCodeLine{00010\ }
-\DoxyCodeLine{00011\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_invalid_argument_count}{InvalidArgumentCount}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{class_runtime_error}{RuntimeError}}\ \{}
+\DoxyCodeLine{00011\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_invalid_argument_count}{TooManyArguments}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{class_runtime_error}{RuntimeError}}\ \{}
 \DoxyCodeLine{00012\ \textcolor{keyword}{public}:}
-\DoxyCodeLine{00013\ \ \ \ \ \mbox{\hyperlink{class_invalid_argument_count_a6e36aa028bdeafb3028024ce241dab7d}{InvalidArgumentCount}}(\textcolor{keywordtype}{int}\ expected,\ \textcolor{keywordtype}{int}\ got,\ \mbox{\hyperlink{class_token}{Token}}\ *\mbox{\hyperlink{class_invalid_argument_count_a7291b52798426a115da16eafcb03a754}{token}},\ \mbox{\hyperlink{class_token}{Token}}\ *\mbox{\hyperlink{class_invalid_argument_count_a40e099479288992b9781d5e71ef7c52c}{paren}})\ :\ \mbox{\hyperlink{class_runtime_error}{RuntimeError}}(\mbox{\hyperlink{_error_code_8h_a59e56af19e754a6aa26a612ebf91d05fab55db74ec6e0da76114fcde483042d2e}{ERROR\_INVALID\_ARGUMENT\_COUNT}}),}
+\DoxyCodeLine{00013\ \ \ \ \ \mbox{\hyperlink{class_invalid_argument_count_a6e36aa028bdeafb3028024ce241dab7d}{TooManyArguments}}(\textcolor{keywordtype}{int}\ expected,\ \textcolor{keywordtype}{int}\ got,\ \mbox{\hyperlink{class_token}{Token}}\ *\mbox{\hyperlink{class_invalid_argument_count_a7291b52798426a115da16eafcb03a754}{token}},\ \mbox{\hyperlink{class_token}{Token}}\ *\mbox{\hyperlink{class_invalid_argument_count_a40e099479288992b9781d5e71ef7c52c}{paren}})\ :\ \mbox{\hyperlink{class_runtime_error}{RuntimeError}}(\mbox{\hyperlink{_error_code_8h_a59e56af19e754a6aa26a612ebf91d05fab55db74ec6e0da76114fcde483042d2e}{ERROR\_INVALID\_ARGUMENT\_COUNT}}),}
 \DoxyCodeLine{00014\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_invalid_argument_count_a7291b52798426a115da16eafcb03a754}{token}}(\mbox{\hyperlink{class_invalid_argument_count_a7291b52798426a115da16eafcb03a754}{token}}),\ \mbox{\hyperlink{class_invalid_argument_count_a40e099479288992b9781d5e71ef7c52c}{paren}}(\mbox{\hyperlink{class_invalid_argument_count_a40e099479288992b9781d5e71ef7c52c}{paren}})\ \{}
 \DoxyCodeLine{00015\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_runtime_error_a5d005928ddf618703012ce4c1f8e3f03}{messageArguments}}.emplace\_back(std::to\_wstring(expected));}
 \DoxyCodeLine{00016\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_runtime_error_a5d005928ddf618703012ce4c1f8e3f03}{messageArguments}}.emplace\_back(std::to\_wstring(got));}

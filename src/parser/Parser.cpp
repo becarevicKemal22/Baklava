@@ -31,6 +31,10 @@
 #include "IndexingExpression.h"
 #include "ArrayLiteralExpression.h"
 #include "IndexAssignmentExpression.h"
+#include "InvalidDefaultParameterPosition.h"
+#include "InvalidDefaultParameterValue.h"
+
+#define IS_LITERAL(x) (x->type == AstNodeType::NumericLiteralExpression || x->type == AstNodeType::StringLiteralExpression || x->type == AstNodeType::BooleanLiteralExpression || x->type == AstNodeType::NullLiteralExpression || x->type == AstNodeType::ArrayLiteralExpression)
 
 std::unique_ptr<Program> Parser::parse() {
     std::unique_ptr<Program> program = std::make_unique<Program>();
@@ -208,14 +212,31 @@ Statement* Parser::functionDeclarationStatement() {
         throw ExpectedXBeforeY(L"(", previous(), at());
     }
     advance();
+
     std::vector<Token*> parameters;
+    std::vector<ExprPtr> defaultParameters;
+    bool reachedDefaultValues = false; // so i can check whether I have non-default parameters after default ones
     if(!atType(TokenType::ClosedParenthesis)){
         do {
             if(!atType(TokenType::Identifier)){
                 throw ExpectedXBeforeY(L"identifikator", previous(), at());
             }
             advance();
+
             parameters.push_back(previous());
+
+            if(match({TokenType::Equal})) {
+                ExprPtr value = expression();
+                if(!IS_LITERAL(value)){
+                    throw InvalidDefaultParameterValue(parameters[parameters.size() - 1]);
+                }
+
+                defaultParameters.push_back(value);
+                reachedDefaultValues = true;
+            } else if(reachedDefaultValues){ // in case there's no equal (required param) but there were default values before
+                throw InvalidDefaultParameterPosition(parameters[parameters.size() - 2]); // -2 because the last one is the current one, and this error message needs the default argument that was in the disallowed position
+            }
+
         } while(match({TokenType::Comma}));
     }
     if(!atType(TokenType::ClosedParenthesis)){
@@ -227,7 +248,7 @@ Statement* Parser::functionDeclarationStatement() {
     }
     advance();
     std::vector<Statement*> body = block();
-    return new FunctionDeclarationStatement(name, parameters, body);
+    return new FunctionDeclarationStatement(name, parameters, body, defaultParameters);
 }
 
 Statement* Parser::expressionStatement() {

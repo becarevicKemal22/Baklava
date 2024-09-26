@@ -20,7 +20,7 @@
 //#define DEBUG_STRESS_GC
 //#define DEBUG_LOG_GC 1
 //#define DEBUG_LOG_GC 2
-//#define DEBUG_TRACK_EXin ECUTION
+//#define DEBUG_TRACK_EXECUTION
 //#define DEBUG_TRACK_PRINTING
 
 
@@ -54,7 +54,8 @@
 #include "GroupingExpression.h"
 #include "FunctionDeclarationStatement.h"
 #include "InvalidCall.h"
-#include "InvalidArgumentCount.h"
+#include "TooManyArguments.h"
+#include "TooFewArguments.h"
 #include "RuntimeValue.h"
 #include "ReturnStatement.h"
 #include "Resolver.h"
@@ -66,9 +67,13 @@
 #include <cmath>
 #include <iomanip>
 #include <sstream>
+#include <cassert>
 
 void Interpreter::defineNativeFunctions() {
     for(auto& nativeFunction : BaseFunctions::getFunctions(this)){
+        ObjectCallable* callable = ((ObjectCallable*)nativeFunction.function.as.object);
+        int expectedDefaultArgumentCount = callable->arity - callable->minArity;
+        assert(expectedDefaultArgumentCount == callable->defaultArguments.size());
         globals->define(nativeFunction.name, nativeFunction.function, true);
     }
 }
@@ -499,9 +504,35 @@ RuntimeValue Interpreter::evaluateCallExpression(CallExpression *expr) {
         throw InvalidCall(callee, getMostRelevantToken(expr->callee));
     }
 
-    ObjectCallable *callable = AS_CALLABLE_OBJ(callee);
-    if (arguments.size() != callable->arity) {
-        throw InvalidArgumentCount(callable->arity, arguments.size(), getMostRelevantToken(expr->callee), expr->paren);
+    ObjectCallable *callable = AS_CALLABLE_OBJ(callee); // this narrows functions to callables but its fine for the first two checks.
+    int arity = callable->arity;
+    int minArity = callable->minArity;
+    if (arguments.size() > arity) {
+        throw TooManyArguments(arity, arguments.size(), getMostRelevantToken(expr->callee), expr->paren);
+    }
+    if(arguments.size() < minArity){
+        throw TooFewArguments(minArity, arguments.size(), getMostRelevantToken(expr->callee), expr->paren);
+    }
+    // general note on this part: callables are created with pre-evaluated runtime values in the nativeFunctions folder or wherever it is,
+    // while functions' default arguments have to be evaluated every time the function is called, since its possible for
+    // the user to write code which changes the value of the default parameter from one execution to the next. That's also why the callables' default
+    // arguments can be 'pre-evaluated', as I write the code for those and can ensure that the value of default params
+    // is never changed.
+    if(arguments.size() < arity){
+        if(IS_CALLABLE_OBJ(callee)){
+            for(size_t i = arguments.size(); i < arity; i++){
+                arguments.push_back(callable->defaultArguments[i]);
+            }
+        }else{ // depends on the fact that only callables and functions are allowed to pass down to this point.
+            ObjectFunction* function = AS_FUNCTION_OBJ(callee);
+            disallowGC = true;
+            int numOfOptionalAllowedParams = arity - minArity;
+            int indexOfFirstMissingParam = numOfOptionalAllowedParams - (arity - arguments.size());
+            for(size_t i = indexOfFirstMissingParam; i < numOfOptionalAllowedParams; i++){
+                arguments.push_back(evaluate(function->declaration->defaultParameters[i]));
+            }
+            disallowGC = false;
+        }
     }
     return callable->call(this, arguments);
 //    if(callee.as.object->type == ObjectType::OBJECT_CALLABLE){
@@ -689,7 +720,7 @@ void Interpreter::collectGarbage() {
 #endif
     sweep();
 
-    nextGC = bytesAllocated * 2;
+//    nextGC = bytesAllocated * 2;
 
 #if DEBUG_LOG_GC == 2
     std::wcout << L"bk: ---------- gc end -----------\n" << std::endl;
@@ -829,8 +860,10 @@ RuntimeError *Interpreter::reallocateError(RuntimeError *error) {
         handledError = new WrongBinaryOperandTypes(*dynamic_cast<WrongBinaryOperandTypes *>(error));
     } else if (dynamic_cast<InvalidCall *>(error) != nullptr) {
         handledError = new InvalidCall(*dynamic_cast<InvalidCall *>(error));
-    } else if (dynamic_cast<InvalidArgumentCount *>(error) != nullptr) {
-        handledError = new InvalidArgumentCount(*dynamic_cast<InvalidArgumentCount *>(error));
+    } else if (dynamic_cast<TooManyArguments *>(error) != nullptr) {
+        handledError = new TooManyArguments(*dynamic_cast<TooManyArguments *>(error));
+    } else if (dynamic_cast<TooFewArguments *>(error) != nullptr){
+        handledError = new TooFewArguments(*dynamic_cast<TooFewArguments *>(error));
     } else if (dynamic_cast<UndeclaredVariable *>(error) != nullptr) {
         handledError = new UndeclaredVariable(*dynamic_cast<UndeclaredVariable *>(error));
     } else if (dynamic_cast<VariableRedeclaration *>(error) != nullptr) {

@@ -24,12 +24,15 @@
 #include "ConstReassignment.h"
 #include "InvalidLValue.h"
 #include "InvalidCall.h"
-#include "InvalidArgumentCount.h"
+#include "TooManyArguments.h"
+#include "TooFewArguments.h"
 #include "InvalidReturnPosition.h"
 #include "SelfReferencingInitializer.h"
 #include "IndexOutOfBounds.h"
 #include "NonIntegerIndex.h"
 #include "IndexingNonArray.h"
+#include "InvalidDefaultParameterPosition.h"
+#include "InvalidDefaultParameterValue.h"
 
 typedef std::pair<std::pair<int, int>, std::wstring> colorHighlight;
 
@@ -113,9 +116,12 @@ private:
     void printConstReassignmentError(const ConstReassignment* error);
     void printInvalidLValue(const InvalidLValue* error);
     void printInvalidCallError(const InvalidCall* error);
-    void printInvalidArgumentCountError(const InvalidArgumentCount* error);
+    void printTooManyArgumentsError(const TooManyArguments* error);
+    void printTooFewArgumentsError(const TooFewArguments* error);
     void printInvalidReturnPositionError(const InvalidReturnPosition* error);
     void printSelfReferencingInitializerError(const SelfReferencingInitializer* error);
+    void printInvalidDefaultParameterPositionError(const InvalidDefaultParameterPosition* error);
+    void printInvalidDefaultParameterValueError(const InvalidDefaultParameterValue* error);
 };
 
 

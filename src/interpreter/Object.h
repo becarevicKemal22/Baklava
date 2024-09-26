@@ -47,6 +47,8 @@ struct ObjectString {
 struct ObjectCallable {
     Object obj;
     size_t arity;
+    size_t minArity;
+    std::vector<RuntimeValue> defaultArguments; // refers to optional arguments and their values
     std::function<RuntimeValue(Interpreter*, const std::vector<RuntimeValue>&)> call;
 };
 
@@ -65,6 +67,7 @@ struct ObjectFunction : public ObjectCallable {
     explicit ObjectFunction(FunctionDeclarationStatement* declaration, Environment* closure) : declaration(declaration){
         obj.type = ObjectType::OBJECT_FUNCTION;
         arity = declaration->parameters.size();
+        minArity = arity - declaration->defaultParameters.size();
         this->closure = *closure;
         call = [this](auto && PH1, auto && PH2) { return functionCall(std::forward<decltype(PH1)>(PH1), std::forward<decltype(PH2)>(PH2)); };
     }

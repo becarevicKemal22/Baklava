@@ -2,6 +2,8 @@ cmake_minimum_required(VERSION 3.25)
 project(Baklava)
 
 set(CMAKE_CXX_STANDARD 20)
+set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -DNDEBUG")
+set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -DDEBUG") # This was put here to disable the assert which checks native functions for disparities between expected default argument count and actual defaultArgument vector
 
 include_directories("src/interpreter/controlFlowExceptions" "src/lexer" "src/error" "src/error/exceptions/parser" "src/error/printer" "src/parser" "src/parser/ast/" "src/parser/ast/expressions" "src/parser/ast/statements" "src/interpreter/" "src/interpreter/runtimeValues" "src/error/exceptions" "src/interpreter/nativeFunctions" )
 add_executable(baklava main.cpp
@@ -62,7 +64,7 @@ add_executable(baklava main.cpp
         src/parser/ast/expressions/CallExpression.h
         src/parser/ast/statements/FunctionDeclarationStatement.h
         src/error/exceptions/InvalidCall.h
-        src/error/exceptions/InvalidArgumentCount.h
+        src/error/exceptions/TooManyArguments.h
         src/parser/ast/statements/ReturnStatement.h
         src/parser/Resolver.cpp
         src/parser/Resolver.h
@@ -79,6 +81,9 @@ add_executable(baklava main.cpp
         src/interpreter/nativeFunctions/NativeFunction.h
         src/interpreter/nativeFunctions/NativeFunction.cpp
         src/error/printer/isOutputANSICompatible.cpp
+        src/error/exceptions/TooFewArguments.h
+        src/error/exceptions/parser/InvalidDefaultParameterPosition.h
+        src/error/exceptions/parser/InvalidDefaultParameterValue.h
 )
 
 add_subdirectory(tests)

@@ -11,13 +11,14 @@
 
 class FunctionDeclarationStatement : public Statement {
 public:
-    FunctionDeclarationStatement(TokenPtr name, std::vector<TokenPtr> parameters, std::vector<StmtPtr> body)
-            : name(name), parameters(parameters), body(body) {
+    FunctionDeclarationStatement(TokenPtr name, std::vector<TokenPtr> parameters, std::vector<StmtPtr> body, std::vector<ExprPtr> defaultParameters)
+            : name(name), parameters(parameters), body(body), defaultParameters(defaultParameters){
         type = AstNodeType::FunctionDeclarationStatement;
     }
 
     TokenPtr name;
     std::vector<TokenPtr> parameters;
+    std::vector<ExprPtr> defaultParameters;
     std::vector<StmtPtr> body;
 };
 

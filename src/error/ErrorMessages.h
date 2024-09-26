@@ -35,9 +35,12 @@ const std::unordered_map<int , std::wstring> ERRORMESSAGES = {
         {ERROR_EXPECTED_EXPRESSION_AT_START, L"Očekivan izraz prije '{}'."},
         {ERROR_INVALID_LVALUE,               L"Nedozvoljena l-vrijednost '{}'."},
         {ERROR_INVALID_CALL,                 L"Nedozvoljen poziv tipa '{}'. Moguće je pozivati samo funkcije."},
-        {ERROR_INVALID_ARGUMENT_COUNT,       L"Nedozvoljen broj argumenata. Očekivano {}, dobiveno {}."},
+        {ERROR_TOO_MANY_ARGUMENTS,           L"Nedozvoljen broj argumenata. Očekivano {}, proslijeđeno {}."},
+        {ERROR_TOO_FEW_ARGUMENTS,           L"Nedozvoljen broj argumenata. Nedostaje '{}' obaveznih argumenata."},
         {ERROR_INVALID_RETURN_POSITION,      L"Izjava 'vrati' ne smije se nalaziti izvan tijela funkcije."},
         {ERROR_SELF_REFERENCING_INITIALIZER, L"Varijabla '{}' ne može se inicijalizirati sama sobom."},
+        {ERROR_INVALID_DEFAULT_PARAMETER_POSITION, L"Podrazumjevani parametri ne smiju se nalaziti prije obaveznih parametara."},
+        {ERROR_INVALID_DEFAULT_PARAMETER_VALUE, L"Vrijednost podrazumjevanog parametra mora biti literal."},
 
         // 4xx
         {ERROR_WRONG_TYPE_OPERAND,           L"Tip '{}' nije dozvoljen za operator '{}'."},
