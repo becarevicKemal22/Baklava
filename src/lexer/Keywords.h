@@ -19,6 +19,8 @@ const std::unordered_map<std::wstring, TokenType> KEYWORDS = {
         {L"ako",      TokenType::If},
         {L"inače",    TokenType::Else},
         {L"inace",    TokenType::Else}, // double
+        {L"onda",    TokenType::Then},
+        {L"je",    TokenType::Is},
         {L"dok",      TokenType::While},
         {L"za",       TokenType::For},
         {L"tačno",    TokenType::True},

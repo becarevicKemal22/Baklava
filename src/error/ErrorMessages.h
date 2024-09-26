@@ -34,7 +34,7 @@ const std::unordered_map<int , std::wstring> ERRORMESSAGES = {
         {ERROR_CONST_REASSIGNMENT,           L"Nedozvoljeno dodjeljivanje vrijednosti konstanti '{}'."},
         {ERROR_EXPECTED_EXPRESSION_AT_START, L"Očekivan izraz prije '{}'."},
         {ERROR_INVALID_LVALUE,               L"Nedozvoljena l-vrijednost '{}'."},
-        {ERROR_INVALID_CALL,                 L"Nedozvoljen poziv tipa '{}'. Moguće je pozivati samo funkcije."},
+        {ERROR_INVALID_CALL,                 L"Nedozvoljen poziv nad tipom '{}'. Moguće je pozivati samo funkcije."},
         {ERROR_TOO_MANY_ARGUMENTS,           L"Nedozvoljen broj argumenata. Očekivano {}, proslijeđeno {}."},
         {ERROR_TOO_FEW_ARGUMENTS,           L"Nedozvoljen broj argumenata. Nedostaje '{}' obaveznih argumenata."},
         {ERROR_INVALID_RETURN_POSITION,      L"Izjava 'vrati' ne smije se nalaziti izvan tijela funkcije."},

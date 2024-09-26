@@ -123,13 +123,36 @@ std::vector<Statement*> Parser::block() {
 }
 
 Statement* Parser::ifStatement(){
-    if(!atType(TokenType::OpenParenthesis)){
-        throw ExpectedXBeforeY(L"(", previous(), at());
+    bool hasIs = false;
+    TokenPtr isToken = nullptr;
+    if(atType(TokenType::Is)){
+        advance();
+        hasIs = true;
+        isToken = previous();
     }
-    advance();
+//    if(!atType(TokenType::OpenParenthesis)){
+//        throw ExpectedXBeforeY(L"(", previous(), at());
+//    }
+//    advance();
     ExprPtr condition = expression();
-    if(!atType(TokenType::ClosedParenthesis)){
-        throw ExpectedXBeforeY(L")", previous(), at());
+    if(!atType(TokenType::Then) && hasIs){
+        ExprPtr literal;
+        try{
+            literal = primaryExpression();
+        }catch(ExpectedXBeforeY& e){
+            if(!atType(TokenType::Then)){
+                throw ExpectedXBeforeY(L"onda", previous(), at());
+            }
+            throw;
+        }
+        if((literal->type != AstNodeType::BooleanLiteralExpression) && (literal->type != AstNodeType::NullLiteralExpression)){
+            throw ExpectedXBeforeY(L"onda", getMostRelevantToken(condition), previous());
+        }
+        isToken->type = TokenType::DoubleEqual; // Required so that in testing this appears as a equality operator, but I can't create a new token becuase I don't have the position and it doesn't exist anyway. So the is token is used in case an error needs to be printed, and the type is changed for testing, maybe its required somewhere else as well idk.
+        condition = new BinaryExpression(condition, isToken, literal);
+    }
+    if(!atType(TokenType::Then)){
+        throw ExpectedXBeforeY(L"onda", previous(), at());
     }
     advance();
 

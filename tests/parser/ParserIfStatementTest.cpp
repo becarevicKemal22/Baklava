@@ -14,7 +14,7 @@
 #include "NumericLiteralExpression.h"
 
 TEST_CASE("Parses basic if statement", "[parser][controlFlow]") {
-    std::wstring source = L"ako (tačno) { ispiši 1; }";
+    std::wstring source = L"ako tacno onda { ispiši 1; }";
     Lexer lexer(source);
     lexer.tokenize();
     Parser parser(lexer.tokens);
@@ -33,7 +33,7 @@ TEST_CASE("Parses basic if statement", "[parser][controlFlow]") {
 }
 
 TEST_CASE("Parses if without block", "[parser][controlFlow]") {
-    std::wstring source = L"ako (tačno) ispiši 1; ispiši 2;";
+    std::wstring source = L"ako tačno onda ispiši 1; ispiši 2;";
     Lexer lexer(source);
     lexer.tokenize();
     Parser parser(lexer.tokens);
@@ -54,7 +54,7 @@ TEST_CASE("Parses if without block", "[parser][controlFlow]") {
 }
 
 TEST_CASE("Parses if with else", "[parser][controlFlow]") {
-    std::wstring source = L"ako (tačno) ispiši 1; inače ispiši 2;";
+    std::wstring source = L"ako tačno onda ispiši 1; inače ispiši 2;";
     Lexer lexer(source);
     lexer.tokenize();
     Parser parser(lexer.tokens);
@@ -75,7 +75,7 @@ TEST_CASE("Parses if with else", "[parser][controlFlow]") {
 }
 
 TEST_CASE("Parses if-else-if-else statement", "[parser][controlFlow]"){
-    std::wstring source = L"ako (tačno) ispiši 1; inače ako (tačno) ispiši 2; inače ispiši 3;";
+    std::wstring source = L"ako tačno onda ispiši 1; inače ako tačno onda ispiši 2; inače ispiši 3;";
     Lexer lexer(source);
     lexer.tokenize();
     Parser parser(lexer.tokens);
@@ -104,7 +104,7 @@ TEST_CASE("Parses if-else-if-else statement", "[parser][controlFlow]"){
 }
 
 TEST_CASE("Ties else to nearest if statement", "[parser][controlFlow]"){
-    std::wstring source = L"ako (tačno) ako(tačno) ispiši 1; inače ispiši 2;";
+    std::wstring source = L"ako tačno onda ako tačno onda ispiši 1; inače ispiši 2;";
     Lexer lexer(source);
     lexer.tokenize();
     Parser parser(lexer.tokens);
@@ -128,34 +128,94 @@ TEST_CASE("Ties else to nearest if statement", "[parser][controlFlow]"){
     REQUIRE(literal->value == 2);
 }
 
+TEST_CASE("Allows 'is' keyword when to help with readability", "[parser][controlFlow]") {
+    std::wstring source = L"ako je a == tačno onda ispiši 1; inače ako je a == 5 onda ispiši 2;";
+    Lexer lexer(source);
+    lexer.tokenize();
+    Parser parser(lexer.tokens);
+    auto program = parser.parse();
+    REQUIRE(program->statements.size() == 1);
+    auto ifStatement = getNode<IfStatement>(program->statements[0]);
+    auto condition = getNode<BinaryExpression>(ifStatement->condition);
+    REQUIRE(condition->op->type == TokenType::DoubleEqual);
+    REQUIRE(condition->left->type == AstNodeType::VariableExpression);
+    REQUIRE(condition->right->type == AstNodeType::BooleanLiteralExpression);
+    REQUIRE(ifStatement->thenBranch->type == AstNodeType::PrintStatement);
+    REQUIRE(ifStatement->elseBranch->type == AstNodeType::IfStatement);
+    auto elseIfStatement = getNode<IfStatement>(ifStatement->elseBranch);
+    condition = getNode<BinaryExpression>(elseIfStatement->condition);
+    REQUIRE(condition->op->type == TokenType::DoubleEqual);
+    REQUIRE(condition->left->type == AstNodeType::VariableExpression);
+    REQUIRE(condition->right->type == AstNodeType::NumericLiteralExpression);
+    REQUIRE(elseIfStatement->thenBranch->type == AstNodeType::PrintStatement);
+}
+
+TEST_CASE("Assumes equality operator when 'je' is used (boolean literal)", "[parser][controlFlow]") {
+    std::wstring source = L"ako je a tačno onda ispiši 1;";
+    Lexer lexer(source);
+    lexer.tokenize();
+    Parser parser(lexer.tokens);
+    auto program = parser.parse();
+    REQUIRE(program->statements.size() == 1);
+    auto ifStatement = getNode<IfStatement>(program->statements[0]);
+    auto condition = getNode<BinaryExpression>(ifStatement->condition);
+    REQUIRE(condition->op->type == TokenType::DoubleEqual);
+    REQUIRE(condition->left->type == AstNodeType::VariableExpression);
+    REQUIRE(condition->right->type == AstNodeType::BooleanLiteralExpression);
+    REQUIRE(ifStatement->thenBranch->type == AstNodeType::PrintStatement);
+}
+
+TEST_CASE("Does not assume equality operator when 'je' is used (numeric literal)", "[parser][controlFlow]") {
+    std::wstring source = L"ako je a + 2 5 onda ispiši 1;";
+    Lexer lexer(source);
+    lexer.tokenize();
+    Parser parser(lexer.tokens);
+    REQUIRE_THROWS_AS(parser.parse(), ExpectedXBeforeY);
+}
+
+TEST_CASE("Assumes equality operator when 'je' is used (null literal)", "[parser][controlFlow]") {
+    std::wstring source = L"ako je poziv() null onda ispiši 1;";
+    Lexer lexer(source);
+    lexer.tokenize();
+    Parser parser(lexer.tokens);
+    auto program = parser.parse();
+    REQUIRE(program->statements.size() == 1);
+    auto ifStatement = getNode<IfStatement>(program->statements[0]);
+    auto condition = getNode<BinaryExpression>(ifStatement->condition);
+    REQUIRE(condition->op->type == TokenType::DoubleEqual);
+    REQUIRE(condition->left->type == AstNodeType::CallExpression);
+    REQUIRE(condition->right->type == AstNodeType::NullLiteralExpression);
+    REQUIRE(ifStatement->thenBranch->type == AstNodeType::PrintStatement);
+}
+
 TEST_CASE("Throws error if no condition in if statement", "[parser][controlFlow]") {
-    std::wstring source = L"ako (){ ispiši 1; }";
+    std::wstring source = L"ako onda{ ispiši 1; }";
     Lexer lexer(source);
     lexer.tokenize();
     Parser parser(lexer.tokens);
     REQUIRE_THROWS_AS(parser.parse(), ExpectedXBeforeY);
 }
 
-TEST_CASE("Throws error on no beginning parenthesis", "[parser][controlFlow]") {
-    std::wstring source = L"ako tačno) { ispiši 1; }";
+TEST_CASE("Throws error on missing 'then'", "[parser][controlFlow]") {
+    std::wstring source = L"ako tačno { ispiši 1; }";
     Lexer lexer(source);
     lexer.tokenize();
     Parser parser(lexer.tokens);
     REQUIRE_THROWS_AS(parser.parse(), ExpectedXBeforeY);
 }
 
-TEST_CASE("Throws error on no closing parenthesis", "[parser][controlFlow]") {
-    std::wstring source = L"ako (tačno { ispiši 1; }";
-    Lexer lexer(source);
-    lexer.tokenize();
-    Parser parser(lexer.tokens);
-    REQUIRE_THROWS_AS(parser.parse(), ExpectedXBeforeY);
-}
+//TEST_CASE("Throws error on no closing parenthesis", "[parser][controlFlow]") {
+//    std::wstring source = L"ako (tačno { ispiši 1; }";
+//    Lexer lexer(source);
+//    lexer.tokenize();
+//    Parser parser(lexer.tokens);
+//    REQUIRE_THROWS_AS(parser.parse(), ExpectedXBeforeY);
+//}
 
-TEST_CASE("Throws error on no then branch", "[parser][controlFlow]") {
-    std::wstring source = L"ako (tačno) ";
-    Lexer lexer(source);
-    lexer.tokenize();
-    Parser parser(lexer.tokens);
-    REQUIRE_THROWS_AS(parser.parse(), ExpectedXBeforeY);
-}
+//TEST_CASE("Throws error on no then branch", "[parser][controlFlow]") {
+//    std::wstring source = L"ako (tačno) ";
+//    Lexer lexer(source);
+//    lexer.tokenize();
+//    Parser parser(lexer.tokens);
+//    REQUIRE_THROWS_AS(parser.parse(), ExpectedXBeforeY);
+//}
