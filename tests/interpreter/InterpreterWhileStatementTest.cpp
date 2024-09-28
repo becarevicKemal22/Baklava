@@ -19,14 +19,14 @@ TEST_CASE("Executes while loop", "[interpreter][controlFlow]") {
 }
 
 TEST_CASE("Does not execute on initial false condition", "[interpreter][controlFlow]") {
-    std::wstring source = L"dok (netačno) { ispiši 1; }";
+    std::wstring source = L"dok netačno { ispiši 1; }";
     Interpreter interpreter;
-    interpreter.interpret(parseSource(source).get());
+    REQUIRE_NOTHROW(interpreter.interpret(parseSource(source).get()));
     REQUIRE(interpreter.printHistory.empty());
 }
 
 TEST_CASE("Executes while loop without block", "[interpreter][controlFlow]") {
-    std::wstring source = L"var x = 0; dok (x < 10) x = x + 1; ispiši x;";
+    std::wstring source = L"var x = 0; dok je x manje od 10 ponavljaj x = x + 1; ispiši x;"; // testing new type of syntax as well
     Interpreter interpreter;
     interpreter.interpret(parseSource(source).get());
     REQUIRE(interpreter.printHistory.size() == 1);

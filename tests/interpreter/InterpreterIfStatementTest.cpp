@@ -62,3 +62,14 @@ TEST_CASE("Executes shorthand if statement with 'je' 3", "[interpreter][controlF
     REQUIRE(interpreter.printHistory.size() == 1);
     REQUIRE(interpreter.printHistory[0].as.number == 2);
 }
+
+TEST_CASE("Supports old way of writing if statements", "[interpreter][controlFlow]") {
+    std::wstring source = L"var a = 5;"
+                          "var b = 10; "
+                          "ako (a > b) { ispiši 1; }"
+                          "inace ako (b > a){ ispiši 2; }";
+    Interpreter interpreter;
+    interpreter.interpret(parseSource(source).get());
+    REQUIRE(interpreter.printHistory.size() == 1);
+    REQUIRE(interpreter.printHistory[0].as.number == 2);
+}

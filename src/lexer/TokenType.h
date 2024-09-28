@@ -59,6 +59,7 @@ enum class TokenType : uint8_t {
     For,
     Function,
     Return,
+    Repeat,
     // New syntax keywords
     Jednako,
     Nije,
