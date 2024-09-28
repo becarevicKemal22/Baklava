@@ -96,5 +96,7 @@ add_executable(tests ../src/error/printer/ErrorPrinter.cpp ../src/lexer/Lexer.cp
         ../src/error/exceptions/parser/InvalidDefaultParameterPosition.h
         ../src/error/exceptions/parser/InvalidDefaultParameterValue.h
         interpreter/InterpreterDefaultParameterTest.cpp
+        lexer/LexerKeywordToSymbolTest.cpp
+        ../src/lexer/KeywordCombinations.h
 )
 target_link_libraries(tests PRIVATE Catch2::Catch2WithMain)

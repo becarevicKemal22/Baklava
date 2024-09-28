@@ -108,10 +108,10 @@ TEST_CASE("Declares function outside block and calls inside block", "[interprete
 
 TEST_CASE("Closure test", "[interpreter][function]") {
     std::wstring source = L"funkcija makeCounter(){\n"
-                          "    var i = 0;\n"
+                          "    var j = 0;\n"
                           "    funkcija count(){\n"
-                          "        i = i + 1;\n"
-                          "        vrati i;\n"
+                          "        j = j + 1;\n"
+                          "        vrati j;\n"
                           "    }\n"
                           "    vrati count;\n"
                           "}\n"

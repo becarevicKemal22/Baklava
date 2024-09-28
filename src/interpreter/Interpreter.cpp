@@ -377,7 +377,7 @@ RuntimeValue Interpreter::evaluateBinaryExpression(BinaryExpression *expr) {
             throw WrongBinaryOperandTypes(L"<=", left, right, expr);
         case TokenType::DoubleEqual:
             return {ValueType::Boolean, {.boolean = isEqual(left, right)}};
-        case TokenType::BangEqual:
+        case TokenType::NotEqual:
             return {ValueType::Boolean, {.boolean = !isEqual(left, right)}};
     }
     throw std::runtime_error("Unknown binary operator type!");

@@ -49,3 +49,14 @@ Expression* parseSingleExpression(const std::wstring& source){
 Token* makeToken(TokenType type, const std::wstring& lexeme){
     return new Token(type, lexeme, 0, 0);
 }
+
+void checkToken(const Token* token, TokenType type, const std::wstring& value){
+    CHECK(token->type == type);
+    CHECK(token->value == value);
+}
+
+void checkToken(const Token* token, TokenType type, const std::wstring& value, unsigned int line, unsigned int charIndexOnLine){
+    checkToken(token, type, value);
+    CHECK(token->line == line);
+    CHECK(token->offset == charIndexOnLine);
+}

@@ -33,4 +33,7 @@ std::unique_ptr<Program> parseSource(const std::wstring& source);
 Expression* parseSingleExpression(const std::wstring& source);
 Token* makeToken(TokenType type, const std::wstring& lexeme);
 
+void checkToken(const Token* token, TokenType type, const std::wstring& value);
+void checkToken(const Token* token, TokenType type, const std::wstring& value, unsigned int line, unsigned int charIndexOnLine);
+
 #endif //BAKLAVA_TESTHELPERS_H

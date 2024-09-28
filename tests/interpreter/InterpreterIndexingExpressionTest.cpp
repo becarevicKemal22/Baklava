@@ -36,7 +36,7 @@ TEST_CASE("Creates and accesses array with expressions", "[interpreter][indexing
 }
 
 TEST_CASE("Creates and accesses array with variable", "[interpreter][indexing][array]") {
-    std::wstring source = L"var a = [1, 2, 3]; var i = 1; ispiši a[i];";
+    std::wstring source = L"var a = [1, 2, 3]; var j = 1; ispiši a[j];";
     Interpreter interpreter;
     std::unique_ptr<Program> program = parseSource(source);
     Resolver resolver(&interpreter);

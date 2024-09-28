@@ -34,6 +34,18 @@ const std::unordered_map<std::wstring, TokenType> KEYWORDS = {
         {L"konst",    TokenType::Const},
         {L"funkcija", TokenType::Function},
         {L"vrati",    TokenType::Return},
+
+        // new syntax additions
+        {L"i",        TokenType::I},
+        {L"ili",      TokenType::Ili},
+        {L"manje",    TokenType::Manje},
+        {L"veće",     TokenType::Vece},
+        {L"vece",     TokenType::Vece},
+        {L"jednako",  TokenType::Jednako},
+        {L"od",       TokenType::Od},
+        {L"nije",     TokenType::Nije},
+        {L"različito",TokenType::Razlicito},
+        {L"razlicito",TokenType::Razlicito},
 };
 
 #endif //BAKLAVA_KEYWORDS_H

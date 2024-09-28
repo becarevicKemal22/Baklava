@@ -58,7 +58,7 @@ TEST_CASE("Modifies matrix index with expressions", "[interpreter][indexAssignme
 }
 
 TEST_CASE("Modifies array index with variable", "[interpreter][indexAssignment][array]") {
-    std::wstring source = L"var a = [1, 2, 3]; var i = 1; a[i] = 5; ispiši a[1];";
+    std::wstring source = L"var a = [1, 2, 3]; var j = 1; a[j] = 5; ispiši a[1];";
     Interpreter interpreter;
     std::unique_ptr<Program> program = parseSource(source);
     Resolver resolver(&interpreter);
@@ -69,7 +69,7 @@ TEST_CASE("Modifies array index with variable", "[interpreter][indexAssignment][
 }
 
 TEST_CASE("Modifies matrix index with variable", "[interpreter][indexAssignment][array]") {
-    std::wstring source = L"var a = [[1, 2], [3, 4]]; var i = 1; a[i][0] = 5; ispiši a[1][0];";
+    std::wstring source = L"var a = [[1, 2], [3, 4]]; var j = 1; a[j][0] = 5; ispiši a[1][0];";
     Interpreter interpreter;
     std::unique_ptr<Program> program = parseSource(source);
     Resolver resolver(&interpreter);

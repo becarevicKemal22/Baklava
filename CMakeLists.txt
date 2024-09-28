@@ -84,6 +84,7 @@ add_executable(baklava main.cpp
         src/error/exceptions/TooFewArguments.h
         src/error/exceptions/parser/InvalidDefaultParameterPosition.h
         src/error/exceptions/parser/InvalidDefaultParameterValue.h
+        src/lexer/KeywordCombinations.h
 )
 
 add_subdirectory(tests)

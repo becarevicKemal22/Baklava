@@ -19,7 +19,7 @@
 #include "../TestHelpers.h"
 
 TEST_CASE("Parses empty for loop", "[parser][controlFlow]") {
-    std::wstring source = L"za (var i = 0; i < 10; i = i + 1) { }";
+    std::wstring source = L"za (var j = 0; j < 10; j = j + 1) { }";
     Lexer lexer(source);
     lexer.tokenize();
     Parser parser(lexer.tokens);
@@ -29,14 +29,14 @@ TEST_CASE("Parses empty for loop", "[parser][controlFlow]") {
     auto mainBlock = getNode<BlockStatement>(program->statements[0]);
     REQUIRE(mainBlock->statements.size() == 2);
     auto initializerDeclaration = getNode<VarDeclarationStatement>(mainBlock->statements[0]);
-    REQUIRE(initializerDeclaration->name->value == L"i");
+    REQUIRE(initializerDeclaration->name->value == L"j");
     auto initialValue = getNode<NumericLiteralExpression>(initializerDeclaration->initializer);
     REQUIRE(initialValue->value == 0);
     auto forLoop = getNode<WhileStatement>(mainBlock->statements[1]);
     auto condition = getNode<BinaryExpression>(forLoop->condition);
     REQUIRE(condition->op->type == TokenType::Less);
     auto left = getNode<VariableExpression>(condition->left);
-    REQUIRE(left->name->value == L"i");
+    REQUIRE(left->name->value == L"j");
     auto right = getNode<NumericLiteralExpression>(condition->right);
     REQUIRE(right->value == 10);
     auto loopBlock = getNode<BlockStatement>(forLoop->body);
@@ -44,15 +44,15 @@ TEST_CASE("Parses empty for loop", "[parser][controlFlow]") {
     auto loopBlockStatement = getNode<BlockStatement>(loopBlock->statements[0]);
     REQUIRE(loopBlockStatement->statements.size() == 0);
     auto increment = getNode<AssignmentExpression>(loopBlock->statements[1]);
-    REQUIRE(increment->name->value == L"i");
+    REQUIRE(increment->name->value == L"j");
     auto incrementValue = getNode<BinaryExpression>(increment->value);
     REQUIRE(incrementValue->op->type == TokenType::Plus);
-    REQUIRE(getNode<VariableExpression>(incrementValue->left)->name->value == L"i");
+    REQUIRE(getNode<VariableExpression>(incrementValue->left)->name->value == L"j");
     REQUIRE(getNode<NumericLiteralExpression>(incrementValue->right)->value == 1);
 }
 
 TEST_CASE("Parses for loop with multiple statements", "[parser][controlFlow]") {
-    std::wstring source = L"za (var i = 0; i < 10; i = i + 1) { var x = 0; }";
+    std::wstring source = L"za (var j = 0; j < 10; j = j + 1) { var x = 0; }";
     Lexer lexer(source);
     lexer.tokenize();
     Parser parser(lexer.tokens);
@@ -62,14 +62,14 @@ TEST_CASE("Parses for loop with multiple statements", "[parser][controlFlow]") {
     auto mainBlock = getNode<BlockStatement>(program->statements[0]);
     REQUIRE(mainBlock->statements.size() == 2);
     auto initializerDeclaration = getNode<VarDeclarationStatement>(mainBlock->statements[0]);
-    REQUIRE(initializerDeclaration->name->value == L"i");
+    REQUIRE(initializerDeclaration->name->value == L"j");
     auto initialValue = getNode<NumericLiteralExpression>(initializerDeclaration->initializer);
     REQUIRE(initialValue->value == 0);
     auto forLoop = getNode<WhileStatement>(mainBlock->statements[1]);
     auto condition = getNode<BinaryExpression>(forLoop->condition);
     REQUIRE(condition->op->type == TokenType::Less);
     auto left = getNode<VariableExpression>(condition->left);
-    REQUIRE(left->name->value == L"i");
+    REQUIRE(left->name->value == L"j");
     auto right = getNode<NumericLiteralExpression>(condition->right);
     REQUIRE(right->value == 10);
     auto loopBlock = getNode<BlockStatement>(forLoop->body);
@@ -80,15 +80,15 @@ TEST_CASE("Parses for loop with multiple statements", "[parser][controlFlow]") {
     REQUIRE(innerDeclaration->name->value == L"x");
     REQUIRE(getNode<NumericLiteralExpression>(innerDeclaration->initializer)->value == 0);
     auto increment = getNode<AssignmentExpression>(loopBlock->statements[1]);
-    REQUIRE(increment->name->value == L"i");
+    REQUIRE(increment->name->value == L"j");
     auto incrementValue = getNode<BinaryExpression>(increment->value);
     REQUIRE(incrementValue->op->type == TokenType::Plus);
-    REQUIRE(getNode<VariableExpression>(incrementValue->left)->name->value == L"i");
+    REQUIRE(getNode<VariableExpression>(incrementValue->left)->name->value == L"j");
     REQUIRE(getNode<NumericLiteralExpression>(incrementValue->right)->value == 1);
 }
 
 TEST_CASE("Parses for loop without initializer", "[parser][controlFlow]") {
-    std::wstring source = L"za (; i < 10; i = i + 1) { }";
+    std::wstring source = L"za (; j < 10; j = j + 1) { }";
     Lexer lexer(source);
     lexer.tokenize();
     Parser parser(lexer.tokens);
@@ -99,7 +99,7 @@ TEST_CASE("Parses for loop without initializer", "[parser][controlFlow]") {
     auto condition = getNode<BinaryExpression>(whileStatement->condition);
     REQUIRE(condition->op->type == TokenType::Less);
     auto left = getNode<VariableExpression>(condition->left);
-    REQUIRE(left->name->value == L"i");
+    REQUIRE(left->name->value == L"j");
     auto right = getNode<NumericLiteralExpression>(condition->right);
     REQUIRE(right->value == 10);
     auto loopBlock = getNode<BlockStatement>(whileStatement->body);
@@ -107,15 +107,15 @@ TEST_CASE("Parses for loop without initializer", "[parser][controlFlow]") {
     auto loopBlockStatement = getNode<BlockStatement>(loopBlock->statements[0]);
     REQUIRE(loopBlockStatement->statements.size() == 0);
     auto increment = getNode<AssignmentExpression>(loopBlock->statements[1]);
-    REQUIRE(increment->name->value == L"i");
+    REQUIRE(increment->name->value == L"j");
     auto incrementValue = getNode<BinaryExpression>(increment->value);
     REQUIRE(incrementValue->op->type == TokenType::Plus);
-    REQUIRE(getNode<VariableExpression>(incrementValue->left)->name->value == L"i");
+    REQUIRE(getNode<VariableExpression>(incrementValue->left)->name->value == L"j");
     REQUIRE(getNode<NumericLiteralExpression>(incrementValue->right)->value == 1);
 }
 
 TEST_CASE("Parses for loop without condition", "[parser][controlFlow]") {
-    std::wstring source = L"za (var i = 0; ; i = i + 1) { }";
+    std::wstring source = L"za (var j = 0; ; j = j + 1) { }";
     Lexer lexer(source);
     lexer.tokenize();
     Parser parser(lexer.tokens);
@@ -125,7 +125,7 @@ TEST_CASE("Parses for loop without condition", "[parser][controlFlow]") {
     auto mainBlock = getNode<BlockStatement>(program->statements[0]);
     REQUIRE(mainBlock->statements.size() == 2);
     auto initializerDeclaration = getNode<VarDeclarationStatement>(mainBlock->statements[0]);
-    REQUIRE(initializerDeclaration->name->value == L"i");
+    REQUIRE(initializerDeclaration->name->value == L"j");
     auto initialValue = getNode<NumericLiteralExpression>(initializerDeclaration->initializer);
     REQUIRE(initialValue->value == 0);
     auto forLoop = getNode<WhileStatement>(mainBlock->statements[1]);
@@ -134,15 +134,15 @@ TEST_CASE("Parses for loop without condition", "[parser][controlFlow]") {
     auto loopBlock = getNode<BlockStatement>(forLoop->body);
     REQUIRE(loopBlock->statements.size() == 2);
     auto increment = getNode<AssignmentExpression>(loopBlock->statements[1]);
-    REQUIRE(increment->name->value == L"i");
+    REQUIRE(increment->name->value == L"j");
     auto incrementValue = getNode<BinaryExpression>(increment->value);
     REQUIRE(incrementValue->op->type == TokenType::Plus);
-    REQUIRE(getNode<VariableExpression>(incrementValue->left)->name->value == L"i");
+    REQUIRE(getNode<VariableExpression>(incrementValue->left)->name->value == L"j");
     REQUIRE(getNode<NumericLiteralExpression>(incrementValue->right)->value == 1);
 }
 
 TEST_CASE("Parses for loop without increment", "[parser][controlFlow]") {
-    std::wstring source = L"za (var i = 0; i < 10; ) { }";
+    std::wstring source = L"za (var j = 0; j < 10; ) { }";
     Lexer lexer(source);
     lexer.tokenize();
     Parser parser(lexer.tokens);
@@ -152,14 +152,14 @@ TEST_CASE("Parses for loop without increment", "[parser][controlFlow]") {
     auto mainBlock = getNode<BlockStatement>(program->statements[0]);
     REQUIRE(mainBlock->statements.size() == 2);
     auto initializerDeclaration = getNode<VarDeclarationStatement>(mainBlock->statements[0]);
-    REQUIRE(initializerDeclaration->name->value == L"i");
+    REQUIRE(initializerDeclaration->name->value == L"j");
     auto initialValue = getNode<NumericLiteralExpression>(initializerDeclaration->initializer);
     REQUIRE(initialValue->value == 0);
     auto forLoop = getNode<WhileStatement>(mainBlock->statements[1]);
     auto condition = getNode<BinaryExpression>(forLoop->condition);
     REQUIRE(condition->op->type == TokenType::Less);
     auto left = getNode<VariableExpression>(condition->left);
-    REQUIRE(left->name->value == L"i");
+    REQUIRE(left->name->value == L"j");
     auto right = getNode<NumericLiteralExpression>(condition->right);
     REQUIRE(right->value == 10);
     auto loopBlock = getNode<BlockStatement>(forLoop->body);
@@ -182,7 +182,7 @@ TEST_CASE("Parses infinite for loop", "[parser][controlFlow]") {
 }
 
 TEST_CASE("Throws on no body", "[parser][controlFlow]") {
-    std::wstring source = L"za (var i = 0; i < 10; i = i + 1)";
+    std::wstring source = L"za (var j = 0; j < 10; j = j + 1)";
     Lexer lexer(source);
     lexer.tokenize();
     Parser parser(lexer.tokens);
@@ -190,7 +190,7 @@ TEST_CASE("Throws on no body", "[parser][controlFlow]") {
 }
 
 TEST_CASE("Throws on missing semicolon", "[parser][controlFlow]") {
-    std::wstring source = L"za (var i = 0 i < 10; i = i + 1) { }";
+    std::wstring source = L"za (var j = 0 j < 10; j = j + 1) { }";
     Lexer lexer(source);
     lexer.tokenize();
     Parser parser(lexer.tokens);
@@ -198,7 +198,7 @@ TEST_CASE("Throws on missing semicolon", "[parser][controlFlow]") {
 }
 
 TEST_CASE("Throws on missing semicolon after condition", "[parser][controlFlow]") {
-    std::wstring source = L"za (var i = 0; i < 10 i = i + 1) { }";
+    std::wstring source = L"za (var j = 0; j < 10 j = j + 1) { }";
     Lexer lexer(source);
     lexer.tokenize();
     Parser parser(lexer.tokens);
@@ -222,7 +222,7 @@ TEST_CASE("Throws on missing parentheses", "[parser][controlFlow]") {
 }
 
 TEST_CASE("Throws on missing closing parentheses", "[parser][controlFlow]") {
-    std::wstring source = L"za (var i = 0; i < 10; i = i + 1 { }";
+    std::wstring source = L"za (var j = 0; j < 10; j = j + 1 { }";
     Lexer lexer(source);
     lexer.tokenize();
     Parser parser(lexer.tokens);
@@ -230,7 +230,7 @@ TEST_CASE("Throws on missing closing parentheses", "[parser][controlFlow]") {
 }
 
 TEST_CASE("Throws on missing opening parentheses", "[parser][controlFlow]") {
-    std::wstring source = L"za var i = 0; i < 10; i = i + 1) { }";
+    std::wstring source = L"za var j = 0; j < 10; j = j + 1) { }";
     Lexer lexer(source);
     lexer.tokenize();
     Parser parser(lexer.tokens);

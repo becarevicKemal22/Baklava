@@ -31,7 +31,7 @@ enum class TokenType : uint8_t {
     Slash,
     Percent,
     Bang,
-    BangEqual,
+    NotEqual,
     Less,
     LessEqual,
     Greater,
@@ -59,6 +59,15 @@ enum class TokenType : uint8_t {
     For,
     Function,
     Return,
+    // New syntax keywords
+    Jednako,
+    Nije,
+    Razlicito,
+    Od,
+    Manje,
+    Vece,
+    I,
+    Ili,
 
     // End of file
     Eof

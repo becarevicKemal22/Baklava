@@ -36,13 +36,20 @@ void runFile(const char *path) {
     std::wstring source;
     loadFile(path, source);
     ErrorPrinter printer(source);
+    auto start = std::chrono::high_resolution_clock::now();
     Lexer lexer(source, &printer);
     try {
         lexer.tokenize();
     } catch (std::exception &e) {
         exit(0);
     }
+    auto end = std::chrono::high_resolution_clock::now();
+    std::chrono::duration<double> duration = end - start;
+    double duration_seconds = duration.count();
+    std::wcout << std::format(L"Elapsed time: {} seconds\n", duration_seconds);
+
     std::vector<Token *> tokens = lexer.tokens;
+    start = std::chrono::high_resolution_clock::now();
     Parser parser(tokens);
     std::unique_ptr<Program> program;
     try {
@@ -51,6 +58,10 @@ void runFile(const char *path) {
         printer.printParserError(&e);
         exit(0);
     }
+    end = std::chrono::high_resolution_clock::now();
+    duration = end - start;
+    duration_seconds = duration.count();
+    std::wcout << std::format(L"Elapsed time: {} seconds\n", duration_seconds);
 //    printAST(program);
     Interpreter interpreter(&printer);
     try {

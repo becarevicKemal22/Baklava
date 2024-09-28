@@ -333,7 +333,7 @@ ExprPtr Parser::logicalAndExpression() {
 
 ExprPtr Parser::equalityExpression() {
     ExprPtr expr = comparisonExpression();
-    while(match({TokenType::BangEqual, TokenType::DoubleEqual})){
+    while(match({TokenType::NotEqual, TokenType::DoubleEqual})){
         Token* op = previous();
         ExprPtr right = comparisonExpression();
         expr = new BinaryExpression(expr, op, right);
