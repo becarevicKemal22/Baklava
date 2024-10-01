@@ -222,6 +222,7 @@ void Interpreter::executeWhileStatement(WhileStatement *stmt) {
     while (isTruthy(evaluate(stmt->condition)) && !isReturning) {
         execute(stmt->body);
     }
+    return;
 }
 
 void Interpreter::executeFunctionDeclarationStatement(FunctionDeclarationStatement *stmt) {

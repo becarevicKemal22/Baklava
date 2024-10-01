@@ -29,7 +29,10 @@ void checkHandledError(Interpreter* interpreter){
     REQUIRE(error != nullptr);
 }
 
-std::unique_ptr<Program> parseSource(const std::wstring& source);
+std::unique_ptr<Program> parseSource(const std::wstring& source, Interpreter* interpreter);
+// This one is meant for parser tests, resolving is required for interpretation. The dumb naming scheme is becuase parseSource was used for all tests before, but now that one includes resolver, so this one is needed for parser tests that also used this function.
+// The resolver exclusion is there so i dont accidentally use the one without the resolver in interpreter tests.
+std::unique_ptr<Program> parseSourceNoResolver(const std::wstring& source);
 Expression* parseSingleExpression(const std::wstring& source);
 Token* makeToken(TokenType type, const std::wstring& lexeme);
 

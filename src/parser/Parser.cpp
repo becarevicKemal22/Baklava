@@ -200,46 +200,77 @@ Statement* Parser::whileStatement() {
 }
 
 Statement* Parser::forStatement() {
-    if(!atType(TokenType::OpenParenthesis)){
-        throw ExpectedXBeforeY(L"(", previous(), at());
+    if(!atType(TokenType::Each)){
+        throw ExpectedXBeforeY(L"svako", previous(), at());
     }
     advance();
-    StmtPtr initializer = nullptr;
-    if(match({TokenType::Var})){
-        initializer = varDeclarationStatement();
-    } else if(match({TokenType::Semicolon})){
-        initializer = nullptr;
-    } else {
-        initializer = expressionStatement();
-    }
-    ExprPtr condition = nullptr;
-    if(!atType(TokenType::Semicolon)){
-        condition = expression();
-    }
-    if(!atType(TokenType::Semicolon)){
-        throw ExpectedXBeforeY(L";", previous(), at());
+
+    if(!atType(TokenType::Identifier)){
+        throw ExpectedXBeforeY(L"identifikator", previous(), at());
     }
     advance();
-    ExprPtr increment = nullptr;
-    if(!atType(TokenType::ClosedParenthesis)){
-        increment = expression();
+    TokenPtr identifier = previous();
+
+    if(!atType(TokenType::Od)){
+        throw ExpectedXBeforeY(L"od", previous(), at());
     }
-    if(!atType(TokenType::ClosedParenthesis)){
-        throw ExpectedXBeforeY(L")", previous(), at());
-    }
+
     advance();
+    ExprPtr startValue = expression();
+
+    StmtPtr initializer = new VarDeclarationStatement(identifier, startValue, false);
+
+    if(!atType(TokenType::Do)){
+        throw ExpectedXBeforeY(L"do", previous(), at());
+    }
+
+    TokenPtr toToken = previous();
+    toToken->type = TokenType::Less;
+    advance();
+
+    ExprPtr endValue = expression();
+
+    ExprPtr condition = new BinaryExpression(new VariableExpression(identifier), toToken, endValue);
+
+    ExprPtr incrementValue = new NumericLiteralExpression(new Token(TokenType::Number, L"1", 0, identifier->line));
+    if(atType(TokenType::Step)){
+        advance();
+        incrementValue = expression();
+    }
+    ExprPtr increment = new AssignmentExpression(identifier, new BinaryExpression(new VariableExpression(identifier), new Token(TokenType::Plus, L"+", 0, identifier->line), incrementValue));
+
+//    if(match({TokenType::Var})){
+//        initializer = varDeclarationStatement();
+//    } else if(match({TokenType::Semicolon})){
+//        initializer = nullptr;
+//    } else {
+//        initializer = expressionStatement();
+//    }
+
+//    ExprPtr condition = nullptr;
+//    if(!atType(TokenType::Semicolon)){
+//        condition = expression();
+//    }
+//    if(!atType(TokenType::Semicolon)){
+//        throw ExpectedXBeforeY(L";", previous(), at());
+//    }
+//    advance();
+//    ExprPtr increment = nullptr;
+//    if(!atType(TokenType::ClosedParenthesis)){
+//        increment = expression();
+//    }
+//    if(!atType(TokenType::ClosedParenthesis)){
+//        throw ExpectedXBeforeY(L")", previous(), at());
+//    }
+//    advance();
+
+    if(atType(TokenType::Repeat)) advance();
     StmtPtr body = statement();
 
-    if(increment != nullptr){
-        body = new BlockStatement({body, new ExpressionStatement(increment)});
-    }
-    if(condition == nullptr){
-        condition = new BooleanLiteralExpression(new Token(TokenType::True, L"tačno", 0, 0));
-    }
+    body = new BlockStatement({body, new ExpressionStatement(increment)});
+
     body = new WhileStatement(condition, body);
-    if(initializer != nullptr){
-        body = new BlockStatement({initializer, body});
-    }
+    body = new BlockStatement({initializer, body});
 
     return body;
 }

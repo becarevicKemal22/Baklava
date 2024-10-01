@@ -35,7 +35,12 @@ const std::unordered_map<std::wstring, TokenType> KEYWORDS = {
         {L"funkcija", TokenType::Function},
         {L"vrati",    TokenType::Return},
         {L"ponavljaj",TokenType::Repeat},
-
+        {L"od",       TokenType::Od},
+        {L"do",       TokenType::Do},
+        {L"svako",    TokenType::Each},
+        {L"svaki",    TokenType::Each},
+        {L"svaku",    TokenType::Each},
+        {L"korakom",  TokenType::Step},
         // new syntax additions
         {L"i",        TokenType::I},
         {L"ili",      TokenType::Ili},

@@ -98,5 +98,6 @@ add_executable(tests ../src/error/printer/ErrorPrinter.cpp ../src/lexer/Lexer.cp
         interpreter/InterpreterDefaultParameterTest.cpp
         lexer/LexerKeywordToSymbolTest.cpp
         ../src/lexer/KeywordCombinations.h
+        interpreter/InterpreterForStatementTest.cpp
 )
 target_link_libraries(tests PRIVATE Catch2::Catch2WithMain)

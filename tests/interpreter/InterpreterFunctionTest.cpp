@@ -14,7 +14,7 @@ TEST_CASE("Declares and calls basic function", "[interpreter][function]") {
     std::wstring source = L"funkcija f() { ispiši 5; } f();";
     Interpreter interpreter;
 
-    interpreter.interpret(parseSource(source).get());
+    interpreter.interpret(parseSource(source, &interpreter).get());
     REQUIRE(interpreter.printHistory.size() == 1);
     REQUIRE(interpreter.printHistory[0].as.number == 5);
 }
@@ -22,9 +22,7 @@ TEST_CASE("Declares and calls basic function", "[interpreter][function]") {
 TEST_CASE("Declares and calls function with parameters", "[interpreter][function]") {
     std::wstring source = L"funkcija f(x) { ispiši x; } f(5);";
     Interpreter interpreter;
-    std::unique_ptr<Program> program = parseSource(source);
-    Resolver resolver(&interpreter);
-    resolver.resolve(program);
+    std::unique_ptr<Program> program = parseSource(source, &interpreter);
     interpreter.interpret(program.get());
     REQUIRE(interpreter.printHistory.size() == 1);
     REQUIRE(interpreter.printHistory[0].as.number == 5);
@@ -33,9 +31,7 @@ TEST_CASE("Declares and calls function with parameters", "[interpreter][function
 TEST_CASE("Declares and calls function with multiple parameters", "[interpreter][function]") {
     std::wstring source = L"funkcija f(x, y) { ispiši x; ispiši y; } f(5, 10);";
     Interpreter interpreter;
-    std::unique_ptr<Program> program = parseSource(source);
-    Resolver resolver(&interpreter);
-    resolver.resolve(program);
+    std::unique_ptr<Program> program = parseSource(source, &interpreter);
     interpreter.interpret(program.get());
     REQUIRE(interpreter.printHistory.size() == 2);
     REQUIRE(interpreter.printHistory[0].as.number == 5);
@@ -45,9 +41,7 @@ TEST_CASE("Declares and calls function with multiple parameters", "[interpreter]
 TEST_CASE("Declares and calls function with return statement", "[interpreter][function]") {
     std::wstring source = L"funkcija f() { vrati 5; } ispiši f();";
     Interpreter interpreter;
-    std::unique_ptr<Program> program = parseSource(source);
-    Resolver resolver(&interpreter);
-    resolver.resolve(program);
+    std::unique_ptr<Program> program = parseSource(source, &interpreter);
     interpreter.interpret(program.get());
     REQUIRE(interpreter.printHistory.size() == 1);
     REQUIRE(interpreter.printHistory[0].as.number == 5);
@@ -56,9 +50,7 @@ TEST_CASE("Declares and calls function with return statement", "[interpreter][fu
 TEST_CASE("Declares and calls function with return statement and parameters", "[interpreter][function]") {
     std::wstring source = L"funkcija f(x, y) { vrati x + y; } ispiši f(5, 10);";
     Interpreter interpreter;
-    std::unique_ptr<Program> program = parseSource(source);
-    Resolver resolver(&interpreter);
-    resolver.resolve(program);
+    std::unique_ptr<Program> program = parseSource(source, &interpreter);
     interpreter.interpret(program.get());
     REQUIRE(interpreter.printHistory.size() == 1);
     REQUIRE(interpreter.printHistory[0].as.number == 15);
@@ -67,9 +59,7 @@ TEST_CASE("Declares and calls function with return statement and parameters", "[
 TEST_CASE("Declares and calls function with return statement and nested function call", "[interpreter][function]") {
     std::wstring source = L"funkcija f(x, y) { vrati x + y; } ispiši f(5, f(5, 5));";
     Interpreter interpreter;
-    std::unique_ptr<Program> program = parseSource(source);
-    Resolver resolver(&interpreter);
-    resolver.resolve(program);
+    std::unique_ptr<Program> program = parseSource(source, &interpreter);
     interpreter.interpret(program.get());
     REQUIRE(interpreter.printHistory.size() == 1);
     REQUIRE(interpreter.printHistory[0].as.number == 15);
@@ -78,9 +68,7 @@ TEST_CASE("Declares and calls function with return statement and nested function
 TEST_CASE("Declares and calls function inside a block", "[interpreter][function]") {
     std::wstring source = L"{ funkcija f() { ispiši 5; } f(); }";
     Interpreter interpreter;
-    std::unique_ptr<Program> program = parseSource(source);
-    Resolver resolver(&interpreter);
-    resolver.resolve(program);
+    std::unique_ptr<Program> program = parseSource(source, &interpreter);
     interpreter.interpret(program.get());
     REQUIRE(interpreter.printHistory.size() == 1);
     REQUIRE(interpreter.printHistory[0].as.number == 5);
@@ -89,9 +77,7 @@ TEST_CASE("Declares and calls function inside a block", "[interpreter][function]
 TEST_CASE("Declares and calls function inside a block with shadowing", "[interpreter][function]") {
     std::wstring source = L"var x = 10; { funkcija f() { ispiši x; } f(); }";
     Interpreter interpreter;
-    std::unique_ptr<Program> program = parseSource(source);
-    Resolver resolver(&interpreter);
-    resolver.resolve(program);
+    std::unique_ptr<Program> program = parseSource(source, &interpreter);
     interpreter.interpret(program.get());
     REQUIRE(interpreter.printHistory.size() == 1);
     REQUIRE(interpreter.printHistory[0].as.number == 10);
@@ -101,7 +87,7 @@ TEST_CASE("Declares function outside block and calls inside block", "[interprete
     std::wstring source = L"funkcija f() { ispiši 5; } { f(); }";
     Interpreter interpreter;
 
-    interpreter.interpret(parseSource(source).get());
+    interpreter.interpret(parseSource(source, &interpreter).get());
     REQUIRE(interpreter.printHistory.size() == 1);
     REQUIRE(interpreter.printHistory[0].as.number == 5);
 }
@@ -121,9 +107,7 @@ TEST_CASE("Closure test", "[interpreter][function]") {
                           "ispiši counter(); // 1\n"
                           "ispiši counter(); // 2";
     Interpreter interpreter;
-    std::unique_ptr<Program> program = parseSource(source);
-    Resolver resolver(&interpreter);
-    resolver.resolve(program);
+    std::unique_ptr<Program> program = parseSource(source, &interpreter);
     interpreter.interpret(program.get());
     REQUIRE(interpreter.printHistory.size() == 2);
     REQUIRE(interpreter.printHistory[0].as.number == 1);
@@ -141,9 +125,7 @@ TEST_CASE("Closure edge case test", "[interpreter][function]") {
                           "    fn();\n"
                           "}";
     Interpreter interpreter;
-    std::unique_ptr<Program> program = parseSource(source);
-    Resolver resolver(&interpreter);
-    resolver.resolve(program);
+    std::unique_ptr<Program> program = parseSource(source, &interpreter);
     interpreter.interpret(program.get());
     REQUIRE(interpreter.printHistory.size() == 2);
     REQUIRE(IS_STRING_OBJ(interpreter.printHistory[0]));
@@ -156,7 +138,7 @@ TEST_CASE("Has error on string call", "[interpreter][function]") {
     std::wstring source = L"var f = \"string\"; f();";
     Interpreter interpreter;
 
-    REQUIRE_NOTHROW(interpreter.interpret(parseSource(source).get()));
+    REQUIRE_NOTHROW(interpreter.interpret(parseSource(source, &interpreter).get()));
     REQUIRE(interpreter.hadError);
     checkHandledError<InvalidCall>(&interpreter);
 }
@@ -165,7 +147,7 @@ TEST_CASE("Throws on function call with too many arguments", "[interpreter][func
     std::wstring source = L"funkcija f() { } f(5);";
     Interpreter interpreter;
 
-    REQUIRE_NOTHROW(interpreter.interpret(parseSource(source).get()));
+    REQUIRE_NOTHROW(interpreter.interpret(parseSource(source, &interpreter).get()));
     REQUIRE(interpreter.hadError);
     checkHandledError<TooManyArguments>(&interpreter);
 }
@@ -174,7 +156,7 @@ TEST_CASE("Throws on function call with too few arguments", "[interpreter][funct
     std::wstring source = L"funkcija f(x) { } f();";
     Interpreter interpreter;
 
-    REQUIRE_NOTHROW(interpreter.interpret(parseSource(source).get()));
+    REQUIRE_NOTHROW(interpreter.interpret(parseSource(source, &interpreter).get()));
     REQUIRE(interpreter.hadError);
     checkHandledError<TooFewArguments>(&interpreter);
 }
@@ -183,7 +165,7 @@ TEST_CASE("Throws on number call", "[interpreter][function]") {
     std::wstring source = L"var f = 5; f();";
     Interpreter interpreter;
 
-    REQUIRE_NOTHROW(interpreter.interpret(parseSource(source).get()));
+    REQUIRE_NOTHROW(interpreter.interpret(parseSource(source, &interpreter).get()));
     REQUIRE(interpreter.hadError);
     checkHandledError<InvalidCall>(&interpreter);
 }
@@ -192,7 +174,7 @@ TEST_CASE("Throws on null call", "[interpreter][function]") {
     std::wstring source = L"var f = null; f();";
     Interpreter interpreter;
 
-    REQUIRE_NOTHROW(interpreter.interpret(parseSource(source).get()));
+    REQUIRE_NOTHROW(interpreter.interpret(parseSource(source, &interpreter).get()));
     REQUIRE(interpreter.hadError);
     checkHandledError<InvalidCall>(&interpreter);
 }
@@ -201,7 +183,7 @@ TEST_CASE("Throws on boolean call", "[interpreter][function]") {
     std::wstring source = L"var f = tačno; f();";
     Interpreter interpreter;
 
-    REQUIRE_NOTHROW(interpreter.interpret(parseSource(source).get()));
+    REQUIRE_NOTHROW(interpreter.interpret(parseSource(source, &interpreter).get()));
     REQUIRE(interpreter.hadError);
     checkHandledError<InvalidCall>(&interpreter);
 }
