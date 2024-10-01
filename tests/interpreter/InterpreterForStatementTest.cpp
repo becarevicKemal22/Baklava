@@ -112,3 +112,18 @@ TEST_CASE("Handles floating point increments and limits", "[interpreter][control
     REQUIRE_THAT(interpreter.printHistory[6].as.number, Catch::Matchers::WithinRel(0.75, epsilon));
     REQUIRE_THAT(interpreter.printHistory[7].as.number, Catch::Matchers::WithinRel(0.85, epsilon));
 }
+
+TEST_CASE("Correctly handles alternating step values in consecutive loop runs", "[interpreter][controlFlow]") {
+    std::wstring source = L"var koraci = [-1, 1, -1, 1];"
+                          "za svako x od 0 do 3 {"
+                              " za svako y od 0 do 2 korakom koraci[x]{"
+                              " ispiši y;"
+                              "}"
+                          "}";
+    Interpreter interpreter;
+    interpreter.interpret(parseSource(source, &interpreter).get());
+    REQUIRE(interpreter.printHistory.size() == 8);
+    REQUIRE(interpreter.printHistory[0].as.number == 0);
+
+
+}

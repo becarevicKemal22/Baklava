@@ -274,7 +274,6 @@ Statement* Parser::forStatement() {
     body = new WhileStatement(condition, body);
     auto whileStatement = static_cast<WhileStatement*>(body);
     whileStatement->isForLoop = true;
-    whileStatement->needsCheck = true;
     whileStatement->forIncrement = increment;
     body = new BlockStatement({initializer, body});
 
