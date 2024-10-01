@@ -3,6 +3,7 @@
 //
 
 #include <catch2/catch_test_macros.hpp>
+#include <catch2/matchers/catch_matchers_floating_point.hpp>
 
 #include "Interpreter.h"
 #include "Program.h"
@@ -101,12 +102,13 @@ TEST_CASE("Handles floating point increments and limits", "[interpreter][control
     Interpreter interpreter;
     interpreter.interpret(parseSource(source, &interpreter).get());
     REQUIRE(interpreter.printHistory.size() == 8);
-    REQUIRE(interpreter.printHistory[0].as.number == 0.15);
-    REQUIRE(interpreter.printHistory[1].as.number == 0.25);
-    REQUIRE(interpreter.printHistory[2].as.number == 0.35);
-    REQUIRE(interpreter.printHistory[3].as.number == 0.45);
-    REQUIRE(interpreter.printHistory[4].as.number == 0.55);
-    REQUIRE(interpreter.printHistory[5].as.number == 0.65);
-    REQUIRE(interpreter.printHistory[6].as.number == 0.75);
-    REQUIRE(interpreter.printHistory[7].as.number == 0.85);
+    auto epsilon = 0.001;
+    REQUIRE_THAT(interpreter.printHistory[0].as.number, Catch::Matchers::WithinRel(0.15, epsilon));
+    REQUIRE_THAT(interpreter.printHistory[1].as.number, Catch::Matchers::WithinRel(0.25, epsilon));
+    REQUIRE_THAT(interpreter.printHistory[2].as.number, Catch::Matchers::WithinRel(0.35, epsilon));
+    REQUIRE_THAT(interpreter.printHistory[3].as.number, Catch::Matchers::WithinRel(0.45, epsilon));
+    REQUIRE_THAT(interpreter.printHistory[4].as.number, Catch::Matchers::WithinRel(0.55, epsilon));
+    REQUIRE_THAT(interpreter.printHistory[5].as.number, Catch::Matchers::WithinRel(0.65, epsilon));
+    REQUIRE_THAT(interpreter.printHistory[6].as.number, Catch::Matchers::WithinRel(0.75, epsilon));
+    REQUIRE_THAT(interpreter.printHistory[7].as.number, Catch::Matchers::WithinRel(0.85, epsilon));
 }

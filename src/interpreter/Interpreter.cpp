@@ -219,6 +219,15 @@ void Interpreter::executeIfStatement(IfStatement *stmt) {
 }
 
 void Interpreter::executeWhileStatement(WhileStatement *stmt) {
+    if(stmt->isForLoop){
+        RuntimeValue incrementValue = evaluate(stmt->forIncrement);
+//        if(incrementValue.type != ValueType::Number){
+//            throw WrongTypeError(L"for loop increment", incrementValue, stmt->forIncrement);
+//        }
+        if(incrementValue.as.number < 0){
+            static_cast<BinaryExpression*>(stmt->condition)->op->type = TokenType::Greater;
+        }
+    }
     while (isTruthy(evaluate(stmt->condition)) && !isReturning) {
         execute(stmt->body);
     }

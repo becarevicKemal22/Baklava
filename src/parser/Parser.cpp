@@ -230,6 +230,8 @@ Statement* Parser::forStatement() {
 
     ExprPtr endValue = expression();
 
+    // This MUSTN'T be changed. This has to be a binary expression because in while statement interpretation it does
+    // a static cast to binaryExpr in order to switch the toTokenType from less to greater if the step is negative.
     ExprPtr condition = new BinaryExpression(new VariableExpression(identifier), toToken, endValue);
 
     ExprPtr incrementValue = new NumericLiteralExpression(new Token(TokenType::Number, L"1", 0, identifier->line));
@@ -270,6 +272,10 @@ Statement* Parser::forStatement() {
     body = new BlockStatement({body, new ExpressionStatement(increment)});
 
     body = new WhileStatement(condition, body);
+    auto whileStatement = static_cast<WhileStatement*>(body);
+    whileStatement->isForLoop = true;
+    whileStatement->needsCheck = true;
+    whileStatement->forIncrement = increment;
     body = new BlockStatement({initializer, body});
 
     return body;
