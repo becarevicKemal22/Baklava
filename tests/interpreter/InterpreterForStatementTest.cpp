@@ -113,17 +113,19 @@ TEST_CASE("Handles floating point increments and limits", "[interpreter][control
     REQUIRE_THAT(interpreter.printHistory[7].as.number, Catch::Matchers::WithinRel(0.85, epsilon));
 }
 
-TEST_CASE("Correctly handles alternating step values in consecutive loop runs", "[interpreter][controlFlow]") {
-    std::wstring source = L"var koraci = [-1, 1, -1, 1];"
-                          "za svako x od 0 do 3 {"
-                              " za svako y od 0 do 2 korakom koraci[x]{"
-                              " ispiši y;"
-                              "}"
+TEST_CASE("Correctly resets comparison operator between loop runs", "[interpreter][controlFlow]") {
+    std::wstring source = L"var steps = [-1, 1];"
+                          " var loopLimits = [[2, 0], [0, 2]];"
+                          " za svako j od 0 do 2 {"
+                          "     za svako x od loopLimits[j][0] do loopLimits[j][1] korakom steps[j] {"
+                          "         ispiši x;"
+                          "     }"
                           "}";
     Interpreter interpreter;
     interpreter.interpret(parseSource(source, &interpreter).get());
-    REQUIRE(interpreter.printHistory.size() == 8);
-    REQUIRE(interpreter.printHistory[0].as.number == 0);
-
-
+    REQUIRE(interpreter.printHistory.size() == 2);
+    REQUIRE(interpreter.printHistory[0].as.number == 2);
+    REQUIRE(interpreter.printHistory[1].as.number == 1);
+    REQUIRE(interpreter.printHistory[2].as.number == 0);
+    REQUIRE(interpreter.printHistory[3].as.number == 1);
 }

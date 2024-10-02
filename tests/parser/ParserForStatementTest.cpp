@@ -17,6 +17,7 @@
 #include "VariableExpression.h"
 #include "PrintStatement.h"
 #include "UnaryExpression.h"
+#include "IndexingExpression.h"
 #include "../TestHelpers.h"
 
 TEST_CASE("Parses empty for loop", "[parser][controlFlow]") {
@@ -318,6 +319,41 @@ TEST_CASE("Parses step / increment with negative value", "[parser][controlFlow]"
     auto unaryMinus = getNode<UnaryExpression>(incrementValue->right);
     REQUIRE(unaryMinus->op->type == TokenType::Minus);
     REQUIRE(getNode<NumericLiteralExpression>(unaryMinus->expr)->value == 2);
+}
+
+TEST_CASE("Correctly parses array indexing as step", "[parser][controlFlow]") {
+    std::wstring source = L"za svako j od 0 do 10 korakom niz[x] { }";
+    Lexer lexer(source);
+    lexer.tokenize();
+    Parser parser(lexer.tokens);
+    auto program = parser.parse();
+
+    REQUIRE(program->statements.size() == 1);
+    auto mainBlock = getNode<BlockStatement>(program->statements[0]);
+    REQUIRE(mainBlock->statements.size() == 2);
+    auto initializerDeclaration = getNode<VarDeclarationStatement>(mainBlock->statements[0]);
+    REQUIRE(initializerDeclaration->name->value == L"j");
+    auto initialValue = getNode<NumericLiteralExpression>(initializerDeclaration->initializer);
+    REQUIRE(initialValue->value == 0);
+    auto forLoop = getNode<WhileStatement>(mainBlock->statements[1]);
+    auto condition = getNode<BinaryExpression>(forLoop->condition);
+    REQUIRE(condition->op->type == TokenType::Less);
+    auto left = getNode<VariableExpression>(condition->left);
+    REQUIRE(left->name->value == L"j");
+    auto right = getNode<NumericLiteralExpression>(condition->right);
+    REQUIRE(right->value == 10);
+    auto loopBlock = getNode<BlockStatement>(forLoop->body);
+    REQUIRE(loopBlock->statements.size() == 2);
+    auto increment = getNode<AssignmentExpression>(loopBlock->statements[1]);
+    REQUIRE(increment->name->value == L"j");
+    auto incrementValue = getNode<BinaryExpression>(increment->value);
+    REQUIRE(incrementValue->op->type == TokenType::Plus);
+    REQUIRE(getNode<VariableExpression>(incrementValue->left)->name->value == L"j");
+    auto indexExpression = getNode<IndexingExpression>(incrementValue->right);
+    REQUIRE(getNode<VariableExpression>(indexExpression->left)->name->value == L"niz");
+    REQUIRE(getNode<VariableExpression>(indexExpression->index)->name->value == L"x");
+
+
 }
 
 TEST_CASE("Throws on no step / increment after using 'korakom'", "[parser][controlFlow]") {

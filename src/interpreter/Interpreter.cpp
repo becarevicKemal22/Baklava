@@ -220,12 +220,20 @@ void Interpreter::executeIfStatement(IfStatement *stmt) {
 
 void Interpreter::executeWhileStatement(WhileStatement *stmt) {
     if(stmt->isForLoop){
-        RuntimeValue incrementValue = evaluate(stmt->forIncrement);
+//        RuntimeValue incrementValue = evaluate(stmt->forIncrement);
+          auto whileBody = static_cast<BlockStatement*>(stmt->body);
+          auto incrementValue = evaluate(static_cast<ExpressionStatement*>(whileBody->statements.back())->expr);
+//          if(dynamic_cast<BinaryExpression)
+
 //        if(incrementValue.type != ValueType::Number){
 //            throw WrongTypeError(L"for loop increment", incrementValue, stmt->forIncrement);
 //        }
         if(incrementValue.as.number < 0){
             static_cast<BinaryExpression*>(stmt->condition)->op->type = TokenType::Greater;
+            std::wcout << "Here 1 " << std::endl;
+        }else{
+            static_cast<BinaryExpression*>(stmt->condition)->op->type = TokenType::Less;
+            std::wcout << "Here 2 " << std::endl;
         }
     }
     while (isTruthy(evaluate(stmt->condition)) && !isReturning) {
