@@ -46,7 +46,7 @@ void runFile(const char *path) {
     auto end = std::chrono::high_resolution_clock::now();
     std::chrono::duration<double> duration = end - start;
     double duration_seconds = duration.count();
-    std::wcout << std::format(L"Elapsed time: {} seconds\n", duration_seconds);
+    std::wcout << std::format(L"Elapsed time(lexing): {} seconds\n", duration_seconds);
 
     std::vector<Token *> tokens = lexer.tokens;
     start = std::chrono::high_resolution_clock::now();
@@ -61,7 +61,7 @@ void runFile(const char *path) {
     end = std::chrono::high_resolution_clock::now();
     duration = end - start;
     duration_seconds = duration.count();
-    std::wcout << std::format(L"Elapsed time: {} seconds\n", duration_seconds);
+    std::wcout << std::format(L"Elapsed time(parsing): {} seconds\n", duration_seconds);
     printAST(program);
     Interpreter interpreter(&printer);
     try {

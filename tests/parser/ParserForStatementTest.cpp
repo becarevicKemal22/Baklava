@@ -18,6 +18,7 @@
 #include "PrintStatement.h"
 #include "UnaryExpression.h"
 #include "IndexingExpression.h"
+#include "InvalidForLoopStep.h"
 #include "../TestHelpers.h"
 
 TEST_CASE("Parses empty for loop", "[parser][controlFlow]") {
@@ -152,7 +153,7 @@ TEST_CASE("Works with every grammatical voice 2", "[parser][controlFlow]") {
     REQUIRE(getNode<NumericLiteralExpression>(incrementValue->right)->value == 1);
 }
 
-TEST_CASE("Parses negative limits", "[parser][controlFlow]"){
+TEST_CASE("Parses negative limits", "[parser][controlFlow]") {
     std::wstring source = L"za svako j od -10 do -1 { }";
     Lexer lexer(source);
     lexer.tokenize();
@@ -285,9 +286,12 @@ TEST_CASE("Parses step / increment", "[parser][controlFlow]") {
     REQUIRE(getNode<NumericLiteralExpression>(incrementValue->right)->value == 2);
 }
 
+// THIS IS OUTDATED SINCE THE USER CANT PASS 'ANYTHING' ANYMORE. Now it can only be a unary expression or a numeric literal expression. But it still can't be checked in the parser since it could be a chained unary although that is very unlikely. Should test what kind of overhead these checks cause in the interpreter.
 // Note on this test: it is obvious that the comparison operator for the limit should be 'greater', but this will be checked in the
 // interpreter, as the user can pass anything to the 'korakom' keyword. This means that if it's not strictly a numeric
 // literal expression, the parser has no way of knowing what operator it should use.
+
+// FINALNI: Trenutno rjesenje je da se znaci striktno provjerava u parseru da li je literal ili je unarna sa literalom. To su jedine dvije opcije koje treba dozvoliti, a za sve ostalo nek koriste while petlje. Problem je sto i da se dozvoli unarni i literal, unarni moze bit vezan za nesto sto nije numericki literla, tako da se mora ovako osigurati da je to to. Stavio sam i u trellu karticu mozda bi opcija bila i da se dozvoli svev, pa da se daje warning za bilo sta sto nije unarni sa literalom ili samo literal, sa upozorenjem da to moze dovesti do nedefinisanog ponasanja i da se ne preporucuje, mada gubim na povjerenju tako. U svakom slucaju i u toj varijatni se mora provjeravati da li je ova 'dozvoljena opcija' tako da bi se to u parseru samo dodalo na to sto cu sad napravit.
 TEST_CASE("Parses step / increment with negative value", "[parser][controlFlow]") {
     std::wstring source = L"za svako j od 0 do 100 korakom -2 { }";
     Lexer lexer(source);
@@ -321,39 +325,28 @@ TEST_CASE("Parses step / increment with negative value", "[parser][controlFlow]"
     REQUIRE(getNode<NumericLiteralExpression>(unaryMinus->expr)->value == 2);
 }
 
-TEST_CASE("Correctly parses array indexing as step", "[parser][controlFlow]") {
+TEST_CASE("Throws on something other than unary tied to literal or only literal as step", "[parser][controlFlow]") {
+    std::wstring source = L"za svako j od 0 do 100 korakom 2 + 2 { }";
+    Lexer lexer(source);
+    lexer.tokenize();
+    Parser parser(lexer.tokens);
+    REQUIRE_THROWS_AS(parser.parse(), InvalidForLoopStep);
+}
+
+TEST_CASE("Throws on variable as step", "[parser][controlFlow]") {
+    std::wstring source = L"za svako j od 0 do 100 korakom x { }";
+    Lexer lexer(source);
+    lexer.tokenize();
+    Parser parser(lexer.tokens);
+    REQUIRE_THROWS_AS(parser.parse(), InvalidForLoopStep);
+}
+
+TEST_CASE("Throws on array indexing as step", "[parser][controlFlow]") {
     std::wstring source = L"za svako j od 0 do 10 korakom niz[x] { }";
     Lexer lexer(source);
     lexer.tokenize();
     Parser parser(lexer.tokens);
-    auto program = parser.parse();
-
-    REQUIRE(program->statements.size() == 1);
-    auto mainBlock = getNode<BlockStatement>(program->statements[0]);
-    REQUIRE(mainBlock->statements.size() == 2);
-    auto initializerDeclaration = getNode<VarDeclarationStatement>(mainBlock->statements[0]);
-    REQUIRE(initializerDeclaration->name->value == L"j");
-    auto initialValue = getNode<NumericLiteralExpression>(initializerDeclaration->initializer);
-    REQUIRE(initialValue->value == 0);
-    auto forLoop = getNode<WhileStatement>(mainBlock->statements[1]);
-    auto condition = getNode<BinaryExpression>(forLoop->condition);
-    REQUIRE(condition->op->type == TokenType::Less);
-    auto left = getNode<VariableExpression>(condition->left);
-    REQUIRE(left->name->value == L"j");
-    auto right = getNode<NumericLiteralExpression>(condition->right);
-    REQUIRE(right->value == 10);
-    auto loopBlock = getNode<BlockStatement>(forLoop->body);
-    REQUIRE(loopBlock->statements.size() == 2);
-    auto increment = getNode<AssignmentExpression>(loopBlock->statements[1]);
-    REQUIRE(increment->name->value == L"j");
-    auto incrementValue = getNode<BinaryExpression>(increment->value);
-    REQUIRE(incrementValue->op->type == TokenType::Plus);
-    REQUIRE(getNode<VariableExpression>(incrementValue->left)->name->value == L"j");
-    auto indexExpression = getNode<IndexingExpression>(incrementValue->right);
-    REQUIRE(getNode<VariableExpression>(indexExpression->left)->name->value == L"niz");
-    REQUIRE(getNode<VariableExpression>(indexExpression->index)->name->value == L"x");
-
-
+    REQUIRE_THROWS_AS(parser.parse(), InvalidForLoopStep);
 }
 
 TEST_CASE("Throws on no step / increment after using 'korakom'", "[parser][controlFlow]") {

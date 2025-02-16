@@ -102,7 +102,7 @@ TEST_CASE("Handles floating point increments and limits", "[interpreter][control
     Interpreter interpreter;
     interpreter.interpret(parseSource(source, &interpreter).get());
     REQUIRE(interpreter.printHistory.size() == 8);
-    auto epsilon = 0.001;
+    auto epsilon = 0.0001;
     REQUIRE_THAT(interpreter.printHistory[0].as.number, Catch::Matchers::WithinRel(0.15, epsilon));
     REQUIRE_THAT(interpreter.printHistory[1].as.number, Catch::Matchers::WithinRel(0.25, epsilon));
     REQUIRE_THAT(interpreter.printHistory[2].as.number, Catch::Matchers::WithinRel(0.35, epsilon));
@@ -113,19 +113,38 @@ TEST_CASE("Handles floating point increments and limits", "[interpreter][control
     REQUIRE_THAT(interpreter.printHistory[7].as.number, Catch::Matchers::WithinRel(0.85, epsilon));
 }
 
-TEST_CASE("Correctly resets comparison operator between loop runs", "[interpreter][controlFlow]") {
-    std::wstring source = L"var steps = [-1, 1];"
-                          " var loopLimits = [[2, 0], [0, 2]];"
-                          " za svako j od 0 do 2 {"
-                          "     za svako x od loopLimits[j][0] do loopLimits[j][1] korakom steps[j] {"
+// Fazon je ovdje ne treba ispisivati nista za prva dva. Drugi log jer je od 1 do 1 nista. A prvi jer je prvi broj veci od drugog, a korak je pozitivan tako da racuna da ide unaprijed.
+TEST_CASE("Handles array elements as limits", "[interpreter][controlFlow]") {
+    std::wstring source = L" var loopLimits = [[2, 0], [1, 1], [2, 5], [0, 2]];"
+                          " za svako j od 0 do 4 {"
+                          "     za svako x od loopLimits[j][0] do loopLimits[j][1]{"
                           "         ispiši x;"
                           "     }"
                           "}";
     Interpreter interpreter;
     interpreter.interpret(parseSource(source, &interpreter).get());
-    REQUIRE(interpreter.printHistory.size() == 2);
+    REQUIRE(interpreter.printHistory.size() == 5);
     REQUIRE(interpreter.printHistory[0].as.number == 2);
-    REQUIRE(interpreter.printHistory[1].as.number == 1);
-    REQUIRE(interpreter.printHistory[2].as.number == 0);
-    REQUIRE(interpreter.printHistory[3].as.number == 1);
+    REQUIRE(interpreter.printHistory[1].as.number == 3);
+    REQUIRE(interpreter.printHistory[2].as.number == 4);
+    REQUIRE(interpreter.printHistory[3].as.number == 0);
+    REQUIRE(interpreter.printHistory[4].as.number == 1);
 }
+
+// Stari test kada sam mislio za steps podrzati sve vrste izraza
+//TEST_CASE("Correctly resets comparison operator between loop runs", "[interpreter][controlFlow]") {
+//    std::wstring source = L"var steps = [-1, 1];"
+//                          " var loopLimits = [[2, 0], [0, 2]];"
+//                          " za svako j od 0 do 2 {"
+//                          "     za svako x od loopLimits[j][0] do loopLimits[j][1] korakom steps[j] {"
+//                          "         ispiši x;"
+//                          "     }"
+//                          "}";
+//    Interpreter interpreter;
+//    interpreter.interpret(parseSource(source, &interpreter).get());
+//    REQUIRE(interpreter.printHistory.size() == 2);
+//    REQUIRE(interpreter.printHistory[0].as.number == 2);
+//    REQUIRE(interpreter.printHistory[1].as.number == 1);
+//    REQUIRE(interpreter.printHistory[2].as.number == 0);
+//    REQUIRE(interpreter.printHistory[3].as.number == 1);
+//}

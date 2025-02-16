@@ -90,7 +90,7 @@ add_executable(tests ../src/error/printer/ErrorPrinter.cpp ../src/lexer/Lexer.cp
         ../src/interpreter/nativeFunctions/BaseFunctions.cpp
         ../src/interpreter/nativeFunctions/NativeFunction.h
         ../src/interpreter/nativeFunctions/NativeFunction.cpp
-        ../src/error/printer/isOutputANSICompatible.cpp
+        ../src/error/printer/ansiCompatibility.cpp
         ../src/error/exceptions/TooFewArguments.h
         parser/ParserDefaultParameterTest.cpp
         ../src/error/exceptions/parser/InvalidDefaultParameterPosition.h
@@ -99,5 +99,6 @@ add_executable(tests ../src/error/printer/ErrorPrinter.cpp ../src/lexer/Lexer.cp
         lexer/LexerKeywordToSymbolTest.cpp
         ../src/lexer/KeywordCombinations.h
         interpreter/InterpreterForStatementTest.cpp
+        ../src/error/exceptions/parser/InvalidForLoopStep.h
 )
 target_link_libraries(tests PRIVATE Catch2::Catch2WithMain)

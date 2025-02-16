@@ -211,6 +211,9 @@ void ErrorPrinter::printParserError(const ParserError *error) {
     else if(dynamic_cast<const InvalidDefaultParameterValue*>(error) != nullptr) {
         printInvalidDefaultParameterValueError(static_cast<const InvalidDefaultParameterValue *>(error));
     }
+    else if(dynamic_cast<const InvalidForLoopStep*>(error) != nullptr) {
+        printInvalidForLoopStepError(static_cast<const InvalidForLoopStep *>(error));
+    }
     else{ // Generic parser error, ne moze se koristiti ni sa cim drugim, jer samo bazni ima ovaj myToken atribut
         std::wstring message = formattedErrorMessage(error->code, error->messageArguments, error->myToken->line);
         wcout << message << "\n";
@@ -329,6 +332,13 @@ void ErrorPrinter::printInvalidDefaultParameterPositionError(const InvalidDefaul
 }
 
 void ErrorPrinter::printInvalidDefaultParameterValueError(const InvalidDefaultParameterValue *error) {
+    std::wstring message = formattedErrorMessage(error->code, error->messageArguments, error->token->line);
+    wcout << message << "\n";
+    printSourceLine(error->token->line, {{ {error->token->offset, error->token->offset + getTokenValue(error->token).size() - 1}, ANSI_RED}});
+    printSquiggleSupportLine(error->token->line, {{ {error->token->offset, error->token->offset + getTokenValue(error->token).size() - 1}, ANSI_RED}});
+}
+
+void ErrorPrinter::printInvalidForLoopStepError(const InvalidForLoopStep *error) {
     std::wstring message = formattedErrorMessage(error->code, error->messageArguments, error->token->line);
     wcout << message << "\n";
     printSourceLine(error->token->line, {{ {error->token->offset, error->token->offset + getTokenValue(error->token).size() - 1}, ANSI_RED}});

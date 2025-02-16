@@ -41,6 +41,7 @@ const std::unordered_map<int , std::wstring> ERRORMESSAGES = {
         {ERROR_SELF_REFERENCING_INITIALIZER, L"Varijabla '{}' ne može se inicijalizirati sama sobom."},
         {ERROR_INVALID_DEFAULT_PARAMETER_POSITION, L"Podrazumjevani parametri ne smiju se nalaziti prije obaveznih parametara."},
         {ERROR_INVALID_DEFAULT_PARAMETER_VALUE, L"Vrijednost podrazumjevanog parametra mora biti literal."},
+        {ERROR_INVALID_FOR_LOOP_STEP,        L"Korak petlje 'za svako' mora biti numericki literal."},
 
         // 4xx
         {ERROR_WRONG_TYPE_OPERAND,           L"Tip '{}' nije dozvoljen za operator '{}'."},

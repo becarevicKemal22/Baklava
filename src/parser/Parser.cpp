@@ -33,6 +33,7 @@
 #include "IndexAssignmentExpression.h"
 #include "InvalidDefaultParameterPosition.h"
 #include "InvalidDefaultParameterValue.h"
+#include "InvalidForLoopStep.h"
 
 #define IS_LITERAL(x) (x->type == AstNodeType::NumericLiteralExpression || x->type == AstNodeType::StringLiteralExpression || x->type == AstNodeType::BooleanLiteralExpression || x->type == AstNodeType::NullLiteralExpression || x->type == AstNodeType::ArrayLiteralExpression)
 
@@ -239,8 +240,16 @@ Statement* Parser::forStatement() {
         advance();
         incrementValue = expression();
     }
+    if(incrementValue->type == AstNodeType::UnaryExpression){
+        if(dynamic_cast<UnaryExpression*>(incrementValue)->op->type != TokenType::Minus || dynamic_cast<UnaryExpression*>(incrementValue)->expr->type != AstNodeType::NumericLiteralExpression){
+            throw InvalidForLoopStep(getMostRelevantToken(incrementValue));
+        }
+    }else if(incrementValue->type != AstNodeType::NumericLiteralExpression){
+        throw InvalidForLoopStep(getMostRelevantToken(incrementValue));
+    }
     ExprPtr increment = new AssignmentExpression(identifier, new BinaryExpression(new VariableExpression(identifier), new Token(TokenType::Plus, L"+", 0, identifier->line), incrementValue));
 
+    // valjda stari kod za for loop?
 //    if(match({TokenType::Var})){
 //        initializer = varDeclarationStatement();
 //    } else if(match({TokenType::Semicolon})){
@@ -272,9 +281,8 @@ Statement* Parser::forStatement() {
     body = new BlockStatement({body, new ExpressionStatement(increment)});
 
     body = new WhileStatement(condition, body);
-    auto whileStatement = static_cast<WhileStatement*>(body);
-    whileStatement->isForLoop = true;
-    whileStatement->forIncrement = increment;
+    static_cast<WhileStatement*>(body)->isForLoop = true;
+    static_cast<WhileStatement*>(body)->forIncrement = incrementValue;
     body = new BlockStatement({initializer, body});
 
     return body;

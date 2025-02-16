@@ -220,26 +220,30 @@ void Interpreter::executeIfStatement(IfStatement *stmt) {
 
 void Interpreter::executeWhileStatement(WhileStatement *stmt) {
     if(stmt->isForLoop){
-//        RuntimeValue incrementValue = evaluate(stmt->forIncrement);
-          auto whileBody = static_cast<BlockStatement*>(stmt->body);
-          auto incrementValue = evaluate(static_cast<ExpressionStatement*>(whileBody->statements.back())->expr);
+        RuntimeValue incrementValue = evaluate(stmt->forIncrement);
+//          auto whileBody = static_cast<BlockStatement*>(stmt->body);
+//          auto incrementExpr = static_cast<ExpressionStatement*>(whileBody->statements.back())->expr;
+//          auto assignExpr = static_cast<AssignmentExpression*>(incrementExpr);
+//          auto binaryExpr = static_cast<BinaryExpression*>(assignExpr->value);
+//          auto incrementValue = evaluate(binaryExpr->right);
 //          if(dynamic_cast<BinaryExpression)
 
 //        if(incrementValue.type != ValueType::Number){
 //            throw WrongTypeError(L"for loop increment", incrementValue, stmt->forIncrement);
 //        }
-        if(incrementValue.as.number < 0){
-            static_cast<BinaryExpression*>(stmt->condition)->op->type = TokenType::Greater;
-            std::wcout << "Here 1 " << std::endl;
-        }else{
+// Provjeriti da li se uopste mora postavljati ovo ako je veci od 0? Valjda bi to po defaultu trebalo biti postavljeno? Mislim da je bitno >= jer ako je 0 onda treba po defaultu da se gleda manje jer je kao beskonacna petlja ali opet korisnik moze rucno postaviti varijablu na neku vrijednost unutar tijela petlje, mada mozda bi htio i da gleda da li je manje.
+// Ali treba ovo vece jednako da bude sto sam vec objasnio u prethodnom tako da mozda bolje ne dirati ne znammmm
+        if(incrementValue.as.number >= 0){
             static_cast<BinaryExpression*>(stmt->condition)->op->type = TokenType::Less;
-            std::wcout << "Here 2 " << std::endl;
+            std::wcout << "Here 2, increment value is: " << incrementValue.as.number << std::endl;
+        }else{
+            static_cast<BinaryExpression*>(stmt->condition)->op->type = TokenType::Greater;
+            std::wcout << "Here 1, increment value is: " << incrementValue.as.number << std::endl;
         }
     }
     while (isTruthy(evaluate(stmt->condition)) && !isReturning) {
         execute(stmt->body);
     }
-    return;
 }
 
 void Interpreter::executeFunctionDeclarationStatement(FunctionDeclarationStatement *stmt) {

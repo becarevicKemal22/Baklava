@@ -80,11 +80,12 @@ add_executable(baklava main.cpp
         src/interpreter/nativeFunctions/BaseFunctions.cpp
         src/interpreter/nativeFunctions/NativeFunction.h
         src/interpreter/nativeFunctions/NativeFunction.cpp
-        src/error/printer/isOutputANSICompatible.cpp
+        src/error/printer/ansiCompatibility.cpp
         src/error/exceptions/TooFewArguments.h
         src/error/exceptions/parser/InvalidDefaultParameterPosition.h
         src/error/exceptions/parser/InvalidDefaultParameterValue.h
         src/lexer/KeywordCombinations.h
+        src/error/exceptions/parser/InvalidForLoopStep.h
 )
 
 add_subdirectory(tests)
