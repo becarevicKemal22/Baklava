@@ -95,7 +95,7 @@ void printIndexingExpression(IndexingExpression *expression, int depth) {
 void printStatement(Statement *statement, int depth) {
     if (!dynamic_cast<Expression *>(statement)) {
         for (int i = 0; i < depth * INDENTATION_PER_LEVEL; i++) {
-            if(i % INDENTATION_PER_LEVEL == 0 && i != 0)
+            if (i % INDENTATION_PER_LEVEL == 0 && i != 0)
                 std::wcout << L"|";
             else
                 std::wcout << L" ";
@@ -156,7 +156,9 @@ void printStatement(Statement *statement, int depth) {
             else
                 std::wcout << L"VarDeclStmt( ";
             std::wcout << static_cast<VarDeclarationStatement *>(statement)->name->value << L" ";
-            printStatement(static_cast<VarDeclarationStatement *>(statement)->initializer, depth + 1);
+            if (static_cast<VarDeclarationStatement *>(statement)->initializer != nullptr){
+                printStatement(static_cast<VarDeclarationStatement *>(statement)->initializer, depth + 1);
+            }
             std::wcout << L" ) \n";
             break;
         case AstNodeType::VariableExpression:
