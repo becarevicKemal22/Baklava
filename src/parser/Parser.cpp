@@ -225,9 +225,9 @@ Statement* Parser::forStatement() {
         throw ExpectedXBeforeY(L"do", previous(), at());
     }
 
+    advance();
     TokenPtr toToken = previous();
     toToken->type = TokenType::Less;
-    advance();
 
     ExprPtr endValue = expression();
 
@@ -235,11 +235,13 @@ Statement* Parser::forStatement() {
     // a static cast to binaryExpr in order to switch the toTokenType from less to greater if the step is negative.
     ExprPtr condition = new BinaryExpression(new VariableExpression(identifier), toToken, endValue);
 
-    ExprPtr incrementValue = new NumericLiteralExpression(new Token(TokenType::Number, L"1", 0, identifier->line));
+    ExprPtr incrementValue = new NumericLiteralExpression(new Token(TokenType::Number, L"1", 0, 0));
     if(atType(TokenType::Step)){
         advance();
         incrementValue = expression();
     }
+
+    // Increment must be either unary minus of a numeric literal, or a numeric literal
     if(incrementValue->type == AstNodeType::UnaryExpression){
         if(dynamic_cast<UnaryExpression*>(incrementValue)->op->type != TokenType::Minus || dynamic_cast<UnaryExpression*>(incrementValue)->expr->type != AstNodeType::NumericLiteralExpression){
             throw InvalidForLoopStep(getMostRelevantToken(incrementValue));
@@ -247,7 +249,7 @@ Statement* Parser::forStatement() {
     }else if(incrementValue->type != AstNodeType::NumericLiteralExpression){
         throw InvalidForLoopStep(getMostRelevantToken(incrementValue));
     }
-    ExprPtr increment = new AssignmentExpression(identifier, new BinaryExpression(new VariableExpression(identifier), new Token(TokenType::Plus, L"+", 0, identifier->line), incrementValue));
+    ExprPtr increment = new AssignmentExpression(identifier, new BinaryExpression(new VariableExpression(identifier), new Token(TokenType::Plus, L"+", 0, 0), incrementValue));
 
     // valjda stari kod za for loop?
 //    if(match({TokenType::Var})){

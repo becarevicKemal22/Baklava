@@ -349,6 +349,14 @@ TEST_CASE("Throws on array indexing as step", "[parser][controlFlow]") {
     REQUIRE_THROWS_AS(parser.parse(), InvalidForLoopStep);
 }
 
+TEST_CASE("Throws on unary bang as step", "[parser][controlFlow]") {
+    std::wstring source = L"za svako j od 0 do 10 korakom !2 { }";
+    Lexer lexer(source);
+    lexer.tokenize();
+    Parser parser(lexer.tokens);
+    REQUIRE_THROWS_AS(parser.parse(), InvalidForLoopStep);
+}
+
 TEST_CASE("Throws on no step / increment after using 'korakom'", "[parser][controlFlow]") {
     std::wstring source = L"za svako j od 0 do 100 korakom { }";
     Lexer lexer(source);

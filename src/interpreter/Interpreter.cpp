@@ -235,10 +235,8 @@ void Interpreter::executeWhileStatement(WhileStatement *stmt) {
 // Ali treba ovo vece jednako da bude sto sam vec objasnio u prethodnom tako da mozda bolje ne dirati ne znammmm
         if(incrementValue.as.number >= 0){
             static_cast<BinaryExpression*>(stmt->condition)->op->type = TokenType::Less;
-            std::wcout << "Here 2, increment value is: " << incrementValue.as.number << std::endl;
         }else{
             static_cast<BinaryExpression*>(stmt->condition)->op->type = TokenType::Greater;
-            std::wcout << "Here 1, increment value is: " << incrementValue.as.number << std::endl;
         }
     }
     while (isTruthy(evaluate(stmt->condition)) && !isReturning) {
