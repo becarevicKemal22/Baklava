@@ -139,3 +139,8 @@ TEST_CASE("Throws on function call as default parameter", "[parser][function][fu
     std::wstring source = L"funkcija foo(a = bar()) { }";
     REQUIRE_THROWS_AS(parseSourceNoResolver(source), InvalidDefaultParameterValue);
 }
+
+TEST_CASE("Throws on unary bang as default parameter", "[parser][function][functionDeclaration]") {
+    std::wstring source = L"funkcija foo(a = !5) { }";
+    REQUIRE_THROWS_AS(parseSourceNoResolver(source), InvalidDefaultParameterValue);
+}
