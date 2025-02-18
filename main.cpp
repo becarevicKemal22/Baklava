@@ -62,7 +62,7 @@ void runFile(const char *path) {
     duration = end - start;
     duration_seconds = duration.count();
     std::wcout << std::format(L"Elapsed time(parsing): {} seconds\n", duration_seconds);
-    printAST(program);
+    //printAST(program);
     Interpreter interpreter(&printer);
     try {
         Resolver resolver(&interpreter);

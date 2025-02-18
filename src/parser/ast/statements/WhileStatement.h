@@ -14,8 +14,8 @@ public:
     }
     ExprPtr condition;
     StmtPtr body;
-    bool isForLoop; /**< Is set to true when the while loop is created while parsing a for loop. Symbolizes whether the while loop servers as a for loop or normal while loop. */
-    ExprPtr forIncrement; /**< Necessary for for loops. Represents the increment expression of the for loop. It's probably better to keep this here instead of doing static casts and searching around the body in order to find the increment expression. */
+    bool isForLoop = false; /**< Is set to true when the while loop is created while parsing a for loop. Symbolizes whether the while loop servers as a for loop or normal while loop. */
+    ExprPtr forIncrement = nullptr; /**< Necessary for for loops. Represents the increment expression of the for loop. It's probably better to keep this here instead of doing static casts and searching around the body in order to find the increment expression. */
 };
 
 #endif //BAKLAVA_WHILESTATEMENT_H

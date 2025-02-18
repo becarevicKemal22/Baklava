@@ -36,6 +36,7 @@
 #include "InvalidForLoopStep.h"
 
 #define IS_LITERAL(x) (x->type == AstNodeType::NumericLiteralExpression || x->type == AstNodeType::StringLiteralExpression || x->type == AstNodeType::BooleanLiteralExpression || x->type == AstNodeType::NullLiteralExpression || x->type == AstNodeType::ArrayLiteralExpression)
+#define IS_NEGATIVE_NUMBER(x) (x->type == AstNodeType::UnaryExpression && dynamic_cast<UnaryExpression*>(x)->op->type == TokenType::Minus && dynamic_cast<UnaryExpression*>(x)->expr->type == AstNodeType::NumericLiteralExpression)
 
 std::unique_ptr<Program> Parser::parse() {
     std::unique_ptr<Program> program = std::make_unique<Program>();
@@ -242,11 +243,7 @@ Statement* Parser::forStatement() {
     }
 
     // Increment must be either unary minus of a numeric literal, or a numeric literal
-    if(incrementValue->type == AstNodeType::UnaryExpression){
-        if(dynamic_cast<UnaryExpression*>(incrementValue)->op->type != TokenType::Minus || dynamic_cast<UnaryExpression*>(incrementValue)->expr->type != AstNodeType::NumericLiteralExpression){
-            throw InvalidForLoopStep(getMostRelevantToken(incrementValue));
-        }
-    }else if(incrementValue->type != AstNodeType::NumericLiteralExpression){
+    if(incrementValue->type != AstNodeType::NumericLiteralExpression && !IS_NEGATIVE_NUMBER(incrementValue)){
         throw InvalidForLoopStep(getMostRelevantToken(incrementValue));
     }
     ExprPtr increment = new AssignmentExpression(identifier, new BinaryExpression(new VariableExpression(identifier), new Token(TokenType::Plus, L"+", 0, 0), incrementValue));
@@ -316,7 +313,7 @@ Statement* Parser::functionDeclarationStatement() {
 
             if(match({TokenType::Equal})) {
                 ExprPtr value = expression();
-                if(!IS_LITERAL(value)){
+                if(!IS_LITERAL(value) && !IS_NEGATIVE_NUMBER(value)){
                     throw InvalidDefaultParameterValue(parameters[parameters.size() - 1]);
                 }
 

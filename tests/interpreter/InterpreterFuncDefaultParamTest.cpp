@@ -48,3 +48,14 @@ TEST_CASE("Doesn't overwrite object default parameters", "[interpreter][defaultP
     REQUIRE(interpreter.printHistory[0].as.number == 0);
     REQUIRE(interpreter.printHistory[1].as.number == 0);
 }
+
+TEST_CASE("Correctly passes string default param", "[interpreter][defaultParameters]") {
+    std::wstring source = L"funkcija f(a = \"hello\"){ ispisi a; } f();";
+    Interpreter interpreter;
+    std::unique_ptr<Program> program = parseSource(source, &interpreter);
+    interpreter.interpret(program.get());
+    REQUIRE(interpreter.printHistory.size() == 1);
+    REQUIRE(IS_OBJ(interpreter.printHistory[0]));
+    REQUIRE(IS_STRING_OBJ(interpreter.printHistory[0]));
+    REQUIRE(AS_STRING_OBJ(interpreter.printHistory[0])->value == L"hello");
+}
