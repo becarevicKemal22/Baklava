@@ -27,6 +27,9 @@
 #include "IndexingExpression.h"
 #include "ArrayLiteralExpression.h"
 #include "IndexAssignmentExpression.h"
+#include "IfStatement.h"
+#include "ReturnStatement.h"
+#include "LogicalExpression.h"
 
 #define INDENTATION_PER_LEVEL 2
 
@@ -35,7 +38,7 @@ void printStatement(Statement *statement, int depth);
 void printAST(std::unique_ptr<Program> &program) {
     std::wcout << L"Program" << std::endl;
     for (auto statement: program->statements) {
-        printStatement(statement, 1);
+        printStatement(statement, 0);
     }
 }
 
@@ -92,14 +95,18 @@ void printIndexingExpression(IndexingExpression *expression, int depth) {
     std::wcout << L" ) ";
 }
 
+void indent(int depth) {
+    for (int i = 0; i < depth * INDENTATION_PER_LEVEL; i++) {
+        if (i % INDENTATION_PER_LEVEL == 0 && i != 0)
+            std::wcout << L"|";
+        else
+            std::wcout << L" ";
+    }
+}
+
 void printStatement(Statement *statement, int depth) {
     if (!dynamic_cast<Expression *>(statement)) {
-        for (int i = 0; i < depth * INDENTATION_PER_LEVEL; i++) {
-            if (i % INDENTATION_PER_LEVEL == 0 && i != 0)
-                std::wcout << L"|";
-            else
-                std::wcout << L" ";
-        }
+        indent(depth);
     }
 
     AstNodeType type = statement->type;
@@ -125,6 +132,14 @@ void printStatement(Statement *statement, int depth) {
         case AstNodeType::GroupingExpression:
             std::wcout << L"GroupingExpr( ";
             printStatement(static_cast<GroupingExpression *>(statement)->expr, depth + 1);
+            std::wcout << L" ) ";
+            break;
+        case AstNodeType::LogicalExpression:
+            std::wcout << L"LogicalExpr( ";
+            std::wcout << static_cast<LogicalExpression *>(statement)->op->value << L" ";
+            printStatement(static_cast<LogicalExpression *>(statement)->left, depth + 1);
+            std::wcout << L", ";
+            printStatement(static_cast<LogicalExpression *>(statement)->right, depth + 1);
             std::wcout << L" ) ";
             break;
         case AstNodeType::ExpressionStatement:
@@ -176,12 +191,33 @@ void printStatement(Statement *statement, int depth) {
             std::wcout << L" ) \n";
             printStatement(static_cast<WhileStatement *>(statement)->body, depth + 1);
             break;
+        case AstNodeType::IfStatement:
+            std::wcout << L"IfStmt( ";
+            printStatement(static_cast<IfStatement *>(statement)->condition, depth + 1);
+            std::wcout << L" ) \n";
+            printStatement(static_cast<IfStatement *>(statement)->thenBranch, depth + 1);
+            if (static_cast<IfStatement *>(statement)->elseBranch != nullptr) {
+                indent(depth);
+                std::wcout << L"Else" << std::endl;
+                printStatement(static_cast<IfStatement *>(statement)->elseBranch, depth + 1);
+            }
+            break;
         case AstNodeType::CallExpression:
             printCallExpression(static_cast<CallExpression *>(statement), depth);
             break;
         case AstNodeType::FunctionDeclarationStatement:
             std::wcout << L"FunDeclStmt( ";
             std::wcout << static_cast<FunctionDeclarationStatement *>(statement)->name->value << L" ";
+            std::wcout << L" ) \n";
+            for(auto stmt : static_cast<FunctionDeclarationStatement *>(statement)->body){
+                printStatement(stmt, depth + 1);
+            }
+            break;
+        case AstNodeType::ReturnStatement:
+            std::wcout << L"ReturnStmt( ";
+            if (static_cast<ReturnStatement *>(statement)->value != nullptr) {
+                printStatement(static_cast<ReturnStatement *>(statement)->value, depth + 1);
+            }
             std::wcout << L" ) \n";
             break;
         case AstNodeType::IndexingExpression:
