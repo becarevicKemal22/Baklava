@@ -95,6 +95,29 @@ void printIndexingExpression(IndexingExpression *expression, int depth) {
     std::wcout << L" ) ";
 }
 
+void printFunctionDeclarationStatement(FunctionDeclarationStatement *statement, int depth) {
+    std::wcout << L"FunDeclStmt( ";
+    std::wcout << static_cast<FunctionDeclarationStatement *>(statement)->name->value << L" ";
+    std::wcout << L"[ ";
+    auto params = static_cast<FunctionDeclarationStatement *>(statement)->parameters;
+    auto defaultParams = static_cast<FunctionDeclarationStatement *>(statement)->defaultParameters;
+    int size = params.size();
+    int defaultSize = defaultParams.size();
+    for (int i = 0; i < size; i++) {
+        std::wcout << params[i]->value;
+        if (i >= size - defaultSize) {
+            std::wcout << L" = ";
+            printStatement(defaultParams[i - (size - defaultSize)], depth + 1);
+        }
+        if (i != size - 1)
+            std::wcout << L", ";
+    }
+    std::wcout << L" ] ) \n";
+    for (auto stmt: static_cast<FunctionDeclarationStatement *>(statement)->body) {
+        printStatement(stmt, depth + 1);
+    }
+}
+
 void indent(int depth) {
     for (int i = 0; i < depth * INDENTATION_PER_LEVEL; i++) {
         if (i % INDENTATION_PER_LEVEL == 0 && i != 0)
@@ -171,7 +194,7 @@ void printStatement(Statement *statement, int depth) {
             else
                 std::wcout << L"VarDeclStmt( ";
             std::wcout << static_cast<VarDeclarationStatement *>(statement)->name->value << L" ";
-            if (static_cast<VarDeclarationStatement *>(statement)->initializer != nullptr){
+            if (static_cast<VarDeclarationStatement *>(statement)->initializer != nullptr) {
                 printStatement(static_cast<VarDeclarationStatement *>(statement)->initializer, depth + 1);
             }
             std::wcout << L" ) \n";
@@ -205,14 +228,10 @@ void printStatement(Statement *statement, int depth) {
         case AstNodeType::CallExpression:
             printCallExpression(static_cast<CallExpression *>(statement), depth);
             break;
-        case AstNodeType::FunctionDeclarationStatement:
-            std::wcout << L"FunDeclStmt( ";
-            std::wcout << static_cast<FunctionDeclarationStatement *>(statement)->name->value << L" ";
-            std::wcout << L" ) \n";
-            for(auto stmt : static_cast<FunctionDeclarationStatement *>(statement)->body){
-                printStatement(stmt, depth + 1);
-            }
+        case AstNodeType::FunctionDeclarationStatement: {
+            printFunctionDeclarationStatement(static_cast<FunctionDeclarationStatement *>(statement), depth);
             break;
+        }
         case AstNodeType::ReturnStatement:
             std::wcout << L"ReturnStmt( ";
             if (static_cast<ReturnStatement *>(statement)->value != nullptr) {

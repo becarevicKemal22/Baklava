@@ -39,8 +39,8 @@ const std::unordered_map<int , std::wstring> ERRORMESSAGES = {
         {ERROR_TOO_FEW_ARGUMENTS,           L"Nedozvoljen broj argumenata. Nedostaje '{}' obaveznih argumenata."},
         {ERROR_INVALID_RETURN_POSITION,      L"Izjava 'vrati' ne smije se nalaziti izvan tijela funkcije."},
         {ERROR_SELF_REFERENCING_INITIALIZER, L"Varijabla '{}' ne može se inicijalizirati sama sobom."},
-        {ERROR_INVALID_DEFAULT_PARAMETER_POSITION, L"Podrazumjevani parametri ne smiju se nalaziti prije obaveznih parametara."},
-        {ERROR_INVALID_DEFAULT_PARAMETER_VALUE, L"Vrijednost podrazumjevanog parametra mora biti literal."},
+        {ERROR_INVALID_DEFAULT_PARAMETER_POSITION, L"Podrazumijevani parametri ne smiju se nalaziti prije obaveznih parametara."},
+        {ERROR_INVALID_DEFAULT_PARAMETER_VALUE, L"Vrijednost podrazumijevanog parametra mora biti literal."},
         {ERROR_INVALID_FOR_LOOP_STEP,        L"Korak petlje 'za svako' mora biti numericki literal."},
 
         // 4xx
