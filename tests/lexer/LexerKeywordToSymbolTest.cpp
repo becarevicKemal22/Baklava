@@ -124,3 +124,16 @@ TEST_CASE("Tokenizes mixed if statement with chained expressions", "[lexer]") {
     checkToken(tokens[12], TokenType::Null, L"null", 1, 63);
     checkToken(tokens[13], TokenType::Then, L"onda", 1, 68);
 }
+
+TEST_CASE("Tokenizes new variants of vece and manje", "[lexer]") {
+    std::wstring source = L"veci od ili manja od";
+
+    Lexer lexer(source);
+    lexer.tokenize();
+    std::vector<Token*> tokens = lexer.tokens;
+
+    REQUIRE(tokens.size() == 4);
+    checkToken(tokens[0], TokenType::Greater, L"veci od", 1, 0);
+    checkToken(tokens[1], TokenType::DoublePipe, L"ili", 1, 8);
+    checkToken(tokens[2], TokenType::Less, L"manja od", 1, 12);
+}
