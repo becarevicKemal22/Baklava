@@ -219,6 +219,26 @@ void Interpreter::executeIfStatement(IfStatement *stmt) {
 }
 
 void Interpreter::executeWhileStatement(WhileStatement *stmt) {
+    if(stmt->isForLoop){
+        RuntimeValue incrementValue = evaluate(stmt->forIncrement);
+//          auto whileBody = static_cast<BlockStatement*>(stmt->body);
+//          auto incrementExpr = static_cast<ExpressionStatement*>(whileBody->statements.back())->expr;
+//          auto assignExpr = static_cast<AssignmentExpression*>(incrementExpr);
+//          auto binaryExpr = static_cast<BinaryExpression*>(assignExpr->value);
+//          auto incrementValue = evaluate(binaryExpr->right);
+//          if(dynamic_cast<BinaryExpression)
+
+//        if(incrementValue.type != ValueType::Number){
+//            throw WrongTypeError(L"for loop increment", incrementValue, stmt->forIncrement);
+//        }
+// Provjeriti da li se uopste mora postavljati ovo ako je veci od 0? Valjda bi to po defaultu trebalo biti postavljeno? Mislim da je bitno >= jer ako je 0 onda treba po defaultu da se gleda manje jer je kao beskonacna petlja ali opet korisnik moze rucno postaviti varijablu na neku vrijednost unutar tijela petlje, mada mozda bi htio i da gleda da li je manje.
+// Ali treba ovo vece jednako da bude sto sam vec objasnio u prethodnom tako da mozda bolje ne dirati ne znammmm
+        if(incrementValue.as.number >= 0){
+            static_cast<BinaryExpression*>(stmt->condition)->op->type = TokenType::Less;
+        }else{
+            static_cast<BinaryExpression*>(stmt->condition)->op->type = TokenType::Greater;
+        }
+    }
     while (isTruthy(evaluate(stmt->condition)) && !isReturning) {
         execute(stmt->body);
     }
@@ -377,7 +397,7 @@ RuntimeValue Interpreter::evaluateBinaryExpression(BinaryExpression *expr) {
             throw WrongBinaryOperandTypes(L"<=", left, right, expr);
         case TokenType::DoubleEqual:
             return {ValueType::Boolean, {.boolean = isEqual(left, right)}};
-        case TokenType::BangEqual:
+        case TokenType::NotEqual:
             return {ValueType::Boolean, {.boolean = !isEqual(left, right)}};
     }
     throw std::runtime_error("Unknown binary operator type!");

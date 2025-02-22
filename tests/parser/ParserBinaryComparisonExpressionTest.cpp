@@ -21,7 +21,7 @@ TEST_CASE("Parses binary equality", "[parser][binary][comparison]") {
     auto statements = program->statements;
 
     auto binaryExpression = getNode<BinaryExpression>(statements[0]);
-    REQUIRE(binaryExpression->op->type == TokenType::BangEqual);
+    REQUIRE(binaryExpression->op->type == TokenType::NotEqual);
     auto left = getNode<BinaryExpression>(binaryExpression->left);
     REQUIRE(left->op->type == TokenType::DoubleEqual);
     auto right = getNode<NumericLiteralExpression>(binaryExpression->right);

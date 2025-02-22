@@ -13,7 +13,7 @@
 
 TEST_CASE("Parses function declaration with no parameters", "[parser][function][functionDeclaration]") {
     std::wstring source = L"funkcija foo() { }";
-    std::unique_ptr<Program> program = parseSource(source);
+    std::unique_ptr<Program> program = parseSourceNoResolver(source);
 
     REQUIRE(program->statements.size() == 1);
     auto functionDeclaration = dynamic_cast<FunctionDeclarationStatement*>(program->statements[0]);
@@ -25,7 +25,7 @@ TEST_CASE("Parses function declaration with no parameters", "[parser][function][
 
 TEST_CASE("Parses function declaration with parameters", "[parser][function][functionDeclaration]") {
     std::wstring source = L"funkcija foo(a, b, c) { }";
-    std::unique_ptr<Program> program = parseSource(source);
+    std::unique_ptr<Program> program = parseSourceNoResolver(source);
 
     REQUIRE(program->statements.size() == 1);
     auto functionDeclaration = dynamic_cast<FunctionDeclarationStatement*>(program->statements[0]);
@@ -40,7 +40,7 @@ TEST_CASE("Parses function declaration with parameters", "[parser][function][fun
 
 TEST_CASE("Parses function declaration with body", "[parser][function][functionDeclaration]") {
     std::wstring source = L"funkcija foo() { var x = 10; }";
-    std::unique_ptr<Program> program = parseSource(source);
+    std::unique_ptr<Program> program = parseSourceNoResolver(source);
 
     REQUIRE(program->statements.size() == 1);
     auto functionDeclaration = dynamic_cast<FunctionDeclarationStatement*>(program->statements[0]);
@@ -53,7 +53,7 @@ TEST_CASE("Parses function declaration with body", "[parser][function][functionD
 
 TEST_CASE("Parses function with return statement", "[parser][function][functionDeclaration]") {
     std::wstring source = L"funkcija foo() { vrati 5; }";
-    std::unique_ptr<Program> program = parseSource(source);
+    std::unique_ptr<Program> program = parseSourceNoResolver(source);
 
     REQUIRE(program->statements.size() == 1);
     auto functionDeclaration = dynamic_cast<FunctionDeclarationStatement*>(program->statements[0]);
@@ -71,7 +71,7 @@ TEST_CASE("Parses function with return statement", "[parser][function][functionD
 
 TEST_CASE("Parses function with empty return statement", "[parser][function][functionDeclaration]") {
     std::wstring source = L"funkcija foo() { vrati; }";
-    std::unique_ptr<Program> program = parseSource(source);
+    std::unique_ptr<Program> program = parseSourceNoResolver(source);
 
     REQUIRE(program->statements.size() == 1);
     auto functionDeclaration = dynamic_cast<FunctionDeclarationStatement*>(program->statements[0]);
@@ -87,25 +87,25 @@ TEST_CASE("Parses function with empty return statement", "[parser][function][fun
 
 TEST_CASE("Throws on function declaration with no name", "[parser][function][functionDeclaration]") {
     std::wstring source = L"funkcija () { }";
-    REQUIRE_THROWS_AS(parseSource(source), ExpectedXBeforeY);
+    REQUIRE_THROWS_AS(parseSourceNoResolver(source), ExpectedXBeforeY);
 }
 
 TEST_CASE("Throws on function declaration with no opening parenthesis", "[parser][function][functionDeclaration]") {
     std::wstring source = L"funkcija foo) { }";
-    REQUIRE_THROWS_AS(parseSource(source), ExpectedXBeforeY);
+    REQUIRE_THROWS_AS(parseSourceNoResolver(source), ExpectedXBeforeY);
 }
 
 TEST_CASE("Throws on function declaration with no closing parenthesis", "[parser][function][functionDeclaration]") {
     std::wstring source = L"funkcija foo( { }";
-    REQUIRE_THROWS_AS(parseSource(source), ExpectedXBeforeY);
+    REQUIRE_THROWS_AS(parseSourceNoResolver(source), ExpectedXBeforeY);
 }
 
 TEST_CASE("Throws on function with no body", "[parser][function][functionDeclaration]") {
     std::wstring source = L"funkcija foo()";
-    REQUIRE_THROWS_AS(parseSource(source), ExpectedXBeforeY);
+    REQUIRE_THROWS_AS(parseSourceNoResolver(source), ExpectedXBeforeY);
 }
 
 TEST_CASE("Throws on function parameters not separated by comma", "[parser][function][functionDeclaration]") {
     std::wstring source = L"funkcija foo(a b c) { }";
-    REQUIRE_THROWS_AS(parseSource(source), ExpectedXBeforeY);
+    REQUIRE_THROWS_AS(parseSourceNoResolver(source), ExpectedXBeforeY);
 }

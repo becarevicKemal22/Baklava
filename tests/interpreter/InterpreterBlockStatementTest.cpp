@@ -13,7 +13,7 @@
 TEST_CASE("Interprets block statement", "[interpreter][block]") {
     std::wstring source = L"{ var x = 10; }";
     Interpreter interpreter;
-    interpreter.interpret(parseSource(source).get());
+    interpreter.interpret(parseSource(source, &interpreter).get());
     REQUIRE(interpreter.executedStatements.size() == 2);
     REQUIRE(interpreter.executedStatements[1]->type == AstNodeType::VarDeclarationStatement);
 }
@@ -21,7 +21,7 @@ TEST_CASE("Interprets block statement", "[interpreter][block]") {
 TEST_CASE("Interprets block statement with multiple statements", "[interpreter][block]") {
     std::wstring source = L"{ var x = 10; ispiši 1; }";
     Interpreter interpreter;
-    interpreter.interpret(parseSource(source).get());
+    interpreter.interpret(parseSource(source, &interpreter).get());
     REQUIRE(interpreter.executedStatements.size() == 3);
     REQUIRE(interpreter.executedStatements[1]->type == AstNodeType::VarDeclarationStatement);
     REQUIRE(interpreter.executedStatements[2]->type == AstNodeType::PrintStatement);
@@ -50,9 +50,7 @@ TEST_CASE("Nesting and shadowing test", "[interpreter][block]") {
                           "ispiši b;\n"
                           "ispiši c;";
     Interpreter interpreter;
-    std::unique_ptr<Program> program = parseSource(source);
-    Resolver resolver(&interpreter);
-    resolver.resolve(program);
+    std::unique_ptr<Program> program = parseSource(source, &interpreter);
     interpreter.interpret(program.get());
     REQUIRE(interpreter.printHistory.size() == 9);
     REQUIRE(GET_STRING_OBJ_VALUE(interpreter.printHistory[0]) == L"inner a");

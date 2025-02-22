@@ -69,6 +69,8 @@ private:
     unsigned int charIndexOnLine = 0;
     ErrorPrinter* printer;
 
+    std::vector<Token*> keywordHistory; /**< Holds found keyword tokens because keywords can not be immediately pushed into the tokens vector, in case they are part of a keyword combination. Tokens will only be pushed into here until a non-keyword token is found, after which they will be concatenated if needed and pushed along with the latest non-keyword token. */
+
     /**
      * @brief Dynamically allocates a single character token and pushes it into the tokens vector.
      *
@@ -85,6 +87,17 @@ private:
      * @param offsetIsStartOfToken If true, the offset of the token will be the same as the current offset. If false, the offset will be the current offset minus the length of the value.
      */
     void addToken(TokenType type, const std::wstring& value, bool offsetIsStartOfToken = false);
+
+    /**
+     * @brief Dynamically allocates a token and returns it. Technically it is unecessary, but because tokens are also pushed
+     * into the keywordHistory vector, I wanted a standardized method that can be used both there and in addToken.
+     *
+     * @param type
+     * @param value
+     * @param offsetIsStartOfToken If true, the offset of the token will be the same as the current offset. If false, the offset will be the current offset minus the length of the value.
+     * @return TokenPtr to the newly allocated token.
+     */
+    TokenPtr generateToken(TokenType type, const std::wstring& value, bool offsetIsStartOfToken = false);
 
     /**
      * @brief Dynamically allocates a string token and pushes it into the tokens vector.
@@ -113,6 +126,39 @@ private:
      */
     void handleString(wchar_t startQuote);
     void handleComment();
+
+    /**
+     * @brief Handles keyword combinations such as "manje ili jednako od".
+     *
+     * Only executes after a non-keyword token is found, after which it creates new tokens for any combinations that are found
+     * and pushes them into the tokens vector. At the end re-pushes the non-keyword token that was found and clears the keywordHistory vector.
+     */
+    void handleKeywordCombinations();
+
+    /**
+     * @brief Checks if a token is a keyword.
+     *
+     * @param token TokenPtr pointer to the token to check.
+     * @return true if the token is a keyword, false otherwise.
+     */
+    bool isKeyword(TokenPtr token);
+
+    /**
+     * @brief Matches passed vector to the combinations found in KEYWORD_COMBINATIONS.
+     * @param types Vector of TokenType to match.
+     * @return true if the vector matches a combination in KEYWORD_COMBINATIONS, false otherwise.
+     */
+    bool isCombination(const std::vector<TokenType>& types);
+
+    /**
+     * @brief Combines a vector of consecutive tokens into one token. It's important that they are consecutive, as
+     * the function puts whitespace between the tokens. (amount of spaces is equal to the difference of end offset of the first token and start offset of the second token)
+     *
+     * @param tokens Vector of TokenPtr to combine.
+     * @param newType TokenType of the new token.
+     * @return TokenPtr to the combined token.
+     */
+    TokenPtr combineConsecutiveTokens(const std::vector<TokenPtr>& tokens, TokenType newType);
 };
 
 

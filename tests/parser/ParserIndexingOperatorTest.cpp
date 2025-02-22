@@ -14,7 +14,7 @@
 
 TEST_CASE("Parses indexing operator with number parameter", "[parser][array][indexing]") {
     std::wstring source = L"foo[1];";
-    std::unique_ptr<Program> program = parseSource(source);
+    std::unique_ptr<Program> program = parseSourceNoResolver(source);
 
     REQUIRE(program->statements.size() == 1);
     auto indexingExpression = getNode<IndexingExpression>(program->statements[0]);
@@ -23,7 +23,7 @@ TEST_CASE("Parses indexing operator with number parameter", "[parser][array][ind
 
 TEST_CASE("Parses indexing operator with variable parameter", "[parser][array][indexing]") {
     std::wstring source = L"foo[variable];";
-    std::unique_ptr<Program> program = parseSource(source);
+    std::unique_ptr<Program> program = parseSourceNoResolver(source);
 
     REQUIRE(program->statements.size() == 1);
     auto indexingExpression = getNode<IndexingExpression>(program->statements[0]);
@@ -32,7 +32,7 @@ TEST_CASE("Parses indexing operator with variable parameter", "[parser][array][i
 
 TEST_CASE("Parses nested indexing operator", "[parser][array][indexing]") {
     std::wstring source = L"foo[1][variable];";
-    std::unique_ptr<Program> program = parseSource(source);
+    std::unique_ptr<Program> program = parseSourceNoResolver(source);
 
     REQUIRE(program->statements.size() == 1);
     auto indexingExpression = getNode<IndexingExpression>(program->statements[0]);
@@ -44,7 +44,7 @@ TEST_CASE("Parses nested indexing operator", "[parser][array][indexing]") {
 
 TEST_CASE("Parses function call followed by indexing operator", "[parser][array][indexing]") {
     std::wstring source = L"foo()[1];";
-    std::unique_ptr<Program> program = parseSource(source);
+    std::unique_ptr<Program> program = parseSourceNoResolver(source);
 
     REQUIRE(program->statements.size() == 1);
     auto indexingExpression = getNode<IndexingExpression>(program->statements[0]);
@@ -57,15 +57,15 @@ TEST_CASE("Parses function call followed by indexing operator", "[parser][array]
 
 TEST_CASE("Throws on indexing operator with no closing bracket", "[parser][array][indexing]") {
     std::wstring source = L"foo[";
-    REQUIRE_THROWS_AS(parseSource(source), ExpectedXBeforeY);
+    REQUIRE_THROWS_AS(parseSourceNoResolver(source), ExpectedXBeforeY);
 }
 
 TEST_CASE("Throws on indexing operator with no opening bracket", "[parser][array][indexing]") {
     std::wstring source = L"foo]";
-    REQUIRE_THROWS_AS(parseSource(source), ExpectedXBeforeY);
+    REQUIRE_THROWS_AS(parseSourceNoResolver(source), ExpectedXBeforeY);
 }
 
 TEST_CASE("Throws on indexing operator with no index", "[parser][array][indexing]") {
     std::wstring source = L"foo[]";
-    REQUIRE_THROWS_AS(parseSource(source), ExpectedXBeforeY);
+    REQUIRE_THROWS_AS(parseSourceNoResolver(source), ExpectedXBeforeY);
 }

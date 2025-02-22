@@ -33,8 +33,10 @@
 #include "IndexAssignmentExpression.h"
 #include "InvalidDefaultParameterPosition.h"
 #include "InvalidDefaultParameterValue.h"
+#include "InvalidForLoopStep.h"
 
 #define IS_LITERAL(x) (x->type == AstNodeType::NumericLiteralExpression || x->type == AstNodeType::StringLiteralExpression || x->type == AstNodeType::BooleanLiteralExpression || x->type == AstNodeType::NullLiteralExpression || x->type == AstNodeType::ArrayLiteralExpression)
+#define IS_NEGATIVE_NUMBER(x) (x->type == AstNodeType::UnaryExpression && dynamic_cast<UnaryExpression*>(x)->op->type == TokenType::Minus && dynamic_cast<UnaryExpression*>(x)->expr->type == AstNodeType::NumericLiteralExpression)
 
 std::unique_ptr<Program> Parser::parse() {
     std::unique_ptr<Program> program = std::make_unique<Program>();
@@ -123,15 +125,35 @@ std::vector<Statement*> Parser::block() {
 }
 
 Statement* Parser::ifStatement(){
-    if(!atType(TokenType::OpenParenthesis)){
-        throw ExpectedXBeforeY(L"(", previous(), at());
+    bool hasIs = false;
+    TokenPtr isToken = nullptr;
+    if(atType(TokenType::Is)){
+        advance();
+        hasIs = true;
+        isToken = previous();
     }
-    advance();
+
     ExprPtr condition = expression();
-    if(!atType(TokenType::ClosedParenthesis)){
-        throw ExpectedXBeforeY(L")", previous(), at());
+    if(!atType(TokenType::Then) && !atType(TokenType::OpenBrace) && hasIs){
+        ExprPtr literal;
+        try{
+            literal = primaryExpression();
+        }catch(ExpectedXBeforeY& e){
+            if(!atType(TokenType::Then)){
+                throw ExpectedXBeforeY(L"onda", previous(), at());
+            }
+            throw;
+        }
+        if((literal->type != AstNodeType::BooleanLiteralExpression) && (literal->type != AstNodeType::NullLiteralExpression)){
+            throw ExpectedXBeforeY(L"onda", getMostRelevantToken(condition), previous());
+        }
+        isToken->type = TokenType::DoubleEqual; // Required so that in testing this appears as a equality operator, but I can't create a new token becuase I don't have the position and it doesn't exist anyway. So the is token is used in case an error needs to be printed, and the type is changed for testing, maybe its required somewhere else as well idk.
+        condition = new BinaryExpression(condition, isToken, literal);
     }
-    advance();
+    if(!atType(TokenType::Then) && !atType(TokenType::OpenBrace)){
+        throw ExpectedXBeforeY(L"onda", previous(), at());
+    }
+    if(atType(TokenType::Then)) advance();
 
     StmtPtr thenBranch = statement();
     StmtPtr elseBranch = nullptr;
@@ -143,60 +165,124 @@ Statement* Parser::ifStatement(){
 }
 
 Statement* Parser::whileStatement() {
-    if(!atType(TokenType::OpenParenthesis)){
-        throw ExpectedXBeforeY(L"(", previous(), at());
+    bool hasIs = false;
+    TokenPtr isToken = nullptr;
+    if(atType(TokenType::Is)){
+        advance();
+        hasIs = true;
+        isToken = previous();
     }
-    advance();
+
     ExprPtr condition = expression();
-    if(!atType(TokenType::ClosedParenthesis)){
-        throw ExpectedXBeforeY(L")", previous(), at());
+
+    if(!atType(TokenType::Repeat) && !atType(TokenType::OpenBrace) && hasIs){
+        ExprPtr literal;
+        try{
+            literal = primaryExpression();
+        }catch(ExpectedXBeforeY& e){
+            if(!atType(TokenType::Repeat)){
+                throw ExpectedXBeforeY(L"ponavljaj", previous(), at());
+            }
+            throw;
+        }
+        if((literal->type != AstNodeType::BooleanLiteralExpression) && (literal->type != AstNodeType::NullLiteralExpression)){
+            throw ExpectedXBeforeY(L"ponavljaj", getMostRelevantToken(condition), previous());
+        }
+        isToken->type = TokenType::DoubleEqual; // Required so that in testing this appears as a equality operator, but I can't create a new token becuase I don't have the position and it doesn't exist anyway. So the is token is used in case an error needs to be printed, and the type is changed for testing, maybe its required somewhere else as well idk.
+        condition = new BinaryExpression(condition, isToken, literal);
     }
-    advance();
+    if(!atType(TokenType::Repeat) && !atType(TokenType::OpenBrace)){
+        throw ExpectedXBeforeY(L"ponavljaj", previous(), at());
+    }
+    if(atType(TokenType::Repeat)) advance();
+
     StmtPtr body = statement();
+
     return new WhileStatement(condition, body);
 }
 
 Statement* Parser::forStatement() {
-    if(!atType(TokenType::OpenParenthesis)){
-        throw ExpectedXBeforeY(L"(", previous(), at());
+    if(!atType(TokenType::Each)){
+        throw ExpectedXBeforeY(L"svako", previous(), at());
     }
     advance();
-    StmtPtr initializer = nullptr;
-    if(match({TokenType::Var})){
-        initializer = varDeclarationStatement();
-    } else if(match({TokenType::Semicolon})){
-        initializer = nullptr;
-    } else {
-        initializer = expressionStatement();
-    }
-    ExprPtr condition = nullptr;
-    if(!atType(TokenType::Semicolon)){
-        condition = expression();
-    }
-    if(!atType(TokenType::Semicolon)){
-        throw ExpectedXBeforeY(L";", previous(), at());
+
+    if(!atType(TokenType::Identifier)){
+        throw ExpectedXBeforeY(L"identifikator", previous(), at());
     }
     advance();
-    ExprPtr increment = nullptr;
-    if(!atType(TokenType::ClosedParenthesis)){
-        increment = expression();
+    TokenPtr identifier = previous();
+
+    if(!atType(TokenType::Od)){
+        throw ExpectedXBeforeY(L"od", previous(), at());
     }
-    if(!atType(TokenType::ClosedParenthesis)){
-        throw ExpectedXBeforeY(L")", previous(), at());
-    }
+
     advance();
+    ExprPtr startValue = expression();
+
+    StmtPtr initializer = new VarDeclarationStatement(identifier, startValue, false);
+
+    if(!atType(TokenType::Do)){
+        throw ExpectedXBeforeY(L"do", previous(), at());
+    }
+
+    advance();
+    TokenPtr toToken = previous();
+    toToken->type = TokenType::Less;
+
+    ExprPtr endValue = expression();
+
+    // This MUSTN'T be changed. This has to be a binary expression because in while statement interpretation it does
+    // a static cast to binaryExpr in order to switch the toTokenType from less to greater if the step is negative.
+    ExprPtr condition = new BinaryExpression(new VariableExpression(identifier), toToken, endValue);
+
+    ExprPtr incrementValue = new NumericLiteralExpression(new Token(TokenType::Number, L"1", 0, 0));
+    if(atType(TokenType::Step)){
+        advance();
+        incrementValue = expression();
+    }
+
+    // Increment must be either unary minus of a numeric literal, or a numeric literal
+    if(incrementValue->type != AstNodeType::NumericLiteralExpression && !IS_NEGATIVE_NUMBER(incrementValue)){
+        throw InvalidForLoopStep(getMostRelevantToken(incrementValue));
+    }
+    ExprPtr increment = new AssignmentExpression(identifier, new BinaryExpression(new VariableExpression(identifier), new Token(TokenType::Plus, L"+", 0, 0), incrementValue));
+
+    // valjda stari kod za for loop?
+//    if(match({TokenType::Var})){
+//        initializer = varDeclarationStatement();
+//    } else if(match({TokenType::Semicolon})){
+//        initializer = nullptr;
+//    } else {
+//        initializer = expressionStatement();
+//    }
+
+//    ExprPtr condition = nullptr;
+//    if(!atType(TokenType::Semicolon)){
+//        condition = expression();
+//    }
+//    if(!atType(TokenType::Semicolon)){
+//        throw ExpectedXBeforeY(L";", previous(), at());
+//    }
+//    advance();
+//    ExprPtr increment = nullptr;
+//    if(!atType(TokenType::ClosedParenthesis)){
+//        increment = expression();
+//    }
+//    if(!atType(TokenType::ClosedParenthesis)){
+//        throw ExpectedXBeforeY(L")", previous(), at());
+//    }
+//    advance();
+
+    if(atType(TokenType::Repeat)) advance();
     StmtPtr body = statement();
 
-    if(increment != nullptr){
-        body = new BlockStatement({body, new ExpressionStatement(increment)});
-    }
-    if(condition == nullptr){
-        condition = new BooleanLiteralExpression(new Token(TokenType::True, L"tačno", 0, 0));
-    }
+    body = new BlockStatement({body, new ExpressionStatement(increment)});
+
     body = new WhileStatement(condition, body);
-    if(initializer != nullptr){
-        body = new BlockStatement({initializer, body});
-    }
+    static_cast<WhileStatement*>(body)->isForLoop = true;
+    static_cast<WhileStatement*>(body)->forIncrement = incrementValue;
+    body = new BlockStatement({initializer, body});
 
     return body;
 }
@@ -227,7 +313,7 @@ Statement* Parser::functionDeclarationStatement() {
 
             if(match({TokenType::Equal})) {
                 ExprPtr value = expression();
-                if(!IS_LITERAL(value)){
+                if(!IS_LITERAL(value) && !IS_NEGATIVE_NUMBER(value)){
                     throw InvalidDefaultParameterValue(parameters[parameters.size() - 1]);
                 }
 
@@ -313,7 +399,7 @@ ExprPtr Parser::logicalAndExpression() {
 
 ExprPtr Parser::equalityExpression() {
     ExprPtr expr = comparisonExpression();
-    while(match({TokenType::BangEqual, TokenType::DoubleEqual})){
+    while(match({TokenType::NotEqual, TokenType::DoubleEqual})){
         Token* op = previous();
         ExprPtr right = comparisonExpression();
         expr = new BinaryExpression(expr, op, right);

@@ -33,6 +33,7 @@
 #include "IndexingNonArray.h"
 #include "InvalidDefaultParameterPosition.h"
 #include "InvalidDefaultParameterValue.h"
+#include "InvalidForLoopStep.h"
 
 typedef std::pair<std::pair<int, int>, std::wstring> colorHighlight;
 
@@ -122,6 +123,7 @@ private:
     void printSelfReferencingInitializerError(const SelfReferencingInitializer* error);
     void printInvalidDefaultParameterPositionError(const InvalidDefaultParameterPosition* error);
     void printInvalidDefaultParameterValueError(const InvalidDefaultParameterValue* error);
+    void printInvalidForLoopStepError(const InvalidForLoopStep* error);
 };
 
 

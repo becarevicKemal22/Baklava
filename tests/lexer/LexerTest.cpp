@@ -1,17 +1,7 @@
 #include <catch2/catch_test_macros.hpp>
 
 #include "Lexer.h"
-
-void checkToken(const Token* token, TokenType type, const std::wstring& value){
-    CHECK(token->type == type);
-    CHECK(token->value == value);
-}
-
-void checkToken(const Token* token, TokenType type, const std::wstring& value, unsigned int line, unsigned int charIndexOnLine){
-    checkToken(token, type, value);
-    CHECK(token->line == line);
-    CHECK(token->offset == charIndexOnLine);
-}
+#include "../TestHelpers.h"
 
 TEST_CASE("Adds eof to empty input", "[lexer]"){
     std::wstring source = L"";
@@ -194,7 +184,7 @@ TEST_CASE("Tokenizes operators", "[lexer]"){
     checkToken(tokens[3], TokenType::Slash, L"/", 1, 3);
     checkToken(tokens[4], TokenType::Percent, L"%", 1, 4);
     checkToken(tokens[5], TokenType::Bang, L"!", 1, 5);
-    checkToken(tokens[6], TokenType::BangEqual, L"!=", 1, 7);
+    checkToken(tokens[6], TokenType::NotEqual, L"!=", 1, 7);
     checkToken(tokens[7], TokenType::Less, L"<", 1, 10);
     checkToken(tokens[8], TokenType::Greater, L">", 1, 12);
     checkToken(tokens[9], TokenType::LessEqual, L"<=", 1, 14);

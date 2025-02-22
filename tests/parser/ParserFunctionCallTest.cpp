@@ -12,7 +12,7 @@
 
 TEST_CASE("Parses call expression with no arguments", "[parser][function][callExpression]") {
     std::wstring source = L"foo();";
-    std::unique_ptr<Program> program = parseSource(source);
+    std::unique_ptr<Program> program = parseSourceNoResolver(source);
 
     REQUIRE(program->statements.size() == 1);
     auto callExpression = getNode<CallExpression>(program->statements[0]);
@@ -22,7 +22,7 @@ TEST_CASE("Parses call expression with no arguments", "[parser][function][callEx
 
 TEST_CASE("Parses call expression with arguments", "[parser][function][callExpression]") {
     std::wstring source = L"foo(1, 2, variable);";
-    std::unique_ptr<Program> program = parseSource(source);
+    std::unique_ptr<Program> program = parseSourceNoResolver(source);
 
     REQUIRE(program->statements.size() == 1);
     auto callExpression = getNode<CallExpression>(program->statements[0]);
@@ -35,7 +35,7 @@ TEST_CASE("Parses call expression with arguments", "[parser][function][callExpre
 
 TEST_CASE("Parses chained function calls", "[parser][function][callExpression]") {
     std::wstring source = L"foo(variable)(3, 4);";
-    std::unique_ptr<Program> program = parseSource(source);
+    std::unique_ptr<Program> program = parseSourceNoResolver(source);
 
     REQUIRE(program->statements.size() == 1);
     auto callExpression = getNode<CallExpression>(program->statements[0]);
@@ -52,25 +52,25 @@ TEST_CASE("Parses chained function calls", "[parser][function][callExpression]")
 
 TEST_CASE("Throws on call expression with no closing parenthesis", "[parser][function][callExpression]") {
     std::wstring source = L"foo(";
-    REQUIRE_THROWS_AS(parseSource(source), ExpectedXBeforeY);
+    REQUIRE_THROWS_AS(parseSourceNoResolver(source), ExpectedXBeforeY);
 }
 
 TEST_CASE("Throws on call expression with no opening parenthesis", "[parser][function][callExpression]") {
     std::wstring source = L"foo)";
-    REQUIRE_THROWS_AS(parseSource(source), ExpectedXBeforeY);
+    REQUIRE_THROWS_AS(parseSourceNoResolver(source), ExpectedXBeforeY);
 }
 
 TEST_CASE("Throws on call expression with no closing parenthesis and arguments", "[parser][function][callExpression]") {
     std::wstring source = L"foo(1, 2";
-    REQUIRE_THROWS_AS(parseSource(source), ExpectedXBeforeY);
+    REQUIRE_THROWS_AS(parseSourceNoResolver(source), ExpectedXBeforeY);
 }
 
 TEST_CASE("Throws on call expression with no opening parenthesis and arguments", "[parser][function][callExpression]") {
     std::wstring source = L"foo 1, 2)";
-    REQUIRE_THROWS_AS(parseSource(source), ExpectedXBeforeY);
+    REQUIRE_THROWS_AS(parseSourceNoResolver(source), ExpectedXBeforeY);
 }
 
 TEST_CASE("Throws when arguments are not comma-separated", "[parser][function][callExpression]") {
     std::wstring source = L"foo(1 2)";
-    REQUIRE_THROWS_AS(parseSource(source), ExpectedXBeforeY);
+    REQUIRE_THROWS_AS(parseSourceNoResolver(source), ExpectedXBeforeY);
 }
