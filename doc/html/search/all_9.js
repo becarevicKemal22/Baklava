@@ -1,6 +1,4 @@
 var searchData=
 [
-  ['keyword_0',['keyword',['../class_return_statement.html#a1661542ad9abfa31036e79909effc8ac',1,'ReturnStatement']]],
-  ['keywords_1',['KEYWORDS',['../_keywords_8h.html#a8f2821841f1038b7f82c075dd79036da',1,'Keywords.h']]],
-  ['keywords_2eh_2',['Keywords.h',['../_keywords_8h.html',1,'']]]
+  ['jednako_0',['Jednako',['../_token_type_8h.html#afa91e1934f818659a4e2b0c8ce1214b0a1a95549331f929d3854f0ebdf4697bae',1,'TokenType.h']]]
 ];

@@ -2,6 +2,8 @@
 
 #include "Lexer.h"
 #include "../TestHelpers.h"
+#include "UnterminatedString.h"
+#include "UnexpectedCharacter.h"
 
 TEST_CASE("Adds eof to empty input", "[lexer]"){
     std::wstring source = L"";
@@ -110,21 +112,28 @@ TEST_CASE("Throws error on unterminated string", "[lexer]"){
     std::wstring source = L"\"";
 
     Lexer lexer(source);
-    REQUIRE_THROWS(lexer.tokenize());
+    REQUIRE_THROWS_AS(lexer.tokenize(), UnterminatedString);
 }
 
 TEST_CASE("Throws unterminated string error on double-single string"){
 std::wstring source = L"\"neki string\'";
 
     Lexer lexer(source);
-    REQUIRE_THROWS(lexer.tokenize());
+    REQUIRE_THROWS_AS(lexer.tokenize(), UnterminatedString);
 }
 
 TEST_CASE("Throws unterminated string error on single-double string"){
     std::wstring source = L"'neki string\"";
 
     Lexer lexer(source);
-    REQUIRE_THROWS(lexer.tokenize());
+    REQUIRE_THROWS_AS(lexer.tokenize(), UnterminatedString);
+}
+
+TEST_CASE("Throws error on unexpected character", "[lexer]"){
+    std::wstring source = L"za svako i od | do";
+
+    Lexer lexer(source);
+    REQUIRE_THROWS_AS(lexer.tokenize(), UnexpectedCharacter);
 }
 
 TEST_CASE("Allows normal use of single quotes in double-quoted string literal"){

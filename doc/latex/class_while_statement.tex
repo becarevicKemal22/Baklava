@@ -28,6 +28,10 @@ virtual \mbox{\hyperlink{class_statement_a99d8be8cbb81cc0742784f3c43d8bb39}{\tex
 \mbox{\hyperlink{_ast_8h_a9d808314a4eefca35684489c8e2e4547}{Expr\+Ptr}} \mbox{\hyperlink{class_while_statement_a9cb20f702064db55769375895cdeaabd}{condition}}
 \item 
 \mbox{\hyperlink{_ast_8h_ad591697d8b5c0c7de8add763ec2e67ef}{Stmt\+Ptr}} \mbox{\hyperlink{class_while_statement_acc4e616d95761e54ec33d4e3c1f3ceb1}{body}}
+\item 
+bool \mbox{\hyperlink{class_while_statement_a852082e109c00b1cf9e6ca543e7d4f29}{is\+For\+Loop}} = false
+\item 
+\mbox{\hyperlink{_ast_8h_a9d808314a4eefca35684489c8e2e4547}{Expr\+Ptr}} \mbox{\hyperlink{class_while_statement_ac93a7896389e382598b37067e3b1e102}{for\+Increment}} = nullptr
 \end{DoxyCompactItemize}
 \doxysubsection*{Public Attributes inherited from \mbox{\hyperlink{class_statement}{Statement}}}
 \begin{DoxyCompactItemize}
@@ -58,7 +62,19 @@ virtual \mbox{\hyperlink{class_statement_a99d8be8cbb81cc0742784f3c43d8bb39}{\tex
 \doxysubsubsection{\texorpdfstring{condition}{condition}}
 {\footnotesize\ttfamily \mbox{\hyperlink{_ast_8h_a9d808314a4eefca35684489c8e2e4547}{Expr\+Ptr}} While\+Statement\+::condition}
 
+\Hypertarget{class_while_statement_ac93a7896389e382598b37067e3b1e102}\label{class_while_statement_ac93a7896389e382598b37067e3b1e102} 
+\index{WhileStatement@{WhileStatement}!forIncrement@{forIncrement}}
+\index{forIncrement@{forIncrement}!WhileStatement@{WhileStatement}}
+\doxysubsubsection{\texorpdfstring{forIncrement}{forIncrement}}
+{\footnotesize\ttfamily \mbox{\hyperlink{_ast_8h_a9d808314a4eefca35684489c8e2e4547}{Expr\+Ptr}} While\+Statement\+::for\+Increment = nullptr}
 
+Necessary for for loops. Represents the increment expression of the for loop. It\textquotesingle{}s probably better to keep this here instead of doing static casts and searching around the body in order to find the increment expression. \Hypertarget{class_while_statement_a852082e109c00b1cf9e6ca543e7d4f29}\label{class_while_statement_a852082e109c00b1cf9e6ca543e7d4f29} 
+\index{WhileStatement@{WhileStatement}!isForLoop@{isForLoop}}
+\index{isForLoop@{isForLoop}!WhileStatement@{WhileStatement}}
+\doxysubsubsection{\texorpdfstring{isForLoop}{isForLoop}}
+{\footnotesize\ttfamily bool While\+Statement\+::is\+For\+Loop = false}
+
+Is set to true when the while loop is created while parsing a for loop. Symbolizes whether the while loop servers as a for loop or normal while loop. 
 
 The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
 \item 

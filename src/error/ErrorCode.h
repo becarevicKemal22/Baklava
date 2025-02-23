@@ -10,7 +10,7 @@
  *
  * Every single possible error is included in the enum, and no error reporting should be done without using the correct code.
  * 1xx are general errors.
- * 2xx are lexical errors.
+ * 2xx are lexer errors.
  * 3xx are parsing errors.
  * 4xx are interpreter runtime errors.
  * @see ErrorMessages.h for the error messages corresponding to each code.

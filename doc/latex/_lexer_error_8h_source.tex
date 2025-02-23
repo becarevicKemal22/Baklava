@@ -1,0 +1,33 @@
+\doxysection{Lexer\+Error.\+h}
+\hypertarget{_lexer_error_8h_source}{}\label{_lexer_error_8h_source}\index{src/error/exceptions/lexer/LexerError.h@{src/error/exceptions/lexer/LexerError.h}}
+\mbox{\hyperlink{_lexer_error_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{//}}
+\DoxyCodeLine{00002\ \textcolor{comment}{//\ Created\ by\ kemal\ on\ 23-\/Feb-\/25.}}
+\DoxyCodeLine{00003\ \textcolor{comment}{//}}
+\DoxyCodeLine{00004\ }
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#ifndef\ BAKLAVA\_LEXERERROR\_H}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#define\ BAKLAVA\_LEXERERROR\_H}}
+\DoxyCodeLine{00007\ }
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#include\ <exception>}}
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#include\ <utility>}}
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#include\ <vector>}}
+\DoxyCodeLine{00011\ }
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_error_code_8h}{ErrorCode.h}}"{}}}
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_error_message_argument_8h}{ErrorMessageArgument.h}}"{}}}
+\DoxyCodeLine{00014\ }
+\DoxyCodeLine{00020\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_lexer_error}{LexerError}}\ :\ \textcolor{keyword}{public}\ std::exception\ \{}
+\DoxyCodeLine{00021\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00022\ \ \ \ \ \mbox{\hyperlink{class_lexer_error_a645a30ffd4b189f3a5be37d54fce5ffc}{LexerError}}(\mbox{\hyperlink{_error_code_8h_a59e56af19e754a6aa26a612ebf91d05f}{ErrorCode}}\ \mbox{\hyperlink{class_lexer_error_a1ad7d0dbd284d77c6fdfc58c064e40f4}{code}},\ std::vector<ErrorMessageArgument>\ \mbox{\hyperlink{class_lexer_error_a689f66de48e10f534678fe27170c9560}{messageArguments}})\ :\ \mbox{\hyperlink{class_lexer_error_a1ad7d0dbd284d77c6fdfc58c064e40f4}{code}}(\mbox{\hyperlink{class_lexer_error_a1ad7d0dbd284d77c6fdfc58c064e40f4}{code}}),}
+\DoxyCodeLine{00023\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_lexer_error_a689f66de48e10f534678fe27170c9560}{messageArguments}}(std::move(}
+\DoxyCodeLine{00024\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_lexer_error_a689f66de48e10f534678fe27170c9560}{messageArguments}}))\ \{\}}
+\DoxyCodeLine{00025\ }
+\DoxyCodeLine{00026\ \ \ \ \ \mbox{\hyperlink{_error_code_8h_a59e56af19e754a6aa26a612ebf91d05f}{ErrorCode}}\ \mbox{\hyperlink{class_lexer_error_a1ad7d0dbd284d77c6fdfc58c064e40f4}{code}};}
+\DoxyCodeLine{00027\ \ \ \ \ std::vector<ErrorMessageArgument>\ \mbox{\hyperlink{class_lexer_error_a689f66de48e10f534678fe27170c9560}{messageArguments}};}
+\DoxyCodeLine{00028\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{class_lexer_error_a3d75be28055cf9b76d456ff5139742b3}{line}};}
+\DoxyCodeLine{00029\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{class_lexer_error_a57686ab6e92c104286c1aa7d6f6d964e}{column}};}
+\DoxyCodeLine{00030\ \};}
+\DoxyCodeLine{00031\ }
+\DoxyCodeLine{00032\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//BAKLAVA\_LEXERERROR\_H}}
+
+\end{DoxyCode}

@@ -1,0 +1,79 @@
+\doxysection{Lexer\+Error Class Reference}
+\hypertarget{class_lexer_error}{}\label{class_lexer_error}\index{LexerError@{LexerError}}
+
+
+Base class for all lexer exceptions.  
+
+
+
+
+{\ttfamily \#include $<$Lexer\+Error.\+h$>$}
+
+Inheritance diagram for Lexer\+Error\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=3.000000cm]{class_lexer_error}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_lexer_error_a645a30ffd4b189f3a5be37d54fce5ffc}{Lexer\+Error}} (\mbox{\hyperlink{_error_code_8h_a59e56af19e754a6aa26a612ebf91d05f}{Error\+Code}} \mbox{\hyperlink{class_lexer_error_a1ad7d0dbd284d77c6fdfc58c064e40f4}{code}}, std\+::vector$<$ \mbox{\hyperlink{_error_message_argument_8h_a2ce8d7c0c01d40b6373946f75c36eee7}{Error\+Message\+Argument}} $>$ \mbox{\hyperlink{class_lexer_error_a689f66de48e10f534678fe27170c9560}{message\+Arguments}})
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{_error_code_8h_a59e56af19e754a6aa26a612ebf91d05f}{Error\+Code}} \mbox{\hyperlink{class_lexer_error_a1ad7d0dbd284d77c6fdfc58c064e40f4}{code}}
+\item 
+std\+::vector$<$ \mbox{\hyperlink{_error_message_argument_8h_a2ce8d7c0c01d40b6373946f75c36eee7}{Error\+Message\+Argument}} $>$ \mbox{\hyperlink{class_lexer_error_a689f66de48e10f534678fe27170c9560}{message\+Arguments}}
+\item 
+unsigned int \mbox{\hyperlink{class_lexer_error_a3d75be28055cf9b76d456ff5139742b3}{line}}
+\item 
+unsigned int \mbox{\hyperlink{class_lexer_error_a57686ab6e92c104286c1aa7d6f6d964e}{column}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Base class for all lexer exceptions. 
+
+Contains the error code and the message arguments that are used to format the error message, as well as the line and column used for highlighting. 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{class_lexer_error_a645a30ffd4b189f3a5be37d54fce5ffc}\label{class_lexer_error_a645a30ffd4b189f3a5be37d54fce5ffc} 
+\index{LexerError@{LexerError}!LexerError@{LexerError}}
+\index{LexerError@{LexerError}!LexerError@{LexerError}}
+\doxysubsubsection{\texorpdfstring{LexerError()}{LexerError()}}
+{\footnotesize\ttfamily Lexer\+Error\+::\+Lexer\+Error (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{_error_code_8h_a59e56af19e754a6aa26a612ebf91d05f}{Error\+Code}}}]{code,  }\item[{std\+::vector$<$ \mbox{\hyperlink{_error_message_argument_8h_a2ce8d7c0c01d40b6373946f75c36eee7}{Error\+Message\+Argument}} $>$}]{message\+Arguments }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+\doxysubsection{Member Data Documentation}
+\Hypertarget{class_lexer_error_a1ad7d0dbd284d77c6fdfc58c064e40f4}\label{class_lexer_error_a1ad7d0dbd284d77c6fdfc58c064e40f4} 
+\index{LexerError@{LexerError}!code@{code}}
+\index{code@{code}!LexerError@{LexerError}}
+\doxysubsubsection{\texorpdfstring{code}{code}}
+{\footnotesize\ttfamily \mbox{\hyperlink{_error_code_8h_a59e56af19e754a6aa26a612ebf91d05f}{Error\+Code}} Lexer\+Error\+::code}
+
+\Hypertarget{class_lexer_error_a57686ab6e92c104286c1aa7d6f6d964e}\label{class_lexer_error_a57686ab6e92c104286c1aa7d6f6d964e} 
+\index{LexerError@{LexerError}!column@{column}}
+\index{column@{column}!LexerError@{LexerError}}
+\doxysubsubsection{\texorpdfstring{column}{column}}
+{\footnotesize\ttfamily unsigned int Lexer\+Error\+::column}
+
+\Hypertarget{class_lexer_error_a3d75be28055cf9b76d456ff5139742b3}\label{class_lexer_error_a3d75be28055cf9b76d456ff5139742b3} 
+\index{LexerError@{LexerError}!line@{line}}
+\index{line@{line}!LexerError@{LexerError}}
+\doxysubsubsection{\texorpdfstring{line}{line}}
+{\footnotesize\ttfamily unsigned int Lexer\+Error\+::line}
+
+\Hypertarget{class_lexer_error_a689f66de48e10f534678fe27170c9560}\label{class_lexer_error_a689f66de48e10f534678fe27170c9560} 
+\index{LexerError@{LexerError}!messageArguments@{messageArguments}}
+\index{messageArguments@{messageArguments}!LexerError@{LexerError}}
+\doxysubsubsection{\texorpdfstring{messageArguments}{messageArguments}}
+{\footnotesize\ttfamily std\+::vector$<$\mbox{\hyperlink{_error_message_argument_8h_a2ce8d7c0c01d40b6373946f75c36eee7}{Error\+Message\+Argument}}$>$ Lexer\+Error\+::message\+Arguments}
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+src/error/exceptions/lexer/\mbox{\hyperlink{_lexer_error_8h}{Lexer\+Error.\+h}}\end{DoxyCompactItemize}

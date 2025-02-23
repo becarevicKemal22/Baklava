@@ -5,7 +5,7 @@ set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -DNDEBUG")
 set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -DDEBUG") # This was put here to disable the assert which checks native functions for disparities between expected default argument count and actual defaultArgument vector
 
-include_directories("src/interpreter/controlFlowExceptions" "src/lexer" "src/error" "src/error/exceptions/parser" "src/error/printer" "src/parser" "src/parser/ast/" "src/parser/ast/expressions" "src/parser/ast/statements" "src/interpreter/" "src/interpreter/runtimeValues" "src/error/exceptions" "src/interpreter/nativeFunctions" )
+include_directories("src/interpreter/controlFlowExceptions" "src/lexer" "src/error" "src/error/exceptions/parser" "src/error/exceptions/lexer" "src/error/printer" "src/parser" "src/parser/ast/" "src/parser/ast/expressions" "src/parser/ast/statements" "src/interpreter/" "src/interpreter/runtimeValues" "src/error/exceptions" "src/interpreter/nativeFunctions" )
 add_executable(baklava main.cpp
         src/lexer/Lexer.cpp
         src/lexer/Lexer.h
@@ -86,6 +86,9 @@ add_executable(baklava main.cpp
         src/error/exceptions/parser/InvalidDefaultParameterValue.h
         src/lexer/KeywordCombinations.h
         src/error/exceptions/parser/InvalidForLoopStep.h
+        src/error/exceptions/lexer/UnterminatedString.h
+        src/error/exceptions/lexer/LexerError.h
+        src/error/exceptions/lexer/UnexpectedCharacter.h
 )
 
 add_subdirectory(tests)

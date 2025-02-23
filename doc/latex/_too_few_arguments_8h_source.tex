@@ -1,0 +1,25 @@
+\doxysection{Too\+Few\+Arguments.\+h}
+\hypertarget{_too_few_arguments_8h_source}{}\label{_too_few_arguments_8h_source}\index{src/error/exceptions/TooFewArguments.h@{src/error/exceptions/TooFewArguments.h}}
+\mbox{\hyperlink{_too_few_arguments_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{//}}
+\DoxyCodeLine{00002\ \textcolor{comment}{//\ Created\ by\ kemal\ on\ 9/17/2024.}}
+\DoxyCodeLine{00003\ \textcolor{comment}{//}}
+\DoxyCodeLine{00004\ }
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#ifndef\ BAKLAVA\_TOOFEWARGUMENTS\_H}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#define\ BAKLAVA\_TOOFEWARGUMENTS\_H}}
+\DoxyCodeLine{00007\ }
+\DoxyCodeLine{00008\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_too_few_arguments}{TooFewArguments}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{class_runtime_error}{RuntimeError}}\ \{}
+\DoxyCodeLine{00009\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00010\ \ \ \ \ \mbox{\hyperlink{class_too_few_arguments_a8da880eea2a0066aabcb464349094313}{TooFewArguments}}(\textcolor{keywordtype}{int}\ expected,\ \textcolor{keywordtype}{int}\ got,\ \mbox{\hyperlink{class_token}{Token}}\ *\mbox{\hyperlink{class_too_few_arguments_a13c2bb7d0d26435e643845f9ccba01eb}{token}},\ \mbox{\hyperlink{class_token}{Token}}\ *\mbox{\hyperlink{class_too_few_arguments_a2275b3aed1f2140f7d3aed7b3291c965}{paren}})\ :\ \mbox{\hyperlink{class_runtime_error}{RuntimeError}}(\mbox{\hyperlink{_error_code_8h_a59e56af19e754a6aa26a612ebf91d05fa80259ec5d0e82a318ef57bf8061cc522}{ERROR\_TOO\_FEW\_ARGUMENTS}}),}
+\DoxyCodeLine{00011\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_too_few_arguments_a13c2bb7d0d26435e643845f9ccba01eb}{token}}(\mbox{\hyperlink{class_too_few_arguments_a13c2bb7d0d26435e643845f9ccba01eb}{token}}),\ \mbox{\hyperlink{class_too_few_arguments_a2275b3aed1f2140f7d3aed7b3291c965}{paren}}(\mbox{\hyperlink{class_too_few_arguments_a2275b3aed1f2140f7d3aed7b3291c965}{paren}})\ \{}
+\DoxyCodeLine{00012\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_runtime_error_a5d005928ddf618703012ce4c1f8e3f03}{messageArguments}}.emplace\_back(std::to\_wstring(expected\ -\/\ got));}
+\DoxyCodeLine{00013\ \ \ \ \ \}}
+\DoxyCodeLine{00014\ }
+\DoxyCodeLine{00015\ \ \ \ \ \mbox{\hyperlink{class_token}{Token}}\ *\mbox{\hyperlink{class_too_few_arguments_a13c2bb7d0d26435e643845f9ccba01eb}{token}};}
+\DoxyCodeLine{00016\ \ \ \ \ \mbox{\hyperlink{class_token}{Token}}\ *\mbox{\hyperlink{class_too_few_arguments_a2275b3aed1f2140f7d3aed7b3291c965}{paren}};}
+\DoxyCodeLine{00017\ \};}
+\DoxyCodeLine{00018\ }
+\DoxyCodeLine{00019\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//BAKLAVA\_TOOFEWARGUMENTS\_H}}
+
+\end{DoxyCode}

@@ -1,0 +1,27 @@
+\doxysection{Unterminated\+String.\+h}
+\hypertarget{_unterminated_string_8h_source}{}\label{_unterminated_string_8h_source}\index{src/error/exceptions/lexer/UnterminatedString.h@{src/error/exceptions/lexer/UnterminatedString.h}}
+\mbox{\hyperlink{_unterminated_string_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{//}}
+\DoxyCodeLine{00002\ \textcolor{comment}{//\ Created\ by\ kemal\ on\ 23-\/Feb-\/25.}}
+\DoxyCodeLine{00003\ \textcolor{comment}{//}}
+\DoxyCodeLine{00004\ }
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#ifndef\ BAKLAVA\_UNTERMINATEDSTRING\_H}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#define\ BAKLAVA\_UNTERMINATEDSTRING\_H}}
+\DoxyCodeLine{00007\ }
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_lexer_error_8h}{LexerError.h}}"{}}}
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_error_code_8h}{ErrorCode.h}}"{}}}
+\DoxyCodeLine{00010\ }
+\DoxyCodeLine{00014\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_unterminated_string}{UnterminatedString}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{class_lexer_error}{LexerError}}\ \{}
+\DoxyCodeLine{00015\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00016\ \ \ \ \ \mbox{\hyperlink{class_unterminated_string_a0ce9a9b0dc9b9e1783dcd6c6d2e8b804}{UnterminatedString}}(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{class_lexer_error_a3d75be28055cf9b76d456ff5139742b3}{line}},\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{class_lexer_error_a57686ab6e92c104286c1aa7d6f6d964e}{column}})\ :\ \mbox{\hyperlink{class_lexer_error}{LexerError}}(\mbox{\hyperlink{_error_code_8h_a59e56af19e754a6aa26a612ebf91d05fadd419a657a311f11c4ac1c0efb3a35a0}{ERROR\_UNTERMINATED\_STRING}},\ \{\})\ \{}
+\DoxyCodeLine{00017\ \ \ \ \ \ \ \ \ this-\/>\mbox{\hyperlink{class_lexer_error_a3d75be28055cf9b76d456ff5139742b3}{line}}\ =\ \mbox{\hyperlink{class_lexer_error_a3d75be28055cf9b76d456ff5139742b3}{line}};}
+\DoxyCodeLine{00018\ \ \ \ \ \ \ \ \ this-\/>\mbox{\hyperlink{class_lexer_error_a57686ab6e92c104286c1aa7d6f6d964e}{column}}\ =\ \mbox{\hyperlink{class_lexer_error_a57686ab6e92c104286c1aa7d6f6d964e}{column}};}
+\DoxyCodeLine{00019\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_lexer_error_a689f66de48e10f534678fe27170c9560}{messageArguments}}.push\_back(std::to\_string(\mbox{\hyperlink{class_lexer_error_a3d75be28055cf9b76d456ff5139742b3}{line}}));}
+\DoxyCodeLine{00020\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_lexer_error_a689f66de48e10f534678fe27170c9560}{messageArguments}}.push\_back(std::to\_string(\mbox{\hyperlink{class_lexer_error_a57686ab6e92c104286c1aa7d6f6d964e}{column}}\ +\ 1));}
+\DoxyCodeLine{00021\ \ \ \ \ \}}
+\DoxyCodeLine{00022\ \};}
+\DoxyCodeLine{00023\ }
+\DoxyCodeLine{00024\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//BAKLAVA\_UNTERMINATEDSTRING\_H}}
+
+\end{DoxyCode}

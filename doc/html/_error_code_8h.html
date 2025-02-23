@@ -101,9 +101,14 @@ Enumerations</h2></td></tr>
 , <a class="el" href="#a59e56af19e754a6aa26a612ebf91d05fa35a3bfe6f0bcbd43fdf4553876972ec5">ERROR_INVALID_LVALUE</a>
 , <a class="el" href="#a59e56af19e754a6aa26a612ebf91d05fa07213cc3dba5230ec5715a8e23b7a75b">ERROR_INVALID_CALL</a>
 , <br />
-&#160;&#160;<a class="el" href="#a59e56af19e754a6aa26a612ebf91d05fab55db74ec6e0da76114fcde483042d2e">ERROR_TOO_MANY_ARGUMENTS</a>
+&#160;&#160;<a class="el" href="#a59e56af19e754a6aa26a612ebf91d05faae3683440c52e17b121b0d871a3aa35b">ERROR_TOO_MANY_ARGUMENTS</a>
+, <a class="el" href="#a59e56af19e754a6aa26a612ebf91d05fa80259ec5d0e82a318ef57bf8061cc522">ERROR_TOO_FEW_ARGUMENTS</a>
 , <a class="el" href="#a59e56af19e754a6aa26a612ebf91d05fab8e0076acfdc964614d77b23ce15e112">ERROR_INVALID_RETURN_POSITION</a>
 , <a class="el" href="#a59e56af19e754a6aa26a612ebf91d05fa425c0ce6580188f05fc03bd22e852c4b">ERROR_SELF_REFERENCING_INITIALIZER</a>
+, <br />
+&#160;&#160;<a class="el" href="#a59e56af19e754a6aa26a612ebf91d05fa813bfc0572b7c3f3a2850771d242adb6">ERROR_INVALID_DEFAULT_PARAMETER_POSITION</a>
+, <a class="el" href="#a59e56af19e754a6aa26a612ebf91d05fa467d8812de2d72ec05aa1f8399516940">ERROR_INVALID_DEFAULT_PARAMETER_VALUE</a>
+, <a class="el" href="#a59e56af19e754a6aa26a612ebf91d05faf6e34c6a4c5a44c33bc751a9bc148884">ERROR_INVALID_FOR_LOOP_STEP</a>
 , <a class="el" href="#a59e56af19e754a6aa26a612ebf91d05fa2e1a626d0a665069b6c81d59b1787d25">ERROR_WRONG_TYPE_OPERAND</a> = 400
 , <br />
 &#160;&#160;<a class="el" href="#a59e56af19e754a6aa26a612ebf91d05fa105a71af2f532e023af49115dc047530">ERROR_WRONG_TYPE_OPERAND_BINARY</a>
@@ -129,7 +134,7 @@ Enumerations</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Standardized error codes for the interpreter that should be used by the entire project. </p>
-<p>Every single possible error is included in the enum, and no error reporting should be done without using the correct code. 1xx are general errors. 2xx are lexical errors. 3xx are parsing errors. 4xx are interpreter runtime errors. </p><dl class="section see"><dt>See also</dt><dd><a class="el" href="_error_messages_8h.html">ErrorMessages.h</a> for the error messages corresponding to each code. </dd></dl>
+<p>Every single possible error is included in the enum, and no error reporting should be done without using the correct code. 1xx are general errors. 2xx are lexer errors. 3xx are parsing errors. 4xx are interpreter runtime errors. </p><dl class="section see"><dt>See also</dt><dd><a class="el" href="_error_messages_8h.html">ErrorMessages.h</a> for the error messages corresponding to each code. </dd></dl>
 <table class="fieldtable">
 <tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a59e56af19e754a6aa26a612ebf91d05fa2cfbedee4226e70e54cad70893f67d47" name="a59e56af19e754a6aa26a612ebf91d05fa2cfbedee4226e70e54cad70893f67d47"></a>ERROR_CANNOT_OPEN_FILE&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="a59e56af19e754a6aa26a612ebf91d05fa0808d39b709bff4c370987800c4713fa" name="a59e56af19e754a6aa26a612ebf91d05fa0808d39b709bff4c370987800c4713fa"></a>ERROR_UNEXPECTED_CHARACTER&#160;</td><td class="fielddoc"></td></tr>
@@ -143,9 +148,13 @@ Enumerations</h2></td></tr>
 <tr><td class="fieldname"><a id="a59e56af19e754a6aa26a612ebf91d05fae67d45ba44d0f5215d200875e19c5de3" name="a59e56af19e754a6aa26a612ebf91d05fae67d45ba44d0f5215d200875e19c5de3"></a>ERROR_EXPECTED_EXPRESSION_AT_START&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="a59e56af19e754a6aa26a612ebf91d05fa35a3bfe6f0bcbd43fdf4553876972ec5" name="a59e56af19e754a6aa26a612ebf91d05fa35a3bfe6f0bcbd43fdf4553876972ec5"></a>ERROR_INVALID_LVALUE&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="a59e56af19e754a6aa26a612ebf91d05fa07213cc3dba5230ec5715a8e23b7a75b" name="a59e56af19e754a6aa26a612ebf91d05fa07213cc3dba5230ec5715a8e23b7a75b"></a>ERROR_INVALID_CALL&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="a59e56af19e754a6aa26a612ebf91d05fab55db74ec6e0da76114fcde483042d2e" name="a59e56af19e754a6aa26a612ebf91d05fab55db74ec6e0da76114fcde483042d2e"></a>ERROR_TOO_MANY_ARGUMENTS&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a59e56af19e754a6aa26a612ebf91d05faae3683440c52e17b121b0d871a3aa35b" name="a59e56af19e754a6aa26a612ebf91d05faae3683440c52e17b121b0d871a3aa35b"></a>ERROR_TOO_MANY_ARGUMENTS&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a59e56af19e754a6aa26a612ebf91d05fa80259ec5d0e82a318ef57bf8061cc522" name="a59e56af19e754a6aa26a612ebf91d05fa80259ec5d0e82a318ef57bf8061cc522"></a>ERROR_TOO_FEW_ARGUMENTS&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="a59e56af19e754a6aa26a612ebf91d05fab8e0076acfdc964614d77b23ce15e112" name="a59e56af19e754a6aa26a612ebf91d05fab8e0076acfdc964614d77b23ce15e112"></a>ERROR_INVALID_RETURN_POSITION&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="a59e56af19e754a6aa26a612ebf91d05fa425c0ce6580188f05fc03bd22e852c4b" name="a59e56af19e754a6aa26a612ebf91d05fa425c0ce6580188f05fc03bd22e852c4b"></a>ERROR_SELF_REFERENCING_INITIALIZER&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a59e56af19e754a6aa26a612ebf91d05fa813bfc0572b7c3f3a2850771d242adb6" name="a59e56af19e754a6aa26a612ebf91d05fa813bfc0572b7c3f3a2850771d242adb6"></a>ERROR_INVALID_DEFAULT_PARAMETER_POSITION&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a59e56af19e754a6aa26a612ebf91d05fa467d8812de2d72ec05aa1f8399516940" name="a59e56af19e754a6aa26a612ebf91d05fa467d8812de2d72ec05aa1f8399516940"></a>ERROR_INVALID_DEFAULT_PARAMETER_VALUE&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a59e56af19e754a6aa26a612ebf91d05faf6e34c6a4c5a44c33bc751a9bc148884" name="a59e56af19e754a6aa26a612ebf91d05faf6e34c6a4c5a44c33bc751a9bc148884"></a>ERROR_INVALID_FOR_LOOP_STEP&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="a59e56af19e754a6aa26a612ebf91d05fa2e1a626d0a665069b6c81d59b1787d25" name="a59e56af19e754a6aa26a612ebf91d05fa2e1a626d0a665069b6c81d59b1787d25"></a>ERROR_WRONG_TYPE_OPERAND&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="a59e56af19e754a6aa26a612ebf91d05fa105a71af2f532e023af49115dc047530" name="a59e56af19e754a6aa26a612ebf91d05fa105a71af2f532e023af49115dc047530"></a>ERROR_WRONG_TYPE_OPERAND_BINARY&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="a59e56af19e754a6aa26a612ebf91d05fa352253f8364b2fe3c75de98d825d17f5" name="a59e56af19e754a6aa26a612ebf91d05fa352253f8364b2fe3c75de98d825d17f5"></a>ERROR_INDEX_OUT_OF_BOUNDS&#160;</td><td class="fielddoc"></td></tr>

@@ -7,8 +7,10 @@ var searchData=
   ['indexoutofbounds_2eh_4',['IndexOutOfBounds.h',['../_index_out_of_bounds_8h.html',1,'']]],
   ['interpreter_2ecpp_5',['Interpreter.cpp',['../_interpreter_8cpp.html',1,'']]],
   ['interpreter_2eh_6',['Interpreter.h',['../_interpreter_8h.html',1,'']]],
-  ['invalidargumentcount_2eh_7',['InvalidArgumentCount.h',['../_invalid_argument_count_8h.html',1,'']]],
-  ['invalidcall_2eh_8',['InvalidCall.h',['../_invalid_call_8h.html',1,'']]],
-  ['invalidlvalue_2eh_9',['InvalidLValue.h',['../_invalid_l_value_8h.html',1,'']]],
-  ['invalidreturnposition_2eh_10',['InvalidReturnPosition.h',['../_invalid_return_position_8h.html',1,'']]]
+  ['invalidcall_2eh_7',['InvalidCall.h',['../_invalid_call_8h.html',1,'']]],
+  ['invaliddefaultparameterposition_2eh_8',['InvalidDefaultParameterPosition.h',['../_invalid_default_parameter_position_8h.html',1,'']]],
+  ['invaliddefaultparametervalue_2eh_9',['InvalidDefaultParameterValue.h',['../_invalid_default_parameter_value_8h.html',1,'']]],
+  ['invalidforloopstep_2eh_10',['InvalidForLoopStep.h',['../_invalid_for_loop_step_8h.html',1,'']]],
+  ['invalidlvalue_2eh_11',['InvalidLValue.h',['../_invalid_l_value_8h.html',1,'']]],
+  ['invalidreturnposition_2eh_12',['InvalidReturnPosition.h',['../_invalid_return_position_8h.html',1,'']]]
 ];

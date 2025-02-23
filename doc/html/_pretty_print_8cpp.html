@@ -76,6 +76,7 @@ $(function() {
 </div><!-- top -->
 <div class="header">
   <div class="summary">
+<a href="#define-members">Macros</a> &#124;
 <a href="#func-members">Functions</a>  </div>
   <div class="headertitle"><div class="title">PrettyPrint.cpp File Reference</div></div>
 </div><!--header-->
@@ -103,7 +104,15 @@ $(function() {
 <code>#include &quot;<a class="el" href="_indexing_expression_8h_source.html">IndexingExpression.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="_array_literal_expression_8h_source.html">ArrayLiteralExpression.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="_index_assignment_expression_8h_source.html">IndexAssignmentExpression.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="_if_statement_8h_source.html">IfStatement.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="_return_statement_8h_source.html">ReturnStatement.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="_logical_expression_8h_source.html">LogicalExpression.h</a>&quot;</code><br />
 </div><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="define-members" name="define-members"></a>
+Macros</h2></td></tr>
+<tr class="memitem:ab269fb1826ab806ace0765025c5d7a40" id="r_ab269fb1826ab806ace0765025c5d7a40"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab269fb1826ab806ace0765025c5d7a40">INDENTATION_PER_LEVEL</a>&#160;&#160;&#160;2</td></tr>
+<tr class="separator:ab269fb1826ab806ace0765025c5d7a40"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:a40d8fd44082761d9863f376915a05a13" id="r_a40d8fd44082761d9863f376915a05a13"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a40d8fd44082761d9863f376915a05a13">printStatement</a> (<a class="el" href="class_statement.html">Statement</a> *statement, int depth)</td></tr>
@@ -129,8 +138,44 @@ Functions</h2></td></tr>
 <tr class="separator:a081216820757ead7e9714c1ab93f3b00"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a12f47c441af662a4aea20a5b1b2edacd" id="r_a12f47c441af662a4aea20a5b1b2edacd"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a12f47c441af662a4aea20a5b1b2edacd">printIndexingExpression</a> (<a class="el" href="class_indexing_expression.html">IndexingExpression</a> *expression, int depth)</td></tr>
 <tr class="separator:a12f47c441af662a4aea20a5b1b2edacd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aee09ec5667509dad8ec66db1316e92ba" id="r_aee09ec5667509dad8ec66db1316e92ba"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aee09ec5667509dad8ec66db1316e92ba">printFunctionDeclarationStatement</a> (<a class="el" href="class_function_declaration_statement.html">FunctionDeclarationStatement</a> *statement, int depth)</td></tr>
+<tr class="separator:aee09ec5667509dad8ec66db1316e92ba"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ada5713cc774e8395fccea99f8ee1b43d" id="r_ada5713cc774e8395fccea99f8ee1b43d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ada5713cc774e8395fccea99f8ee1b43d">indent</a> (int depth)</td></tr>
+<tr class="separator:ada5713cc774e8395fccea99f8ee1b43d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<h2 class="groupheader">Macro Definition Documentation</h2>
+<a id="ab269fb1826ab806ace0765025c5d7a40" name="ab269fb1826ab806ace0765025c5d7a40"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab269fb1826ab806ace0765025c5d7a40">&#9670;&#160;</a></span>INDENTATION_PER_LEVEL</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define INDENTATION_PER_LEVEL&#160;&#160;&#160;2</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <h2 class="groupheader">Function Documentation</h2>
+<a id="ada5713cc774e8395fccea99f8ee1b43d" name="ada5713cc774e8395fccea99f8ee1b43d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ada5713cc774e8395fccea99f8ee1b43d">&#9670;&#160;</a></span>indent()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void indent </td>
+          <td>(</td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>depth</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="a55fd727dee8b0b9569300dfbfaec6fc9" name="a55fd727dee8b0b9569300dfbfaec6fc9"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a55fd727dee8b0b9569300dfbfaec6fc9">&#9670;&#160;</a></span>printAST()</h2>
 
@@ -208,6 +253,27 @@ Functions</h2></td></tr>
           <td class="memname">void printCallExpression </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="class_call_expression.html">CallExpression</a> *</td>          <td class="paramname"><span class="paramname"><em>expression</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>depth</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="aee09ec5667509dad8ec66db1316e92ba" name="aee09ec5667509dad8ec66db1316e92ba"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aee09ec5667509dad8ec66db1316e92ba">&#9670;&#160;</a></span>printFunctionDeclarationStatement()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void printFunctionDeclarationStatement </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="class_function_declaration_statement.html">FunctionDeclarationStatement</a> *</td>          <td class="paramname"><span class="paramname"><em>statement</em>, </span></td>
         </tr>
         <tr>
           <td class="paramkey"></td>

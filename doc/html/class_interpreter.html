@@ -75,6 +75,7 @@ $(function() {
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#pub-static-methods">Static Public Member Functions</a> &#124;
 <a href="#pub-attribs">Public Attributes</a> &#124;
+<a href="#friends">Friends</a> &#124;
 <a href="class_interpreter-members.html">List of all members</a>  </div>
   <div class="headertitle"><div class="title">Interpreter Class Reference</div></div>
 </div><!--header-->
@@ -110,8 +111,10 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a174e5d01f8129ec93991681f49a0e779"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4c64d99897a20ce300847700accc9c23" id="r_a4c64d99897a20ce300847700accc9c23"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a4c64d99897a20ce300847700accc9c23">executeBlock</a> (const std::vector&lt; <a class="el" href="_ast_8h.html#ad591697d8b5c0c7de8add763ec2e67ef">StmtPtr</a> &gt; &amp;statements, const <a class="el" href="class_environment.html">Environment</a> &amp;environment)</td></tr>
 <tr class="separator:a4c64d99897a20ce300847700accc9c23"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afa8edefac7963c7ce85a2d69232f90c3" id="r_afa8edefac7963c7ce85a2d69232f90c3"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#afa8edefac7963c7ce85a2d69232f90c3">runGarbageCollector</a> ()</td></tr>
-<tr class="separator:afa8edefac7963c7ce85a2d69232f90c3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a53ed1307be6d6249e2b2427d7e065d87" id="r_a53ed1307be6d6249e2b2427d7e065d87"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a53ed1307be6d6249e2b2427d7e065d87">invokeGarbageCollector</a> ()</td></tr>
+<tr class="separator:a53ed1307be6d6249e2b2427d7e065d87"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2886922469d4f5e90127b894274734b1" id="r_a2886922469d4f5e90127b894274734b1"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a2886922469d4f5e90127b894274734b1">collectGarbage</a> ()</td></tr>
+<tr class="separator:a2886922469d4f5e90127b894274734b1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af240ca70adc4e4c1a07b94b3e64490e3" id="r_af240ca70adc4e4c1a07b94b3e64490e3"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af240ca70adc4e4c1a07b94b3e64490e3">markRoots</a> ()</td></tr>
 <tr class="separator:af240ca70adc4e4c1a07b94b3e64490e3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2700742a7b27e4f3a08d32816114f597" id="r_a2700742a7b27e4f3a08d32816114f597"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a2700742a7b27e4f3a08d32816114f597">markValue</a> (const <a class="el" href="struct_runtime_value.html">RuntimeValue</a> &amp;value)</td></tr>
@@ -126,6 +129,8 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:ae077cd84ca800a5213370f1e2dd621d3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ace90285a0eefb962418bcf4f5af15d41" id="r_ace90285a0eefb962418bcf4f5af15d41"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ace90285a0eefb962418bcf4f5af15d41">deleteObject</a> (<a class="el" href="struct_object.html">Object</a> *object)</td></tr>
 <tr class="separator:ace90285a0eefb962418bcf4f5af15d41"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a79fc84e074574e572e806415ce54d613" id="r_a79fc84e074574e572e806415ce54d613"><td class="memItemLeft" align="right" valign="top">std::wstring&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a79fc84e074574e572e806415ce54d613">getObjectLogString</a> (<a class="el" href="struct_object.html">Object</a> *object)</td></tr>
+<tr class="separator:a79fc84e074574e572e806415ce54d613"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-static-methods" name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
@@ -137,22 +142,33 @@ Static Public Member Functions</h2></td></tr>
 Public Attributes</h2></td></tr>
 <tr class="memitem:a95ae7eb9c9fae9c61c7775a4974602dd" id="r_a95ae7eb9c9fae9c61c7775a4974602dd"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a95ae7eb9c9fae9c61c7775a4974602dd">hadError</a> = false</td></tr>
 <tr class="separator:a95ae7eb9c9fae9c61c7775a4974602dd"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac8d1b7617a8b385112b5ab528ed29f46" id="r_ac8d1b7617a8b385112b5ab528ed29f46"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_environment.html">Environment</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac8d1b7617a8b385112b5ab528ed29f46">globals</a></td></tr>
-<tr class="separator:ac8d1b7617a8b385112b5ab528ed29f46"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:acd8d4eae23e506ac006b5bb8f8194abd" id="r_acd8d4eae23e506ac006b5bb8f8194abd"><td class="memItemLeft" align="right" valign="top">std::vector&lt; <a class="el" href="class_statement.html">Statement</a> * &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#acd8d4eae23e506ac006b5bb8f8194abd">executedStatements</a></td></tr>
 <tr class="separator:acd8d4eae23e506ac006b5bb8f8194abd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9ae1ff6d560682e621c696889c9259b0" id="r_a9ae1ff6d560682e621c696889c9259b0"><td class="memItemLeft" align="right" valign="top">std::vector&lt; <a class="el" href="struct_runtime_value.html">RuntimeValue</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a9ae1ff6d560682e621c696889c9259b0">printHistory</a></td></tr>
 <tr class="separator:a9ae1ff6d560682e621c696889c9259b0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a57c19f5e1b82cefccba83474ed01258d" id="r_a57c19f5e1b82cefccba83474ed01258d"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_runtime_error.html">RuntimeError</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a57c19f5e1b82cefccba83474ed01258d">handledError</a> = nullptr</td></tr>
 <tr class="separator:a57c19f5e1b82cefccba83474ed01258d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a689836b6f73510fd3b98200ac67d6d50" id="r_a689836b6f73510fd3b98200ac67d6d50"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_runtime_value.html">RuntimeValue</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a689836b6f73510fd3b98200ac67d6d50">returnedValue</a></td></tr>
-<tr class="separator:a689836b6f73510fd3b98200ac67d6d50"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5237f122c259b5e120cb20478db387a1" id="r_a5237f122c259b5e120cb20478db387a1"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a5237f122c259b5e120cb20478db387a1">isReturning</a> = false</td></tr>
 <tr class="separator:a5237f122c259b5e120cb20478db387a1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a689836b6f73510fd3b98200ac67d6d50" id="r_a689836b6f73510fd3b98200ac67d6d50"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_runtime_value.html">RuntimeValue</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a689836b6f73510fd3b98200ac67d6d50">returnedValue</a></td></tr>
+<tr class="separator:a689836b6f73510fd3b98200ac67d6d50"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac8d1b7617a8b385112b5ab528ed29f46" id="r_ac8d1b7617a8b385112b5ab528ed29f46"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_environment.html">Environment</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac8d1b7617a8b385112b5ab528ed29f46">globals</a></td></tr>
+<tr class="separator:ac8d1b7617a8b385112b5ab528ed29f46"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a51754c3f067cfd5f79672fc026a761e2" id="r_a51754c3f067cfd5f79672fc026a761e2"><td class="memItemLeft" align="right" valign="top">std::stack&lt; <a class="el" href="class_environment.html">Environment</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a51754c3f067cfd5f79672fc026a761e2">environments</a></td></tr>
 <tr class="separator:a51754c3f067cfd5f79672fc026a761e2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a78e7d8730697e60f7dbec2760b57fb8b" id="r_a78e7d8730697e60f7dbec2760b57fb8b"><td class="memItemLeft" align="right" valign="top">std::stack&lt; <a class="el" href="struct_object.html">Object</a> * &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a78e7d8730697e60f7dbec2760b57fb8b">grayObjects</a></td></tr>
 <tr class="separator:a78e7d8730697e60f7dbec2760b57fb8b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a013ae5f578cfe6e857c35e84d178b6f3" id="r_a013ae5f578cfe6e857c35e84d178b6f3"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a013ae5f578cfe6e857c35e84d178b6f3">disallowGC</a> = false</td></tr>
+<tr class="separator:a013ae5f578cfe6e857c35e84d178b6f3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac15a687430a5bfee23bf594325f7a551" id="r_ac15a687430a5bfee23bf594325f7a551"><td class="memItemLeft" align="right" valign="top">size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac15a687430a5bfee23bf594325f7a551">bytesAllocated</a> = 0</td></tr>
+<tr class="separator:ac15a687430a5bfee23bf594325f7a551"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a16229331d39263b88df2e844c80bcadd" id="r_a16229331d39263b88df2e844c80bcadd"><td class="memItemLeft" align="right" valign="top">size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a16229331d39263b88df2e844c80bcadd">nextGC</a> = 26214400</td></tr>
+<tr class="separator:a16229331d39263b88df2e844c80bcadd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="friends" name="friends"></a>
+Friends</h2></td></tr>
+<tr class="memitem:a4f355d3a691ed9fec3f9a52405471d2a" id="r_a4f355d3a691ed9fec3f9a52405471d2a"><td class="memItemLeft" align="right" valign="top">class&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a4f355d3a691ed9fec3f9a52405471d2a">BaseFunctions</a></td></tr>
+<tr class="separator:a4f355d3a691ed9fec3f9a52405471d2a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Class that runs a program. </p>
@@ -254,6 +270,23 @@ Public Attributes</h2></td></tr>
           <td class="memname">void Interpreter::blackenObject </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="struct_object.html">Object</a> *</td>          <td class="paramname"><span class="paramname"><em>object</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a2886922469d4f5e90127b894274734b1" name="a2886922469d4f5e90127b894274734b1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2886922469d4f5e90127b894274734b1">&#9670;&#160;</a></span>collectGarbage()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Interpreter::collectGarbage </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -379,6 +412,23 @@ Public Attributes</h2></td></tr>
 
 </div>
 </div>
+<a id="a79fc84e074574e572e806415ce54d613" name="a79fc84e074574e572e806415ce54d613"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a79fc84e074574e572e806415ce54d613">&#9670;&#160;</a></span>getObjectLogString()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::wstring Interpreter::getObjectLogString </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_object.html">Object</a> *</td>          <td class="paramname"><span class="paramname"><em>object</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="af6d6bb528dbc5a1a661182466ea6d987" name="af6d6bb528dbc5a1a661182466ea6d987"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#af6d6bb528dbc5a1a661182466ea6d987">&#9670;&#160;</a></span>interpret()</h2>
 
@@ -401,6 +451,23 @@ Public Attributes</h2></td></tr>
   </table>
   </dd>
 </dl>
+
+</div>
+</div>
+<a id="a53ed1307be6d6249e2b2427d7e065d87" name="a53ed1307be6d6249e2b2427d7e065d87"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a53ed1307be6d6249e2b2427d7e065d87">&#9670;&#160;</a></span>invokeGarbageCollector()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Interpreter::invokeGarbageCollector </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
 
 </div>
 </div>
@@ -522,23 +589,6 @@ Public Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="afa8edefac7963c7ce85a2d69232f90c3" name="afa8edefac7963c7ce85a2d69232f90c3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#afa8edefac7963c7ce85a2d69232f90c3">&#9670;&#160;</a></span>runGarbageCollector()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void Interpreter::runGarbageCollector </td>
-          <td>(</td>
-          <td class="paramname"><span class="paramname"></span></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
 <a id="ae077cd84ca800a5213370f1e2dd621d3" name="ae077cd84ca800a5213370f1e2dd621d3"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ae077cd84ca800a5213370f1e2dd621d3">&#9670;&#160;</a></span>sweep()</h2>
 
@@ -573,7 +623,59 @@ Public Attributes</h2></td></tr>
 
 </div>
 </div>
+<h2 class="groupheader">Friends And Related Symbol Documentation</h2>
+<a id="a4f355d3a691ed9fec3f9a52405471d2a" name="a4f355d3a691ed9fec3f9a52405471d2a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4f355d3a691ed9fec3f9a52405471d2a">&#9670;&#160;</a></span>BaseFunctions</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">friend class <a class="el" href="class_base_functions.html">BaseFunctions</a></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">friend</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <h2 class="groupheader">Member Data Documentation</h2>
+<a id="ac15a687430a5bfee23bf594325f7a551" name="ac15a687430a5bfee23bf594325f7a551"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac15a687430a5bfee23bf594325f7a551">&#9670;&#160;</a></span>bytesAllocated</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">size_t Interpreter::bytesAllocated = 0</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a013ae5f578cfe6e857c35e84d178b6f3" name="a013ae5f578cfe6e857c35e84d178b6f3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a013ae5f578cfe6e857c35e84d178b6f3">&#9670;&#160;</a></span>disallowGC</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool Interpreter::disallowGC = false</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Forbids garbage collection while set to true. Used to pause GC while array elements are being potentially allocated. If this is not present, if the GC runs while the array has not yet been allocated but elements have, it causes SEGFAULTS when array goes out of scope or is deleted for any other reason. Probably causes other problems as well. </p>
+
+</div>
+</div>
 <a id="a51754c3f067cfd5f79672fc026a761e2" name="a51754c3f067cfd5f79672fc026a761e2"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a51754c3f067cfd5f79672fc026a761e2">&#9670;&#160;</a></span>environments</h2>
 
@@ -669,6 +771,20 @@ Public Attributes</h2></td></tr>
       <table class="memname">
         <tr>
           <td class="memname">bool Interpreter::isReturning = false</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a16229331d39263b88df2e844c80bcadd" name="a16229331d39263b88df2e844c80bcadd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a16229331d39263b88df2e844c80bcadd">&#9670;&#160;</a></span>nextGC</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">size_t Interpreter::nextGC = 26214400</td>
         </tr>
       </table>
 </div><div class="memdoc">
