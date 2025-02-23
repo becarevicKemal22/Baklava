@@ -281,7 +281,7 @@ RuntimeValue Interpreter::evaluate(Expression *expr) {
         case AstNodeType::GroupingExpression:
             return evaluate((static_cast<GroupingExpression *>(expr))->expr);
         case AstNodeType::VariableExpression:
-            return evaluateVariableExpression(static_cast<VariableExpression *>(expr));
+            return lookUpVariable(static_cast<VariableExpression *>(expr));
         case AstNodeType::AssignmentExpression:
             return evaluateAssignmentExpression(static_cast<AssignmentExpression *>(expr));
         case AstNodeType::CallExpression:
@@ -361,7 +361,7 @@ RuntimeValue Interpreter::evaluateBinaryExpression(BinaryExpression *expr) {
             if (left.type == ValueType::Boolean && right.type == ValueType::Boolean) {
                 return {ValueType::Boolean, {.boolean = left.as.boolean > right.as.boolean}};
             }
-            throw WrongBinaryOperandTypes(L">", left, right, expr);
+            throw WrongBinaryOperandTypes(expr->op->value, left, right, expr);
         case TokenType::GreaterEqual:
             if (left.type == ValueType::Number && right.type == ValueType::Number) {
                 return {ValueType::Boolean, {.boolean = left.as.number >= right.as.number}};
@@ -372,7 +372,7 @@ RuntimeValue Interpreter::evaluateBinaryExpression(BinaryExpression *expr) {
             if (left.type == ValueType::Boolean && right.type == ValueType::Boolean) {
                 return {ValueType::Boolean, {.boolean = left.as.boolean >= right.as.boolean}};
             }
-            throw WrongBinaryOperandTypes(L">=", left, right, expr);
+            throw WrongBinaryOperandTypes(expr->op->value, left, right, expr);
         case TokenType::Less:
             if (left.type == ValueType::Number && right.type == ValueType::Number) {
                 return {ValueType::Boolean, {.boolean = left.as.number < right.as.number}};
@@ -383,7 +383,7 @@ RuntimeValue Interpreter::evaluateBinaryExpression(BinaryExpression *expr) {
             if (left.type == ValueType::Boolean && right.type == ValueType::Boolean) {
                 return {ValueType::Boolean, {.boolean = left.as.boolean < right.as.boolean}};
             }
-            throw WrongBinaryOperandTypes(L"<", left, right, expr);
+            throw WrongBinaryOperandTypes(expr->op->value, left, right, expr);
         case TokenType::LessEqual:
             if (left.type == ValueType::Number && right.type == ValueType::Number) {
                 return {ValueType::Boolean, {.boolean = left.as.number <= right.as.number}};
@@ -394,7 +394,7 @@ RuntimeValue Interpreter::evaluateBinaryExpression(BinaryExpression *expr) {
             if (left.type == ValueType::Boolean && right.type == ValueType::Boolean) {
                 return {ValueType::Boolean, {.boolean = left.as.boolean <= right.as.boolean}};
             }
-            throw WrongBinaryOperandTypes(L"<=", left, right, expr);
+            throw WrongBinaryOperandTypes(expr->op->value, left, right, expr);
         case TokenType::DoubleEqual:
             return {ValueType::Boolean, {.boolean = isEqual(left, right)}};
         case TokenType::NotEqual:
@@ -405,6 +405,7 @@ RuntimeValue Interpreter::evaluateBinaryExpression(BinaryExpression *expr) {
 
 //
 // Moguce ovo bez funkcije samo ubaciti return gore u switch ako se ne bude ovdje vise nista dodavalo
+// Nek stoji ovdje funkcija jos ali je sad u switchu samo lookupVariable
 //
 RuntimeValue Interpreter::evaluateVariableExpression(VariableExpression *expr) {
     return lookUpVariable(expr);
