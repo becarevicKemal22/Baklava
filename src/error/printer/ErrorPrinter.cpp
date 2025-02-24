@@ -27,9 +27,11 @@ void ErrorPrinter::printErrorMessage(ErrorCode errorCode, const std::vector<Erro
     wcout << message << "\n";
 }
 
+
 // ******************************************************************************
 // ----------------------- RUNTIME ERROR PRINTING METHODS -----------------------
 // ******************************************************************************
+
 
 void ErrorPrinter::printRuntimeError(const RuntimeError *error) {
     if (dynamic_cast<const WrongTypeError *>(error) != nullptr) {
@@ -280,9 +282,11 @@ void ErrorPrinter::printIndexingNonArrayError(const IndexingNonArray *error) {
                                ANSI_RED}});
 }
 
+
 // ***********************************************************************
-// ----------------------- PARSER ERROR PRINTING METHODS -----------------------
+// ----------------------- PARSER ERROR PRINTING METHODS -----------------
 // ***********************************************************************
+
 
 void ErrorPrinter::printParserError(const ParserError *error) {
     if (dynamic_cast<const ExpectedXBeforeY *>(error) != nullptr) {
@@ -467,22 +471,33 @@ void ErrorPrinter::printInvalidForLoopStepError(const InvalidForLoopStep *error)
                                ANSI_RED}});
 }
 
+
 // ***********************************************************************
-// ----------------------- LEXER ERROR PRINTING METHODS -----------------------
+// ----------------------- LEXER ERROR PRINTING METHODS ------------------
 // ***********************************************************************
 
+void ErrorPrinter::printUnexpectedCharacterError(const UnexpectedCharacter *error) {
+    wcout << formattedErrorMessage(error->code, error->messageArguments) << "\n";
+    printSourceLine(error->line, {{{error->column, error->column}, ANSI_RED}});
+    printCaretSupportLine(error->column);
+}
+
+void ErrorPrinter::printUnterminatedStringError(const UnterminatedString *error) {
+    wcout << formattedErrorMessage(error->code, error->messageArguments) << "\n";
+    printSourceLine(error->line, {{{error->column, error->column}, ANSI_RED}});
+    printCaretSupportLine(error->column);
+}
+
 void
-ErrorPrinter::printLexerError(ErrorCode errorCode, unsigned int line, unsigned int offset, unsigned int currentChar) {
-    std::wstring message;
-    if (errorCode == ERROR_UNEXPECTED_CHARACTER) {
-        message = formattedErrorMessage(errorCode, {std::wstring(1, source[currentChar]), std::to_string(line),
-                                                    std::to_string(offset)});
-    } else if (errorCode == ERROR_UNTERMINATED_STRING) {
-        message = formattedErrorMessage(errorCode, {std::to_string(line), std::to_string(offset)});
+ErrorPrinter::printLexerError(const LexerError *error) {
+    if (dynamic_cast<const UnexpectedCharacter *>(error) != nullptr) {
+        printUnexpectedCharacterError(static_cast<const UnexpectedCharacter *>(error));
+    } else if (dynamic_cast<const UnterminatedString *>(error) != nullptr) {
+        printUnterminatedStringError(static_cast<const UnterminatedString *>(error));
+    } else {
+        throw "INTERNAL ERROR: Invalid lexer error type!";
     }
-    wcout << message << "\n";
-    printSourceLine(line, {{{offset, offset}, ANSI_RED}});
-    printCaretSupportLine(offset);
+    std::wcout << "\n";
 }
 
 
@@ -490,7 +505,6 @@ ErrorPrinter::printLexerError(ErrorCode errorCode, unsigned int line, unsigned i
 // ***********************************************************************
 // ----------------------- PRIVATE SUPPORT METHODS -----------------------
 // ***********************************************************************
-
 
 
 std::wstring ErrorPrinter::formattedErrorMessage(ErrorCode errorCode, const std::vector<ErrorMessageArgument> &args,

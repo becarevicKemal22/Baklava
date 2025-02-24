@@ -13,7 +13,7 @@ Inheritance diagram for Function\+Declaration\+Statement\+:\begin{figure}[H]
 \doxysubsubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{class_function_declaration_statement_a1eb9a580a55765b9d1c922c0c0daef02}{Function\+Declaration\+Statement}} (\mbox{\hyperlink{_token_8h_a2c0e84a5a66315462eade54370fa02b8}{Token\+Ptr}} \mbox{\hyperlink{class_function_declaration_statement_a2aaa97ad22d5d405cbdb1d28f16886e0}{name}}, std\+::vector$<$ \mbox{\hyperlink{_token_8h_a2c0e84a5a66315462eade54370fa02b8}{Token\+Ptr}} $>$ \mbox{\hyperlink{class_function_declaration_statement_a401e01a8c7a0d029c2635e8f49de322d}{parameters}}, std\+::vector$<$ \mbox{\hyperlink{_ast_8h_ad591697d8b5c0c7de8add763ec2e67ef}{Stmt\+Ptr}} $>$ \mbox{\hyperlink{class_function_declaration_statement_a88b19e8401a44641ce669fc910739648}{body}})
+\mbox{\hyperlink{class_function_declaration_statement_a1222e8dc6ce868c27915e00fd0d2f9f4}{Function\+Declaration\+Statement}} (\mbox{\hyperlink{_token_8h_a2c0e84a5a66315462eade54370fa02b8}{Token\+Ptr}} \mbox{\hyperlink{class_function_declaration_statement_a2aaa97ad22d5d405cbdb1d28f16886e0}{name}}, std\+::vector$<$ \mbox{\hyperlink{_token_8h_a2c0e84a5a66315462eade54370fa02b8}{Token\+Ptr}} $>$ \mbox{\hyperlink{class_function_declaration_statement_a401e01a8c7a0d029c2635e8f49de322d}{parameters}}, std\+::vector$<$ \mbox{\hyperlink{_ast_8h_ad591697d8b5c0c7de8add763ec2e67ef}{Stmt\+Ptr}} $>$ \mbox{\hyperlink{class_function_declaration_statement_a88b19e8401a44641ce669fc910739648}{body}}, std\+::vector$<$ \mbox{\hyperlink{_ast_8h_a9d808314a4eefca35684489c8e2e4547}{Expr\+Ptr}} $>$ \mbox{\hyperlink{class_function_declaration_statement_afa61111aab5abf93cbd9bb198f427507}{default\+Parameters}})
 \end{DoxyCompactItemize}
 \doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{class_statement}{Statement}}}
 \begin{DoxyCompactItemize}
@@ -29,6 +29,8 @@ virtual \mbox{\hyperlink{class_statement_a99d8be8cbb81cc0742784f3c43d8bb39}{\tex
 \item 
 std\+::vector$<$ \mbox{\hyperlink{_token_8h_a2c0e84a5a66315462eade54370fa02b8}{Token\+Ptr}} $>$ \mbox{\hyperlink{class_function_declaration_statement_a401e01a8c7a0d029c2635e8f49de322d}{parameters}}
 \item 
+std\+::vector$<$ \mbox{\hyperlink{_ast_8h_a9d808314a4eefca35684489c8e2e4547}{Expr\+Ptr}} $>$ \mbox{\hyperlink{class_function_declaration_statement_afa61111aab5abf93cbd9bb198f427507}{default\+Parameters}}
+\item 
 std\+::vector$<$ \mbox{\hyperlink{_ast_8h_ad591697d8b5c0c7de8add763ec2e67ef}{Stmt\+Ptr}} $>$ \mbox{\hyperlink{class_function_declaration_statement_a88b19e8401a44641ce669fc910739648}{body}}
 \end{DoxyCompactItemize}
 \doxysubsection*{Public Attributes inherited from \mbox{\hyperlink{class_statement}{Statement}}}
@@ -39,11 +41,11 @@ std\+::vector$<$ \mbox{\hyperlink{_ast_8h_ad591697d8b5c0c7de8add763ec2e67ef}{Stm
 
 
 \doxysubsection{Constructor \& Destructor Documentation}
-\Hypertarget{class_function_declaration_statement_a1eb9a580a55765b9d1c922c0c0daef02}\label{class_function_declaration_statement_a1eb9a580a55765b9d1c922c0c0daef02} 
+\Hypertarget{class_function_declaration_statement_a1222e8dc6ce868c27915e00fd0d2f9f4}\label{class_function_declaration_statement_a1222e8dc6ce868c27915e00fd0d2f9f4} 
 \index{FunctionDeclarationStatement@{FunctionDeclarationStatement}!FunctionDeclarationStatement@{FunctionDeclarationStatement}}
 \index{FunctionDeclarationStatement@{FunctionDeclarationStatement}!FunctionDeclarationStatement@{FunctionDeclarationStatement}}
 \doxysubsubsection{\texorpdfstring{FunctionDeclarationStatement()}{FunctionDeclarationStatement()}}
-{\footnotesize\ttfamily Function\+Declaration\+Statement\+::\+Function\+Declaration\+Statement (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{_token_8h_a2c0e84a5a66315462eade54370fa02b8}{Token\+Ptr}}}]{name,  }\item[{std\+::vector$<$ \mbox{\hyperlink{_token_8h_a2c0e84a5a66315462eade54370fa02b8}{Token\+Ptr}} $>$}]{parameters,  }\item[{std\+::vector$<$ \mbox{\hyperlink{_ast_8h_ad591697d8b5c0c7de8add763ec2e67ef}{Stmt\+Ptr}} $>$}]{body }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+{\footnotesize\ttfamily Function\+Declaration\+Statement\+::\+Function\+Declaration\+Statement (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{_token_8h_a2c0e84a5a66315462eade54370fa02b8}{Token\+Ptr}}}]{name,  }\item[{std\+::vector$<$ \mbox{\hyperlink{_token_8h_a2c0e84a5a66315462eade54370fa02b8}{Token\+Ptr}} $>$}]{parameters,  }\item[{std\+::vector$<$ \mbox{\hyperlink{_ast_8h_ad591697d8b5c0c7de8add763ec2e67ef}{Stmt\+Ptr}} $>$}]{body,  }\item[{std\+::vector$<$ \mbox{\hyperlink{_ast_8h_a9d808314a4eefca35684489c8e2e4547}{Expr\+Ptr}} $>$}]{default\+Parameters }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
 
 
@@ -53,6 +55,12 @@ std\+::vector$<$ \mbox{\hyperlink{_ast_8h_ad591697d8b5c0c7de8add763ec2e67ef}{Stm
 \index{body@{body}!FunctionDeclarationStatement@{FunctionDeclarationStatement}}
 \doxysubsubsection{\texorpdfstring{body}{body}}
 {\footnotesize\ttfamily std\+::vector$<$\mbox{\hyperlink{_ast_8h_ad591697d8b5c0c7de8add763ec2e67ef}{Stmt\+Ptr}}$>$ Function\+Declaration\+Statement\+::body}
+
+\Hypertarget{class_function_declaration_statement_afa61111aab5abf93cbd9bb198f427507}\label{class_function_declaration_statement_afa61111aab5abf93cbd9bb198f427507} 
+\index{FunctionDeclarationStatement@{FunctionDeclarationStatement}!defaultParameters@{defaultParameters}}
+\index{defaultParameters@{defaultParameters}!FunctionDeclarationStatement@{FunctionDeclarationStatement}}
+\doxysubsubsection{\texorpdfstring{defaultParameters}{defaultParameters}}
+{\footnotesize\ttfamily std\+::vector$<$\mbox{\hyperlink{_ast_8h_a9d808314a4eefca35684489c8e2e4547}{Expr\+Ptr}}$>$ Function\+Declaration\+Statement\+::default\+Parameters}
 
 \Hypertarget{class_function_declaration_statement_a2aaa97ad22d5d405cbdb1d28f16886e0}\label{class_function_declaration_statement_a2aaa97ad22d5d405cbdb1d28f16886e0} 
 \index{FunctionDeclarationStatement@{FunctionDeclarationStatement}!name@{name}}

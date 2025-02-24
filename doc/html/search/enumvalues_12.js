@@ -1,5 +1,7 @@
 var searchData=
 [
-  ['while_0',['While',['../_token_type_8h.html#afa91e1934f818659a4e2b0c8ce1214b0a3cddbb8f43a4e074e2c2ce3e8622f43e',1,'TokenType.h']]],
-  ['whilestatement_1',['WhileStatement',['../_ast_8h.html#abbed81ee894f251822f94201ef008817ab29d5f9d91f4492a318586100a2a00d4',1,'Ast.h']]]
+  ['var_0',['Var',['../_token_type_8h.html#afa91e1934f818659a4e2b0c8ce1214b0a5a92344ee95acf10c31901b36418be77',1,'TokenType.h']]],
+  ['vardeclarationstatement_1',['VarDeclarationStatement',['../_ast_8h.html#abbed81ee894f251822f94201ef008817a22e30b89937f764aa457c505e8e2b93c',1,'Ast.h']]],
+  ['variableexpression_2',['VariableExpression',['../_ast_8h.html#abbed81ee894f251822f94201ef008817a00fae1715f735bd70a658b65077013ff',1,'Ast.h']]],
+  ['vece_3',['Vece',['../_token_type_8h.html#afa91e1934f818659a4e2b0c8ce1214b0a5a3b7db3064a61a177d543aaf446b118',1,'TokenType.h']]]
 ];

@@ -34,6 +34,9 @@
 #include "InvalidDefaultParameterPosition.h"
 #include "InvalidDefaultParameterValue.h"
 #include "InvalidForLoopStep.h"
+#include "LexerError.h"
+#include "UnterminatedString.h"
+#include "UnexpectedCharacter.h"
 
 typedef std::pair<std::pair<int, int>, std::wstring> colorHighlight;
 
@@ -43,7 +46,6 @@ bool isOutputANSICompatible();
 /**
  * @brief Base class used for printing error messages to the console.
  *
- * Should be passed as a pointer to the lexer, parser and interpreter and is used to print all error messages.
  * All error messages should go through the error printer or a class derived from it.
  */
 class ErrorPrinter {
@@ -62,22 +64,13 @@ public:
     /**
      * @brief Prints a simple error message to the console, without any source code or highlighting.
      *
-     * Mainly used for errors that occur before the lexer is initialized, most likely 1xx errors.
+     * Mainly intended for errors that occur before the lexer is initialized, most likely 1xx errors.
      * @param errorCode one of the error codes defined in ErrorCode.h
      * @param args vector of arguments that will be used to format the error message, according to the message definition in ErrorMessages.h
      */
     void printErrorMessage(ErrorCode errorCode, const std::vector<ErrorMessageArgument>& args);
 
-    /**
-     * @brief Prints a lexer error message to the console.
-     *
-     * Prints source code line along with a red caret pointing to the exact position where the error occurred.
-     * @param errorCode one of the error codes defined in ErrorCode.h
-     * @param line line number where the error occurred
-     * @param offset offset on the line where the error occurred
-     * @param currentChar index in source of character that caused the error
-     */
-    void printLexerError(ErrorCode errorCode, unsigned int lineNumber, unsigned int offset, unsigned int currentChar);
+    void printLexerError(const LexerError* error);
 
     void printParserError(const ParserError* error);
 
@@ -124,6 +117,9 @@ private:
     void printInvalidDefaultParameterPositionError(const InvalidDefaultParameterPosition* error);
     void printInvalidDefaultParameterValueError(const InvalidDefaultParameterValue* error);
     void printInvalidForLoopStepError(const InvalidForLoopStep* error);
+
+    void printUnterminatedStringError(const UnterminatedString* error);
+    void printUnexpectedCharacterError(const UnexpectedCharacter* error);
 };
 
 

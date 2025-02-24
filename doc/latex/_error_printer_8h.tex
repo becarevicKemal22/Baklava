@@ -18,12 +18,19 @@
 {\ttfamily \#include "{}Const\+Reassignment.\+h"{}}\newline
 {\ttfamily \#include "{}Invalid\+LValue.\+h"{}}\newline
 {\ttfamily \#include "{}Invalid\+Call.\+h"{}}\newline
-{\ttfamily \#include "{}Invalid\+Argument\+Count.\+h"{}}\newline
+{\ttfamily \#include "{}Too\+Many\+Arguments.\+h"{}}\newline
+{\ttfamily \#include "{}Too\+Few\+Arguments.\+h"{}}\newline
 {\ttfamily \#include "{}Invalid\+Return\+Position.\+h"{}}\newline
 {\ttfamily \#include "{}Self\+Referencing\+Initializer.\+h"{}}\newline
 {\ttfamily \#include "{}Index\+Out\+Of\+Bounds.\+h"{}}\newline
 {\ttfamily \#include "{}Non\+Integer\+Index.\+h"{}}\newline
 {\ttfamily \#include "{}Indexing\+Non\+Array.\+h"{}}\newline
+{\ttfamily \#include "{}Invalid\+Default\+Parameter\+Position.\+h"{}}\newline
+{\ttfamily \#include "{}Invalid\+Default\+Parameter\+Value.\+h"{}}\newline
+{\ttfamily \#include "{}Invalid\+For\+Loop\+Step.\+h"{}}\newline
+{\ttfamily \#include "{}Lexer\+Error.\+h"{}}\newline
+{\ttfamily \#include "{}Unterminated\+String.\+h"{}}\newline
+{\ttfamily \#include "{}Unexpected\+Character.\+h"{}}\newline
 \doxysubsubsection*{Classes}
 \begin{DoxyCompactItemize}
 \item 
@@ -34,6 +41,11 @@ class \mbox{\hyperlink{class_error_printer}{Error\+Printer}}
 \item 
 typedef std\+::pair$<$ std\+::pair$<$ int, int $>$, std\+::wstring $>$ \mbox{\hyperlink{_error_printer_8h_a3068300149e83846a81e377fdcfdb5b6}{color\+Highlight}}
 \end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+bool \mbox{\hyperlink{_error_printer_8h_a7e49cc398b157f3b01f4f70ab7f80849}{is\+Output\+ANSICompatible}} ()
+\end{DoxyCompactItemize}
 
 
 \doxysubsection{Typedef Documentation}
@@ -42,4 +54,13 @@ typedef std\+::pair$<$ std\+::pair$<$ int, int $>$, std\+::wstring $>$ \mbox{\hy
 \index{colorHighlight@{colorHighlight}!ErrorPrinter.h@{ErrorPrinter.h}}
 \doxysubsubsection{\texorpdfstring{colorHighlight}{colorHighlight}}
 {\footnotesize\ttfamily typedef std\+::pair$<$std\+::pair$<$int, int$>$, std\+::wstring$>$ \mbox{\hyperlink{_error_printer_8h_a3068300149e83846a81e377fdcfdb5b6}{color\+Highlight}}}
+
+
+
+\doxysubsection{Function Documentation}
+\Hypertarget{_error_printer_8h_a7e49cc398b157f3b01f4f70ab7f80849}\label{_error_printer_8h_a7e49cc398b157f3b01f4f70ab7f80849} 
+\index{ErrorPrinter.h@{ErrorPrinter.h}!isOutputANSICompatible@{isOutputANSICompatible}}
+\index{isOutputANSICompatible@{isOutputANSICompatible}!ErrorPrinter.h@{ErrorPrinter.h}}
+\doxysubsubsection{\texorpdfstring{isOutputANSICompatible()}{isOutputANSICompatible()}}
+{\footnotesize\ttfamily bool is\+Output\+ANSICompatible (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
 

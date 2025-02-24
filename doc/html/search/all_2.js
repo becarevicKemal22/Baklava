@@ -8,12 +8,15 @@ var searchData=
   ['closedbracket_5',['ClosedBracket',['../_token_type_8h.html#afa91e1934f818659a4e2b0c8ce1214b0a90521fcb4be9048aeecef4a7f4252524',1,'TokenType.h']]],
   ['closedparenthesis_6',['ClosedParenthesis',['../_token_type_8h.html#afa91e1934f818659a4e2b0c8ce1214b0a5852417ab52e38c2e2ad6b874ca3af3d',1,'TokenType.h']]],
   ['closure_7',['closure',['../struct_object_function.html#a35514fcd543a1d90c228b755ce3e4bde',1,'ObjectFunction']]],
-  ['code_8',['code',['../class_parser_error.html#a7923d1c9d18cc0996e3b1f875e548de3',1,'ParserError::code'],['../class_runtime_error.html#a7f2ccd5c856bc880e4ee6b888f0f7256',1,'RuntimeError::code']]],
-  ['colon_9',['Colon',['../_token_type_8h.html#afa91e1934f818659a4e2b0c8ce1214b0a3ccf74d463f8895cef06727cb9709d83',1,'TokenType.h']]],
-  ['colorhighlight_10',['colorHighlight',['../_error_printer_8h.html#a3068300149e83846a81e377fdcfdb5b6',1,'ErrorPrinter.h']]],
-  ['comma_11',['Comma',['../_token_type_8h.html#afa91e1934f818659a4e2b0c8ce1214b0a58be47db9455679e6a44df2eff9c9fa6',1,'TokenType.h']]],
-  ['condition_12',['condition',['../class_if_statement.html#ad6eeac869b0724a3bcacfff4a2c2a2ac',1,'IfStatement::condition'],['../class_while_statement.html#a9cb20f702064db55769375895cdeaabd',1,'WhileStatement::condition']]],
-  ['const_13',['Const',['../_token_type_8h.html#afa91e1934f818659a4e2b0c8ce1214b0a79ceee9f8e3c1f0cc74223e05d2448bf',1,'TokenType.h']]],
-  ['constreassignment_14',['ConstReassignment',['../class_const_reassignment.html',1,'ConstReassignment'],['../class_const_reassignment.html#aa688f6e85f19b4a8a1adb34103198858',1,'ConstReassignment::ConstReassignment()']]],
-  ['constreassignment_2eh_15',['ConstReassignment.h',['../_const_reassignment_8h.html',1,'']]]
+  ['code_8',['code',['../class_lexer_error.html#a1ad7d0dbd284d77c6fdfc58c064e40f4',1,'LexerError::code'],['../class_parser_error.html#a7923d1c9d18cc0996e3b1f875e548de3',1,'ParserError::code'],['../class_runtime_error.html#a7f2ccd5c856bc880e4ee6b888f0f7256',1,'RuntimeError::code']]],
+  ['collectgarbage_9',['collectGarbage',['../class_interpreter.html#a2886922469d4f5e90127b894274734b1',1,'Interpreter']]],
+  ['colon_10',['Colon',['../_token_type_8h.html#afa91e1934f818659a4e2b0c8ce1214b0a3ccf74d463f8895cef06727cb9709d83',1,'TokenType.h']]],
+  ['colorhighlight_11',['colorHighlight',['../_error_printer_8h.html#a3068300149e83846a81e377fdcfdb5b6',1,'ErrorPrinter.h']]],
+  ['column_12',['column',['../class_lexer_error.html#a57686ab6e92c104286c1aa7d6f6d964e',1,'LexerError']]],
+  ['combination_13',['Combination',['../_keyword_combinations_8h.html#ac7bd69e076a7f1c8c31d28a339655bb5',1,'KeywordCombinations.h']]],
+  ['comma_14',['Comma',['../_token_type_8h.html#afa91e1934f818659a4e2b0c8ce1214b0a58be47db9455679e6a44df2eff9c9fa6',1,'TokenType.h']]],
+  ['condition_15',['condition',['../class_if_statement.html#ad6eeac869b0724a3bcacfff4a2c2a2ac',1,'IfStatement::condition'],['../class_while_statement.html#a9cb20f702064db55769375895cdeaabd',1,'WhileStatement::condition']]],
+  ['const_16',['Const',['../_token_type_8h.html#afa91e1934f818659a4e2b0c8ce1214b0a79ceee9f8e3c1f0cc74223e05d2448bf',1,'TokenType.h']]],
+  ['constreassignment_17',['ConstReassignment',['../class_const_reassignment.html',1,'ConstReassignment'],['../class_const_reassignment.html#aa688f6e85f19b4a8a1adb34103198858',1,'ConstReassignment::ConstReassignment()']]],
+  ['constreassignment_2eh_18',['ConstReassignment.h',['../_const_reassignment_8h.html',1,'']]]
 ];

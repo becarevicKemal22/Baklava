@@ -89,18 +89,12 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:ab5ccbbf65093864a9b62906523daf63a" id="r_ab5ccbbf65093864a9b62906523daf63a"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab5ccbbf65093864a9b62906523daf63a">Lexer</a> (const std::wstring &amp;source)</td></tr>
 <tr class="memdesc:ab5ccbbf65093864a9b62906523daf63a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct a new <a class="el" href="class_lexer.html" title="Class that is used to tokenize source code into tokens.">Lexer</a> instance.  <br /></td></tr>
 <tr class="separator:ab5ccbbf65093864a9b62906523daf63a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7201a02227b3a8135976187f653a9b42" id="r_a7201a02227b3a8135976187f653a9b42"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a7201a02227b3a8135976187f653a9b42">Lexer</a> (const std::wstring &amp;source, <a class="el" href="class_error_printer.html">ErrorPrinter</a> *printer)</td></tr>
-<tr class="memdesc:a7201a02227b3a8135976187f653a9b42"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct a new <a class="el" href="class_lexer.html" title="Class that is used to tokenize source code into tokens.">Lexer</a> instance with an error printer.  <br /></td></tr>
-<tr class="separator:a7201a02227b3a8135976187f653a9b42"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad26a84af23d8d303723e36e83fc4e556" id="r_ad26a84af23d8d303723e36e83fc4e556"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad26a84af23d8d303723e36e83fc4e556">~Lexer</a> ()</td></tr>
 <tr class="memdesc:ad26a84af23d8d303723e36e83fc4e556"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destroy the <a class="el" href="class_lexer.html" title="Class that is used to tokenize source code into tokens.">Lexer</a> instance.  <br /></td></tr>
 <tr class="separator:ad26a84af23d8d303723e36e83fc4e556"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8307e9de879e09ea9a336d19e949cf4d" id="r_a8307e9de879e09ea9a336d19e949cf4d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a8307e9de879e09ea9a336d19e949cf4d">tokenize</a> ()</td></tr>
 <tr class="memdesc:a8307e9de879e09ea9a336d19e949cf4d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Tokenizes the source code.  <br /></td></tr>
 <tr class="separator:a8307e9de879e09ea9a336d19e949cf4d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a919b2ac3e53a80b0c612ca511578eb37" id="r_a919b2ac3e53a80b0c612ca511578eb37"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a919b2ac3e53a80b0c612ca511578eb37">setPrinter</a> (<a class="el" href="class_error_printer.html">ErrorPrinter</a> *printer)</td></tr>
-<tr class="memdesc:a919b2ac3e53a80b0c612ca511578eb37"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the error printer.  <br /></td></tr>
-<tr class="separator:a919b2ac3e53a80b0c612ca511578eb37"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
@@ -112,7 +106,7 @@ Public Attributes</h2></td></tr>
 <p>The tokens that this class produces are used not only by the parser, but are pointed to by AST nodes and are used in the interpreting stage too, so it is important that they are not deleted before the interpreter is finished or quits, or that the ownership of them is transferred to the AST nodes or the interpreter. </p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="ab5ccbbf65093864a9b62906523daf63a" name="ab5ccbbf65093864a9b62906523daf63a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab5ccbbf65093864a9b62906523daf63a">&#9670;&#160;</a></span>Lexer() <span class="overload">[1/2]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#ab5ccbbf65093864a9b62906523daf63a">&#9670;&#160;</a></span>Lexer()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -135,47 +129,9 @@ Public Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Construct a new <a class="el" href="class_lexer.html" title="Class that is used to tokenize source code into tokens.">Lexer</a> instance. </p>
-<p>This constructor is mostly made for testing purposes, when error printing is not needed. </p><dl class="params"><dt>Parameters</dt><dd>
+<dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">source</td><td>Source code to tokenize. </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<a id="a7201a02227b3a8135976187f653a9b42" name="a7201a02227b3a8135976187f653a9b42"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7201a02227b3a8135976187f653a9b42">&#9670;&#160;</a></span>Lexer() <span class="overload">[2/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">Lexer::Lexer </td>
-          <td>(</td>
-          <td class="paramtype">const std::wstring &amp;</td>          <td class="paramname"><span class="paramname"><em>source</em>, </span></td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="class_error_printer.html">ErrorPrinter</a> *</td>          <td class="paramname"><span class="paramname"><em>printer</em></span>&#160;)</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Construct a new <a class="el" href="class_lexer.html" title="Class that is used to tokenize source code into tokens.">Lexer</a> instance with an error printer. </p>
-<p>This is the preferred constructor to use, as it allows for error reporting. </p><dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">source</td><td>reference to wstring source code to tokenize. </td></tr>
-    <tr><td class="paramname">printer</td><td><a class="el" href="class_error_printer.html" title="Base class used for printing error messages to the console.">ErrorPrinter</a> pointer to be used for error printing. </td></tr>
   </table>
   </dd>
 </dl>
@@ -211,39 +167,6 @@ Public Attributes</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="a919b2ac3e53a80b0c612ca511578eb37" name="a919b2ac3e53a80b0c612ca511578eb37"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a919b2ac3e53a80b0c612ca511578eb37">&#9670;&#160;</a></span>setPrinter()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void Lexer::setPrinter </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="class_error_printer.html">ErrorPrinter</a> *</td>          <td class="paramname"><span class="paramname"><em>printer</em></span></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Sets the error printer. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">printer</td><td><a class="el" href="class_error_printer.html" title="Base class used for printing error messages to the console.">ErrorPrinter</a> pointer to be used for error printing. </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
 <a id="a8307e9de879e09ea9a336d19e949cf4d" name="a8307e9de879e09ea9a336d19e949cf4d"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a8307e9de879e09ea9a336d19e949cf4d">&#9670;&#160;</a></span>tokenize()</h2>
 
@@ -262,7 +185,8 @@ Public Attributes</h2></td></tr>
 <p>Tokenizes the source code. </p>
 <p>This function tokenizes the source code and populates the tokens vector with tokens. </p><dl class="exception"><dt>Exceptions</dt><dd>
   <table class="exception">
-    <tr><td class="paramname">std::runtime_error</td><td>throws if an invalid character is found in the source code and prints error if printer is not nullptr. </td></tr>
+    <tr><td class="paramname"><a class="el" href="class_unexpected_character.html" title="Represents an error where an invalid character was found in the source code. Lexer errors use 1-based...">UnexpectedCharacter</a></td><td>throws if an invalid character is found in the source code </td></tr>
+    <tr><td class="paramname"><a class="el" href="class_unterminated_string.html" title="Represents an error where an unterminated string was found. Lexer errors use 1-based indexing for lin...">UnterminatedString</a></td><td>throws if a string is not terminated before the end of the source code No longer handles any error printing, and instead throws exceptions that MUST be caught and handled by the caller. </td></tr>
   </table>
   </dd>
 </dl>

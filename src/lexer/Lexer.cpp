@@ -10,6 +10,9 @@
 #include "Keywords.h"
 #include "KeywordCombinations.h"
 
+#include "UnterminatedString.h"
+#include "UnexpectedCharacter.h"
+
 void Lexer::tokenize() {
     std::setlocale(LC_ALL, "bs_BA.UTF-8");
     unsigned int length = source.length();
@@ -112,10 +115,7 @@ void Lexer::tokenize() {
                 advance();
                 advance();
             } else{
-                if(printer != nullptr){
-                    printer->printLexerError(ERROR_UNEXPECTED_CHARACTER, line, charIndexOnLine, currentChar);
-                }
-                throw std::runtime_error("Single Pipe");
+                throw UnexpectedCharacter(line, charIndexOnLine, c);
             }
         } else if(c == '&'){
             if(peek() == '&'){
@@ -123,10 +123,7 @@ void Lexer::tokenize() {
                 advance();
                 advance();
             } else{
-                if(printer != nullptr){
-                    printer->printLexerError(ERROR_UNEXPECTED_CHARACTER, line, charIndexOnLine, currentChar);
-                }
-                throw std::runtime_error("Single ampersand");
+                throw UnexpectedCharacter(line, charIndexOnLine, c);
             }
         }
 
@@ -173,13 +170,8 @@ void Lexer::tokenize() {
                 advance();
             }
         } else{
-            if(printer != nullptr){
-                printer->printLexerError(ERROR_UNEXPECTED_CHARACTER, line, charIndexOnLine, currentChar);
-            }
-            throw std::runtime_error("");
+            throw UnexpectedCharacter(line, charIndexOnLine, c);
         }
-        // Add custom exception to be caught in main.cpp
-
     }
     addToken(TokenType::Eof, L"");
 }
@@ -235,10 +227,7 @@ void Lexer::handleString(wchar_t startQuote){
         string += source[currentChar];
         advance();
     }
-    if(printer != nullptr){
-        printer->printLexerError(ERROR_UNTERMINATED_STRING, startLine, startOffset, startChar);
-    }
-    throw std::runtime_error("Unterminated string");
+    throw UnterminatedString(startLine, startOffset);
 }
 
 void Lexer::handleComment() {

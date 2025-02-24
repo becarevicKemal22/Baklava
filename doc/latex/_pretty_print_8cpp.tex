@@ -23,6 +23,14 @@
 {\ttfamily \#include "{}Indexing\+Expression.\+h"{}}\newline
 {\ttfamily \#include "{}Array\+Literal\+Expression.\+h"{}}\newline
 {\ttfamily \#include "{}Index\+Assignment\+Expression.\+h"{}}\newline
+{\ttfamily \#include "{}If\+Statement.\+h"{}}\newline
+{\ttfamily \#include "{}Return\+Statement.\+h"{}}\newline
+{\ttfamily \#include "{}Logical\+Expression.\+h"{}}\newline
+\doxysubsubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{_pretty_print_8cpp_ab269fb1826ab806ace0765025c5d7a40}{INDENTATION\+\_\+\+PER\+\_\+\+LEVEL}}~2
+\end{DoxyCompactItemize}
 \doxysubsubsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
@@ -47,10 +55,29 @@ void \mbox{\hyperlink{_pretty_print_8cpp_a54152b90aca15e42c94ef57a9f5c5824}{prin
 void \mbox{\hyperlink{_pretty_print_8cpp_a081216820757ead7e9714c1ab93f3b00}{print\+Call\+Expression}} (\mbox{\hyperlink{class_call_expression}{Call\+Expression}} \texorpdfstring{$\ast$}{*}expression, int depth)
 \item 
 void \mbox{\hyperlink{_pretty_print_8cpp_a12f47c441af662a4aea20a5b1b2edacd}{print\+Indexing\+Expression}} (\mbox{\hyperlink{class_indexing_expression}{Indexing\+Expression}} \texorpdfstring{$\ast$}{*}expression, int depth)
+\item 
+void \mbox{\hyperlink{_pretty_print_8cpp_aee09ec5667509dad8ec66db1316e92ba}{print\+Function\+Declaration\+Statement}} (\mbox{\hyperlink{class_function_declaration_statement}{Function\+Declaration\+Statement}} \texorpdfstring{$\ast$}{*}statement, int depth)
+\item 
+void \mbox{\hyperlink{_pretty_print_8cpp_ada5713cc774e8395fccea99f8ee1b43d}{indent}} (int depth)
 \end{DoxyCompactItemize}
 
 
+\doxysubsection{Macro Definition Documentation}
+\Hypertarget{_pretty_print_8cpp_ab269fb1826ab806ace0765025c5d7a40}\label{_pretty_print_8cpp_ab269fb1826ab806ace0765025c5d7a40} 
+\index{PrettyPrint.cpp@{PrettyPrint.cpp}!INDENTATION\_PER\_LEVEL@{INDENTATION\_PER\_LEVEL}}
+\index{INDENTATION\_PER\_LEVEL@{INDENTATION\_PER\_LEVEL}!PrettyPrint.cpp@{PrettyPrint.cpp}}
+\doxysubsubsection{\texorpdfstring{INDENTATION\_PER\_LEVEL}{INDENTATION\_PER\_LEVEL}}
+{\footnotesize\ttfamily \#define INDENTATION\+\_\+\+PER\+\_\+\+LEVEL~2}
+
+
+
 \doxysubsection{Function Documentation}
+\Hypertarget{_pretty_print_8cpp_ada5713cc774e8395fccea99f8ee1b43d}\label{_pretty_print_8cpp_ada5713cc774e8395fccea99f8ee1b43d} 
+\index{PrettyPrint.cpp@{PrettyPrint.cpp}!indent@{indent}}
+\index{indent@{indent}!PrettyPrint.cpp@{PrettyPrint.cpp}}
+\doxysubsubsection{\texorpdfstring{indent()}{indent()}}
+{\footnotesize\ttfamily void indent (\begin{DoxyParamCaption}\item[{int}]{depth }\end{DoxyParamCaption})}
+
 \Hypertarget{_pretty_print_8cpp_a55fd727dee8b0b9569300dfbfaec6fc9}\label{_pretty_print_8cpp_a55fd727dee8b0b9569300dfbfaec6fc9} 
 \index{PrettyPrint.cpp@{PrettyPrint.cpp}!printAST@{printAST}}
 \index{printAST@{printAST}!PrettyPrint.cpp@{PrettyPrint.cpp}}
@@ -83,6 +110,12 @@ Pretty prints entire AST to standard output.
 \index{printCallExpression@{printCallExpression}!PrettyPrint.cpp@{PrettyPrint.cpp}}
 \doxysubsubsection{\texorpdfstring{printCallExpression()}{printCallExpression()}}
 {\footnotesize\ttfamily void print\+Call\+Expression (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_call_expression}{Call\+Expression}} \texorpdfstring{$\ast$}{*}}]{expression,  }\item[{int}]{depth }\end{DoxyParamCaption})}
+
+\Hypertarget{_pretty_print_8cpp_aee09ec5667509dad8ec66db1316e92ba}\label{_pretty_print_8cpp_aee09ec5667509dad8ec66db1316e92ba} 
+\index{PrettyPrint.cpp@{PrettyPrint.cpp}!printFunctionDeclarationStatement@{printFunctionDeclarationStatement}}
+\index{printFunctionDeclarationStatement@{printFunctionDeclarationStatement}!PrettyPrint.cpp@{PrettyPrint.cpp}}
+\doxysubsubsection{\texorpdfstring{printFunctionDeclarationStatement()}{printFunctionDeclarationStatement()}}
+{\footnotesize\ttfamily void print\+Function\+Declaration\+Statement (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_function_declaration_statement}{Function\+Declaration\+Statement}} \texorpdfstring{$\ast$}{*}}]{statement,  }\item[{int}]{depth }\end{DoxyParamCaption})}
 
 \Hypertarget{_pretty_print_8cpp_a12f47c441af662a4aea20a5b1b2edacd}\label{_pretty_print_8cpp_a12f47c441af662a4aea20a5b1b2edacd} 
 \index{PrettyPrint.cpp@{PrettyPrint.cpp}!printIndexingExpression@{printIndexingExpression}}

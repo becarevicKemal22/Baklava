@@ -29,3 +29,28 @@
 {\ttfamily \#include "{}Indexing\+Expression.\+h"{}}\newline
 {\ttfamily \#include "{}Array\+Literal\+Expression.\+h"{}}\newline
 {\ttfamily \#include "{}Index\+Assignment\+Expression.\+h"{}}\newline
+{\ttfamily \#include "{}Invalid\+Default\+Parameter\+Position.\+h"{}}\newline
+{\ttfamily \#include "{}Invalid\+Default\+Parameter\+Value.\+h"{}}\newline
+{\ttfamily \#include "{}Invalid\+For\+Loop\+Step.\+h"{}}\newline
+\doxysubsubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{_parser_8cpp_ab92f36df5a3708b6a6c3434a92cd273f}{IS\+\_\+\+LITERAL}}(x)~(x-\/$>$type == \mbox{\hyperlink{_ast_8h_abbed81ee894f251822f94201ef008817a3b1f196eca8855434fe73958b8df7c9e}{Ast\+Node\+Type\+::\+Numeric\+Literal\+Expression}} \texorpdfstring{$\vert$}{|}\texorpdfstring{$\vert$}{|} x-\/$>$type == \mbox{\hyperlink{_ast_8h_abbed81ee894f251822f94201ef008817ac630f88540b8851ac6098772bb517e83}{Ast\+Node\+Type\+::\+String\+Literal\+Expression}} \texorpdfstring{$\vert$}{|}\texorpdfstring{$\vert$}{|} x-\/$>$type == \mbox{\hyperlink{_ast_8h_abbed81ee894f251822f94201ef008817a01f9552b9de59b58d97abcdbe885307f}{Ast\+Node\+Type\+::\+Boolean\+Literal\+Expression}} \texorpdfstring{$\vert$}{|}\texorpdfstring{$\vert$}{|} x-\/$>$type == \mbox{\hyperlink{_ast_8h_abbed81ee894f251822f94201ef008817a02da156e47dc8b7bb0575d125b9dbe38}{Ast\+Node\+Type\+::\+Null\+Literal\+Expression}} \texorpdfstring{$\vert$}{|}\texorpdfstring{$\vert$}{|} x-\/$>$type == \mbox{\hyperlink{_ast_8h_abbed81ee894f251822f94201ef008817a310c59dec3af1a260ca515c18fe9804c}{Ast\+Node\+Type\+::\+Array\+Literal\+Expression}})
+\item 
+\#define \mbox{\hyperlink{_parser_8cpp_a8c4538c8a5d8a1fbd6595898fce11b89}{IS\+\_\+\+NEGATIVE\+\_\+\+NUMBER}}(x)~(x-\/$>$type == \mbox{\hyperlink{_ast_8h_abbed81ee894f251822f94201ef008817af63d76d45aee45cf332a951650eedcb7}{Ast\+Node\+Type\+::\+Unary\+Expression}} \&\& dynamic\+\_\+cast$<$\mbox{\hyperlink{class_unary_expression}{Unary\+Expression}}\texorpdfstring{$\ast$}{*}$>$(x)-\/$>$op-\/$>$type == \mbox{\hyperlink{_token_type_8h_afa91e1934f818659a4e2b0c8ce1214b0a453fb623e752c5993f65bc410fd74fe5}{Token\+Type\+::\+Minus}} \&\& dynamic\+\_\+cast$<$\mbox{\hyperlink{class_unary_expression}{Unary\+Expression}}\texorpdfstring{$\ast$}{*}$>$(x)-\/$>$expr-\/$>$type == \mbox{\hyperlink{_ast_8h_abbed81ee894f251822f94201ef008817a3b1f196eca8855434fe73958b8df7c9e}{Ast\+Node\+Type\+::\+Numeric\+Literal\+Expression}})
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Macro Definition Documentation}
+\Hypertarget{_parser_8cpp_ab92f36df5a3708b6a6c3434a92cd273f}\label{_parser_8cpp_ab92f36df5a3708b6a6c3434a92cd273f} 
+\index{Parser.cpp@{Parser.cpp}!IS\_LITERAL@{IS\_LITERAL}}
+\index{IS\_LITERAL@{IS\_LITERAL}!Parser.cpp@{Parser.cpp}}
+\doxysubsubsection{\texorpdfstring{IS\_LITERAL}{IS\_LITERAL}}
+{\footnotesize\ttfamily \#define IS\+\_\+\+LITERAL(\begin{DoxyParamCaption}\item[{}]{x }\end{DoxyParamCaption})~(x-\/$>$type == \mbox{\hyperlink{_ast_8h_abbed81ee894f251822f94201ef008817a3b1f196eca8855434fe73958b8df7c9e}{Ast\+Node\+Type\+::\+Numeric\+Literal\+Expression}} \texorpdfstring{$\vert$}{|}\texorpdfstring{$\vert$}{|} x-\/$>$type == \mbox{\hyperlink{_ast_8h_abbed81ee894f251822f94201ef008817ac630f88540b8851ac6098772bb517e83}{Ast\+Node\+Type\+::\+String\+Literal\+Expression}} \texorpdfstring{$\vert$}{|}\texorpdfstring{$\vert$}{|} x-\/$>$type == \mbox{\hyperlink{_ast_8h_abbed81ee894f251822f94201ef008817a01f9552b9de59b58d97abcdbe885307f}{Ast\+Node\+Type\+::\+Boolean\+Literal\+Expression}} \texorpdfstring{$\vert$}{|}\texorpdfstring{$\vert$}{|} x-\/$>$type == \mbox{\hyperlink{_ast_8h_abbed81ee894f251822f94201ef008817a02da156e47dc8b7bb0575d125b9dbe38}{Ast\+Node\+Type\+::\+Null\+Literal\+Expression}} \texorpdfstring{$\vert$}{|}\texorpdfstring{$\vert$}{|} x-\/$>$type == \mbox{\hyperlink{_ast_8h_abbed81ee894f251822f94201ef008817a310c59dec3af1a260ca515c18fe9804c}{Ast\+Node\+Type\+::\+Array\+Literal\+Expression}})}
+
+\Hypertarget{_parser_8cpp_a8c4538c8a5d8a1fbd6595898fce11b89}\label{_parser_8cpp_a8c4538c8a5d8a1fbd6595898fce11b89} 
+\index{Parser.cpp@{Parser.cpp}!IS\_NEGATIVE\_NUMBER@{IS\_NEGATIVE\_NUMBER}}
+\index{IS\_NEGATIVE\_NUMBER@{IS\_NEGATIVE\_NUMBER}!Parser.cpp@{Parser.cpp}}
+\doxysubsubsection{\texorpdfstring{IS\_NEGATIVE\_NUMBER}{IS\_NEGATIVE\_NUMBER}}
+{\footnotesize\ttfamily \#define IS\+\_\+\+NEGATIVE\+\_\+\+NUMBER(\begin{DoxyParamCaption}\item[{}]{x }\end{DoxyParamCaption})~(x-\/$>$type == \mbox{\hyperlink{_ast_8h_abbed81ee894f251822f94201ef008817af63d76d45aee45cf332a951650eedcb7}{Ast\+Node\+Type\+::\+Unary\+Expression}} \&\& dynamic\+\_\+cast$<$\mbox{\hyperlink{class_unary_expression}{Unary\+Expression}}\texorpdfstring{$\ast$}{*}$>$(x)-\/$>$op-\/$>$type == \mbox{\hyperlink{_token_type_8h_afa91e1934f818659a4e2b0c8ce1214b0a453fb623e752c5993f65bc410fd74fe5}{Token\+Type\+::\+Minus}} \&\& dynamic\+\_\+cast$<$\mbox{\hyperlink{class_unary_expression}{Unary\+Expression}}\texorpdfstring{$\ast$}{*}$>$(x)-\/$>$expr-\/$>$type == \mbox{\hyperlink{_ast_8h_abbed81ee894f251822f94201ef008817a3b1f196eca8855434fe73958b8df7c9e}{Ast\+Node\+Type\+::\+Numeric\+Literal\+Expression}})}
+

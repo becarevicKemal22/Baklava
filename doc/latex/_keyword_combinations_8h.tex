@@ -1,0 +1,62 @@
+\doxysection{src/lexer/\+Keyword\+Combinations.h File Reference}
+\hypertarget{_keyword_combinations_8h}{}\label{_keyword_combinations_8h}\index{src/lexer/KeywordCombinations.h@{src/lexer/KeywordCombinations.h}}
+{\ttfamily \#include $<$unordered\+\_\+map$>$}\newline
+{\ttfamily \#include $<$string$>$}\newline
+{\ttfamily \#include $<$vector$>$}\newline
+{\ttfamily \#include $<$array$>$}\newline
+{\ttfamily \#include $<$algorithm$>$}\newline
+{\ttfamily \#include "{}Token\+Type.\+h"{}}\newline
+\doxysubsubsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+using \mbox{\hyperlink{_keyword_combinations_8h_ac7bd69e076a7f1c8c31d28a339655bb5}{Combination}} = vector$<$\mbox{\hyperlink{_token_type_8h_afa91e1934f818659a4e2b0c8ce1214b0}{Token\+Type}}$>$
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+const array$<$ pair$<$ \mbox{\hyperlink{_keyword_combinations_8h_ac7bd69e076a7f1c8c31d28a339655bb5}{Combination}}, \mbox{\hyperlink{_token_type_8h_afa91e1934f818659a4e2b0c8ce1214b0}{Token\+Type}} $>$, 12 $>$ \mbox{\hyperlink{_keyword_combinations_8h_ac694e5ff20829ce5e92116d0ffe04ff5}{KEYWORD\+\_\+\+COMBINATIONS}}
+\begin{DoxyCompactList}\small\item\em Array of all keyword combinations in the language and what their resulting type should be. For example, "{}manje ili jednako"{} should be concatenated into one token of type Less\+Equal. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Typedef Documentation}
+\Hypertarget{_keyword_combinations_8h_ac7bd69e076a7f1c8c31d28a339655bb5}\label{_keyword_combinations_8h_ac7bd69e076a7f1c8c31d28a339655bb5} 
+\index{KeywordCombinations.h@{KeywordCombinations.h}!Combination@{Combination}}
+\index{Combination@{Combination}!KeywordCombinations.h@{KeywordCombinations.h}}
+\doxysubsubsection{\texorpdfstring{Combination}{Combination}}
+{\footnotesize\ttfamily using \mbox{\hyperlink{_keyword_combinations_8h_ac7bd69e076a7f1c8c31d28a339655bb5}{Combination}} = vector$<$\mbox{\hyperlink{_token_type_8h_afa91e1934f818659a4e2b0c8ce1214b0}{Token\+Type}}$>$}
+
+
+
+\doxysubsection{Variable Documentation}
+\Hypertarget{_keyword_combinations_8h_ac694e5ff20829ce5e92116d0ffe04ff5}\label{_keyword_combinations_8h_ac694e5ff20829ce5e92116d0ffe04ff5} 
+\index{KeywordCombinations.h@{KeywordCombinations.h}!KEYWORD\_COMBINATIONS@{KEYWORD\_COMBINATIONS}}
+\index{KEYWORD\_COMBINATIONS@{KEYWORD\_COMBINATIONS}!KeywordCombinations.h@{KeywordCombinations.h}}
+\doxysubsubsection{\texorpdfstring{KEYWORD\_COMBINATIONS}{KEYWORD\_COMBINATIONS}}
+{\footnotesize\ttfamily const array$<$pair$<$\mbox{\hyperlink{_keyword_combinations_8h_ac7bd69e076a7f1c8c31d28a339655bb5}{Combination}}, \mbox{\hyperlink{_token_type_8h_afa91e1934f818659a4e2b0c8ce1214b0}{Token\+Type}}$>$, 12$>$ KEYWORD\+\_\+\+COMBINATIONS}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{=\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ pair<Combination,\ TokenType>(\{\mbox{\hyperlink{_token_type_8h_afa91e1934f818659a4e2b0c8ce1214b0a378649d97f75168c3767c44371df1085}{TokenType::Manje}},\ \mbox{\hyperlink{_token_type_8h_afa91e1934f818659a4e2b0c8ce1214b0ad80941167a78d20a4735d126826a4488}{TokenType::Ili}},\ \mbox{\hyperlink{_token_type_8h_afa91e1934f818659a4e2b0c8ce1214b0a1a95549331f929d3854f0ebdf4697bae}{TokenType::Jednako}}\},\ \mbox{\hyperlink{_token_type_8h_afa91e1934f818659a4e2b0c8ce1214b0ad3e6fdac55bb7b0edd7834c968ba1f38}{TokenType::LessEqual}}),}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ pair<Combination,\ TokenType>(\{\mbox{\hyperlink{_token_type_8h_afa91e1934f818659a4e2b0c8ce1214b0a5a3b7db3064a61a177d543aaf446b118}{TokenType::Vece}},\ \mbox{\hyperlink{_token_type_8h_afa91e1934f818659a4e2b0c8ce1214b0ad80941167a78d20a4735d126826a4488}{TokenType::Ili}},\ \mbox{\hyperlink{_token_type_8h_afa91e1934f818659a4e2b0c8ce1214b0a1a95549331f929d3854f0ebdf4697bae}{TokenType::Jednako}}\},\ \mbox{\hyperlink{_token_type_8h_afa91e1934f818659a4e2b0c8ce1214b0a758b05d899def79c9eb864ad4f96be1f}{TokenType::GreaterEqual}}),}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ pair<Combination,\ TokenType>(\{\mbox{\hyperlink{_token_type_8h_afa91e1934f818659a4e2b0c8ce1214b0a5a3b7db3064a61a177d543aaf446b118}{TokenType::Vece}},\ \mbox{\hyperlink{_token_type_8h_afa91e1934f818659a4e2b0c8ce1214b0ade80dced16b6d4413746e2ab75e9922e}{TokenType::Od}}\},\ \mbox{\hyperlink{_token_type_8h_afa91e1934f818659a4e2b0c8ce1214b0a8768a6821cd735aea4f5b0df88c1fc6a}{TokenType::Greater}}),}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ pair<Combination,\ TokenType>(\{\mbox{\hyperlink{_token_type_8h_afa91e1934f818659a4e2b0c8ce1214b0a378649d97f75168c3767c44371df1085}{TokenType::Manje}},\ \mbox{\hyperlink{_token_type_8h_afa91e1934f818659a4e2b0c8ce1214b0ade80dced16b6d4413746e2ab75e9922e}{TokenType::Od}}\},\ \mbox{\hyperlink{_token_type_8h_afa91e1934f818659a4e2b0c8ce1214b0a1cfdf0e8d0c87a228c1f40d9bee7888b}{TokenType::Less}}),}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ pair<Combination,\ TokenType>(\{\mbox{\hyperlink{_token_type_8h_afa91e1934f818659a4e2b0c8ce1214b0abce2d0058e091f691f0795c6c39dbcb5}{TokenType::Nije}},\ \mbox{\hyperlink{_token_type_8h_afa91e1934f818659a4e2b0c8ce1214b0a1a95549331f929d3854f0ebdf4697bae}{TokenType::Jednako}}\},\ \mbox{\hyperlink{_token_type_8h_afa91e1934f818659a4e2b0c8ce1214b0a19bb0af2c3c530538cb41aff7f235b96}{TokenType::NotEqual}}),}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ pair<Combination,\ TokenType>(\{\mbox{\hyperlink{_token_type_8h_afa91e1934f818659a4e2b0c8ce1214b0a8d2f93cb4d201e68ff7c2fb191c320d8}{TokenType::Razlicito}},\ \mbox{\hyperlink{_token_type_8h_afa91e1934f818659a4e2b0c8ce1214b0ade80dced16b6d4413746e2ab75e9922e}{TokenType::Od}}\},\ \mbox{\hyperlink{_token_type_8h_afa91e1934f818659a4e2b0c8ce1214b0a19bb0af2c3c530538cb41aff7f235b96}{TokenType::NotEqual}}),}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\ \ \ \ \ \ \ \ }
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ pair<Combination,\ TokenType>(\{\mbox{\hyperlink{_token_type_8h_afa91e1934f818659a4e2b0c8ce1214b0a1a95549331f929d3854f0ebdf4697bae}{TokenType::Jednako}}\},\ \mbox{\hyperlink{_token_type_8h_afa91e1934f818659a4e2b0c8ce1214b0a13c24a0518fdd7d00972977786c7d993}{TokenType::DoubleEqual}}),}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ pair<Combination,\ TokenType>(\{\mbox{\hyperlink{_token_type_8h_afa91e1934f818659a4e2b0c8ce1214b0abce2d0058e091f691f0795c6c39dbcb5}{TokenType::Nije}}\},\ \mbox{\hyperlink{_token_type_8h_afa91e1934f818659a4e2b0c8ce1214b0a19bb0af2c3c530538cb41aff7f235b96}{TokenType::NotEqual}}),}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ pair<Combination,\ TokenType>(\{\mbox{\hyperlink{_token_type_8h_afa91e1934f818659a4e2b0c8ce1214b0a378649d97f75168c3767c44371df1085}{TokenType::Manje}}\},\ \mbox{\hyperlink{_token_type_8h_afa91e1934f818659a4e2b0c8ce1214b0a1cfdf0e8d0c87a228c1f40d9bee7888b}{TokenType::Less}}),}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ pair<Combination,\ TokenType>(\{\mbox{\hyperlink{_token_type_8h_afa91e1934f818659a4e2b0c8ce1214b0a5a3b7db3064a61a177d543aaf446b118}{TokenType::Vece}}\},\ \mbox{\hyperlink{_token_type_8h_afa91e1934f818659a4e2b0c8ce1214b0a8768a6821cd735aea4f5b0df88c1fc6a}{TokenType::Greater}}),}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ pair<Combination,\ TokenType>(\{\mbox{\hyperlink{_token_type_8h_afa91e1934f818659a4e2b0c8ce1214b0add7536794b63bf90eccfd37f9b147d7f}{TokenType::I}}\},\ \mbox{\hyperlink{_token_type_8h_afa91e1934f818659a4e2b0c8ce1214b0ac14d53d0f682a4896e2a129ad7b94273}{TokenType::DoubleAmpersand}}),}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ pair<Combination,\ TokenType>(\{\mbox{\hyperlink{_token_type_8h_afa91e1934f818659a4e2b0c8ce1214b0ad80941167a78d20a4735d126826a4488}{TokenType::Ili}}\},\ \mbox{\hyperlink{_token_type_8h_afa91e1934f818659a4e2b0c8ce1214b0af485de241625459d23b3de0868a67e59}{TokenType::DoublePipe}}),}
+\DoxyCodeLine{\}}
+
+\end{DoxyCode}
+
+
+Array of all keyword combinations in the language and what their resulting type should be. For example, "{}manje ili jednako"{} should be concatenated into one token of type Less\+Equal. 
+

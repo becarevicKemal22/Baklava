@@ -101,5 +101,8 @@ add_executable(tests ../src/error/printer/ErrorPrinter.cpp ../src/lexer/Lexer.cp
         interpreter/InterpreterForStatementTest.cpp
         ../src/error/exceptions/parser/InvalidForLoopStep.h
         parser/ParserFuncDefaultParamTest.cpp
+        ../src/error/exceptions/lexer/UnterminatedString.h
+        ../src/error/exceptions/lexer/LexerError.h
+        ../src/error/exceptions/lexer/UnexpectedCharacter.h
 )
 target_link_libraries(tests PRIVATE Catch2::Catch2WithMain)

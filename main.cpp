@@ -37,10 +37,11 @@ void runFile(const char *path) {
     loadFile(path, source);
     ErrorPrinter printer(source);
     auto start = std::chrono::high_resolution_clock::now();
-    Lexer lexer(source, &printer);
+    Lexer lexer(source);
     try {
         lexer.tokenize();
-    } catch (std::exception &e) {
+    } catch (LexerError& e) {
+        printer.printLexerError(&e);
         exit(0);
     }
     auto end = std::chrono::high_resolution_clock::now();

@@ -21,19 +21,9 @@ public:
     /**
      * @brief Construct a new Lexer instance
      *
-     * This constructor is mostly made for testing purposes, when error printing is not needed.
      * @param source Source code to tokenize.
      */
-    Lexer(const std::wstring&  source) : source(source), printer(nullptr) {}
-
-    /**
-     * @brief Construct a new Lexer instance with an error printer.
-     *
-     * This is the preferred constructor to use, as it allows for error reporting.
-     * @param source reference to wstring source code to tokenize.
-     * @param printer ErrorPrinter pointer to be used for error printing.
-     */
-    Lexer(const std::wstring& source, ErrorPrinter* printer) : source(source), printer(printer) {}
+    Lexer(const std::wstring&  source) : source(source){}
 
     /**
      * @brief Destroy the Lexer instance
@@ -50,24 +40,17 @@ public:
      * @brief Tokenizes the source code.
      *
      * This function tokenizes the source code and populates the tokens vector with tokens.
-     * @throws std::runtime_error throws if an invalid character is found in the source code and prints error if printer is not nullptr.
+     * @throws UnexpectedCharacter throws if an invalid character is found in the source code
+     * @throws UnterminatedString throws if a string is not terminated before the end of the source code
+     * No longer handles any error printing, and instead throws exceptions that MUST be caught and handled by the caller.
      */
     void tokenize();
 
-    /**
-     * @brief Sets the error printer.
-     *
-     * @param printer ErrorPrinter pointer to be used for error printing.
-     */
-    void setPrinter(ErrorPrinter* printer){
-        this->printer = printer;
-    }
 private:
     std::wstring source;
     unsigned int currentChar = 0;
     unsigned int line = 1;
     unsigned int charIndexOnLine = 0;
-    ErrorPrinter* printer;
 
     std::vector<Token*> keywordHistory; /**< Holds found keyword tokens because keywords can not be immediately pushed into the tokens vector, in case they are part of a keyword combination. Tokens will only be pushed into here until a non-keyword token is found, after which they will be concatenated if needed and pushed along with the latest non-keyword token. */
 
