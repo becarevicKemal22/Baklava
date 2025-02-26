@@ -58,6 +58,9 @@ const std::unordered_map<std::wstring, TokenType> KEYWORDS = {
         {L"nije",     TokenType::Nije},
         {L"različito",TokenType::Razlicito},
         {L"razlicito",TokenType::Razlicito},
+        {L"povećaj",  TokenType::Povecaj},
+        {L"povecaj",  TokenType::Povecaj},
+        {L"smanji",   TokenType::Smanji},
 };
 
 #endif //BAKLAVA_KEYWORDS_H

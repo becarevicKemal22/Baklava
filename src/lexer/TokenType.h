@@ -40,6 +40,8 @@ enum class TokenType : uint8_t {
     DoubleEqual,
     DoublePipe,
     DoubleAmpersand,
+    Povecaj,
+    Smanji,
     // Types and identifiers
     Identifier,
     Number,

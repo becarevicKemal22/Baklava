@@ -104,5 +104,9 @@ add_executable(tests ../src/error/printer/ErrorPrinter.cpp ../src/lexer/Lexer.cp
         ../src/error/exceptions/lexer/UnterminatedString.h
         ../src/error/exceptions/lexer/LexerError.h
         ../src/error/exceptions/lexer/UnexpectedCharacter.h
+        ../src/parser/ast/statements/IncrementStatement.h
+        parser/ParserIncrementDecrementStatementTest.cpp
+        interpreter/InterpreterIncrementDecrementTest.cpp
+        ../src/error/exceptions/WrongTypeToStatement.h
 )
 target_link_libraries(tests PRIVATE Catch2::Catch2WithMain)

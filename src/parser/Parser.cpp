@@ -30,6 +30,7 @@
 #include "ReturnStatement.h"
 #include "IndexingExpression.h"
 #include "ArrayLiteralExpression.h"
+#include "IncrementStatement.h"
 #include "IndexAssignmentExpression.h"
 #include "InvalidDefaultParameterPosition.h"
 #include "InvalidDefaultParameterValue.h"
@@ -99,6 +100,9 @@ Statement* Parser::statement() {
     }
     if(match({TokenType::Return})){
         return returnStatement();
+    }
+    if (match({TokenType::Povecaj, TokenType::Smanji})) {
+        return incrementStatement();
     }
     return expressionStatement();
 }
@@ -353,6 +357,22 @@ Statement* Parser::returnStatement() {
     }
     if(match({TokenType::Semicolon})){
         return new ReturnStatement(keyword, value);
+    }
+    throw ExpectedXBeforeY(L";", previous(), at());
+}
+
+Statement *Parser::incrementStatement() {
+    TokenPtr keyword = previous();
+    ExprPtr lvalue = expression();
+    if (lvalue->type != AstNodeType::VariableExpression && lvalue->type != AstNodeType::IndexingExpression) {
+        throw InvalidLValue(getMostRelevantToken(lvalue));
+    }
+    ExprPtr by = new NumericLiteralExpression(new Token(TokenType::Number, L"1", 0, 0));
+    if (match({TokenType::For})) { // "za"
+        by = expression();
+    }
+    if(match({TokenType::Semicolon})){
+        return new IncrementStatement(lvalue, by, keyword);
     }
     throw ExpectedXBeforeY(L";", previous(), at());
 }

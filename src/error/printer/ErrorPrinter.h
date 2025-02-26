@@ -37,6 +37,7 @@
 #include "LexerError.h"
 #include "UnterminatedString.h"
 #include "UnexpectedCharacter.h"
+#include "WrongTypeToStatement.h"
 
 typedef std::pair<std::pair<int, int>, std::wstring> colorHighlight;
 
@@ -101,6 +102,7 @@ private:
     void printIndexOutOfBoundsError(const IndexOutOfBounds* error);
     void printNonIntegerIndexError(const NonIntegerIndex* error);
     void printIndexingNonArrayError(const IndexingNonArray* error);
+    void printWrongTypeToStatementError(const WrongTypeToStatement* error);
 
     void printVariableRedeclarationError(const VariableRedeclaration* error);
     void printExpectedXBeforeYError(const ExpectedXBeforeY* error);

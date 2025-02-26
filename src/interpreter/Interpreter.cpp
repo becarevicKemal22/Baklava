@@ -69,6 +69,9 @@
 #include <sstream>
 #include <cassert>
 
+#include "IncrementStatement.h"
+#include "WrongTypeToStatement.h"
+
 void Interpreter::defineNativeFunctions() {
     for (auto &nativeFunction: BaseFunctions::getFunctions(this)) {
         ObjectCallable *callable = ((ObjectCallable *) nativeFunction.function.as.object);
@@ -119,6 +122,9 @@ void Interpreter::execute(Statement *stmt) {
             return;
         case AstNodeType::ReturnStatement:
             executeReturnStatement(static_cast<ReturnStatement *>(stmt));
+            return;
+        case AstNodeType::IncrementStatement:
+            executeIncrementStatement(static_cast<IncrementStatement *>(stmt));
             return;
         default:
             throw std::runtime_error("Unknown statement type");
@@ -221,18 +227,18 @@ void Interpreter::executeIfStatement(IfStatement *stmt) {
 void Interpreter::executeWhileStatement(WhileStatement *stmt) {
     if (stmt->isForLoop) {
         RuntimeValue incrementValue = evaluate(stmt->forIncrement);
-//          auto whileBody = static_cast<BlockStatement*>(stmt->body);
-//          auto incrementExpr = static_cast<ExpressionStatement*>(whileBody->statements.back())->expr;
-//          auto assignExpr = static_cast<AssignmentExpression*>(incrementExpr);
-//          auto binaryExpr = static_cast<BinaryExpression*>(assignExpr->value);
-//          auto incrementValue = evaluate(binaryExpr->right);
-//          if(dynamic_cast<BinaryExpression)
+        //          auto whileBody = static_cast<BlockStatement*>(stmt->body);
+        //          auto incrementExpr = static_cast<ExpressionStatement*>(whileBody->statements.back())->expr;
+        //          auto assignExpr = static_cast<AssignmentExpression*>(incrementExpr);
+        //          auto binaryExpr = static_cast<BinaryExpression*>(assignExpr->value);
+        //          auto incrementValue = evaluate(binaryExpr->right);
+        //          if(dynamic_cast<BinaryExpression)
 
-//        if(incrementValue.type != ValueType::Number){
-//            throw WrongTypeError(L"for loop increment", incrementValue, stmt->forIncrement);
-//        }
-// Provjeriti da li se uopste mora postavljati ovo ako je veci od 0? Valjda bi to po defaultu trebalo biti postavljeno? Mislim da je bitno >= jer ako je 0 onda treba po defaultu da se gleda manje jer je kao beskonacna petlja ali opet korisnik moze rucno postaviti varijablu na neku vrijednost unutar tijela petlje, mada mozda bi htio i da gleda da li je manje.
-// Ali treba ovo vece jednako da bude sto sam vec objasnio u prethodnom tako da mozda bolje ne dirati ne znammmm
+        //        if(incrementValue.type != ValueType::Number){
+        //            throw WrongTypeError(L"for loop increment", incrementValue, stmt->forIncrement);
+        //        }
+        // Provjeriti da li se uopste mora postavljati ovo ako je veci od 0? Valjda bi to po defaultu trebalo biti postavljeno? Mislim da je bitno >= jer ako je 0 onda treba po defaultu da se gleda manje jer je kao beskonacna petlja ali opet korisnik moze rucno postaviti varijablu na neku vrijednost unutar tijela petlje, mada mozda bi htio i da gleda da li je manje.
+        // Ali treba ovo vece jednako da bude sto sam vec objasnio u prethodnom tako da mozda bolje ne dirati ne znammmm
         if (incrementValue.as.number >= 0) {
             static_cast<BinaryExpression *>(stmt->condition)->op->type = TokenType::Less;
         } else {
@@ -258,10 +264,68 @@ void Interpreter::executeReturnStatement(ReturnStatement *stmt) {
     isReturning = true;
 }
 
+void Interpreter::executeIncrementStatement(IncrementStatement *stmt) {
+    RuntimeValue currentValue = evaluate(stmt->lvalue);
+    RuntimeValue incrementValue = evaluate(stmt->by);
+
+    if (currentValue.type != ValueType::Number) {
+        throw WrongTypeToStatement(stmt->keyword, currentValue, stmt->lvalue);
+    }
+
+    if (incrementValue.type != ValueType::Number) {
+        throw WrongTypeToStatement(stmt->keyword, incrementValue, stmt->by);
+    }
+
+    if (stmt->isDecrement) {
+        incrementValue.as.number = -incrementValue.as.number;
+    }
+
+    if (stmt->lvalue->type == AstNodeType::VariableExpression) {
+        auto expr = static_cast<VariableExpression *>(stmt->lvalue);
+        auto distance = locals.find(expr);
+        if (distance != locals.end()) {
+            environments.top().assignAt(distance->second, expr->name->value, {
+                                            ValueType::Number,
+                                            {.number = currentValue.as.number + incrementValue.as.number}
+                                        });
+        } else {
+            globals->assign(expr->name, {
+                                ValueType::Number, {.number = currentValue.as.number + incrementValue.as.number}
+                            });
+        }
+    } else {
+        // This code is almost identical to the one found in evaluateIndexAssignment, but i dont think its worth extracting to a function or any other solution.
+        auto expr = static_cast<IndexingExpression *>(stmt->lvalue);
+        RuntimeValue array = evaluate(expr->left);
+        RuntimeValue index = evaluate(expr->index);
+
+        if (!IS_OBJ(array) || !IS_ARRAY_OBJ(array)) {
+            throw IndexingNonArray(expr, array);
+        }
+        if (index.type != ValueType::Number) {
+            throw WrongTypeError(L"[]", index, expr->index);
+        }
+
+        auto elements = GET_ARRAY_OBJ_ELEMENTS(array);
+        if (index.as.number < 0 || index.as.number >= elements.size()) {
+            throw IndexOutOfBounds(expr->index, index.as.number);
+        }
+
+        if (index.as.number != (int) index.as.number) {
+            throw NonIntegerIndex(expr->index, index.as.number);
+        }
+
+        AS_ARRAY_OBJ(array)->elements[(size_t) index.as.number] = {
+            ValueType::Number, {.number = elements[(size_t) index.as.number].as.number + incrementValue.as.number}
+        };
+    }
+}
+
 RuntimeValue Interpreter::evaluate(Expression *expr) {
     switch (expr->type) {
         case AstNodeType::BinaryExpression: {
-            disallowGC = true; // trenutno nisam siguran da li je moguce da dodje do problema zbog brisanja objekata tokom izvrsavanja nizanih binarnih operacija tipa konkatenacije stringova tako da je najbolje da bude disallowed jer onda nema sanse da ce se izbrisati nesto sto ne treba tokom izvrsavanja binarnih operacija.
+            disallowGC = true;
+            // trenutno nisam siguran da li je moguce da dodje do problema zbog brisanja objekata tokom izvrsavanja nizanih binarnih operacija tipa konkatenacije stringova tako da je najbolje da bude disallowed jer onda nema sanse da ce se izbrisati nesto sto ne treba tokom izvrsavanja binarnih operacija.
             RuntimeValue result = evaluateBinaryExpression(static_cast<BinaryExpression *>(expr));
             disallowGC = false;
             return result;
@@ -326,9 +390,14 @@ RuntimeValue Interpreter::evaluateBinaryExpression(BinaryExpression *expr) {
                 return {ValueType::Number, {.number = left.as.number + right.as.number}};
             }
             if (IS_OBJ(left) && IS_STRING_OBJ(left) && IS_OBJ(right) &&
-                IS_STRING_OBJ(right)) { // OVDJE ISPOD TREBA NEKI AS_STR MACRO
-                return {ValueType::Object, {.object = (Object *) allocateStringObject(
-                        GET_STRING_OBJ_VALUE(left) + GET_STRING_OBJ_VALUE(right))}};
+                IS_STRING_OBJ(right)) {
+                // OVDJE ISPOD TREBA NEKI AS_STR MACRO
+                return {
+                    ValueType::Object, {
+                        .object = (Object *) allocateStringObject(
+                            GET_STRING_OBJ_VALUE(left) + GET_STRING_OBJ_VALUE(right))
+                    }
+                };
             }
             throw WrongBinaryOperandTypes(L"+", left, right, expr);
         case TokenType::Minus:
@@ -450,15 +519,14 @@ RuntimeValue Interpreter::evaluateIndexAssignmentExpression(IndexAssignmentExpre
     // array is modified in place, so that the actual array or its memory location is not changed.
     AS_ARRAY_OBJ(array)->elements[(size_t) index.as.number] = value;
 
-//    auto distance = locals.find(expr);
-//    if(distance != locals.end()){
-//        environments.top().assignAt(distance->second, name->value, elements);
-//    } else {
-//        globals->assign(name, elements);
-//    } ne modifikuje se varijabla ustvari, vec samo element niza "in place", pogotovo bitno ako ce nizovi biti prenosivi po referenci
+    //    auto distance = locals.find(expr);
+    //    if(distance != locals.end()){
+    //        environments.top().assignAt(distance->second, name->value, elements);
+    //    } else {
+    //        globals->assign(name, elements);
+    //    } ne modifikuje se varijabla ustvari, vec samo element niza "in place", pogotovo bitno ako ce nizovi biti prenosivi po referenci
 
     return value;
-
 }
 
 RuntimeValue Interpreter::evaluateNumericLiteralExpression(NumericLiteralExpression *expr) {
@@ -476,7 +544,7 @@ RuntimeValue Interpreter::evaluateUnaryExpression(UnaryExpression *expr) {
         case TokenType::Bang: {
             return {ValueType::Boolean, {.boolean = !isTruthy(value)}};
         }
-            // This doesnt work? Check if it even exists in parser?
+        // This doesnt work? Check if it even exists in parser?
         case TokenType::DoublePlus: {
             if (value.type != ValueType::Number) throw WrongTypeError(L"++", value, expr);
             return {ValueType::Number, {.number = value.as.number + 1}};
@@ -520,7 +588,7 @@ RuntimeValue Interpreter::evaluateCallExpression(CallExpression *expr) {
     }
 
     ObjectCallable *callable = AS_CALLABLE_OBJ(
-            callee); // this narrows functions to callables but its fine for the first two checks.
+        callee); // this narrows functions to callables but its fine for the first two checks.
     int arity = callable->arity;
     int minArity = callable->minArity;
     if (arguments.size() > arity) {
@@ -539,7 +607,8 @@ RuntimeValue Interpreter::evaluateCallExpression(CallExpression *expr) {
             for (size_t i = arguments.size(); i < arity; i++) {
                 arguments.push_back(callable->defaultArguments[i]);
             }
-        } else { // depends on the fact that only callables and functions are allowed to pass down to this point.
+        } else {
+            // depends on the fact that only callables and functions are allowed to pass down to this point.
             ObjectFunction *function = AS_FUNCTION_OBJ(callee);
             disallowGC = true;
             int numOfOptionalAllowedParams = arity - minArity;
@@ -551,15 +620,15 @@ RuntimeValue Interpreter::evaluateCallExpression(CallExpression *expr) {
         }
     }
     return callable->call(this, arguments);
-//    if(callee.as.object->type == ObjectType::OBJECT_CALLABLE){
-//    bilo ovjde ovo iznad sto je sad ovo callable = .... do returna, ali izgleda da radi sa castom onim na objectcallable
-//    } else {
-//        (ObjectFunction*)callee.as.object;
-//        if(arguments.size() != ((ObjectFunction*)callee.as.object)->arity){
-//            throw "Expected " + std::to_string(((ObjectFunction*)callee.as.object)->arity) + " arguments but got " + std::to_string(arguments.size());
-//        }
-//        return ((ObjectFunction*)callee.as.object)->functionCall(this, arguments);
-//    }
+    //    if(callee.as.object->type == ObjectType::OBJECT_CALLABLE){
+    //    bilo ovjde ovo iznad sto je sad ovo callable = .... do returna, ali izgleda da radi sa castom onim na objectcallable
+    //    } else {
+    //        (ObjectFunction*)callee.as.object;
+    //        if(arguments.size() != ((ObjectFunction*)callee.as.object)->arity){
+    //            throw "Expected " + std::to_string(((ObjectFunction*)callee.as.object)->arity) + " arguments but got " + std::to_string(arguments.size());
+    //        }
+    //        return ((ObjectFunction*)callee.as.object)->functionCall(this, arguments);
+    //    }
 }
 
 RuntimeValue Interpreter::evaluateArrayLiteralExpression(ArrayLiteralExpression *expr) {
@@ -567,7 +636,8 @@ RuntimeValue Interpreter::evaluateArrayLiteralExpression(ArrayLiteralExpression 
     disallowGC = true;
     for (auto element: expr->elements) {
         elements.push_back(evaluate(element));
-        disallowGC = true; // should be set again in case one of the elements is an array, which would have set it back to false, this just puts it back on true, and the final array will make it false again.
+        disallowGC = true;
+        // should be set again in case one of the elements is an array, which would have set it back to false, this just puts it back on true, and the final array will make it false again.
     }
     disallowGC = false;
     return {ValueType::Object, {.object = (Object *) allocateArrayObject(elements)}};
@@ -623,7 +693,7 @@ bool Interpreter::isEqual(const RuntimeValue &left, const RuntimeValue &right) {
                 return GET_STRING_OBJ_VALUE(left) == GET_STRING_OBJ_VALUE(right);
             }
             return left.as.object == right.as.object;
-//            throw "EQUALITY NOT YET IMPLEMENTED FOR NON STRING!";
+        //            throw "EQUALITY NOT YET IMPLEMENTED FOR NON STRING!";
         default:
             return false;
     }
@@ -694,8 +764,6 @@ void Interpreter::invokeGarbageCollector() {
         std::wcout << "--------------------------------------------------\n" << std::endl;
 #endif
     }
-
-
 }
 
 void Interpreter::collectGarbage() {
@@ -712,19 +780,19 @@ void Interpreter::collectGarbage() {
 #endif
 
     // traverse objects linked list and delete each one JUST DEBUGGING
-//    Object* previous = nullptr;
-//    Object* object = objects;
-//    while(object != nullptr){
-//
-//        Object* unreached = object;
-//        object = object->next;
-//        if(previous != nullptr){
-//            previous->next = object;
-//        } else {
-//            objects = object;
-//        }
-//        deleteObject(unreached);
-//    }
+    //    Object* previous = nullptr;
+    //    Object* object = objects;
+    //    while(object != nullptr){
+    //
+    //        Object* unreached = object;
+    //        object = object->next;
+    //        if(previous != nullptr){
+    //            previous->next = object;
+    //        } else {
+    //            objects = object;
+    //        }
+    //        deleteObject(unreached);
+    //    }
 
     markRoots();
 #if DEBUG_LOG_GC == 2
@@ -736,7 +804,7 @@ void Interpreter::collectGarbage() {
 #endif
     sweep();
 
-//    nextGC = bytesAllocated * 2;
+    //    nextGC = bytesAllocated * 2;
 
 #if DEBUG_LOG_GC == 2
     std::wcout << L"bk: ---------- gc end -----------\n" << std::endl;
@@ -757,9 +825,9 @@ void Interpreter::markRoots() {
 #endif
     markValue(returnedValue); // so that the returned value is not collected in case it has not yet been used.
 
-//    for(auto& variable : globals->variables){
-//        markValue(variable.second.first);
-//    } seems not to be necessary as globals is actually the top environment of the stack that has already been copied and traversed.
+    //    for(auto& variable : globals->variables){
+    //        markValue(variable.second.first);
+    //    } seems not to be necessary as globals is actually the top environment of the stack that has already been copied and traversed.
 }
 
 void Interpreter::markValue(const RuntimeValue &value) {
@@ -793,7 +861,8 @@ void Interpreter::blackenObject(Object *object) {
     switch (object->type) {
         case ObjectType::OBJECT_STRING:
         case ObjectType::OBJECT_CALLABLE: // check if callable is just used for native functions
-        case ObjectType::OBJECT_FUNCTION: // function has nothing to have marked, since the functions environment will get pushed onto the stack by executeBlock and hence it will be scanned by markRoots. This includes local variables as well as the function arguments, since they are all part of the function's environment that gets pushed onto the stack.
+        case ObjectType::OBJECT_FUNCTION:
+            // function has nothing to have marked, since the functions environment will get pushed onto the stack by executeBlock and hence it will be scanned by markRoots. This includes local variables as well as the function arguments, since they are all part of the function's environment that gets pushed onto the stack.
             break;
         case ObjectType::OBJECT_ARRAY: {
             auto *array = (ObjectArray *) object;
@@ -845,29 +914,27 @@ void Interpreter::deleteObject(Object *object) {
             delete (ObjectFunction *) object;
             break;
         case ObjectType::OBJECT_ARRAY:
-//            for(auto& element : ((ObjectArray*)object)->elements){
-//                if(element.type == ValueType::Object){
-//                    deleteObject(element.as.object);
-//                }
-//            } maybe isn't necessary since if the array itself isn't marked its elements won't be either, so they'll get deleted anyway. This seems to cause double deletion of objects / segfault.
+            //            for(auto& element : ((ObjectArray*)object)->elements){
+            //                if(element.type == ValueType::Object){
+            //                    deleteObject(element.as.object);
+            //                }
+            //            } maybe isn't necessary since if the array itself isn't marked its elements won't be either, so they'll get deleted anyway. This seems to cause double deletion of objects / segfault.
             bytesAllocated -= sizeof(ObjectArray);
             delete (ObjectArray *) object;
             break;
         default:
             throw std::runtime_error("INTERNAL ERROR: Unknown object type in garbage collector");
     }
-
 }
 
 std::wstring Interpreter::getObjectLogString(Object *object) {
     std::wstringstream log;
     log << L"object type: " << std::setw(10) << std::left << getObjectTypeName(object->type) << L"identifier: "
-        << getObjectIdentifier(object);
+            << getObjectIdentifier(object);
     return log.str();
 }
 
 RuntimeError *Interpreter::reallocateError(RuntimeError *error) {
-
     delete handledError; // In case one was already allocated
 
     if (dynamic_cast<WrongTypeError *>(error) != nullptr) {
@@ -892,6 +959,8 @@ RuntimeError *Interpreter::reallocateError(RuntimeError *error) {
         handledError = new NonIntegerIndex(*dynamic_cast<NonIntegerIndex *>(error));
     } else if (dynamic_cast<IndexingNonArray *>(error) != nullptr) {
         handledError = new IndexingNonArray(*dynamic_cast<IndexingNonArray *>(error));
+    } else if (dynamic_cast<WrongTypeToStatement *>(error) != nullptr) {
+        handledError = new WrongTypeToStatement(*dynamic_cast<WrongTypeToStatement *>(error));
     } else {
         throw std::runtime_error("ERROR REALLOCATION ERROR: Unknown error type");
     }
@@ -902,7 +971,6 @@ RuntimeValue Interpreter::lookUpVariable(const VariableExpression *expr) {
     auto distance = locals.find(expr);
     if (distance != locals.end()) {
         return environments.top().getAt(distance->second, expr->name->value);
-    } else {
-        return globals->get(expr->name);
     }
+    return globals->get(expr->name);
 }
