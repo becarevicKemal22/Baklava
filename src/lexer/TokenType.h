@@ -40,8 +40,6 @@ enum class TokenType : uint8_t {
     DoubleEqual,
     DoublePipe,
     DoubleAmpersand,
-    Povecaj,
-    Smanji,
     // Types and identifiers
     Identifier,
     Number,
@@ -64,6 +62,11 @@ enum class TokenType : uint8_t {
     Repeat,
     Each,
     Step,
+    Povecaj,
+    Smanji,
+    Pomnozi,
+    Podijeli,
+    Sa,
     // New syntax keywords
     Jednako,
     Nije,

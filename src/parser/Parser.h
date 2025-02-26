@@ -62,6 +62,7 @@ private:
     Statement* functionDeclarationStatement();
     Statement* returnStatement();
     Statement* incrementStatement();
+    Statement* multiplyByStatement();
 
     Expression* expression();
     Expression* assignmentExpression();

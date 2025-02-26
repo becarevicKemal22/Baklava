@@ -76,7 +76,7 @@ private:
 
     void resolveReturnStatement(ReturnStatement *statement);
 
-    void resolveIncrementStatement(IncrementStatement *statement);
+    void resolveModifyStatement(ModifyStatement *statement);
 
     void resolveVariableExpression(VariableExpression *expression);
 

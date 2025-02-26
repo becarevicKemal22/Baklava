@@ -7,20 +7,23 @@
 #include "Parser.h"
 #include "Lexer.h"
 #include "Program.h"
-#include "IncrementStatement.h"
+#include "ModifyStatement.h"
 #include "IndexingExpression.h"
 #include "NumericLiteralExpression.h"
 #include "VariableExpression.h"
 
-TEST_CASE("Parses increment statement", "[parser][increment]") {
+// Both this and ParserMultiplyDivideByStatementTest are related to ModifyStatement, but are split into two functions as
+// they are in the parser.
+
+TEST_CASE("Parses increment statement", "[parser][modifyStatement]") {
     std::wstring source = L"povećaj a;";
     Interpreter interpreter;
     auto program = parseSource(source, &interpreter);
 
     REQUIRE(program->statements.size() == 1);
 
-    REQUIRE(program->statements[0]->type == AstNodeType::IncrementStatement);
-    auto incrementStatement = getNode<IncrementStatement>(program->statements[0]);
+    REQUIRE(program->statements[0]->type == AstNodeType::ModifyStatement);
+    auto incrementStatement = getNode<ModifyStatement>(program->statements[0]);
 
     REQUIRE(incrementStatement->keyword->type == TokenType::Povecaj);
     REQUIRE(incrementStatement->keyword->value == L"povećaj");
@@ -33,18 +36,18 @@ TEST_CASE("Parses increment statement", "[parser][increment]") {
     auto by = getNode<NumericLiteralExpression>(incrementStatement->by);
     REQUIRE(by->value == 1);
 
-    REQUIRE(incrementStatement->isDecrement == false);
+    REQUIRE(incrementStatement->modificationType == INCREMENT);
 }
 
-TEST_CASE("Parses decrement statement", "[parser][increment]") {
+TEST_CASE("Parses decrement statement", "[parser][modifyStatement]") {
     std::wstring source = L"smanji a;";
     Interpreter interpreter;
     auto program = parseSource(source, &interpreter);
 
     REQUIRE(program->statements.size() == 1);
 
-    REQUIRE(program->statements[0]->type == AstNodeType::IncrementStatement);
-    auto incrementStatement = getNode<IncrementStatement>(program->statements[0]);
+    REQUIRE(program->statements[0]->type == AstNodeType::ModifyStatement);
+    auto incrementStatement = getNode<ModifyStatement>(program->statements[0]);
 
     REQUIRE(incrementStatement->keyword->type == TokenType::Smanji);
     REQUIRE(incrementStatement->keyword->value == L"smanji");
@@ -57,18 +60,18 @@ TEST_CASE("Parses decrement statement", "[parser][increment]") {
     auto by = getNode<NumericLiteralExpression>(incrementStatement->by);
     REQUIRE(by->value == 1);
 
-    REQUIRE(incrementStatement->isDecrement == true);
+    REQUIRE(incrementStatement->modificationType == DECREMENT);
 }
 
-TEST_CASE("Parses increment statement with 'by'", "[parser][increment]") {
+TEST_CASE("Parses increment statement with 'by'", "[parser][modifyStatement]") {
     std::wstring source = L"povecaj a za 2;";
     Interpreter interpreter;
     auto program = parseSource(source, &interpreter);
 
     REQUIRE(program->statements.size() == 1);
 
-    REQUIRE(program->statements[0]->type == AstNodeType::IncrementStatement);
-    auto incrementStatement = getNode<IncrementStatement>(program->statements[0]);
+    REQUIRE(program->statements[0]->type == AstNodeType::ModifyStatement);
+    auto incrementStatement = getNode<ModifyStatement>(program->statements[0]);
 
     REQUIRE(incrementStatement->lvalue->type == AstNodeType::VariableExpression);
     auto lvalue = getNode<VariableExpression>(incrementStatement->lvalue);
@@ -78,18 +81,18 @@ TEST_CASE("Parses increment statement with 'by'", "[parser][increment]") {
     auto by = getNode<NumericLiteralExpression>(incrementStatement->by);
     REQUIRE(by->value == 2);
 
-    REQUIRE(incrementStatement->isDecrement == false);
+    REQUIRE(incrementStatement->modificationType == INCREMENT);
 }
 
-TEST_CASE("Parses decrement statement with 'by'", "[parser][increment]") {
+TEST_CASE("Parses decrement statement with 'by'", "[parser][modifyStatement]") {
     std::wstring source = L"smanji a za 2;";
     Interpreter interpreter;
     auto program = parseSource(source, &interpreter);
 
     REQUIRE(program->statements.size() == 1);
 
-    REQUIRE(program->statements[0]->type == AstNodeType::IncrementStatement);
-    auto incrementStatement = getNode<IncrementStatement>(program->statements[0]);
+    REQUIRE(program->statements[0]->type == AstNodeType::ModifyStatement);
+    auto incrementStatement = getNode<ModifyStatement>(program->statements[0]);
 
     REQUIRE(incrementStatement->lvalue->type == AstNodeType::VariableExpression);
     auto lvalue = getNode<VariableExpression>(incrementStatement->lvalue);
@@ -99,18 +102,18 @@ TEST_CASE("Parses decrement statement with 'by'", "[parser][increment]") {
     auto by = getNode<NumericLiteralExpression>(incrementStatement->by);
     REQUIRE(by->value == 2);
 
-    REQUIRE(incrementStatement->isDecrement == true);
+    REQUIRE(incrementStatement->modificationType == DECREMENT);
 }
 
-TEST_CASE("Parses increment statement with array indexing", "[parser][increment]") {
+TEST_CASE("Parses increment statement with array indexing", "[parser][modifyStatement]") {
     std::wstring source = L"povecaj a[5] za b[1];";
     Interpreter interpreter;
     auto program = parseSource(source, &interpreter);
 
     REQUIRE(program->statements.size() == 1);
 
-    REQUIRE(program->statements[0]->type == AstNodeType::IncrementStatement);
-    auto incrementStatement = getNode<IncrementStatement>(program->statements[0]);
+    REQUIRE(program->statements[0]->type == AstNodeType::ModifyStatement);
+    auto incrementStatement = getNode<ModifyStatement>(program->statements[0]);
 
     REQUIRE(incrementStatement->lvalue->type == AstNodeType::IndexingExpression);
     auto lvalue = getNode<IndexingExpression>(incrementStatement->lvalue);
@@ -130,28 +133,28 @@ TEST_CASE("Parses increment statement with array indexing", "[parser][increment]
     index = getNode<NumericLiteralExpression>(by->index);
     REQUIRE(index->value == 1);
 
-    REQUIRE(incrementStatement->isDecrement == false);
+    REQUIRE(incrementStatement->modificationType == INCREMENT);
 }
 
-TEST_CASE("Throws error if lvalue is not a variable", "[parser][increment]") {
+TEST_CASE("Throws error if lvalue is not a variable", "[parser][modifyStatement]") {
     std::wstring source = L"povecaj a();";
     Interpreter interpreter;
     REQUIRE_THROWS_AS(parseSource(source, &interpreter), InvalidLValue);
 }
 
-TEST_CASE("Throws if no expression after 'za'", "[parser][increment]") {
+TEST_CASE("Throws if no expression after 'za'", "[parser][modifyStatement]") {
     std::wstring source = L"povecaj a za;";
     Interpreter interpreter;
     REQUIRE_THROWS_AS(parseSource(source, &interpreter), ExpectedXBeforeY);
 }
 
-TEST_CASE("Throws on no semicolon after increment", "[parser][increment]") {
+TEST_CASE("Throws on no semicolon after increment", "[parser][modifyStatement]") {
     std::wstring source = L"povecaj a";
     Interpreter interpreter;
     REQUIRE_THROWS_AS(parseSource(source, &interpreter), ExpectedXBeforeY);
 }
 
-TEST_CASE("Throws on no semicolon after 'za'", "[parser][increment]") {
+TEST_CASE("Throws on no semicolon after 'za'", "[parser][modifyStatement]") {
     std::wstring source = L"povecaj a za 2";
     Interpreter interpreter;
     REQUIRE_THROWS_AS(parseSource(source, &interpreter), ExpectedXBeforeY);

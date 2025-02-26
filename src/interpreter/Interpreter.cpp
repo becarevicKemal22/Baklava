@@ -69,7 +69,7 @@
 #include <sstream>
 #include <cassert>
 
-#include "IncrementStatement.h"
+#include "ModifyStatement.h"
 #include "WrongTypeToStatement.h"
 
 void Interpreter::defineNativeFunctions() {
@@ -123,8 +123,8 @@ void Interpreter::execute(Statement *stmt) {
         case AstNodeType::ReturnStatement:
             executeReturnStatement(static_cast<ReturnStatement *>(stmt));
             return;
-        case AstNodeType::IncrementStatement:
-            executeIncrementStatement(static_cast<IncrementStatement *>(stmt));
+        case AstNodeType::ModifyStatement:
+            executeModifyStatement(static_cast<ModifyStatement *>(stmt));
             return;
         default:
             throw std::runtime_error("Unknown statement type");
@@ -264,7 +264,7 @@ void Interpreter::executeReturnStatement(ReturnStatement *stmt) {
     isReturning = true;
 }
 
-void Interpreter::executeIncrementStatement(IncrementStatement *stmt) {
+void Interpreter::executeModifyStatement(ModifyStatement *stmt) {
     RuntimeValue currentValue = evaluate(stmt->lvalue);
     RuntimeValue incrementValue = evaluate(stmt->by);
 
@@ -276,22 +276,28 @@ void Interpreter::executeIncrementStatement(IncrementStatement *stmt) {
         throw WrongTypeToStatement(stmt->keyword, incrementValue, stmt->by);
     }
 
-    if (stmt->isDecrement) {
-        incrementValue.as.number = -incrementValue.as.number;
+    switch (stmt->modificationType) {
+        case INCREMENT:
+            currentValue.as.number += incrementValue.as.number;
+            break;
+        case DECREMENT:
+            currentValue.as.number -= incrementValue.as.number;
+            break;
+        case MULTIPLY:
+            currentValue.as.number *= incrementValue.as.number;
+            break;
+        case DIVIDE:
+            currentValue.as.number /= incrementValue.as.number;
+            break;
     }
 
     if (stmt->lvalue->type == AstNodeType::VariableExpression) {
         auto expr = static_cast<VariableExpression *>(stmt->lvalue);
         auto distance = locals.find(expr);
         if (distance != locals.end()) {
-            environments.top().assignAt(distance->second, expr->name->value, {
-                                            ValueType::Number,
-                                            {.number = currentValue.as.number + incrementValue.as.number}
-                                        });
+            environments.top().assignAt(distance->second, expr->name->value, currentValue);
         } else {
-            globals->assign(expr->name, {
-                                ValueType::Number, {.number = currentValue.as.number + incrementValue.as.number}
-                            });
+            globals->assign(expr->name, currentValue);
         }
     } else {
         // This code is almost identical to the one found in evaluateIndexAssignment, but i dont think its worth extracting to a function or any other solution.
@@ -315,9 +321,7 @@ void Interpreter::executeIncrementStatement(IncrementStatement *stmt) {
             throw NonIntegerIndex(expr->index, index.as.number);
         }
 
-        AS_ARRAY_OBJ(array)->elements[(size_t) index.as.number] = {
-            ValueType::Number, {.number = elements[(size_t) index.as.number].as.number + incrementValue.as.number}
-        };
+        AS_ARRAY_OBJ(array)->elements[index.as.number].as.number = currentValue.as.number;
     }
 }
 

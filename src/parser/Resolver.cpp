@@ -28,7 +28,7 @@
 #include "IndexAssignmentExpression.h"
 #include "IndexingExpression.h"
 #include "ArrayLiteralExpression.h"
-#include "IncrementStatement.h"
+#include "ModifyStatement.h"
 
 void Resolver::resolve(std::unique_ptr<Program> &program) {
     for (auto &statement: program->statements) {
@@ -68,8 +68,8 @@ void Resolver::resolve(Statement *statement) {
         case AstNodeType::ReturnStatement:
             resolveReturnStatement(static_cast<ReturnStatement *>(statement));
             break;
-        case AstNodeType::IncrementStatement:
-            resolveIncrementStatement(static_cast<IncrementStatement *>(statement));
+        case AstNodeType::ModifyStatement:
+            resolveModifyStatement(static_cast<ModifyStatement *>(statement));
             break;
         default:
             std::wcout << L"Unknown statement type in resolver." << std::endl;
@@ -243,7 +243,7 @@ void Resolver::resolveReturnStatement(ReturnStatement *statement) {
     }
 }
 
-void Resolver::resolveIncrementStatement(IncrementStatement *statement) {
+void Resolver::resolveModifyStatement(ModifyStatement *statement) {
     resolve(statement->lvalue);
     resolve(statement->by);
 }

@@ -89,7 +89,7 @@ add_executable(baklava main.cpp
         src/error/exceptions/lexer/UnterminatedString.h
         src/error/exceptions/lexer/LexerError.h
         src/error/exceptions/lexer/UnexpectedCharacter.h
-        src/parser/ast/statements/IncrementStatement.h
+        src/parser/ast/statements/ModifyStatement.h
         src/error/exceptions/WrongTypeToStatement.h
 )
 
