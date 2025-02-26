@@ -23,6 +23,8 @@ enum class AstNodeType : uint8_t {
     WhileStatement,
     FunctionDeclarationStatement,
     ReturnStatement,
+    ModifyStatement,
+    MultiplyByStatement,
 
     // Expressions
     AssignmentExpression,
@@ -51,6 +53,8 @@ class IfStatement;
 class WhileStatement;
 class FunctionDeclarationStatement;
 class ReturnStatement;
+class ModifyStatement;
+class MultiplyByStatement;
 
 class Expression;
 class BinaryExpression;

@@ -30,6 +30,7 @@
 #include "ReturnStatement.h"
 #include "IndexingExpression.h"
 #include "ArrayLiteralExpression.h"
+#include "ModifyStatement.h"
 #include "IndexAssignmentExpression.h"
 #include "InvalidDefaultParameterPosition.h"
 #include "InvalidDefaultParameterValue.h"
@@ -40,134 +41,142 @@
 
 std::unique_ptr<Program> Parser::parse() {
     std::unique_ptr<Program> program = std::make_unique<Program>();
-    while(!atType(TokenType::Eof)) {
+    while (!atType(TokenType::Eof)) {
         program->statements.push_back(declaration());
     }
     return program;
 }
 
-Statement* Parser::declaration() {
-    if(match({TokenType::Var}) || match({TokenType::Const})){
+Statement *Parser::declaration() {
+    if (match({TokenType::Var}) || match({TokenType::Const})) {
         return varDeclarationStatement();
     }
     return statement();
 }
 
-Statement* Parser::varDeclarationStatement() {
+Statement *Parser::varDeclarationStatement() {
     bool isConst = previous()->type == TokenType::Const;
-    if(isConst){
-        if(!match({TokenType::Var})){
+    if (isConst) {
+        if (!match({TokenType::Var})) {
             throw ExpectedXBeforeY(L"var", previous(), at());
         }
     }
-    if(!atType(TokenType::Identifier)){
+    if (!atType(TokenType::Identifier)) {
         throw ExpectedXBeforeY(L"identifikator", previous(), at());
     }
     advance();
-    Token* name = previous();
+    Token *name = previous();
     ExprPtr initializer = nullptr;
-    if(match({TokenType::Equal})){
+    if (match({TokenType::Equal})) {
         initializer = expression();
     }
-    if(isConst && !initializer){
+    if (isConst && !initializer) {
         throw UninitializedConst(name);
     }
-    if(match({TokenType::Semicolon})){
+    if (match({TokenType::Semicolon})) {
         return new VarDeclarationStatement(name, initializer, isConst);
     }
     throw ExpectedXBeforeY(L";", previous(), at());
 }
 
-Statement* Parser::statement() {
-    if(match({TokenType::Print})){
+Statement *Parser::statement() {
+    if (match({TokenType::Print})) {
         return printStatement();
     }
-    if(match({TokenType::OpenBrace})){
+    if (match({TokenType::OpenBrace})) {
         return new BlockStatement(block());
     }
-    if(match({TokenType::If})){
+    if (match({TokenType::If})) {
         return ifStatement();
     }
-    if(match({TokenType::While})){
+    if (match({TokenType::While})) {
         return whileStatement();
     }
-    if(match({TokenType::For})){
+    if (match({TokenType::For})) {
         return forStatement();
     }
-    if(match({TokenType::Function})){
+    if (match({TokenType::Function})) {
         return functionDeclarationStatement();
     }
-    if(match({TokenType::Return})){
+    if (match({TokenType::Return})) {
         return returnStatement();
+    }
+    if (match({TokenType::Povecaj, TokenType::Smanji})) {
+        return incrementStatement();
+    }
+    if (match({TokenType::Pomnozi, TokenType::Podijeli})) {
+        return multiplyByStatement();
     }
     return expressionStatement();
 }
 
-Statement* Parser::printStatement() {
+Statement *Parser::printStatement() {
     ExprPtr value = expression();
-    if(match({TokenType::Semicolon})){
+    if (match({TokenType::Semicolon})) {
         return new PrintStatement(value);
     }
     throw ExpectedXBeforeY(L";", previous(), at());
 }
 
-std::vector<Statement*> Parser::block() {
+std::vector<Statement *> Parser::block() {
     std::vector<Statement *> statements;
     while (!atType(TokenType::ClosedBrace) && !atType(TokenType::Eof)) {
         statements.push_back(declaration());
     }
 
-    if(match({TokenType::ClosedBrace})){
+    if (match({TokenType::ClosedBrace})) {
         return statements;
     }
 
     throw ExpectedXBeforeY(L"}", previous(), at());
 }
 
-Statement* Parser::ifStatement(){
+Statement *Parser::ifStatement() {
     bool hasIs = false;
     TokenPtr isToken = nullptr;
-    if(atType(TokenType::Is)){
+    if (atType(TokenType::Is)) {
         advance();
         hasIs = true;
         isToken = previous();
     }
 
     ExprPtr condition = expression();
-    if(!atType(TokenType::Then) && !atType(TokenType::OpenBrace) && hasIs){
+    if (!atType(TokenType::Then) && !atType(TokenType::OpenBrace) && hasIs) {
         ExprPtr literal;
-        try{
+        try {
             literal = primaryExpression();
-        }catch(ExpectedXBeforeY& e){
-            if(!atType(TokenType::Then)){
+        } catch (ExpectedXBeforeY &e) {
+            if (!atType(TokenType::Then)) {
                 throw ExpectedXBeforeY(L"onda", previous(), at());
             }
             throw;
         }
-        if((literal->type != AstNodeType::BooleanLiteralExpression) && (literal->type != AstNodeType::NullLiteralExpression)){
+        if ((literal->type != AstNodeType::BooleanLiteralExpression) && (
+                literal->type != AstNodeType::NullLiteralExpression)) {
             throw ExpectedXBeforeY(L"onda", getMostRelevantToken(condition), previous());
         }
-        isToken->type = TokenType::DoubleEqual; // Required so that in testing this appears as a equality operator, but I can't create a new token becuase I don't have the position and it doesn't exist anyway. So the is token is used in case an error needs to be printed, and the type is changed for testing, maybe its required somewhere else as well idk.
+        isToken->type = TokenType::DoubleEqual;
+        // Required so that in testing this appears as a equality operator, but I can't create a new token becuase I don't have the position and it doesn't exist anyway. So the is token is used in case an error needs to be printed, and the type is changed for testing, maybe its required somewhere else as well idk.
         condition = new BinaryExpression(condition, isToken, literal);
     }
-    if(!atType(TokenType::Then) && !atType(TokenType::OpenBrace)){
+    if (!atType(TokenType::Then) && !atType(TokenType::OpenBrace)) {
         throw ExpectedXBeforeY(L"onda", previous(), at());
     }
-    if(atType(TokenType::Then)) advance();
+    if (atType(TokenType::Then)) advance();
 
     StmtPtr thenBranch = statement();
     StmtPtr elseBranch = nullptr;
 
-    if(match({TokenType::Else})){
+    if (match({TokenType::Else})) {
         elseBranch = statement();
     }
     return new IfStatement(condition, thenBranch, elseBranch);
 }
 
-Statement* Parser::whileStatement() {
+Statement *Parser::whileStatement() {
     bool hasIs = false;
     TokenPtr isToken = nullptr;
-    if(atType(TokenType::Is)){
+    if (atType(TokenType::Is)) {
         advance();
         hasIs = true;
         isToken = previous();
@@ -175,45 +184,47 @@ Statement* Parser::whileStatement() {
 
     ExprPtr condition = expression();
 
-    if(!atType(TokenType::Repeat) && !atType(TokenType::OpenBrace) && hasIs){
+    if (!atType(TokenType::Repeat) && !atType(TokenType::OpenBrace) && hasIs) {
         ExprPtr literal;
-        try{
+        try {
             literal = primaryExpression();
-        }catch(ExpectedXBeforeY& e){
-            if(!atType(TokenType::Repeat)){
+        } catch (ExpectedXBeforeY &e) {
+            if (!atType(TokenType::Repeat)) {
                 throw ExpectedXBeforeY(L"ponavljaj", previous(), at());
             }
             throw;
         }
-        if((literal->type != AstNodeType::BooleanLiteralExpression) && (literal->type != AstNodeType::NullLiteralExpression)){
+        if ((literal->type != AstNodeType::BooleanLiteralExpression) && (
+                literal->type != AstNodeType::NullLiteralExpression)) {
             throw ExpectedXBeforeY(L"ponavljaj", getMostRelevantToken(condition), previous());
         }
-        isToken->type = TokenType::DoubleEqual; // Required so that in testing this appears as a equality operator, but I can't create a new token becuase I don't have the position and it doesn't exist anyway. So the is token is used in case an error needs to be printed, and the type is changed for testing, maybe its required somewhere else as well idk.
+        isToken->type = TokenType::DoubleEqual;
+        // Required so that in testing this appears as a equality operator, but I can't create a new token becuase I don't have the position and it doesn't exist anyway. So the is token is used in case an error needs to be printed, and the type is changed for testing, maybe its required somewhere else as well idk.
         condition = new BinaryExpression(condition, isToken, literal);
     }
-    if(!atType(TokenType::Repeat) && !atType(TokenType::OpenBrace)){
+    if (!atType(TokenType::Repeat) && !atType(TokenType::OpenBrace)) {
         throw ExpectedXBeforeY(L"ponavljaj", previous(), at());
     }
-    if(atType(TokenType::Repeat)) advance();
+    if (atType(TokenType::Repeat)) advance();
 
     StmtPtr body = statement();
 
     return new WhileStatement(condition, body);
 }
 
-Statement* Parser::forStatement() {
-    if(!atType(TokenType::Each)){
+Statement *Parser::forStatement() {
+    if (!atType(TokenType::Each)) {
         throw ExpectedXBeforeY(L"svako", previous(), at());
     }
     advance();
 
-    if(!atType(TokenType::Identifier)){
+    if (!atType(TokenType::Identifier)) {
         throw ExpectedXBeforeY(L"identifikator", previous(), at());
     }
     advance();
     TokenPtr identifier = previous();
 
-    if(!atType(TokenType::Od)){
+    if (!atType(TokenType::Od)) {
         throw ExpectedXBeforeY(L"od", previous(), at());
     }
 
@@ -222,7 +233,7 @@ Statement* Parser::forStatement() {
 
     StmtPtr initializer = new VarDeclarationStatement(identifier, startValue, false);
 
-    if(!atType(TokenType::Do)){
+    if (!atType(TokenType::Do)) {
         throw ExpectedXBeforeY(L"do", previous(), at());
     }
 
@@ -237,124 +248,160 @@ Statement* Parser::forStatement() {
     ExprPtr condition = new BinaryExpression(new VariableExpression(identifier), toToken, endValue);
 
     ExprPtr incrementValue = new NumericLiteralExpression(new Token(TokenType::Number, L"1", 0, 0));
-    if(atType(TokenType::Step)){
+    if (atType(TokenType::Step)) {
         advance();
         incrementValue = expression();
     }
 
     // Increment must be either unary minus of a numeric literal, or a numeric literal
-    if(incrementValue->type != AstNodeType::NumericLiteralExpression && !IS_NEGATIVE_NUMBER(incrementValue)){
+    if (incrementValue->type != AstNodeType::NumericLiteralExpression && !IS_NEGATIVE_NUMBER(incrementValue)) {
         throw InvalidForLoopStep(getMostRelevantToken(incrementValue));
     }
-    ExprPtr increment = new AssignmentExpression(identifier, new BinaryExpression(new VariableExpression(identifier), new Token(TokenType::Plus, L"+", 0, 0), incrementValue));
+    ExprPtr increment = new AssignmentExpression(
+        identifier, new BinaryExpression(new VariableExpression(identifier), new Token(TokenType::Plus, L"+", 0, 0),
+                                         incrementValue));
 
     // valjda stari kod za for loop?
-//    if(match({TokenType::Var})){
-//        initializer = varDeclarationStatement();
-//    } else if(match({TokenType::Semicolon})){
-//        initializer = nullptr;
-//    } else {
-//        initializer = expressionStatement();
-//    }
+    //    if(match({TokenType::Var})){
+    //        initializer = varDeclarationStatement();
+    //    } else if(match({TokenType::Semicolon})){
+    //        initializer = nullptr;
+    //    } else {
+    //        initializer = expressionStatement();
+    //    }
 
-//    ExprPtr condition = nullptr;
-//    if(!atType(TokenType::Semicolon)){
-//        condition = expression();
-//    }
-//    if(!atType(TokenType::Semicolon)){
-//        throw ExpectedXBeforeY(L";", previous(), at());
-//    }
-//    advance();
-//    ExprPtr increment = nullptr;
-//    if(!atType(TokenType::ClosedParenthesis)){
-//        increment = expression();
-//    }
-//    if(!atType(TokenType::ClosedParenthesis)){
-//        throw ExpectedXBeforeY(L")", previous(), at());
-//    }
-//    advance();
+    //    ExprPtr condition = nullptr;
+    //    if(!atType(TokenType::Semicolon)){
+    //        condition = expression();
+    //    }
+    //    if(!atType(TokenType::Semicolon)){
+    //        throw ExpectedXBeforeY(L";", previous(), at());
+    //    }
+    //    advance();
+    //    ExprPtr increment = nullptr;
+    //    if(!atType(TokenType::ClosedParenthesis)){
+    //        increment = expression();
+    //    }
+    //    if(!atType(TokenType::ClosedParenthesis)){
+    //        throw ExpectedXBeforeY(L")", previous(), at());
+    //    }
+    //    advance();
 
-    if(atType(TokenType::Repeat)) advance();
+    if (atType(TokenType::Repeat)) advance();
     StmtPtr body = statement();
 
     body = new BlockStatement({body, new ExpressionStatement(increment)});
 
     body = new WhileStatement(condition, body);
-    static_cast<WhileStatement*>(body)->isForLoop = true;
-    static_cast<WhileStatement*>(body)->forIncrement = incrementValue;
+    static_cast<WhileStatement *>(body)->isForLoop = true;
+    static_cast<WhileStatement *>(body)->forIncrement = incrementValue;
     body = new BlockStatement({initializer, body});
 
     return body;
 }
 
-Statement* Parser::functionDeclarationStatement() {
-
-    if(!atType(TokenType::Identifier)){
+Statement *Parser::functionDeclarationStatement() {
+    if (!atType(TokenType::Identifier)) {
         throw ExpectedXBeforeY(L"identifikator", previous(), at());
     }
     advance();
-    Token* name = previous();
-    if(!atType(TokenType::OpenParenthesis)){
+    Token *name = previous();
+    if (!atType(TokenType::OpenParenthesis)) {
         throw ExpectedXBeforeY(L"(", previous(), at());
     }
     advance();
 
-    std::vector<Token*> parameters;
+    std::vector<Token *> parameters;
     std::vector<ExprPtr> defaultParameters;
     bool reachedDefaultValues = false; // so i can check whether I have non-default parameters after default ones
-    if(!atType(TokenType::ClosedParenthesis)){
+    if (!atType(TokenType::ClosedParenthesis)) {
         do {
-            if(!atType(TokenType::Identifier)){
+            if (!atType(TokenType::Identifier)) {
                 throw ExpectedXBeforeY(L"identifikator", previous(), at());
             }
             advance();
 
             parameters.push_back(previous());
 
-            if(match({TokenType::Equal})) {
+            if (match({TokenType::Equal})) {
                 ExprPtr value = expression();
-                if(!IS_LITERAL(value) && !IS_NEGATIVE_NUMBER(value)){
+                if (!IS_LITERAL(value) && !IS_NEGATIVE_NUMBER(value)) {
                     throw InvalidDefaultParameterValue(parameters[parameters.size() - 1]);
                 }
 
                 defaultParameters.push_back(value);
                 reachedDefaultValues = true;
-            } else if(reachedDefaultValues){ // in case there's no equal (required param) but there were default values before
-                throw InvalidDefaultParameterPosition(parameters[parameters.size() - 2]); // -2 because the last one is the current one, and this error message needs the default argument that was in the disallowed position
+            } else if (reachedDefaultValues) {
+                // in case there's no equal (required param) but there were default values before
+                throw InvalidDefaultParameterPosition(parameters[parameters.size() - 2]);
+                // -2 because the last one is the current one, and this error message needs the default argument that was in the disallowed position
             }
-
-        } while(match({TokenType::Comma}));
+        } while (match({TokenType::Comma}));
     }
-    if(!atType(TokenType::ClosedParenthesis)){
+    if (!atType(TokenType::ClosedParenthesis)) {
         throw ExpectedXBeforeY(L")", previous(), at());
     }
     advance();
-    if(!atType(TokenType::OpenBrace)){
+    if (!atType(TokenType::OpenBrace)) {
         throw ExpectedXBeforeY(L"{", previous(), at());
     }
     advance();
-    std::vector<Statement*> body = block();
+    std::vector<Statement *> body = block();
     return new FunctionDeclarationStatement(name, parameters, body, defaultParameters);
 }
 
-Statement* Parser::expressionStatement() {
+Statement *Parser::expressionStatement() {
     ExprPtr value = expression();
-    if(match({TokenType::Semicolon})){
+    if (match({TokenType::Semicolon})) {
         return new ExpressionStatement(value);
     }
     throw ExpectedXBeforeY(L";", previous(), at());
 }
 
-Statement* Parser::returnStatement() {
-    Token* keyword = previous();
+Statement *Parser::returnStatement() {
+    Token *keyword = previous();
     ExprPtr value = nullptr;
-    if(!atType(TokenType::Semicolon)){
+    if (!atType(TokenType::Semicolon)) {
         value = expression();
     }
-    if(match({TokenType::Semicolon})){
+    if (match({TokenType::Semicolon})) {
         return new ReturnStatement(keyword, value);
     }
     throw ExpectedXBeforeY(L";", previous(), at());
+}
+
+Statement *Parser::incrementStatement() {
+    TokenPtr keyword = previous();
+    ExprPtr lvalue = expression();
+    if (lvalue->type != AstNodeType::VariableExpression && lvalue->type != AstNodeType::IndexingExpression) {
+        throw InvalidLValue(getMostRelevantToken(lvalue));
+    }
+    ExprPtr by = new NumericLiteralExpression(new Token(TokenType::Number, L"1", 0, 0));
+    if (match({TokenType::For})) {
+        // "za"
+        by = expression();
+    }
+    if (!match({TokenType::Semicolon})) {
+        throw ExpectedXBeforeY(L";", previous(), at());
+    }
+    return new ModifyStatement(lvalue, by, keyword);
+}
+
+// Returns the same AST node as incrementStatement, but is a different function to avoid a load of ifs in the incrementStatement function
+Statement *Parser::multiplyByStatement() {
+    const TokenPtr keyword = previous();
+    const ExprPtr lvalue = expression();
+    if (lvalue->type != AstNodeType::VariableExpression && lvalue->type != AstNodeType::IndexingExpression) {
+        throw InvalidLValue(getMostRelevantToken(lvalue));
+    }
+    if (!match({TokenType::Sa})) {
+        throw ExpectedXBeforeY(L"sa", previous(), at());
+    }
+    const ExprPtr by = expression();
+    if (!match({TokenType::Semicolon})) {
+        throw ExpectedXBeforeY(L";", previous(), at());
+    }
+    return new ModifyStatement(lvalue, by, keyword);
 }
 
 ExprPtr Parser::expression() {
@@ -363,13 +410,13 @@ ExprPtr Parser::expression() {
 
 ExprPtr Parser::assignmentExpression() {
     ExprPtr expr = logicalOrExpression();
-    if(match({TokenType::Equal})){
+    if (match({TokenType::Equal})) {
         ExprPtr value = assignmentExpression();
-        if(expr->type == AstNodeType::VariableExpression){
-            auto* var = static_cast<VariableExpression*>(expr);
+        if (expr->type == AstNodeType::VariableExpression) {
+            auto *var = static_cast<VariableExpression *>(expr);
             return new AssignmentExpression(var->name, value);
-        } else if(expr->type == AstNodeType::IndexingExpression){
-            auto* indexing = static_cast<IndexingExpression*>(expr);
+        } else if (expr->type == AstNodeType::IndexingExpression) {
+            auto *indexing = static_cast<IndexingExpression *>(expr);
             return new IndexAssignmentExpression(indexing->left, indexing->index, value);
         }
         throw InvalidLValue(getMostRelevantToken(expr));
@@ -379,8 +426,8 @@ ExprPtr Parser::assignmentExpression() {
 
 ExprPtr Parser::logicalOrExpression() {
     ExprPtr expr = logicalAndExpression();
-    while(match({TokenType::DoublePipe})){
-        Token* op = previous();
+    while (match({TokenType::DoublePipe})) {
+        Token *op = previous();
         ExprPtr right = logicalAndExpression();
         expr = new LogicalExpression(expr, op, right);
     }
@@ -389,8 +436,8 @@ ExprPtr Parser::logicalOrExpression() {
 
 ExprPtr Parser::logicalAndExpression() {
     ExprPtr expr = equalityExpression();
-    while(match({TokenType::DoubleAmpersand})){
-        Token* op = previous();
+    while (match({TokenType::DoubleAmpersand})) {
+        Token *op = previous();
         ExprPtr right = equalityExpression();
         expr = new LogicalExpression(expr, op, right);
     }
@@ -399,8 +446,8 @@ ExprPtr Parser::logicalAndExpression() {
 
 ExprPtr Parser::equalityExpression() {
     ExprPtr expr = comparisonExpression();
-    while(match({TokenType::NotEqual, TokenType::DoubleEqual})){
-        Token* op = previous();
+    while (match({TokenType::NotEqual, TokenType::DoubleEqual})) {
+        Token *op = previous();
         ExprPtr right = comparisonExpression();
         expr = new BinaryExpression(expr, op, right);
     }
@@ -409,8 +456,8 @@ ExprPtr Parser::equalityExpression() {
 
 ExprPtr Parser::comparisonExpression() {
     ExprPtr expr = termExpression();
-    while(match({TokenType::Greater, TokenType::GreaterEqual, TokenType::Less, TokenType::LessEqual})){
-        Token* op = previous();
+    while (match({TokenType::Greater, TokenType::GreaterEqual, TokenType::Less, TokenType::LessEqual})) {
+        Token *op = previous();
         ExprPtr right = termExpression();
         expr = new BinaryExpression(expr, op, right);
     }
@@ -419,8 +466,8 @@ ExprPtr Parser::comparisonExpression() {
 
 ExprPtr Parser::termExpression() {
     ExprPtr expr = factorExpression();
-    while(match({TokenType::Minus, TokenType::Plus})){
-        Token* op = previous();
+    while (match({TokenType::Minus, TokenType::Plus})) {
+        Token *op = previous();
         ExprPtr right = factorExpression();
         expr = new BinaryExpression(expr, op, right);
     }
@@ -429,8 +476,8 @@ ExprPtr Parser::termExpression() {
 
 ExprPtr Parser::factorExpression() {
     ExprPtr expr = unaryExpression();
-    while(match({TokenType::Slash, TokenType::Star, TokenType::Percent})){
-        Token* op = previous();
+    while (match({TokenType::Slash, TokenType::Star, TokenType::Percent})) {
+        Token *op = previous();
         ExprPtr right = unaryExpression();
         expr = new BinaryExpression(expr, op, right);
     }
@@ -438,23 +485,24 @@ ExprPtr Parser::factorExpression() {
 }
 
 ExprPtr Parser::unaryExpression() {
-    if(match({TokenType::Bang, TokenType::Minus})){
-        Token* op = previous();
+    if (match({TokenType::Bang, TokenType::Minus})) {
+        Token *op = previous();
         ExprPtr right = unaryExpression();
         return new UnaryExpression(op, right);
     }
     return callExpression();
 }
+
 // ovo "call" se odnosi i na poziv funkcije i na indeksiranje, i eventualno kasnije na property access
 ExprPtr Parser::callExpression() {
     ExprPtr expr = primaryExpression();
-    while(true){
-        if(match({TokenType::OpenParenthesis})){
+    while (true) {
+        if (match({TokenType::OpenParenthesis})) {
             expr = finishCallExpression(expr);
-        } else if(match({TokenType::OpenBracket})){
+        } else if (match({TokenType::OpenBracket})) {
             auto bracket = previous();
             ExprPtr index = expression();
-            if(!atType(TokenType::ClosedBracket)){
+            if (!atType(TokenType::ClosedBracket)) {
                 throw ExpectedXBeforeY(L"]", previous(), at());
             }
             advance();
@@ -468,12 +516,12 @@ ExprPtr Parser::callExpression() {
 
 ExprPtr Parser::finishCallExpression(Expression *callee) {
     std::vector<ExprPtr> arguments;
-    if(!atType(TokenType::ClosedParenthesis)){
+    if (!atType(TokenType::ClosedParenthesis)) {
         do {
             arguments.push_back(expression());
-        } while(match({TokenType::Comma}));
+        } while (match({TokenType::Comma}));
     }
-    if(!atType(TokenType::ClosedParenthesis)){
+    if (!atType(TokenType::ClosedParenthesis)) {
         throw ExpectedXBeforeY(L")", previous(), at());
     }
     advance();
@@ -481,46 +529,46 @@ ExprPtr Parser::finishCallExpression(Expression *callee) {
 }
 
 ExprPtr Parser::primaryExpression() {
-    if(match({TokenType::False})) return new BooleanLiteralExpression(previous());
-    if(match({TokenType::True})) return new BooleanLiteralExpression(previous());
-    if(match({TokenType::Null})) return new NullLiteralExpression(previous());
-    if(match({TokenType::Number})) return new NumericLiteralExpression(previous());
-    if(match({TokenType::String})) return new StringLiteralExpression(previous());
-    if(match({TokenType::Identifier})) return new VariableExpression(previous());
-    if(match({TokenType::OpenParenthesis})){
+    if (match({TokenType::False})) return new BooleanLiteralExpression(previous());
+    if (match({TokenType::True})) return new BooleanLiteralExpression(previous());
+    if (match({TokenType::Null})) return new NullLiteralExpression(previous());
+    if (match({TokenType::Number})) return new NumericLiteralExpression(previous());
+    if (match({TokenType::String})) return new StringLiteralExpression(previous());
+    if (match({TokenType::Identifier})) return new VariableExpression(previous());
+    if (match({TokenType::OpenParenthesis})) {
         ExprPtr expr = expression();
-        if(match({TokenType::ClosedParenthesis})){
+        if (match({TokenType::ClosedParenthesis})) {
             return new GroupingExpression(expr);
         }
         throw ExpectedXBeforeY(L"zatvorena zagrada", previous(), at());
     }
-    if(match({TokenType::OpenBracket})){
+    if (match({TokenType::OpenBracket})) {
         return parseArrayLiteral();
     }
-    if(current == 0){
+    if (current == 0) {
         throw ParserError(ERROR_EXPECTED_EXPRESSION_AT_START, at());
     }
     throw ExpectedXBeforeY(L"izraz", previous(), at());
 }
 
-Expression* Parser::parseArrayLiteral() {
+Expression *Parser::parseArrayLiteral() {
     std::vector<ExprPtr> elements;
     auto bracket = previous();
-    if(!atType(TokenType::ClosedBracket)){
+    if (!atType(TokenType::ClosedBracket)) {
         do {
             elements.push_back(expression());
-        } while(match({TokenType::Comma}));
+        } while (match({TokenType::Comma}));
     }
-    if(!atType(TokenType::ClosedBracket)){
+    if (!atType(TokenType::ClosedBracket)) {
         throw ExpectedXBeforeY(L"]", previous(), at());
     }
     advance();
     return new ArrayLiteralExpression(elements, bracket);
 }
 
-bool Parser::match(const std::vector<TokenType>& types) {
-    for(auto type : types){
-        if(atType(type)){
+bool Parser::match(const std::vector<TokenType> &types) {
+    for (auto type: types) {
+        if (atType(type)) {
             advance();
             return true;
         }

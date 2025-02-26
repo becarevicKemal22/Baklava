@@ -31,7 +31,11 @@ std::unique_ptr<Program> parseSource(const std::wstring &source, Interpreter *in
         throw;
     }
     Resolver resolver(interpreter);
-    resolver.resolve(program);
+    try {
+        resolver.resolve(program);
+    }catch (std::exception &e) {
+        throw;
+    }
     return program;
 }
 

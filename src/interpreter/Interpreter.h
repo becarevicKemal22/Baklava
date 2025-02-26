@@ -137,6 +137,8 @@ private:
 
     void executeReturnStatement(ReturnStatement *stmt);
 
+    void executeModifyStatement(ModifyStatement *stmt);
+
     RuntimeValue evaluateBinaryExpression(BinaryExpression *expr);
 
     RuntimeValue evaluateLogicalExpression(LogicalExpression *expr);

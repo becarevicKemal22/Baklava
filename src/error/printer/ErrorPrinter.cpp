@@ -67,6 +67,9 @@ void ErrorPrinter::printRuntimeError(const RuntimeError *error) {
     if (dynamic_cast<const IndexingNonArray *>(error) != nullptr) {
         printIndexingNonArrayError(static_cast<const IndexingNonArray *>(error));
     }
+    if (dynamic_cast<const WrongTypeToStatement *>(error) != nullptr) {
+        printWrongTypeToStatementError(static_cast<const WrongTypeToStatement *>(error));
+    }
     std::wcout << "\n";
 }
 
@@ -113,7 +116,6 @@ void ErrorPrinter::printWrongTypeError(const WrongTypeError *error) {
             {{error->token->offset, error->token->offset + getTokenValue(error->token).size() - 1}, ANSI_RED}});
 }
 
-// LIJEVI I DESNI TOKENI SMIJU IMATI LINIJU 0, ALI OPERATOR NE SMIJE NIKAD.
 void ErrorPrinter::printWrongBinaryOperandTypeError(const WrongBinaryOperandTypes *error) {
     std::wstring message = formattedErrorMessage(error->code, error->messageArguments, error->token->line);
     wcout << message << "\n";
@@ -171,37 +173,6 @@ void ErrorPrinter::printWrongBinaryOperandTypeError(const WrongBinaryOperandType
         printSourceLine(currLine, sameLineHighlights);
         printSquiggleSupportLine(currLine, sameLineHighlights);
     }
-
-// OLD CODE - doesnt work with zero-line tokens correctly (does but not for when the operator token is zero-line/nonexistent/parser-induced, such as is the case with the for loop)
-//    if (leftLine == rightLine) {
-//        printSourceLine(leftLine, {leftTokenHighlight, operatorTokenHighlight, rightTokenHighlight});
-//        printSquiggleSupportLine(leftLine, {leftTokenHighlight, operatorTokenHighlight, rightTokenHighlight});
-//    } else if (leftLine == operatorLine) {
-//        printSourceLine(leftLine, {leftTokenHighlight, operatorTokenHighlight});
-//        printSquiggleSupportLine(leftLine, {leftTokenHighlight, operatorTokenHighlight});
-//        if (rightLine != 0) {
-//            printSourceLine(rightLine, {rightTokenHighlight});
-//            printSquiggleSupportLine(rightLine, {rightTokenHighlight});
-//        }
-//    } else if (rightLine == operatorLine) {
-//        if (leftLine != 0) {
-//            printSourceLine(leftLine, {leftTokenHighlight});
-//            printSquiggleSupportLine(leftLine, {leftTokenHighlight});
-//        }
-//        printSourceLine(rightLine, {operatorTokenHighlight, rightTokenHighlight});
-//        printSquiggleSupportLine(rightLine, {operatorTokenHighlight, rightTokenHighlight});
-//    } else {
-//        if (leftLine != 0) {
-//            printSourceLine(leftLine, {leftTokenHighlight});
-//            printSquiggleSupportLine(leftLine, {leftTokenHighlight});
-//        }
-//        printSourceLine(operatorLine, {operatorTokenHighlight});
-//        printSquiggleSupportLine(operatorLine, {operatorTokenHighlight});
-//        if (rightLine != 0) {
-//            printSourceLine(rightLine, {rightTokenHighlight});
-//            printSquiggleSupportLine(rightLine, {rightTokenHighlight});
-//        }
-//    }
 }
 
 void ErrorPrinter::printInvalidCallError(const InvalidCall *error) {
@@ -217,33 +188,59 @@ void ErrorPrinter::printInvalidCallError(const InvalidCall *error) {
 void ErrorPrinter::printTooManyArgumentsError(const TooManyArguments *error) {
     std::wstring message = formattedErrorMessage(error->code, error->messageArguments, error->token->line);
     wcout << message << "\n";
-    printSourceLine(error->token->line,
-                    {{{error->token->offset, error->token->offset + getTokenValue(error->token).size() - 1}, ANSI_BLUE},
-                     {{error->paren->offset, error->paren->offset + getTokenValue(error->paren).size() -
-                                             1},                                                             ANSI_RED}});
-    printSquiggleSupportLine(error->token->line, {{{error->token->offset,
-                                                                          error->token->offset +
-                                                                          getTokenValue(error->token).size() -
-                                                                          1}, ANSI_BLUE},
-                                                  {{error->paren->offset, error->paren->offset +
-                                                                          getTokenValue(error->paren).size() -
-                                                                          1}, ANSI_RED}});
+    unsigned int tokenLine = error->token->line;
+    unsigned int parenLine = error->paren->line;
+    if (tokenLine == parenLine) {
+        printSourceLine(tokenLine,
+                        {{{error->token->offset, error->token->offset + getTokenValue(error->token).size() - 1}, ANSI_BLUE},
+                         {{error->paren->offset, error->paren->offset + getTokenValue(error->paren).size() -
+                                                 1},                                                             ANSI_RED}});
+        printSquiggleSupportLine(tokenLine, {{{error->token->offset,
+                                                                              error->token->offset +
+                                                                              getTokenValue(error->token).size() -
+                                                                              1}, ANSI_BLUE},
+                                                      {{error->paren->offset, error->paren->offset +
+                                                                              getTokenValue(error->paren).size() -
+                                                                              1}, ANSI_RED}});
+    } else {
+        printSourceLine(tokenLine, {{{error->token->offset, error->token->offset +
+                                                                      getTokenValue(error->token).size() - 1}, ANSI_BLUE}});
+        printSquiggleSupportLine(tokenLine, {{{error->token->offset, error->token->offset +
+                                                                      getTokenValue(error->token).size() - 1}, ANSI_BLUE}});
+        printSourceLine(parenLine, {{{error->paren->offset, error->paren->offset +
+                                                                      getTokenValue(error->paren).size() - 1}, ANSI_RED}});
+        printSquiggleSupportLine(parenLine, {{{error->paren->offset, error->paren->offset +
+                                                                      getTokenValue(error->paren).size() - 1}, ANSI_RED}});
+    }
 }
 
 void ErrorPrinter::printTooFewArgumentsError(const TooFewArguments *error) {
     std::wstring message = formattedErrorMessage(error->code, error->messageArguments, error->token->line);
     wcout << message << "\n";
-    printSourceLine(error->token->line,
-                    {{{error->token->offset, error->token->offset + getTokenValue(error->token).size() - 1}, ANSI_BLUE},
-                     {{error->paren->offset, error->paren->offset + getTokenValue(error->paren).size() -
-                                             1},                                                             ANSI_RED}});
-    printSquiggleSupportLine(error->token->line, {{{error->token->offset,
-                                                                          error->token->offset +
-                                                                          getTokenValue(error->token).size() -
-                                                                          1}, ANSI_BLUE},
-                                                  {{error->paren->offset, error->paren->offset +
-                                                                          getTokenValue(error->paren).size() -
-                                                                          1}, ANSI_RED}});
+    unsigned int tokenLine = error->token->line;
+    unsigned int parenLine = error->paren->line;
+    if (tokenLine == parenLine) {
+        printSourceLine(tokenLine,
+                        {{{error->token->offset, error->token->offset + getTokenValue(error->token).size() - 1}, ANSI_BLUE},
+                         {{error->paren->offset, error->paren->offset + getTokenValue(error->paren).size() -
+                                                 1},                                                             ANSI_RED}});
+        printSquiggleSupportLine(tokenLine, {{{error->token->offset,
+                                                                              error->token->offset +
+                                                                              getTokenValue(error->token).size() -
+                                                                              1}, ANSI_BLUE},
+                                                      {{error->paren->offset, error->paren->offset +
+                                                                              getTokenValue(error->paren).size() -
+                                                                              1}, ANSI_RED}});
+    } else {
+        printSourceLine(tokenLine, {{{error->token->offset, error->token->offset +
+                                                                      getTokenValue(error->token).size() - 1}, ANSI_BLUE}});
+        printSquiggleSupportLine(tokenLine, {{{error->token->offset, error->token->offset +
+                                                                      getTokenValue(error->token).size() - 1}, ANSI_BLUE}});
+        printSourceLine(parenLine, {{{error->paren->offset, error->paren->offset +
+                                                                      getTokenValue(error->paren).size() - 1}, ANSI_RED}});
+        printSquiggleSupportLine(parenLine, {{{error->paren->offset, error->paren->offset +
+                                                                      getTokenValue(error->paren).size() - 1}, ANSI_RED}});
+    }
 }
 
 void ErrorPrinter::printIndexOutOfBoundsError(const IndexOutOfBounds *error) {
@@ -281,6 +278,35 @@ void ErrorPrinter::printIndexingNonArrayError(const IndexingNonArray *error) {
                              {{{error->token->offset, error->token->offset + getTokenValue(error->token).size() - 1},
                                ANSI_RED}});
 }
+
+void ErrorPrinter::printWrongTypeToStatementError(const WrongTypeToStatement *error) {
+    wcout << formattedErrorMessage(error->code, error->messageArguments, error->keyword->line) << "\n";
+
+    unsigned int keywordLine = error->keyword->line;
+    unsigned int tokenLine = error->token->line;
+    if (keywordLine == tokenLine) {
+        printSourceLine(error->keyword->line, {{{error->keyword->offset, error->keyword->offset +
+                                                                      getTokenValue(error->keyword).size() - 1},
+                                               ANSI_BLUE}, {{error->token->offset, error->token->offset +
+                                                               getTokenValue(error->token).size() - 1}, ANSI_RED}});
+        printSquiggleSupportLine(error->keyword->line, {{{error->keyword->offset, error->keyword->offset +
+                                                                          getTokenValue(error->keyword).size() - 1},
+                                                       ANSI_BLUE}, {{error->token->offset, error->token->offset +
+                                                                       getTokenValue(error->token).size() - 1}, ANSI_RED}});
+    }else {
+        printSourceLine(error->keyword->line, {{{error->keyword->offset, error->keyword->offset +
+                                                                      getTokenValue(error->keyword).size() - 1},
+                                               ANSI_BLUE}});
+        printSquiggleSupportLine(error->keyword->line, {{{error->keyword->offset, error->keyword->offset +
+                                                                          getTokenValue(error->keyword).size() - 1},
+                                                       ANSI_BLUE}});
+        printSourceLine(error->token->line, {{{error->token->offset, error->token->offset +
+                                                                       getTokenValue(error->token).size() - 1}, ANSI_RED}});
+        printSquiggleSupportLine(error->keyword->line, {{{error->token->offset, error->token->offset +
+                                                                       getTokenValue(error->token).size() - 1}, ANSI_RED}});
+    }
+}
+
 
 
 // ***********************************************************************

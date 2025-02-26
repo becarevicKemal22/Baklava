@@ -62,6 +62,11 @@ enum class TokenType : uint8_t {
     Repeat,
     Each,
     Step,
+    Povecaj,
+    Smanji,
+    Pomnozi,
+    Podijeli,
+    Sa,
     // New syntax keywords
     Jednako,
     Nije,

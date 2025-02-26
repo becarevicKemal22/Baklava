@@ -36,7 +36,7 @@ const std::unordered_map<int , std::wstring> ERRORMESSAGES = {
         {ERROR_INVALID_LVALUE,               L"Nedozvoljena l-vrijednost '{}'."},
         {ERROR_INVALID_CALL,                 L"Nedozvoljen poziv nad tipom '{}'. Moguće je pozivati samo funkcije."},
         {ERROR_TOO_MANY_ARGUMENTS,           L"Nedozvoljen broj argumenata. Očekivano {}, proslijeđeno {}."},
-        {ERROR_TOO_FEW_ARGUMENTS,           L"Nedozvoljen broj argumenata. Nedostaje '{}' obaveznih argumenata."},
+        {ERROR_TOO_FEW_ARGUMENTS,           L"Nedozvoljen broj argumenata. Nedostaje {} obaveznih argumenata."},
         {ERROR_INVALID_RETURN_POSITION,      L"Izjava 'vrati' ne smije se nalaziti izvan tijela funkcije."},
         {ERROR_SELF_REFERENCING_INITIALIZER, L"Varijabla '{}' ne može se inicijalizirati sama sobom."},
         {ERROR_INVALID_DEFAULT_PARAMETER_POSITION, L"Podrazumijevani parametri ne smiju se nalaziti prije obaveznih parametara."},
@@ -49,6 +49,7 @@ const std::unordered_map<int , std::wstring> ERRORMESSAGES = {
         {ERROR_INDEX_OUT_OF_BOUNDS,          L"Indeks '{}' je izvan granica niza."},
         {ERROR_NON_INTEGER_INDEX,            L"Indeksiranje brojem '{}' nije moguće. Indeks mora biti cijeli broj."},
         {ERROR_INDEXING_NON_ARRAY,           L"Tip '{}' nije dozvoljen za operator '[]'. Indeksiranje je moguće vršiti samo nad nizovima."},
+        {ERROR_WRONG_TYPE_TO_STATEMENT,           L"Tip '{}' nije dozvoljen za izjavu '{}'."},
 };
 
 #endif //BAKLAVA_ERRORMESSAGES_H

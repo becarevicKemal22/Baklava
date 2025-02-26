@@ -76,6 +76,8 @@ private:
 
     void resolveReturnStatement(ReturnStatement *statement);
 
+    void resolveModifyStatement(ModifyStatement *statement);
+
     void resolveVariableExpression(VariableExpression *expression);
 
     void resolveAssignmentExpression(AssignmentExpression *expression);
@@ -103,6 +105,7 @@ private:
     void resolveIndexAssignmentExpression(IndexAssignmentExpression *expression);
 
     void resolveArrayLiteralExpression(ArrayLiteralExpression *expression);
+
 };
 
 
