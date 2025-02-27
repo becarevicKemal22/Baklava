@@ -51,7 +51,60 @@ Statement *Parser::declaration() {
     if (match({TokenType::Var}) || match({TokenType::Const})) {
         return varDeclarationStatement();
     }
+    if (match({TokenType::Function})) {
+        return functionDeclarationStatement();
+    }
     return statement();
+}
+
+Statement *Parser::functionDeclarationStatement() {
+    if (!atType(TokenType::Identifier)) {
+        throw ExpectedXBeforeY(L"identifikator", previous(), at());
+    }
+    advance();
+    Token *name = previous();
+    if (!atType(TokenType::OpenParenthesis)) {
+        throw ExpectedXBeforeY(L"(", previous(), at());
+    }
+    advance();
+
+    std::vector<Token *> parameters;
+    std::vector<ExprPtr> defaultParameters;
+    if (!atType(TokenType::ClosedParenthesis)) {
+        bool reachedDefaultValues = false;
+        do {
+            if (!atType(TokenType::Identifier)) {
+                throw ExpectedXBeforeY(L"identifikator", previous(), at());
+            }
+            advance();
+
+            parameters.push_back(previous());
+
+            if (match({TokenType::Equal})) {
+                ExprPtr value = expression();
+                if (!IS_LITERAL(value) && !IS_NEGATIVE_NUMBER(value)) {
+                    throw InvalidDefaultParameterValue(parameters[parameters.size() - 1]);
+                }
+
+                defaultParameters.push_back(value);
+                reachedDefaultValues = true;
+            } else if (reachedDefaultValues) {
+                // in case there's no equal (required param) but there were default values before
+                throw InvalidDefaultParameterPosition(parameters[parameters.size() - 2]);
+                // -2 because the last one is the current one, and this error message needs the default argument that was in the disallowed position
+            }
+        } while (match({TokenType::Comma}));
+    }
+    if (!atType(TokenType::ClosedParenthesis)) {
+        throw ExpectedXBeforeY(L")", previous(), at());
+    }
+    advance();
+    if (!atType(TokenType::OpenBrace)) {
+        throw ExpectedXBeforeY(L"{", previous(), at());
+    }
+    advance();
+    std::vector<Statement *> body = block();
+    return new FunctionDeclarationStatement(name, parameters, body, defaultParameters);
 }
 
 Statement *Parser::varDeclarationStatement() {
@@ -94,9 +147,6 @@ Statement *Parser::statement() {
     }
     if (match({TokenType::For})) {
         return forStatement();
-    }
-    if (match({TokenType::Function})) {
-        return functionDeclarationStatement();
     }
     if (match({TokenType::Return})) {
         return returnStatement();
@@ -298,56 +348,6 @@ Statement *Parser::forStatement() {
     body = new BlockStatement({initializer, body});
 
     return body;
-}
-
-Statement *Parser::functionDeclarationStatement() {
-    if (!atType(TokenType::Identifier)) {
-        throw ExpectedXBeforeY(L"identifikator", previous(), at());
-    }
-    advance();
-    Token *name = previous();
-    if (!atType(TokenType::OpenParenthesis)) {
-        throw ExpectedXBeforeY(L"(", previous(), at());
-    }
-    advance();
-
-    std::vector<Token *> parameters;
-    std::vector<ExprPtr> defaultParameters;
-    bool reachedDefaultValues = false; // so i can check whether I have non-default parameters after default ones
-    if (!atType(TokenType::ClosedParenthesis)) {
-        do {
-            if (!atType(TokenType::Identifier)) {
-                throw ExpectedXBeforeY(L"identifikator", previous(), at());
-            }
-            advance();
-
-            parameters.push_back(previous());
-
-            if (match({TokenType::Equal})) {
-                ExprPtr value = expression();
-                if (!IS_LITERAL(value) && !IS_NEGATIVE_NUMBER(value)) {
-                    throw InvalidDefaultParameterValue(parameters[parameters.size() - 1]);
-                }
-
-                defaultParameters.push_back(value);
-                reachedDefaultValues = true;
-            } else if (reachedDefaultValues) {
-                // in case there's no equal (required param) but there were default values before
-                throw InvalidDefaultParameterPosition(parameters[parameters.size() - 2]);
-                // -2 because the last one is the current one, and this error message needs the default argument that was in the disallowed position
-            }
-        } while (match({TokenType::Comma}));
-    }
-    if (!atType(TokenType::ClosedParenthesis)) {
-        throw ExpectedXBeforeY(L")", previous(), at());
-    }
-    advance();
-    if (!atType(TokenType::OpenBrace)) {
-        throw ExpectedXBeforeY(L"{", previous(), at());
-    }
-    advance();
-    std::vector<Statement *> body = block();
-    return new FunctionDeclarationStatement(name, parameters, body, defaultParameters);
 }
 
 Statement *Parser::expressionStatement() {
