@@ -30,6 +30,7 @@
 #include "IfStatement.h"
 #include "ReturnStatement.h"
 #include "LogicalExpression.h"
+#include "ClassDeclarationStatement.h"
 
 #define INDENTATION_PER_LEVEL 2
 
@@ -39,6 +40,15 @@ void printAST(std::unique_ptr<Program> &program) {
     std::wcout << L"Program" << std::endl;
     for (auto statement: program->statements) {
         printStatement(statement, 0);
+    }
+}
+
+void indent(int depth) {
+    for (int i = 0; i < depth * INDENTATION_PER_LEVEL; i++) {
+        if (i % INDENTATION_PER_LEVEL == 0 && i != 0)
+            std::wcout << L"|";
+        else
+            std::wcout << L" ";
     }
 }
 
@@ -118,12 +128,12 @@ void printFunctionDeclarationStatement(FunctionDeclarationStatement *statement, 
     }
 }
 
-void indent(int depth) {
-    for (int i = 0; i < depth * INDENTATION_PER_LEVEL; i++) {
-        if (i % INDENTATION_PER_LEVEL == 0 && i != 0)
-            std::wcout << L"|";
-        else
-            std::wcout << L" ";
+void printClassDeclarationStatement(ClassDeclarationStatement *statement, int depth) {
+    std::wcout << L"ClassDeclStmt( ";
+    std::wcout << statement->name->value << L" ) \n";
+    for (auto method: statement->methods) {
+        indent(depth + 1);
+        printFunctionDeclarationStatement(method, depth + 1);
     }
 }
 
@@ -250,6 +260,10 @@ void printStatement(Statement *statement, int depth) {
             }
             std::wcout << L" ) ";
             break;
+        case AstNodeType::ClassDeclarationStatement: {
+            printClassDeclarationStatement(static_cast<ClassDeclarationStatement *>(statement), depth);
+            break;
+        }
         default:
             std::wcout << L"Unknown statement type in PrintAST" << std::endl;
     }

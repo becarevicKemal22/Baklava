@@ -91,6 +91,7 @@ add_executable(baklava main.cpp
         src/error/exceptions/lexer/UnexpectedCharacter.h
         src/parser/ast/statements/ModifyStatement.h
         src/error/exceptions/WrongTypeToStatement.h
+        src/parser/ast/statements/ClassDeclarationStatement.h
 )
 
 add_subdirectory(tests)

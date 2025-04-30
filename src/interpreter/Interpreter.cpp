@@ -69,6 +69,7 @@
 #include <sstream>
 #include <cassert>
 
+#include "ClassDeclarationStatement.h"
 #include "ModifyStatement.h"
 #include "WrongTypeToStatement.h"
 
@@ -126,6 +127,9 @@ void Interpreter::execute(Statement *stmt) {
         case AstNodeType::ModifyStatement:
             executeModifyStatement(static_cast<ModifyStatement *>(stmt));
             return;
+        case AstNodeType::ClassDeclarationStatement:
+            executeClassDeclarationStatement(static_cast<ClassDeclarationStatement *>(stmt));
+            return;
         default:
             throw std::runtime_error("Unknown statement type");
     }
@@ -148,13 +152,13 @@ void Interpreter::printValue(const RuntimeValue &value, std::wostream &os) {
     switch (value.type) {
         case ValueType::Number:
             os << value.as.number;
-            return;
+        return;
         case ValueType::Boolean:
             os << (value.as.boolean ? L"tačno" : L"netačno");
-            return;
+        return;
         case ValueType::Null:
             os << L"null";
-            return;
+        return;
         case ValueType::Object:
             if (IS_STRING_OBJ(value)) {
                 os << GET_STRING_OBJ_VALUE(value);
@@ -178,10 +182,15 @@ void Interpreter::printValue(const RuntimeValue &value, std::wostream &os) {
             } else if (IS_CALLABLE_OBJ(value)) {
                 os << L"<funkcija>";
                 return;
+            } else if (IS_CLASS_OBJ(value)) {
+                os << L"<klasa ";
+                os << AS_CLASS_OBJ(value)->name;
+                os << L">";
+                return;
             }
-            throw "PRINT NOT YET IMPLEMENTED FOR THIS OBJECT TYPE!";
+            throw std::runtime_error("PRINT NOT YET IMPLEMENTED FOR THIS OBJECT TYPE!");
         default:
-            throw "UNKNOWN TYPE TO PRINT";
+            throw std::runtime_error("UNKNOWN TYPE TO PRINT");
     }
 }
 
@@ -254,6 +263,11 @@ void Interpreter::executeFunctionDeclarationStatement(FunctionDeclarationStateme
     environments.top().define(stmt->name, {ValueType::Object, {.object = (Object *) allocateFunctionObject(stmt)}},
                               false);
 }
+
+void Interpreter::executeClassDeclarationStatement(ClassDeclarationStatement *stmt) {
+    environments.top().define(stmt->name, {ValueType::Object, {.object = (Object *) allocateClassObject(stmt)}}, false);;
+}
+
 
 void Interpreter::executeReturnStatement(ReturnStatement *stmt) {
     RuntimeValue value = {ValueType::Null};
@@ -734,6 +748,18 @@ ObjectArray *Interpreter::allocateArrayObject(const std::vector<RuntimeValue> &e
     obj->obj.next = objects;
     objects = (Object *) obj;
     bytesAllocated += sizeof(ObjectArray) + sizeof(RuntimeValue) * elements.size();
+    return obj;
+}
+
+ObjectClass *Interpreter::allocateClassObject(ClassDeclarationStatement *declaration) {
+    invokeGarbageCollector();
+
+    auto *obj = new ObjectClass();
+    obj->obj.type = ObjectType::OBJECT_CLASS;
+    obj->name = declaration->name->value;
+    obj->obj.next = objects;
+    objects = (Object *) obj;
+    bytesAllocated += sizeof(ObjectClass);
     return obj;
 }
 

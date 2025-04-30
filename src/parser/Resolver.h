@@ -66,6 +66,8 @@ private:
 
     void resolveFunctionDeclarationStatement(FunctionDeclarationStatement *statement);
 
+    void resolveClassDeclarationStatement(ClassDeclarationStatement *statement);
+
     void resolveExpressionStatement(ExpressionStatement *statement);
 
     void resolvePrintStatement(PrintStatement *statement);

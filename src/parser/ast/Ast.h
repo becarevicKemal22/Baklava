@@ -25,6 +25,7 @@ enum class AstNodeType : uint8_t {
     ReturnStatement,
     ModifyStatement,
     MultiplyByStatement,
+    ClassDeclarationStatement,
 
     // Expressions
     AssignmentExpression,
@@ -55,6 +56,7 @@ class FunctionDeclarationStatement;
 class ReturnStatement;
 class ModifyStatement;
 class MultiplyByStatement;
+class ClassDeclarationStatement;
 
 class Expression;
 class BinaryExpression;

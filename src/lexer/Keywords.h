@@ -41,6 +41,7 @@ const std::unordered_map<std::wstring, TokenType> KEYWORDS = {
         {L"svaki",    TokenType::Each},
         {L"svaku",    TokenType::Each},
         {L"korakom",  TokenType::Step},
+        {L"klasa",    TokenType::Class},
         // new syntax additions
         {L"i",        TokenType::I},
         {L"ili",      TokenType::Ili},

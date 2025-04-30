@@ -30,6 +30,7 @@
 #include "ReturnStatement.h"
 #include "IndexingExpression.h"
 #include "ArrayLiteralExpression.h"
+#include "ClassDeclarationStatement.h"
 #include "ModifyStatement.h"
 #include "IndexAssignmentExpression.h"
 #include "InvalidDefaultParameterPosition.h"
@@ -53,6 +54,9 @@ Statement *Parser::declaration() {
     }
     if (match({TokenType::Function})) {
         return functionDeclarationStatement();
+    }
+    if (match({TokenType::Class})) {
+        return classDeclarationStatement();
     }
     return statement();
 }
@@ -131,6 +135,27 @@ Statement *Parser::varDeclarationStatement() {
     }
     throw ExpectedXBeforeY(L";", previous(), at());
 }
+
+Statement *Parser::classDeclarationStatement() {
+    if (!match({TokenType::Identifier})) {
+        throw ExpectedXBeforeY(L"identifikator", previous(), at());
+    }
+    TokenPtr name = previous();
+    if (!match({TokenType::OpenBrace})) {
+        throw ExpectedXBeforeY(L"{", previous(), at());
+    }
+    std::vector<FunctionDeclarationStatement*> methods;
+    while (!atType(TokenType::ClosedBrace) && !atType(TokenType::Eof)) {
+        methods.push_back(static_cast<FunctionDeclarationStatement*>(functionDeclarationStatement()));
+    }
+
+    if (!match({TokenType::ClosedBrace})) {
+        throw ExpectedXBeforeY(L"}", previous(), at());
+    }
+
+    return new ClassDeclarationStatement(name, methods);
+}
+
 
 Statement *Parser::statement() {
     if (match({TokenType::Print})) {

@@ -110,5 +110,6 @@ add_executable(tests ../src/error/printer/ErrorPrinter.cpp ../src/lexer/Lexer.cp
         ../src/error/exceptions/WrongTypeToStatement.h
         parser/ParserMultiplyDivideByStatementTest.cpp
         interpreter/InterpreterMultiplyDivideByStatementTest.cpp
+        ../src/parser/ast/statements/ClassDeclarationStatement.h
 )
 target_link_libraries(tests PRIVATE Catch2::Catch2WithMain)

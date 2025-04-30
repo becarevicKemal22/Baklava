@@ -28,6 +28,7 @@
 #include "IndexAssignmentExpression.h"
 #include "IndexingExpression.h"
 #include "ArrayLiteralExpression.h"
+#include "ClassDeclarationStatement.h"
 #include "ModifyStatement.h"
 
 void Resolver::resolve(std::unique_ptr<Program> &program) {
@@ -70,6 +71,9 @@ void Resolver::resolve(Statement *statement) {
             break;
         case AstNodeType::ModifyStatement:
             resolveModifyStatement(static_cast<ModifyStatement *>(statement));
+            break;
+        case AstNodeType::ClassDeclarationStatement:
+            resolveClassDeclarationStatement(static_cast<ClassDeclarationStatement *>(statement));
             break;
         default:
             std::wcout << L"Unknown statement type in resolver." << std::endl;
@@ -202,6 +206,12 @@ void Resolver::resolveFunctionDeclarationStatement(FunctionDeclarationStatement 
     define(statement->name);
     resolveFunction(statement, FunctionType::FUNCTION);
 }
+
+void Resolver::resolveClassDeclarationStatement(ClassDeclarationStatement *statement) {
+    declare(statement->name);
+    define(statement->name);
+}
+
 
 void Resolver::resolveExpressionStatement(ExpressionStatement *statement) {
     resolve(statement->expr);

@@ -27,9 +27,13 @@ std::wstring getObjectTypeName(ObjectType type){
         case ObjectType::OBJECT_CALLABLE:
             return L"callable";
         case ObjectType::OBJECT_FUNCTION:
-            return L"function";
+            return L"funkcija";
         case ObjectType::OBJECT_ARRAY:
             return L"array";
+        case ObjectType::OBJECT_CLASS:
+            return L"class";
+        case ObjectType::OBJECT_INSTANCE:
+            return L"instance";
     }
     return L"unknown";
 }
