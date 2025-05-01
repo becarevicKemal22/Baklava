@@ -8,6 +8,7 @@
 #include <cstdint>
 #include <string>
 
+#include "ClassDeclarationStatement.h"
 #include "RuntimeValue.h"
 #include "FunctionDeclarationStatement.h"
 #include "Environment.h"
@@ -28,6 +29,9 @@
 
 #define IS_CLASS_OBJ(value) ((value).as.object->type == ObjectType::OBJECT_CLASS)
 #define AS_CLASS_OBJ(value) ((ObjectClass*)value.as.object)
+
+#define IS_INSTANCE_OBJ(value) ((value).as.object->type == ObjectType::OBJECT_INSTANCE)
+#define AS_INSTANCE_OBJ(value) ((ObjectInstance*)value.as.object)
 
 enum class ObjectType : uint8_t {
     OBJECT_STRING,
@@ -83,8 +87,23 @@ struct ObjectFunction : ObjectCallable {
     }
 };
 
-struct ObjectClass {
+struct ObjectClass;
+
+struct ObjectInstance {
     Object obj;
+    ObjectClass *klass;
+    std::unordered_map<std::wstring, RuntimeValue> fields{};
+};
+
+
+struct ObjectClass : ObjectCallable {
+    explicit ObjectClass(const ClassDeclarationStatement* declaration) {
+        obj.type = ObjectType::OBJECT_CLASS;
+        name = declaration->name->value;
+        arity = 0;
+        minArity = 0;
+        // CALL WILL BE BOUND IN ALLOCATE CLASS OBJECT BECAUSE HERE IT COMPLICATES FORWARD DECLARATIONS AND STUFF
+    }
     std::wstring name;
 };
 

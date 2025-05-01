@@ -187,6 +187,11 @@ void Interpreter::printValue(const RuntimeValue &value, std::wostream &os) {
                 os << AS_CLASS_OBJ(value)->name;
                 os << L">";
                 return;
+            } else if (IS_INSTANCE_OBJ(value)) {
+                os << "<";
+                os << AS_INSTANCE_OBJ(value)->klass->name;
+                os << L" instanca>";
+                return;
             }
             throw std::runtime_error("PRINT NOT YET IMPLEMENTED FOR THIS OBJECT TYPE!");
         default:
@@ -601,7 +606,7 @@ RuntimeValue Interpreter::evaluateCallExpression(CallExpression *expr) {
     if (!IS_OBJ(callee)) {
         throw InvalidCall(callee, getMostRelevantToken(expr->callee));
     }
-    if (!IS_CALLABLE_OBJ(callee) && !IS_FUNCTION_OBJ(callee)) {
+    if (!IS_CALLABLE_OBJ(callee) && !IS_FUNCTION_OBJ(callee) && !IS_CLASS_OBJ(callee)) {
         throw InvalidCall(callee, getMostRelevantToken(expr->callee));
     }
 
@@ -754,12 +759,26 @@ ObjectArray *Interpreter::allocateArrayObject(const std::vector<RuntimeValue> &e
 ObjectClass *Interpreter::allocateClassObject(ClassDeclarationStatement *declaration) {
     invokeGarbageCollector();
 
-    auto *obj = new ObjectClass();
-    obj->obj.type = ObjectType::OBJECT_CLASS;
-    obj->name = declaration->name->value;
+    auto *obj = new ObjectClass(declaration);
+    obj->call = [obj](Interpreter* interpreter, const std::vector<RuntimeValue>& arguments) {
+        // interpreter->invokeGarbageCollector(); // I HAVE NO CLUE WHETHER THIS CAN MESS SOMETHING UP. ACTUALLY IT IS COMMENTED BECAUSE ALLOCATE INSTANCE OBJECT CALLS IT ITSELF????
+        return RuntimeValue{ValueType::Object, {.object = (Object *) interpreter->allocateInstanceObject(obj)}};
+    };
     obj->obj.next = objects;
     objects = (Object *) obj;
     bytesAllocated += sizeof(ObjectClass);
+    return obj;
+}
+
+ObjectInstance *Interpreter::allocateInstanceObject(ObjectClass *klass) {
+    invokeGarbageCollector(); // THIS OK???? IDK IF IT CAN DELETE SOMETHING IN THE MEANTIME
+
+    auto *obj = new ObjectInstance();
+    obj->obj.type = ObjectType::OBJECT_INSTANCE;
+    obj->klass = klass;
+    obj->obj.next = objects;
+    objects = (Object *) obj;
+    bytesAllocated += sizeof(ObjectInstance);
     return obj;
 }
 
