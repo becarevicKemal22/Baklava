@@ -95,7 +95,6 @@ struct ObjectInstance {
     std::unordered_map<std::wstring, RuntimeValue> fields{};
 };
 
-
 struct ObjectClass : ObjectCallable {
     explicit ObjectClass(const ClassDeclarationStatement* declaration) {
         obj.type = ObjectType::OBJECT_CLASS;

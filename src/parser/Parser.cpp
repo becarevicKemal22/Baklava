@@ -36,6 +36,7 @@
 #include "InvalidDefaultParameterPosition.h"
 #include "InvalidDefaultParameterValue.h"
 #include "InvalidForLoopStep.h"
+#include "InvalidNew.h"
 
 #define IS_LITERAL(x) (x->type == AstNodeType::NumericLiteralExpression || x->type == AstNodeType::StringLiteralExpression || x->type == AstNodeType::BooleanLiteralExpression || x->type == AstNodeType::NullLiteralExpression || x->type == AstNodeType::ArrayLiteralExpression)
 #define IS_NEGATIVE_NUMBER(x) (x->type == AstNodeType::UnaryExpression && dynamic_cast<UnaryExpression*>(x)->op->type == TokenType::Minus && dynamic_cast<UnaryExpression*>(x)->expr->type == AstNodeType::NumericLiteralExpression)
@@ -520,10 +521,15 @@ ExprPtr Parser::unaryExpression() {
 
 // ovo "call" se odnosi i na poziv funkcije i na indeksiranje, i eventualno kasnije na property access
 ExprPtr Parser::callExpression() {
+    bool isNewPrefixed = match({TokenType::New});
+    auto newToken = isNewPrefixed ? previous() : nullptr;
+    bool isCall = false;
     ExprPtr expr = primaryExpression();
     while (true) {
         if (match({TokenType::OpenParenthesis})) {
-            expr = finishCallExpression(expr);
+            expr = finishCallExpression(expr, isNewPrefixed);
+            isNewPrefixed = false;
+            isCall = true;
         } else if (match({TokenType::OpenBracket})) {
             auto bracket = previous();
             ExprPtr index = expression();
@@ -532,14 +538,16 @@ ExprPtr Parser::callExpression() {
             }
             advance();
             expr = new IndexingExpression(expr, bracket, index);
+            isCall = true;
         } else {
             break;
         }
     }
+    if (!isCall && isNewPrefixed) throw InvalidNew(newToken);
     return expr;
 }
 
-ExprPtr Parser::finishCallExpression(Expression *callee) {
+ExprPtr Parser::finishCallExpression(Expression *callee, bool newPrefixed) {
     std::vector<ExprPtr> arguments;
     if (!atType(TokenType::ClosedParenthesis)) {
         do {
@@ -550,7 +558,7 @@ ExprPtr Parser::finishCallExpression(Expression *callee) {
         throw ExpectedXBeforeY(L")", previous(), at());
     }
     advance();
-    return new CallExpression(callee, previous(), arguments);
+    return new CallExpression(callee, previous(), arguments, newPrefixed);
 }
 
 ExprPtr Parser::primaryExpression() {

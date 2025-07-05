@@ -7,6 +7,7 @@
 
 #include <vector>
 #include <memory>
+#include <unordered_set>
 
 #include "Token.h"
 #include "Ast.h"
@@ -50,6 +51,15 @@ private:
         return tokens[current]->type == type;
     }
 
+    /*
+     * This is a registry of class names that have been declared in the program. Used for parsing class instantiations
+     * so that the "new" keyword is handled correctly based on whether the identifier is a class or not.
+     */
+    std::unordered_set<std::wstring> classNameRegistry;
+    bool isClassName(const std::wstring &name) {
+        return classNameRegistry.find(name) != classNameRegistry.end();
+    }
+
     Statement* statement();
     Statement* declaration();
     Statement* varDeclarationStatement();
@@ -74,8 +84,9 @@ private:
     Expression* termExpression();
     Expression* factorExpression();
     Expression* unaryExpression();
+    Expression* classInstantiationExpression();
     Expression* callExpression();
-    Expression* finishCallExpression(Expression* callee);
+    Expression* finishCallExpression(Expression* callee, bool newPrefixed);
     Expression* primaryExpression();
 
     Expression* parseArrayLiteral();

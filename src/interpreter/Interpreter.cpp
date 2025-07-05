@@ -62,6 +62,8 @@
 #include "IndexOutOfBounds.h"
 #include "NonIntegerIndex.h"
 #include "IndexingNonArray.h"
+#include "ConstructorNoNew.h"
+#include "ClassNotFound.h"
 
 #include <iostream>
 #include <cmath>
@@ -152,13 +154,13 @@ void Interpreter::printValue(const RuntimeValue &value, std::wostream &os) {
     switch (value.type) {
         case ValueType::Number:
             os << value.as.number;
-        return;
+            return;
         case ValueType::Boolean:
             os << (value.as.boolean ? L"tačno" : L"netačno");
-        return;
+            return;
         case ValueType::Null:
             os << L"null";
-        return;
+            return;
         case ValueType::Object:
             if (IS_STRING_OBJ(value)) {
                 os << GET_STRING_OBJ_VALUE(value);
@@ -270,7 +272,8 @@ void Interpreter::executeFunctionDeclarationStatement(FunctionDeclarationStateme
 }
 
 void Interpreter::executeClassDeclarationStatement(ClassDeclarationStatement *stmt) {
-    environments.top().define(stmt->name, {ValueType::Object, {.object = (Object *) allocateClassObject(stmt)}}, false);;
+    environments.top().define(stmt->name, {ValueType::Object, {.object = (Object *) allocateClassObject(stmt)}},
+                              false);;
 }
 
 
@@ -593,6 +596,7 @@ RuntimeValue Interpreter::evaluateStringLiteralExpression(StringLiteralExpressio
     return {ValueType::Object, {.object = (Object *) (allocateStringObject(expr->value))}};
 }
 
+// used for class instantiation as well since class inherits from callable
 RuntimeValue Interpreter::evaluateCallExpression(CallExpression *expr) {
     RuntimeValue callee = evaluate(expr->callee);
 
@@ -608,6 +612,12 @@ RuntimeValue Interpreter::evaluateCallExpression(CallExpression *expr) {
     }
     if (!IS_CALLABLE_OBJ(callee) && !IS_FUNCTION_OBJ(callee) && !IS_CLASS_OBJ(callee)) {
         throw InvalidCall(callee, getMostRelevantToken(expr->callee));
+    }
+    if (expr->isNewPrefixed && !IS_CLASS_OBJ(callee)) {
+        throw ClassNotFound(expr->callee);
+    }
+    if (!expr->isNewPrefixed && IS_CLASS_OBJ(callee)) {
+        throw ConstructorNoNew(expr, callee);
     }
 
     ObjectCallable *callable = AS_CALLABLE_OBJ(
@@ -760,7 +770,7 @@ ObjectClass *Interpreter::allocateClassObject(ClassDeclarationStatement *declara
     invokeGarbageCollector();
 
     auto *obj = new ObjectClass(declaration);
-    obj->call = [obj](Interpreter* interpreter, const std::vector<RuntimeValue>& arguments) {
+    obj->call = [obj](Interpreter *interpreter, const std::vector<RuntimeValue> &arguments) {
         // interpreter->invokeGarbageCollector(); // I HAVE NO CLUE WHETHER THIS CAN MESS SOMETHING UP. ACTUALLY IT IS COMMENTED BECAUSE ALLOCATE INSTANCE OBJECT CALLS IT ITSELF????
         return RuntimeValue{ValueType::Object, {.object = (Object *) interpreter->allocateInstanceObject(obj)}};
     };
@@ -1010,6 +1020,10 @@ RuntimeError *Interpreter::reallocateError(RuntimeError *error) {
         handledError = new IndexingNonArray(*dynamic_cast<IndexingNonArray *>(error));
     } else if (dynamic_cast<WrongTypeToStatement *>(error) != nullptr) {
         handledError = new WrongTypeToStatement(*dynamic_cast<WrongTypeToStatement *>(error));
+    } else if (dynamic_cast<ConstructorNoNew *>(error) != nullptr) {
+        handledError = new ConstructorNoNew(*dynamic_cast<ConstructorNoNew *>(error));
+    } else if (dynamic_cast<ClassNotFound *>(error) != nullptr) {
+        handledError = new ClassNotFound(*dynamic_cast<ClassNotFound *>(error));
     } else {
         throw std::runtime_error("ERROR REALLOCATION ERROR: Unknown error type");
     }

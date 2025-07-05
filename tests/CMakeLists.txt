@@ -111,5 +111,8 @@ add_executable(tests ../src/error/printer/ErrorPrinter.cpp ../src/lexer/Lexer.cp
         parser/ParserMultiplyDivideByStatementTest.cpp
         interpreter/InterpreterMultiplyDivideByStatementTest.cpp
         ../src/parser/ast/statements/ClassDeclarationStatement.h
+        ../src/error/exceptions/ConstructorNoNew.h
+        ../src/error/exceptions/parser/InvalidNew.h
+        ../src/error/exceptions/ClassNotFound.h
 )
 target_link_libraries(tests PRIVATE Catch2::Catch2WithMain)

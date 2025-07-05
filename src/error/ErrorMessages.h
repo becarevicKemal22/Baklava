@@ -42,6 +42,7 @@ const std::unordered_map<int , std::wstring> ERRORMESSAGES = {
         {ERROR_INVALID_DEFAULT_PARAMETER_POSITION, L"Podrazumijevani parametri ne smiju se nalaziti prije obaveznih parametara."},
         {ERROR_INVALID_DEFAULT_PARAMETER_VALUE, L"Vrijednost podrazumijevanog parametra mora biti literal."},
         {ERROR_INVALID_FOR_LOOP_STEP,        L"Korak petlje 'za svako' mora biti numericki literal."},
+        {ERROR_INVALID_NEW,                  L"Ključna riječ '{}' može se koristiti samo za pozive konstruktora klasa."},
 
         // 4xx
         {ERROR_WRONG_TYPE_OPERAND,           L"Tip '{}' nije dozvoljen za operator '{}'."},
@@ -50,6 +51,8 @@ const std::unordered_map<int , std::wstring> ERRORMESSAGES = {
         {ERROR_NON_INTEGER_INDEX,            L"Indeksiranje brojem '{}' nije moguće. Indeks mora biti cijeli broj."},
         {ERROR_INDEXING_NON_ARRAY,           L"Tip '{}' nije dozvoljen za operator '[]'. Indeksiranje je moguće vršiti samo nad nizovima."},
         {ERROR_WRONG_TYPE_TO_STATEMENT,           L"Tip '{}' nije dozvoljen za izjavu '{}'."},
+        {ERROR_CONSTRUCTOR_NO_NEW,           L"Konstruktor klase '{}' ne može biti pozvan bez 'novi'/'novo'/'novi'."},
+        {ERROR_CLASS_NOT_FOUND,              L"Nepoznata klasa '{}'."},
 };
 
 #endif //BAKLAVA_ERRORMESSAGES_H
