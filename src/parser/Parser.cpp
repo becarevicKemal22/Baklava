@@ -38,6 +38,7 @@
 #include "InvalidForLoopStep.h"
 #include "InvalidNew.h"
 #include "GetExpression.h"
+#include "SetExpression.h"
 
 #define IS_LITERAL(x) (x->type == AstNodeType::NumericLiteralExpression || x->type == AstNodeType::StringLiteralExpression || x->type == AstNodeType::BooleanLiteralExpression || x->type == AstNodeType::NullLiteralExpression || x->type == AstNodeType::ArrayLiteralExpression)
 #define IS_NEGATIVE_NUMBER(x) (x->type == AstNodeType::UnaryExpression && dynamic_cast<UnaryExpression*>(x)->op->type == TokenType::Minus && dynamic_cast<UnaryExpression*>(x)->expr->type == AstNodeType::NumericLiteralExpression)
@@ -442,9 +443,14 @@ ExprPtr Parser::assignmentExpression() {
         if (expr->type == AstNodeType::VariableExpression) {
             auto *var = static_cast<VariableExpression *>(expr);
             return new AssignmentExpression(var->name, value);
-        } else if (expr->type == AstNodeType::IndexingExpression) {
+        }
+        if (expr->type == AstNodeType::IndexingExpression) {
             auto *indexing = static_cast<IndexingExpression *>(expr);
             return new IndexAssignmentExpression(indexing->left, indexing->index, value);
+        }
+        if (expr->type == AstNodeType::GetExpression) {
+            auto *getExpr = static_cast<GetExpression *>(expr);
+            return new SetExpression(getExpr->object, getExpr->name, value);
         }
         throw InvalidLValue(getMostRelevantToken(expr));
     }

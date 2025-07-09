@@ -117,5 +117,6 @@ add_executable(tests ../src/error/printer/ErrorPrinter.cpp ../src/lexer/Lexer.cp
         ../src/parser/ast/expressions/GetExpression.h
         ../src/error/exceptions/InvalidPropertyAccess.h
         ../src/error/exceptions/ObjHasNoAttr.h
+        ../src/parser/ast/expressions/SetExpression.h
 )
 target_link_libraries(tests PRIVATE Catch2::Catch2WithMain)

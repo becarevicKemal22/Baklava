@@ -42,6 +42,7 @@ enum class AstNodeType : uint8_t {
     IndexingExpression,
     ArrayLiteralExpression,
     GetExpression,
+    SetExpression,
 };
 
 class Statement;
@@ -74,6 +75,7 @@ class ArrayLiteralExpression;
 class IndexAssignmentExpression;
 class GetExpression;
 class AssignmentExpression;
+class SetExpression;
 
 typedef Statement* StmtPtr;
 typedef Expression* ExprPtr;

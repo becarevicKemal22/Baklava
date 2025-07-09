@@ -47,6 +47,7 @@
 #include "IndexingExpression.h"
 #include "IndexAssignmentExpression.h"
 #include "GetExpression.h"
+#include "SetExpression.h"
 
 #include "BaseFunctions.h"
 
@@ -387,6 +388,8 @@ RuntimeValue Interpreter::evaluate(Expression *expr) {
             return evaluateIndexAssignmentExpression(static_cast<IndexAssignmentExpression *>(expr));
         case AstNodeType::GetExpression:
             return evaluateGetExpression(static_cast<GetExpression *>(expr));
+        case AstNodeType::SetExpression:
+            return evaluateSetExpression(static_cast<SetExpression *>(expr));
         default:
             throw std::runtime_error("Unknown expression type in interpreter");
     }
@@ -712,11 +715,22 @@ RuntimeValue Interpreter::evaluateGetExpression(GetExpression *expr) {
     auto val = ((ObjectInstance*)object.as.object)->fields.find(expr->name->value);
     if(val == ((ObjectInstance*)object.as.object)->fields.end()){
         throw ObjHasNoAttr(expr->name, object); // eh fazon znaci treba bacati ovo ali je problem kako struktuirati poruku greske. U pythonu ide 'Obj' object has no attribute 'name'. Eh sad kako to prevesti, da li objekat tipa 'A' ili kako? MIslim onda se to bas opet ne poklapa sa onim da ce se refaktorisati kod kasnije da se koristi jedinstvena funkcija za stringifajanje tipova, a trebala bla bla cekaj ba pa i treba mi kao objekat tipa 'A instanca' nema polje tralala to je okej znaci treba koristit jedinstvenu funkcijui koju ja nemam yippie. Isto tako ne znam da li bi smio staviti kao instanca klase 'x' nema attribut mada to svakako nema smisla a pitanje je hoce li nekad kasnije postojati drugi tipovi koji koriste properties.
-        return {ValueType::Null};
     }
     return val->second;
 }
 
+RuntimeValue Interpreter::evaluateSetExpression(SetExpression *expr) {
+    RuntimeValue object = evaluate(expr->object);
+
+    if (!IS_OBJ(object) || !IS_INSTANCE_OBJ(object)) {
+        throw InvalidPropertyAccess(expr->name, object);
+    }
+    RuntimeValue value = evaluate(expr->value);
+    ((ObjectInstance*)object.as.object)->fields[expr->name->value] = value; // check if this needs to be split into multiple variables in order to do some checks?
+    // Actually it def will need to be split when slots are implemented so that the property name can be checked for existence
+    // ovo za split sam mislio prije nego sto sam izdvojio value da ga mogu vratiti. Elem svakako ce za slots trebat i field provjeravat u posebnoj varijabli ili bez sa castom ugl provjeriti
+    return value;
+}
 
 bool Interpreter::isTruthy(const RuntimeValue &value) {
     switch (value.type) {

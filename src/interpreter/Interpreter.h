@@ -169,6 +169,8 @@ private:
 
     RuntimeValue evaluateGetExpression(GetExpression *expr);
 
+    RuntimeValue evaluateSetExpression(SetExpression *expr);
+
     bool isTruthy(const RuntimeValue &value);
 
     bool isEqual(const RuntimeValue &left, const RuntimeValue &right);

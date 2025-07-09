@@ -31,6 +31,7 @@
 #include "ClassDeclarationStatement.h"
 #include "ModifyStatement.h"
 #include "GetExpression.h"
+#include "SetExpression.h"
 
 void Resolver::resolve(std::unique_ptr<Program> &program) {
     for (auto &statement: program->statements) {
@@ -127,6 +128,9 @@ void Resolver::resolve(Expression *expression) {
             break;
         case AstNodeType::GetExpression:
             resolveGetExpression(static_cast<GetExpression *>(expression));
+            break;
+        case AstNodeType::SetExpression:
+            resolveSetExpression(static_cast<SetExpression *>(expression));
             break;
         default:
             std::wcout << L"Unknown expression type in resolver." << std::endl;
@@ -305,6 +309,11 @@ void Resolver::resolveArrayLiteralExpression(ArrayLiteralExpression *expression)
 }
 
 void Resolver::resolveGetExpression(GetExpression *expression) {
+    resolve(expression->object);
+}
+
+void Resolver::resolveSetExpression(SetExpression *expression) {
+    resolve(expression->value);
     resolve(expression->object);
 }
 

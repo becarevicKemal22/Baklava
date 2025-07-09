@@ -33,6 +33,7 @@
 #include "ClassDeclarationStatement.h"
 #include "GetExpression.h"
 #include "ModifyStatement.h"
+#include "SetExpression.h"
 
 #define INDENTATION_PER_LEVEL 2
 
@@ -280,6 +281,14 @@ void printStatement(Statement *statement, int depth) {
             std::wcout << L"GetExpr( ";
             printStatement(static_cast<GetExpression *>(statement)->object, depth + 1);
             std::wcout << L", " << static_cast<GetExpression *>(statement)->name->value << L" ) ";
+            break;
+        }
+        case AstNodeType::SetExpression: {
+            std::wcout << L"SetExpr( ";
+            printStatement(static_cast<SetExpression *>(statement)->object, depth + 1);
+            std::wcout << L", " << static_cast<SetExpression *>(statement)->name->value << L", ";
+            printStatement(static_cast<SetExpression *>(statement)->value, depth + 1);
+            std::wcout << L" ) ";
             break;
         }
         default:

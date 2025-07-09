@@ -110,6 +110,8 @@ private:
 
     void resolveGetExpression(GetExpression *expression);
 
+    void resolveSetExpression(SetExpression *expression);
+
 };
 
 
