@@ -31,6 +31,8 @@
 #include "ReturnStatement.h"
 #include "LogicalExpression.h"
 #include "ClassDeclarationStatement.h"
+#include "GetExpression.h"
+#include "ModifyStatement.h"
 
 #define INDENTATION_PER_LEVEL 2
 
@@ -262,6 +264,22 @@ void printStatement(Statement *statement, int depth) {
             break;
         case AstNodeType::ClassDeclarationStatement: {
             printClassDeclarationStatement(static_cast<ClassDeclarationStatement *>(statement), depth);
+            break;
+        }
+        case AstNodeType::ModifyStatement: {
+            auto modifyStmt = static_cast<ModifyStatement *>(statement);
+            std::wcout << L"ModifyStmt( ";
+            std::wcout << modifyStmt->keyword->value << L" ";
+            printStatement(modifyStmt->lvalue, depth + 1);
+            std::wcout << L", ";
+            printStatement(modifyStmt->by, depth + 1);
+            std::wcout << L" ) ";
+            break;
+        }
+        case AstNodeType::GetExpression: {
+            std::wcout << L"GetExpr( ";
+            printStatement(static_cast<GetExpression *>(statement)->object, depth + 1);
+            std::wcout << L", " << static_cast<GetExpression *>(statement)->name->value << L" ) ";
             break;
         }
         default:

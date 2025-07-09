@@ -74,6 +74,10 @@ void ErrorPrinter::printRuntimeError(const RuntimeError *error) {
         printConstructorNoNewError(static_cast<const ConstructorNoNew *>(error));
     } else if (dynamic_cast<const ClassNotFound *>(error) != nullptr) {
         printClassNotFoundError(static_cast<const ClassNotFound *>(error));
+    } else if (dynamic_cast<const InvalidPropertyAccess*>(error) != nullptr) {
+        printInvalidPropertyAccessError(static_cast<const InvalidPropertyAccess*>(error));
+    } else if (dynamic_cast<const ObjHasNoAttr*>(error) != nullptr) {
+        printObjHasNoAttrError(static_cast<const ObjHasNoAttr*>(error));
     } else {
         wcout << L"INTERNAL ERROR: UNKNOWN RUNTIME ERROR TYPE\n";
     }
@@ -333,6 +337,27 @@ void ErrorPrinter::printClassNotFoundError(const ClassNotFound *error) {
                              {{{error->token->offset, error->token->offset + getTokenValue(error->token).size() - 1},
                                ANSI_RED}});
 }
+
+void ErrorPrinter::printInvalidPropertyAccessError(const InvalidPropertyAccess *error) {
+    std::wstring message = formattedErrorMessage(error->code, error->messageArguments, error->token->line);
+    wcout << message << "\n";
+    printSourceLine(error->token->line,
+                    {{{error->token->offset, error->token->offset + getTokenValue(error->token).size() - 1}, ANSI_RED}});
+    printSquiggleSupportLine(error->token->line,
+                             {{{error->token->offset, error->token->offset + getTokenValue(error->token).size() - 1},
+                               ANSI_RED}});
+}
+
+void ErrorPrinter::printObjHasNoAttrError(const ObjHasNoAttr *error) {
+    std::wstring message = formattedErrorMessage(error->code, error->messageArguments, error->token->line);
+    wcout << message << "\n";
+    printSourceLine(error->token->line,
+                    {{{error->token->offset, error->token->offset + getTokenValue(error->token).size() - 1}, ANSI_RED}});
+    printSquiggleSupportLine(error->token->line,
+                             {{{error->token->offset, error->token->offset + getTokenValue(error->token).size() - 1},
+                               ANSI_RED}});
+}
+
 
 
 // ***********************************************************************

@@ -53,6 +53,8 @@ const std::unordered_map<int , std::wstring> ERRORMESSAGES = {
         {ERROR_WRONG_TYPE_TO_STATEMENT,           L"Tip '{}' nije dozvoljen za izjavu '{}'."},
         {ERROR_CONSTRUCTOR_NO_NEW,           L"Konstruktor klase '{}' ne može biti pozvan bez 'novi'/'novo'/'novi'."},
         {ERROR_CLASS_NOT_FOUND,              L"Nepoznata klasa '{}'."},
+        {ERROR_INVALID_PROPERTY_ACCESS,      L"Pristup polju '{}' na vrijednosti tipa '{}' nije moguć."},
+           {ERROR_OBJ_HAS_NO_ATTR,              L"Objekt tipa '{}' nema polje '{}'."},
 };
 
 #endif //BAKLAVA_ERRORMESSAGES_H

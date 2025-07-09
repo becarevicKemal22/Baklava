@@ -41,6 +41,8 @@
 #include "ConstructorNoNew.h"
 #include "InvalidNew.h"
 #include "ClassNotFound.h"
+#include "InvalidPropertyAccess.h"
+#include "ObjHasNoAttr.h"
 
 typedef std::pair<std::pair<int, int>, std::wstring> colorHighlight;
 
@@ -108,6 +110,8 @@ private:
     void printWrongTypeToStatementError(const WrongTypeToStatement* error);
     void printConstructorNoNewError(const ConstructorNoNew* error);
     void printClassNotFoundError(const ClassNotFound* error);
+    void printInvalidPropertyAccessError(const InvalidPropertyAccess* error);
+    void printObjHasNoAttrError(const ObjHasNoAttr* error);
 
     void printVariableRedeclarationError(const VariableRedeclaration* error);
     void printExpectedXBeforeYError(const ExpectedXBeforeY* error);

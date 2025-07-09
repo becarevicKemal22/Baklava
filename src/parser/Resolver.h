@@ -108,6 +108,8 @@ private:
 
     void resolveArrayLiteralExpression(ArrayLiteralExpression *expression);
 
+    void resolveGetExpression(GetExpression *expression);
+
 };
 
 

@@ -95,6 +95,9 @@ add_executable(baklava main.cpp
         src/error/exceptions/ConstructorNoNew.h
         src/error/exceptions/parser/InvalidNew.h
         src/error/exceptions/ClassNotFound.h
+        src/parser/ast/expressions/GetExpression.h
+        src/error/exceptions/InvalidPropertyAccess.h
+        src/error/exceptions/ObjHasNoAttr.h
 )
 
 add_subdirectory(tests)

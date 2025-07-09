@@ -37,6 +37,7 @@
 #include "InvalidDefaultParameterValue.h"
 #include "InvalidForLoopStep.h"
 #include "InvalidNew.h"
+#include "GetExpression.h"
 
 #define IS_LITERAL(x) (x->type == AstNodeType::NumericLiteralExpression || x->type == AstNodeType::StringLiteralExpression || x->type == AstNodeType::BooleanLiteralExpression || x->type == AstNodeType::NullLiteralExpression || x->type == AstNodeType::ArrayLiteralExpression)
 #define IS_NEGATIVE_NUMBER(x) (x->type == AstNodeType::UnaryExpression && dynamic_cast<UnaryExpression*>(x)->op->type == TokenType::Minus && dynamic_cast<UnaryExpression*>(x)->expr->type == AstNodeType::NumericLiteralExpression)
@@ -523,7 +524,7 @@ ExprPtr Parser::unaryExpression() {
 ExprPtr Parser::callExpression() {
     bool isNewPrefixed = match({TokenType::New});
     auto newToken = isNewPrefixed ? previous() : nullptr;
-    bool isCall = false;
+    bool isCall = false; // so that a call to anything is accepted as something which can be new-prefixed, and the actual callee type(whether it is a class) is determined at runtime. But disallows immediately in the parser using novi for non-call expressions.
     ExprPtr expr = primaryExpression();
     while (true) {
         if (match({TokenType::OpenParenthesis})) {
@@ -538,7 +539,13 @@ ExprPtr Parser::callExpression() {
             }
             advance();
             expr = new IndexingExpression(expr, bracket, index);
-            isCall = true;
+        } else if (match({TokenType::Dot})) {
+            if (!atType(TokenType::Identifier)) {
+                throw ExpectedXBeforeY(L"identifikator", previous(), at());
+            }
+            advance();
+            TokenPtr name = previous();
+            expr = new GetExpression(expr, name);
         } else {
             break;
         }

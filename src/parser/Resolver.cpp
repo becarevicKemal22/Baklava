@@ -30,6 +30,7 @@
 #include "ArrayLiteralExpression.h"
 #include "ClassDeclarationStatement.h"
 #include "ModifyStatement.h"
+#include "GetExpression.h"
 
 void Resolver::resolve(std::unique_ptr<Program> &program) {
     for (auto &statement: program->statements) {
@@ -123,6 +124,9 @@ void Resolver::resolve(Expression *expression) {
             break;
         case AstNodeType::IndexAssignmentExpression:
             resolveIndexAssignmentExpression(static_cast<IndexAssignmentExpression *>(expression));
+            break;
+        case AstNodeType::GetExpression:
+            resolveGetExpression(static_cast<GetExpression *>(expression));
             break;
         default:
             std::wcout << L"Unknown expression type in resolver." << std::endl;
@@ -298,6 +302,10 @@ void Resolver::resolveArrayLiteralExpression(ArrayLiteralExpression *expression)
     for (auto &element: expression->elements) {
         resolve(element);
     }
+}
+
+void Resolver::resolveGetExpression(GetExpression *expression) {
+    resolve(expression->object);
 }
 
 void Resolver::resolveNumericLiteralExpression(NumericLiteralExpression *expression) {}

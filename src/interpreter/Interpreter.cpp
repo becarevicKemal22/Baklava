@@ -46,6 +46,7 @@
 #include "ArrayLiteralExpression.h"
 #include "IndexingExpression.h"
 #include "IndexAssignmentExpression.h"
+#include "GetExpression.h"
 
 #include "BaseFunctions.h"
 
@@ -64,6 +65,8 @@
 #include "IndexingNonArray.h"
 #include "ConstructorNoNew.h"
 #include "ClassNotFound.h"
+#include "InvalidPropertyAccess.h"
+#include "ObjHasNoAttr.h"
 
 #include <iostream>
 #include <cmath>
@@ -382,6 +385,8 @@ RuntimeValue Interpreter::evaluate(Expression *expr) {
             return evaluateIndexingExpression(static_cast<IndexingExpression *>(expr));
         case AstNodeType::IndexAssignmentExpression:
             return evaluateIndexAssignmentExpression(static_cast<IndexAssignmentExpression *>(expr));
+        case AstNodeType::GetExpression:
+            return evaluateGetExpression(static_cast<GetExpression *>(expr));
         default:
             throw std::runtime_error("Unknown expression type in interpreter");
     }
@@ -699,6 +704,20 @@ RuntimeValue Interpreter::evaluateIndexingExpression(IndexingExpression *expr) {
     return elements[(size_t) index.as.number];
 }
 
+RuntimeValue Interpreter::evaluateGetExpression(GetExpression *expr) {
+    RuntimeValue object = evaluate(expr->object);
+    if (!IS_OBJ(object) || !IS_INSTANCE_OBJ(object)) {
+        throw InvalidPropertyAccess(expr->name, object);
+    }
+    auto val = ((ObjectInstance*)object.as.object)->fields.find(expr->name->value);
+    if(val == ((ObjectInstance*)object.as.object)->fields.end()){
+        throw ObjHasNoAttr(expr->name, object); // eh fazon znaci treba bacati ovo ali je problem kako struktuirati poruku greske. U pythonu ide 'Obj' object has no attribute 'name'. Eh sad kako to prevesti, da li objekat tipa 'A' ili kako? MIslim onda se to bas opet ne poklapa sa onim da ce se refaktorisati kod kasnije da se koristi jedinstvena funkcija za stringifajanje tipova, a trebala bla bla cekaj ba pa i treba mi kao objekat tipa 'A instanca' nema polje tralala to je okej znaci treba koristit jedinstvenu funkcijui koju ja nemam yippie. Isto tako ne znam da li bi smio staviti kao instanca klase 'x' nema attribut mada to svakako nema smisla a pitanje je hoce li nekad kasnije postojati drugi tipovi koji koriste properties.
+        return {ValueType::Null};
+    }
+    return val->second;
+}
+
+
 bool Interpreter::isTruthy(const RuntimeValue &value) {
     switch (value.type) {
         case ValueType::Boolean:
@@ -795,9 +814,9 @@ ObjectInstance *Interpreter::allocateInstanceObject(ObjectClass *klass) {
 void Interpreter::invokeGarbageCollector() {
     if (disallowGC) {
 #if DEBUG_LOG_GC == 2
-        //        std::wcout << L"bk: ---------- gc begin ---------" << std::endl;
-        //        std::wcout << L"bk: GC disallowed" << std::endl;
-        //        std::wcout << L"bk: ---------- gc end -----------\n" << std::endl;
+        std::wcout << L"bk: ---------- gc begin ---------" << std::endl;
+        std::wcout << L"bk: GC disallowed" << std::endl;
+        std::wcout << L"bk: ---------- gc end -----------\n" << std::endl;
 #endif
         return;
     }
@@ -1024,6 +1043,10 @@ RuntimeError *Interpreter::reallocateError(RuntimeError *error) {
         handledError = new ConstructorNoNew(*dynamic_cast<ConstructorNoNew *>(error));
     } else if (dynamic_cast<ClassNotFound *>(error) != nullptr) {
         handledError = new ClassNotFound(*dynamic_cast<ClassNotFound *>(error));
+    } else if (dynamic_cast<InvalidPropertyAccess*>(error) != nullptr) {
+        handledError = new InvalidPropertyAccess(*dynamic_cast<InvalidPropertyAccess *>(error));
+    } else if (dynamic_cast<ObjHasNoAttr*>(error) != nullptr) {
+        handledError = new ObjHasNoAttr(*dynamic_cast<ObjHasNoAttr *>(error));
     } else {
         throw std::runtime_error("ERROR REALLOCATION ERROR: Unknown error type");
     }
