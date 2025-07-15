@@ -218,6 +218,10 @@ void Resolver::resolveFunctionDeclarationStatement(FunctionDeclarationStatement 
 void Resolver::resolveClassDeclarationStatement(ClassDeclarationStatement *statement) {
     declare(statement->name);
     define(statement->name);
+
+    for (auto method : statement->methods) {
+        resolveFunction(method, FunctionType::METHOD);
+    }
 }
 
 

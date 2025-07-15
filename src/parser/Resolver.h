@@ -21,6 +21,7 @@ typedef std::stack<Scope> ScopeStack;
 enum class FunctionType {
     NONE,
     FUNCTION,
+    METHOD,
 };
 
 class Resolver {
