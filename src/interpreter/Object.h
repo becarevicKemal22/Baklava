@@ -103,6 +103,7 @@ struct ObjectClass : ObjectCallable {
         minArity = 0;
         // CALL WILL BE BOUND IN ALLOCATE CLASS OBJECT BECAUSE HERE IT COMPLICATES FORWARD DECLARATIONS AND STUFF
     }
+    std::unordered_map<std::wstring, RuntimeValue> methods;
     std::wstring name;
 };
 

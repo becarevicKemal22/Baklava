@@ -180,7 +180,7 @@ private:
     ObjectString *allocateStringObject(const std::wstring &value);
     ObjectFunction *allocateFunctionObject(FunctionDeclarationStatement *declaration);
     ObjectArray *allocateArrayObject(const std::vector<RuntimeValue> &elements);
-    ObjectClass *allocateClassObject(ClassDeclarationStatement *declaration);
+    ObjectClass *allocateClassObject(ClassDeclarationStatement *declaration, std::unordered_map<std::wstring, RuntimeValue> &methods);
     ObjectInstance *allocateInstanceObject(ObjectClass *klass);
 
     // Used to ensure that errors don't go out of scope when running tests, since the type needs to be checked on the handledError field.

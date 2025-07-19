@@ -276,8 +276,15 @@ void Interpreter::executeFunctionDeclarationStatement(FunctionDeclarationStateme
 }
 
 void Interpreter::executeClassDeclarationStatement(ClassDeclarationStatement *stmt) {
-    environments.top().define(stmt->name, {ValueType::Object, {.object = (Object *) allocateClassObject(stmt)}},
-                              false);;
+    environments.top().define(stmt->name, {ValueType::Null}, false);
+
+    std::unordered_map<std::wstring, RuntimeValue> methods;
+    for (auto method : stmt->methods) {
+        auto func = allocateFunctionObject(method);
+        methods.insert({method->name->value, {ValueType::Object, {.object = (Object *) func}}});
+    }
+
+    environments.top().assign(stmt->name, {ValueType::Object, {.object = (Object *) allocateClassObject(stmt, methods)}});
 }
 
 
@@ -799,7 +806,7 @@ ObjectArray *Interpreter::allocateArrayObject(const std::vector<RuntimeValue> &e
     return obj;
 }
 
-ObjectClass *Interpreter::allocateClassObject(ClassDeclarationStatement *declaration) {
+ObjectClass *Interpreter::allocateClassObject(ClassDeclarationStatement *declaration, std::unordered_map<std::wstring, RuntimeValue> &methods) {
     invokeGarbageCollector();
 
     auto *obj = new ObjectClass(declaration);
@@ -810,6 +817,7 @@ ObjectClass *Interpreter::allocateClassObject(ClassDeclarationStatement *declara
     obj->obj.next = objects;
     objects = (Object *) obj;
     bytesAllocated += sizeof(ObjectClass);
+    obj->methods = std::move(methods);
     return obj;
 }
 
