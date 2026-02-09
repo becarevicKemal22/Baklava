@@ -287,7 +287,6 @@ void Interpreter::executeClassDeclarationStatement(ClassDeclarationStatement *st
     environments.top().assign(stmt->name, {ValueType::Object, {.object = (Object *) allocateClassObject(stmt, methods)}});
 }
 
-
 void Interpreter::executeReturnStatement(ReturnStatement *stmt) {
     RuntimeValue value = {ValueType::Null};
     if (stmt->value != nullptr) {
@@ -719,11 +718,17 @@ RuntimeValue Interpreter::evaluateGetExpression(GetExpression *expr) {
     if (!IS_OBJ(object) || !IS_INSTANCE_OBJ(object)) {
         throw InvalidPropertyAccess(expr->name, object);
     }
-    auto val = ((ObjectInstance*)object.as.object)->fields.find(expr->name->value);
-    if(val == ((ObjectInstance*)object.as.object)->fields.end()){
-        throw ObjHasNoAttr(expr->name, object); // eh fazon znaci treba bacati ovo ali je problem kako struktuirati poruku greske. U pythonu ide 'Obj' object has no attribute 'name'. Eh sad kako to prevesti, da li objekat tipa 'A' ili kako? MIslim onda se to bas opet ne poklapa sa onim da ce se refaktorisati kod kasnije da se koristi jedinstvena funkcija za stringifajanje tipova, a trebala bla bla cekaj ba pa i treba mi kao objekat tipa 'A instanca' nema polje tralala to je okej znaci treba koristit jedinstvenu funkcijui koju ja nemam yippie. Isto tako ne znam da li bi smio staviti kao instanca klase 'x' nema attribut mada to svakako nema smisla a pitanje je hoce li nekad kasnije postojati drugi tipovi koji koriste properties.
+
+    if(auto val = AS_INSTANCE_OBJ(object)->fields.find(expr->name->value); val != AS_INSTANCE_OBJ(object)->fields.end()){
+        return val->second;
     }
-    return val->second;
+
+    if (auto method = AS_INSTANCE_OBJ(object)->klass->methods.find(expr->name->value); method != AS_INSTANCE_OBJ(object)->klass->methods.end()) {
+        return method->second;
+    }
+
+    throw ObjHasNoAttr(expr->name, object); // eh fazon znaci treba bacati ovo ali je problem kako struktuirati poruku greske. U pythonu ide 'Obj' object has no attribute 'name'. Eh sad kako to prevesti, da li objekat tipa 'A' ili kako? MIslim onda se to bas opet ne poklapa sa onim da ce se refaktorisati kod kasnije da se koristi jedinstvena funkcija za stringifajanje tipova, a trebala bla bla cekaj ba pa i treba mi kao objekat tipa 'A instanca' nema polje tralala to je okej znaci treba koristit jedinstvenu funkcijui koju ja nemam yippie. Isto tako ne znam da li bi smio staviti kao instanca klase 'x' nema attribut mada to svakako nema smisla a pitanje je hoce li nekad kasnije postojati drugi tipovi koji koriste properties.
+    // Takodjer da li ovo treba promijeniti sa attr na nesto drugo jer sad hendlujemo i atribute i metode? Da li su metode atributi?
 }
 
 RuntimeValue Interpreter::evaluateSetExpression(SetExpression *expr) {
@@ -809,7 +814,7 @@ ObjectArray *Interpreter::allocateArrayObject(const std::vector<RuntimeValue> &e
 ObjectClass *Interpreter::allocateClassObject(ClassDeclarationStatement *declaration, std::unordered_map<std::wstring, RuntimeValue> &methods) {
     invokeGarbageCollector();
 
-    auto *obj = new ObjectClass(declaration);
+    auto *obj = new ObjectClass(declaration, methods);
     obj->call = [obj](Interpreter *interpreter, const std::vector<RuntimeValue> &arguments) {
         // interpreter->invokeGarbageCollector(); // I HAVE NO CLUE WHETHER THIS CAN MESS SOMETHING UP. ACTUALLY IT IS COMMENTED BECAUSE ALLOCATE INSTANCE OBJECT CALLS IT ITSELF????
         return RuntimeValue{ValueType::Object, {.object = (Object *) interpreter->allocateInstanceObject(obj)}};
@@ -817,7 +822,7 @@ ObjectClass *Interpreter::allocateClassObject(ClassDeclarationStatement *declara
     obj->obj.next = objects;
     objects = (Object *) obj;
     bytesAllocated += sizeof(ObjectClass);
-    obj->methods = std::move(methods);
+    // obj->methods = std::move(methods); prije je ovako bilo sad prosljedjujem u konstruktor. Ne bi trebalo praviti razliku?
     return obj;
 }
 

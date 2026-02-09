@@ -96,11 +96,12 @@ struct ObjectInstance {
 };
 
 struct ObjectClass : ObjectCallable {
-    explicit ObjectClass(const ClassDeclarationStatement* declaration) {
+    explicit ObjectClass(const ClassDeclarationStatement* declaration, std::unordered_map<std::wstring, RuntimeValue> &passedMethods) {
         obj.type = ObjectType::OBJECT_CLASS;
         name = declaration->name->value;
         arity = 0;
         minArity = 0;
+        methods = std::move(passedMethods);
         // CALL WILL BE BOUND IN ALLOCATE CLASS OBJECT BECAUSE HERE IT COMPLICATES FORWARD DECLARATIONS AND STUFF
     }
     std::unordered_map<std::wstring, RuntimeValue> methods;
