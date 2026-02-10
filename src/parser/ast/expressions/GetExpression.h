@@ -17,8 +17,8 @@ public:
     GetExpression(ExprPtr object, TokenPtr name) : object(object), name(name) {
         type = AstNodeType::GetExpression;
     }
-    ExprPtr object;  // The object from which the property is being accessed
-    TokenPtr name;       // The name of the property being accessed
+    ExprPtr object;  // The object from which the property is being accessed -> ovo tehnicki predstavlja expression nakon kojeg je dosla '.'.
+    TokenPtr name;       // The name of the property being accessed -> dio iza tacke / naziv propertya
 
 };
 

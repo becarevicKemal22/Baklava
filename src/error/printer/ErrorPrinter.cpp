@@ -387,6 +387,8 @@ void ErrorPrinter::printParserError(const ParserError *error) {
 
     } else if (dynamic_cast<const InvalidNew *>(error) != nullptr) {
         printInvalidNewError(static_cast<const InvalidNew *>(error));
+    } else if (dynamic_cast<const InvalidThisPosition *>(error) != nullptr) {
+        printInvalidThisPositionError(static_cast<const InvalidThisPosition *>(error));
     } else { // Generic parser error, ne moze se koristiti ni sa cim drugim, jer samo bazni ima ovaj myToken atribut
         std::wstring message = formattedErrorMessage(error->code, error->messageArguments, error->myToken->line);
         wcout << message << "\n";
@@ -497,6 +499,17 @@ void ErrorPrinter::printInvalidLValue(const InvalidLValue *error) {
 }
 
 void ErrorPrinter::printInvalidReturnPositionError(const InvalidReturnPosition *error) {
+    std::wstring message = formattedErrorMessage(error->code, error->messageArguments, error->token->line);
+    wcout << message << "\n";
+    printSourceLine(error->token->line,
+                    {{{error->token->offset, error->token->offset + getTokenValue(error->token).size() - 1},
+                      ANSI_RED}});
+    printSquiggleSupportLine(error->token->line,
+                             {{{error->token->offset, error->token->offset + getTokenValue(error->token).size() - 1},
+                               ANSI_RED}});
+}
+
+void ErrorPrinter::printInvalidThisPositionError(const InvalidThisPosition *error) {
     std::wstring message = formattedErrorMessage(error->code, error->messageArguments, error->token->line);
     wcout << message << "\n";
     printSourceLine(error->token->line,

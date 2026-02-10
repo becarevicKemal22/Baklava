@@ -43,6 +43,7 @@
 #include "ClassNotFound.h"
 #include "InvalidPropertyAccess.h"
 #include "ObjHasNoAttr.h"
+#include "InvalidThisPosition.h"
 
 typedef std::pair<std::pair<int, int>, std::wstring> colorHighlight;
 
@@ -100,7 +101,7 @@ private:
     void printCaretSupportLine(unsigned int offset);
     void printSquiggleSupportLine(unsigned int lineNum, std::vector<colorHighlight> colorHighlights);
     static std::wstring getTokenValue(Token *token);
-    colorHighlight makeTokenHighlight(Token *token, std::wstring color);
+    static colorHighlight makeTokenHighlight(Token *token, std::wstring color);
 
     void printWrongTypeError(const WrongTypeError* error);
     void printWrongBinaryOperandTypeError(const WrongBinaryOperandTypes* error);
@@ -124,6 +125,7 @@ private:
     void printTooManyArgumentsError(const TooManyArguments* error);
     void printTooFewArgumentsError(const TooFewArguments* error);
     void printInvalidReturnPositionError(const InvalidReturnPosition* error);
+    void printInvalidThisPositionError(const InvalidThisPosition* error);
     void printSelfReferencingInitializerError(const SelfReferencingInitializer* error);
     void printInvalidDefaultParameterPositionError(const InvalidDefaultParameterPosition* error);
     void printInvalidDefaultParameterValueError(const InvalidDefaultParameterValue* error);

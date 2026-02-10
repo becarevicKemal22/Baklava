@@ -86,6 +86,7 @@ public:
 
     void executeBlock(const std::vector<StmtPtr> &statements, const Environment& environment);
 
+
     bool hadError = false; /**< Holds whether an error has occurred during the interpretation. Interpretation should stop if this is set to true. */
     std::vector<Statement *> executedStatements; /**< List of pointers to all statements that have been executed. Only written to when DEBUG_TRACK_EXECUTION is set */
     std::vector<RuntimeValue> printHistory; /**< List of all values that have been printed. Only written to when DEBUG_TRACK_PRINTING is set */
@@ -119,7 +120,7 @@ private:
 
     ErrorPrinter *errorPrinter;
 
-    RuntimeValue lookUpVariable(const VariableExpression *expr);
+    RuntimeValue lookUpVariable(const Expression *expr, TokenPtr name);
 
     void executeExpressionStatement(ExpressionStatement *stmt);
 
@@ -171,6 +172,8 @@ private:
 
     RuntimeValue evaluateSetExpression(SetExpression *expr);
 
+    RuntimeValue evaluateThisExpression(ThisExpression *expr);
+
     bool isTruthy(const RuntimeValue &value);
 
     bool isEqual(const RuntimeValue &left, const RuntimeValue &right);
@@ -178,7 +181,7 @@ private:
     Object *objects = nullptr;
 
     ObjectString *allocateStringObject(const std::wstring &value);
-    ObjectFunction *allocateFunctionObject(FunctionDeclarationStatement *declaration);
+    ObjectFunction *allocateFunctionObject(FunctionDeclarationStatement *declaration, Environment* env = nullptr); // ovaj parametar prije nije bio ovdje iz nekog razloga nego se samo uzimao environments.top() u tijelu funkcije. Ja nemam pojma da li je to smjelo tako da radi jer je u knjizi se prosljedjivao environment, mada mislim da se to svodilo na isti env kao i environments.top pa predpostavljam da sam to ja samo skratio tako. Medjutim sad sam dodao ovaj parametar sa default vrijednoscu jer mi treba pri radu sa this i metodama klasa da proslijedim ja env koji hocu.
     ObjectArray *allocateArrayObject(const std::vector<RuntimeValue> &elements);
     ObjectClass *allocateClassObject(ClassDeclarationStatement *declaration, std::unordered_map<std::wstring, RuntimeValue> &methods);
     ObjectInstance *allocateInstanceObject(ObjectClass *klass);

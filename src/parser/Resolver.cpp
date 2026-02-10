@@ -4,6 +4,8 @@
 
 #include "Resolver.h"
 
+#include <cmath>
+
 #include "VarDeclarationStatement.h"
 #include "VariableExpression.h"
 #include "AssignmentExpression.h"
@@ -32,6 +34,7 @@
 #include "ModifyStatement.h"
 #include "GetExpression.h"
 #include "SetExpression.h"
+#include "ThisExpression.h"
 
 void Resolver::resolve(std::unique_ptr<Program> &program) {
     for (auto &statement: program->statements) {
@@ -132,6 +135,9 @@ void Resolver::resolve(Expression *expression) {
         case AstNodeType::SetExpression:
             resolveSetExpression(static_cast<SetExpression *>(expression));
             break;
+        case AstNodeType::ThisExpression:
+            resolveThisExpression(static_cast<ThisExpression *>(expression));
+            break;
         default:
             std::wcout << L"Unknown expression type in resolver." << std::endl;
     }
@@ -216,12 +222,24 @@ void Resolver::resolveFunctionDeclarationStatement(FunctionDeclarationStatement 
 }
 
 void Resolver::resolveClassDeclarationStatement(ClassDeclarationStatement *statement) {
+    ClassType enclosingClassType = currentClass;
+    currentClass = ClassType::CLASS;
+
     declare(statement->name);
     define(statement->name);
+
+    beginScope();
+    scopes.top().emplace(L"ovo", true);
+    scopes.top().emplace(L"ovaj", true);
+    scopes.top().emplace(L"ova", true);
+    scopes.top().emplace(L"ovi", true);
 
     for (auto method : statement->methods) {
         resolveFunction(method, FunctionType::METHOD);
     }
+
+    endScope();
+    currentClass = enclosingClassType;
 }
 
 
@@ -320,6 +338,15 @@ void Resolver::resolveSetExpression(SetExpression *expression) {
     resolve(expression->value);
     resolve(expression->object);
 }
+
+void Resolver::resolveThisExpression(ThisExpression *expression) {
+    if (currentClass == ClassType::NONE) {
+        throw InvalidThisPosition(expression->token);
+    }
+
+    resolveLocal(expression, expression->value);
+}
+
 
 void Resolver::resolveNumericLiteralExpression(NumericLiteralExpression *expression) {}
 

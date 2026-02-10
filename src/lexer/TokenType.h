@@ -69,6 +69,7 @@ enum class TokenType : uint8_t {
     Sa,
     Class,
     New,
+    This,
     // New syntax keywords
     Jednako,
     Nije,

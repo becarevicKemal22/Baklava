@@ -99,6 +99,8 @@ add_executable(baklava main.cpp
         src/error/exceptions/InvalidPropertyAccess.h
         src/error/exceptions/ObjHasNoAttr.h
         src/parser/ast/expressions/SetExpression.h
+        src/parser/ast/expressions/ThisExpression.h
+        src/error/exceptions/parser/InvalidThisPosition.h
 )
 
 add_subdirectory(tests)

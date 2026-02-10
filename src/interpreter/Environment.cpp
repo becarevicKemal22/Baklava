@@ -13,9 +13,24 @@ void Environment::define(Token* name, RuntimeValue value, bool isConstant) {
     if(it != variables.end()){
         throw VariableRedeclaration(name);
     }
-
     variables.insert({name->value, {value, isConstant}});
 }
+
+void Environment::defineByNameString(const std::wstring& name, RuntimeValue value, bool isConstant) {
+    auto it = variables.find(name);
+    if(it != variables.end()){
+        throw VariableRedeclaration(new Token(TokenType::Identifier ,name, 0, 0)); // This causes error reporting to not work correctly for this method. Token type is assumed to be identifier. Constult method documentation for reasons and explanation.
+    }
+    variables.insert({name, {value, isConstant}});
+}
+
+void Environment::defineAndBindThis(RuntimeValue instance) {
+    defineByNameString(L"ovo", instance, true);
+    defineByNameString(L"ovaj", instance, true);
+    defineByNameString(L"ova", instance, true);
+    defineByNameString(L"ovi", instance, true);
+}
+
 
 RuntimeValue Environment::get(Token* name){
     auto it = variables.find(name->value);

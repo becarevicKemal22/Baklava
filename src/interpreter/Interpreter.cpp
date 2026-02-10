@@ -77,6 +77,7 @@
 
 #include "ClassDeclarationStatement.h"
 #include "ModifyStatement.h"
+#include "ThisExpression.h"
 #include "WrongTypeToStatement.h"
 
 void Interpreter::defineNativeFunctions() {
@@ -381,7 +382,7 @@ RuntimeValue Interpreter::evaluate(Expression *expr) {
         case AstNodeType::GroupingExpression:
             return evaluate((static_cast<GroupingExpression *>(expr))->expr);
         case AstNodeType::VariableExpression:
-            return lookUpVariable(static_cast<VariableExpression *>(expr));
+            return lookUpVariable(static_cast<VariableExpression *>(expr), static_cast<VariableExpression *>(expr)->name);
         case AstNodeType::AssignmentExpression:
             return evaluateAssignmentExpression(static_cast<AssignmentExpression *>(expr));
         case AstNodeType::CallExpression:
@@ -396,6 +397,8 @@ RuntimeValue Interpreter::evaluate(Expression *expr) {
             return evaluateGetExpression(static_cast<GetExpression *>(expr));
         case AstNodeType::SetExpression:
             return evaluateSetExpression(static_cast<SetExpression *>(expr));
+        case AstNodeType::ThisExpression:
+            return evaluateThisExpression(static_cast<ThisExpression *>(expr));
         default:
             throw std::runtime_error("Unknown expression type in interpreter");
     }
@@ -517,7 +520,7 @@ RuntimeValue Interpreter::evaluateBinaryExpression(BinaryExpression *expr) {
 // Nek stoji ovdje funkcija jos ali je sad u switchu samo lookupVariable
 //
 RuntimeValue Interpreter::evaluateVariableExpression(VariableExpression *expr) {
-    return lookUpVariable(expr);
+    return lookUpVariable(expr, expr->name);
 }
 
 RuntimeValue Interpreter::evaluateAssignmentExpression(AssignmentExpression *expr) {
@@ -724,7 +727,9 @@ RuntimeValue Interpreter::evaluateGetExpression(GetExpression *expr) {
     }
 
     if (auto method = AS_INSTANCE_OBJ(object)->klass->methods.find(expr->name->value); method != AS_INSTANCE_OBJ(object)->klass->methods.end()) {
-        return method->second;
+        Environment env(&(AS_FUNCTION_OBJ(method->second)->closure));
+        env.defineAndBindThis(object);
+        return {ValueType::Object, {.object = (Object *) allocateFunctionObject(AS_FUNCTION_OBJ(method->second)->declaration, &env)}};
     }
 
     throw ObjHasNoAttr(expr->name, object); // eh fazon znaci treba bacati ovo ali je problem kako struktuirati poruku greske. U pythonu ide 'Obj' object has no attribute 'name'. Eh sad kako to prevesti, da li objekat tipa 'A' ili kako? MIslim onda se to bas opet ne poklapa sa onim da ce se refaktorisati kod kasnije da se koristi jedinstvena funkcija za stringifajanje tipova, a trebala bla bla cekaj ba pa i treba mi kao objekat tipa 'A instanca' nema polje tralala to je okej znaci treba koristit jedinstvenu funkcijui koju ja nemam yippie. Isto tako ne znam da li bi smio staviti kao instanca klase 'x' nema attribut mada to svakako nema smisla a pitanje je hoce li nekad kasnije postojati drugi tipovi koji koriste properties.
@@ -742,6 +747,10 @@ RuntimeValue Interpreter::evaluateSetExpression(SetExpression *expr) {
     // Actually it def will need to be split when slots are implemented so that the property name can be checked for existence
     // ovo za split sam mislio prije nego sto sam izdvojio value da ga mogu vratiti. Elem svakako ce za slots trebat i field provjeravat u posebnoj varijabli ili bez sa castom ugl provjeriti
     return value;
+}
+
+RuntimeValue Interpreter::evaluateThisExpression(ThisExpression *expr) {
+    return lookUpVariable(expr, expr->token);
 }
 
 bool Interpreter::isTruthy(const RuntimeValue &value) {
@@ -789,10 +798,10 @@ ObjectString *Interpreter::allocateStringObject(const std::wstring &value) {
     return obj;
 }
 
-ObjectFunction *Interpreter::allocateFunctionObject(FunctionDeclarationStatement *declaration) {
+ObjectFunction *Interpreter::allocateFunctionObject(FunctionDeclarationStatement *declaration, Environment* env) {
     invokeGarbageCollector();
 
-    auto *obj = new ObjectFunction(declaration, &environments.top());
+    auto *obj = new ObjectFunction(declaration, env == nullptr ? &environments.top() : env);
     obj->obj.next = objects;
     objects = (Object *) obj;
     bytesAllocated += sizeof(ObjectFunction);
@@ -1080,10 +1089,10 @@ RuntimeError *Interpreter::reallocateError(RuntimeError *error) {
     return handledError;
 }
 
-RuntimeValue Interpreter::lookUpVariable(const VariableExpression *expr) {
+RuntimeValue Interpreter::lookUpVariable(const Expression *expr, TokenPtr name) {
     auto distance = locals.find(expr);
     if (distance != locals.end()) {
-        return environments.top().getAt(distance->second, expr->name->value);
+        return environments.top().getAt(distance->second, name->value);
     }
-    return globals->get(expr->name);
+    return globals->get(name);
 }

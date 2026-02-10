@@ -39,6 +39,7 @@
 #include "InvalidNew.h"
 #include "GetExpression.h"
 #include "SetExpression.h"
+#include "ThisExpression.h"
 
 #define IS_LITERAL(x) (x->type == AstNodeType::NumericLiteralExpression || x->type == AstNodeType::StringLiteralExpression || x->type == AstNodeType::BooleanLiteralExpression || x->type == AstNodeType::NullLiteralExpression || x->type == AstNodeType::ArrayLiteralExpression)
 #define IS_NEGATIVE_NUMBER(x) (x->type == AstNodeType::UnaryExpression && dynamic_cast<UnaryExpression*>(x)->op->type == TokenType::Minus && dynamic_cast<UnaryExpression*>(x)->expr->type == AstNodeType::NumericLiteralExpression)
@@ -526,7 +527,7 @@ ExprPtr Parser::unaryExpression() {
     return callExpression();
 }
 
-// ovo "call" se odnosi i na poziv funkcije i na indeksiranje, i eventualno kasnije na property access
+// ovo "call" se odnosi i na poziv funkcije i na indeksiranje, i na property access
 ExprPtr Parser::callExpression() {
     bool isNewPrefixed = match({TokenType::New});
     auto newToken = isNewPrefixed ? previous() : nullptr;
@@ -581,6 +582,7 @@ ExprPtr Parser::primaryExpression() {
     if (match({TokenType::Number})) return new NumericLiteralExpression(previous());
     if (match({TokenType::String})) return new StringLiteralExpression(previous());
     if (match({TokenType::Identifier})) return new VariableExpression(previous());
+    if (match({TokenType::This})) return new ThisExpression(previous());
     if (match({TokenType::OpenParenthesis})) {
         ExprPtr expr = expression();
         if (match({TokenType::ClosedParenthesis})) {
