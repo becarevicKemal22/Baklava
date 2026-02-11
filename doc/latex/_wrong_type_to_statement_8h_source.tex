@@ -1,0 +1,30 @@
+\doxysection{Wrong\+Type\+To\+Statement.\+h}
+\hypertarget{_wrong_type_to_statement_8h_source}{}\label{_wrong_type_to_statement_8h_source}\index{src/error/exceptions/WrongTypeToStatement.h@{src/error/exceptions/WrongTypeToStatement.h}}
+\mbox{\hyperlink{_wrong_type_to_statement_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{//}}
+\DoxyCodeLine{00002\ \textcolor{comment}{//\ Created\ by\ kemal\ on\ 26-\/Feb-\/25.}}
+\DoxyCodeLine{00003\ \textcolor{comment}{//}}
+\DoxyCodeLine{00004\ }
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#ifndef\ WRONGTYPETOSTATEMENT\_H}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#define\ WRONGTYPETOSTATEMENT\_H}}
+\DoxyCodeLine{00007\ }
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_exception_helpers_8h}{ExceptionHelpers.h}}"{}}}
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_runtime_error_8h}{RuntimeError.h}}"{}}}
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_runtime_value_8h}{RuntimeValue.h}}"{}}}
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_token_8h}{Token.h}}"{}}}
+\DoxyCodeLine{00012\ }
+\DoxyCodeLine{00013\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_expression}{Expression}};}
+\DoxyCodeLine{00017\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_wrong_type_to_statement}{WrongTypeToStatement}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{class_runtime_error}{RuntimeError}}\ \{}
+\DoxyCodeLine{00018\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00019\ \ \ \ \ \mbox{\hyperlink{class_wrong_type_to_statement_a9a73117a1faa5e55112086ea9d71a746}{WrongTypeToStatement}}(\mbox{\hyperlink{class_token}{Token}}*\ \mbox{\hyperlink{class_wrong_type_to_statement_a762e2e7d2ce9a0930e4148cdcf8dbb73}{keyword}},\ \textcolor{keyword}{const}\ \mbox{\hyperlink{struct_runtime_value}{RuntimeValue}}\&\ value,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{class_expression}{Expression}}*\ operand)\ :\ \mbox{\hyperlink{class_runtime_error}{RuntimeError}}(\mbox{\hyperlink{_error_code_8h_a59e56af19e754a6aa26a612ebf91d05fa05001122a7348f85c9567dce2d3bc689}{ERROR\_WRONG\_TYPE\_TO\_STATEMENT}}),\ \mbox{\hyperlink{class_wrong_type_to_statement_a762e2e7d2ce9a0930e4148cdcf8dbb73}{keyword}}(\mbox{\hyperlink{class_wrong_type_to_statement_a762e2e7d2ce9a0930e4148cdcf8dbb73}{keyword}})\ \{}
+\DoxyCodeLine{00020\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_runtime_error_a5d005928ddf618703012ce4c1f8e3f03}{messageArguments}}.emplace\_back(\mbox{\hyperlink{_runtime_value_8cpp_adf30048625b9cbd3bc2c6ea783e7abe4}{getRuntimeValueTypeString}}(value));}
+\DoxyCodeLine{00021\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_runtime_error_a5d005928ddf618703012ce4c1f8e3f03}{messageArguments}}.emplace\_back(\mbox{\hyperlink{class_wrong_type_to_statement_a762e2e7d2ce9a0930e4148cdcf8dbb73}{keyword}}-\/>\mbox{\hyperlink{class_token_acfd9e64709c736211934e4b27ac20955}{value}});}
+\DoxyCodeLine{00022\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_wrong_type_to_statement_a5a70395289618996e1c80466640f1bea}{token}}\ =\ \mbox{\hyperlink{_exception_helpers_8cpp_a21dd8661b21077d61a64f924e346cecc}{getMostRelevantToken}}(operand);}
+\DoxyCodeLine{00023\ \ \ \ \ \}}
+\DoxyCodeLine{00024\ \ \ \ \ \mbox{\hyperlink{class_token}{Token}}\ *\mbox{\hyperlink{class_wrong_type_to_statement_a762e2e7d2ce9a0930e4148cdcf8dbb73}{keyword}},\ *\mbox{\hyperlink{class_wrong_type_to_statement_a5a70395289618996e1c80466640f1bea}{token}};}
+\DoxyCodeLine{00025\ \};}
+\DoxyCodeLine{00026\ }
+\DoxyCodeLine{00027\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//WRONGTYPETOSTATEMENT\_H}}
+
+\end{DoxyCode}

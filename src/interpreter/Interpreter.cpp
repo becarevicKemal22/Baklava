@@ -1061,10 +1061,10 @@ RuntimeError *Interpreter::reallocateError(RuntimeError *error) {
         handledError = new TooManyArguments(*dynamic_cast<TooManyArguments *>(error));
     } else if (dynamic_cast<TooFewArguments *>(error) != nullptr) {
         handledError = new TooFewArguments(*dynamic_cast<TooFewArguments *>(error));
-    } else if (dynamic_cast<UndeclaredVariable *>(error) != nullptr) {
-        handledError = new UndeclaredVariable(*dynamic_cast<UndeclaredVariable *>(error));
-    } else if (dynamic_cast<VariableRedeclaration *>(error) != nullptr) {
-        handledError = new VariableRedeclaration(*dynamic_cast<VariableRedeclaration *>(error));
+    } else if (dynamic_cast<UndeclaredIdentifier *>(error) != nullptr) {
+        handledError = new UndeclaredIdentifier(*dynamic_cast<UndeclaredIdentifier *>(error));
+    } else if (dynamic_cast<IdentifierRedeclaration *>(error) != nullptr) {
+        handledError = new IdentifierRedeclaration(*dynamic_cast<IdentifierRedeclaration *>(error));
     } else if (dynamic_cast<ConstReassignment *>(error) != nullptr) {
         handledError = new ConstReassignment(*dynamic_cast<ConstReassignment *>(error));
     } else if (dynamic_cast<IndexOutOfBounds *>(error) != nullptr) {

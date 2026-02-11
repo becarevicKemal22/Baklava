@@ -1,0 +1,26 @@
+\doxysection{Invalid\+New.\+h}
+\hypertarget{_invalid_new_8h_source}{}\label{_invalid_new_8h_source}\index{src/error/exceptions/parser/InvalidNew.h@{src/error/exceptions/parser/InvalidNew.h}}
+\mbox{\hyperlink{_invalid_new_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{//}}
+\DoxyCodeLine{00002\ \textcolor{comment}{//\ Created\ by\ kemal\ on\ 03-\/Jul-\/25.}}
+\DoxyCodeLine{00003\ \textcolor{comment}{//}}
+\DoxyCodeLine{00004\ }
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#ifndef\ INVALIDNEW\_H}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#define\ INVALIDNEW\_H}}
+\DoxyCodeLine{00007\ }
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_parser_error_8h}{ParserError.h}}"{}}}
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_object_8h}{Object.h}}"{}}}
+\DoxyCodeLine{00010\ }
+\DoxyCodeLine{00011\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_invalid_new}{InvalidNew}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{class_parser_error}{ParserError}}\ \{}
+\DoxyCodeLine{00012\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00013\ \ \ \ \ \mbox{\hyperlink{class_invalid_new_a82e32f79d4bef97f3c6288f81b9ea2f5}{InvalidNew}}(\mbox{\hyperlink{class_token}{Token}}*\ tok)\ :\ \mbox{\hyperlink{class_parser_error}{ParserError}}(\mbox{\hyperlink{_error_code_8h_a59e56af19e754a6aa26a612ebf91d05fa53c2a286d91417f728595ed728612c2a}{ERROR\_INVALID\_NEW}})\ \{}
+\DoxyCodeLine{00014\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_parser_error_afd3884bd1c9e5edf8321f7824a858657}{messageArguments}}.emplace\_back(tok-\/>value);}
+\DoxyCodeLine{00015\ \ \ \ \ \ \ \ \ this-\/>\mbox{\hyperlink{class_invalid_new_a144aaf84514f43c0e5e8085f15d67818}{token}}\ =\ tok;}
+\DoxyCodeLine{00016\ \ \ \ \ \}}
+\DoxyCodeLine{00017\ \ \ \ \ \mbox{\hyperlink{class_token}{Token}}*\ \mbox{\hyperlink{class_invalid_new_a144aaf84514f43c0e5e8085f15d67818}{token}};}
+\DoxyCodeLine{00018\ \};}
+\DoxyCodeLine{00019\ }
+\DoxyCodeLine{00020\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//INVALIDNEW\_H}}
+
+\end{DoxyCode}

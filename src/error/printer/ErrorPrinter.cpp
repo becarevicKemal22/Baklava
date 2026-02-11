@@ -14,8 +14,8 @@
 #include "ExpectedXAfterY.h"
 #include "UninitializedConst.h"
 #include "ParserError.h"
-#include "VariableRedeclaration.h"
-#include "UndeclaredVariable.h"
+#include "IdentifierRedeclaration.h"
+#include "UndeclaredIdentifier.h"
 #include "ConstReassignment.h"
 #include "InvalidDefaultParameterPosition.h"
 #include "InvalidDefaultParameterValue.h"
@@ -40,11 +40,11 @@ void ErrorPrinter::printRuntimeError(const RuntimeError *error) {
     else if (dynamic_cast<const WrongBinaryOperandTypes *>(error) != nullptr) {
         printWrongBinaryOperandTypeError(static_cast<const WrongBinaryOperandTypes *>(error));
     }
-    else if (dynamic_cast<const VariableRedeclaration *>(error) != nullptr) {
-        printVariableRedeclarationError(static_cast<const VariableRedeclaration *>(error));
+    else if (dynamic_cast<const IdentifierRedeclaration *>(error) != nullptr) {
+        printIdentifierRedeclarationError(static_cast<const IdentifierRedeclaration *>(error));
     }
-    else if (dynamic_cast<const UndeclaredVariable *>(error) != nullptr) {
-        printUndeclaredVariableError(static_cast<const UndeclaredVariable *>(error));
+    else if (dynamic_cast<const UndeclaredIdentifier *>(error) != nullptr) {
+        printUndeclaredIdentifierError(static_cast<const UndeclaredIdentifier *>(error));
     }
     else if (dynamic_cast<const ConstReassignment *>(error) != nullptr) {
         printConstReassignmentError(static_cast<const ConstReassignment *>(error));
@@ -94,7 +94,7 @@ void ErrorPrinter::printConstReassignmentError(const ConstReassignment *error) {
                                ANSI_RED}});
 }
 
-void ErrorPrinter::printVariableRedeclarationError(const VariableRedeclaration *error) {
+void ErrorPrinter::printIdentifierRedeclarationError(const IdentifierRedeclaration *error) {
     std::wstring message = formattedErrorMessage(error->code, error->messageArguments, error->token->line);
     wcout << message << "\n";
     printSourceLine(error->token->line,
@@ -105,7 +105,7 @@ void ErrorPrinter::printVariableRedeclarationError(const VariableRedeclaration *
                                ANSI_RED}});
 }
 
-void ErrorPrinter::printUndeclaredVariableError(const UndeclaredVariable *error) {
+void ErrorPrinter::printUndeclaredIdentifierError(const UndeclaredIdentifier *error) {
     std::wstring message = formattedErrorMessage(error->code, error->messageArguments, error->name->line);
     wcout << message << "\n";
     printSourceLine(error->name->line,

@@ -54,8 +54,8 @@ add_executable(baklava main.cpp
         src/interpreter/Environment.cpp
         src/interpreter/Environment.h
         src/parser/ast/expressions/AssignmentExpression.h
-        src/error/exceptions/VariableRedeclaration.h
-        src/error/exceptions/UndeclaredVariable.h
+        src/error/exceptions/IdentifierRedeclaration.h
+        src/error/exceptions/UndeclaredIdentifier.h
         src/error/exceptions/ConstReassignment.h
         src/error/exceptions/parser/InvalidLValue.h
         src/parser/ast/statements/BlockStatement.h

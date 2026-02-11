@@ -19,8 +19,8 @@
 #include "ExpectedXBeforeY.h"
 #include "ExpectedXAfterY.h"
 #include "UninitializedConst.h"
-#include "VariableRedeclaration.h"
-#include "UndeclaredVariable.h"
+#include "IdentifierRedeclaration.h"
+#include "UndeclaredIdentifier.h"
 #include "ConstReassignment.h"
 #include "InvalidLValue.h"
 #include "InvalidCall.h"
@@ -114,11 +114,11 @@ private:
     void printInvalidPropertyAccessError(const InvalidPropertyAccess* error);
     void printObjHasNoAttrError(const ObjHasNoAttr* error);
 
-    void printVariableRedeclarationError(const VariableRedeclaration* error);
+    void printIdentifierRedeclarationError(const IdentifierRedeclaration* error);
     void printExpectedXBeforeYError(const ExpectedXBeforeY* error);
     void printExpectedXAfterYError(const ExpectedXAfterY* error);
     void printUninitializedConstError(const UninitializedConst* error);
-    void printUndeclaredVariableError(const UndeclaredVariable* error);
+    void printUndeclaredIdentifierError(const UndeclaredIdentifier* error);
     void printConstReassignmentError(const ConstReassignment* error);
     void printInvalidLValue(const InvalidLValue* error);
     void printInvalidCallError(const InvalidCall* error);

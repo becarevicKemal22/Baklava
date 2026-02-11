@@ -148,7 +148,7 @@ void Resolver::declare(Token *name) {
 
     auto &scope = scopes.top();
     if (scope.find(name->value) != scope.end()) {
-        throw VariableRedeclaration(name);
+        throw IdentifierRedeclaration(name);
     }
     scope.insert({name->value, false});
 }
