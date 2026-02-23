@@ -234,8 +234,12 @@ void Resolver::resolveClassDeclarationStatement(ClassDeclarationStatement *state
     scopes.top().emplace(L"ova", true);
     scopes.top().emplace(L"ovi", true);
 
-    for (auto method : statement->methods) {
-        resolveFunction(method, FunctionType::METHOD);
+    for (auto method: statement->methods) {
+        FunctionType type = FunctionType::METHOD;
+        if (method->name->value == L"Konstruktor") {
+            type = ::FunctionType::KONSTRUKTOR;
+        }
+        resolveFunction(method, type);
     }
 
     endScope();
@@ -265,11 +269,11 @@ void Resolver::resolveWhileStatement(WhileStatement *statement) {
     // Ovo je ovdje bilo dok sam mislio da ce moci da se za step koriste razne vrste izraza, ali je sad svakako ograniceno
     // na brojcane literale. Ovo svakako nije ni radilo kada sam htio da budu svi izrazi podrzani, tako da ne pomislim
     // da je ovo nesto sto se samo moze ukljuciti i radit ce.
-//    if(statement->isForLoop){
-//        if(statement->forIncrement != nullptr){
-//            resolve(statement->forIncrement);
-//        }
-//    }
+    //    if(statement->isForLoop){
+    //        if(statement->forIncrement != nullptr){
+    //            resolve(statement->forIncrement);
+    //        }
+    //    }
     resolve(statement->condition);
     resolve(statement->body);
 }
@@ -279,6 +283,9 @@ void Resolver::resolveReturnStatement(ReturnStatement *statement) {
         throw InvalidReturnPosition(statement->keyword);
     }
     if (statement->value != nullptr) {
+        if (currentFunction == FunctionType::KONSTRUKTOR) {
+            throw ConstructorReturnWithValue(statement->keyword);
+        }
         resolve(statement->value);
     }
 }
@@ -348,10 +355,14 @@ void Resolver::resolveThisExpression(ThisExpression *expression) {
 }
 
 
-void Resolver::resolveNumericLiteralExpression(NumericLiteralExpression *expression) {}
+void Resolver::resolveNumericLiteralExpression(NumericLiteralExpression *expression) {
+}
 
-void Resolver::resolveStringLiteralExpression(StringLiteralExpression *expression) {}
+void Resolver::resolveStringLiteralExpression(StringLiteralExpression *expression) {
+}
 
-void Resolver::resolveBooleanLiteralExpression(BooleanLiteralExpression *expression) {}
+void Resolver::resolveBooleanLiteralExpression(BooleanLiteralExpression *expression) {
+}
 
-void Resolver::resolveNullLiteralExpression(NullLiteralExpression *expression) {}
+void Resolver::resolveNullLiteralExpression(NullLiteralExpression *expression) {
+}

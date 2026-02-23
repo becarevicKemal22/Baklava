@@ -280,12 +280,13 @@ void Interpreter::executeClassDeclarationStatement(ClassDeclarationStatement *st
     environments.top().define(stmt->name, {ValueType::Null}, false);
 
     std::unordered_map<std::wstring, RuntimeValue> methods;
-    for (auto method : stmt->methods) {
+    for (auto method: stmt->methods) {
         auto func = allocateFunctionObject(method);
         methods.insert({method->name->value, {ValueType::Object, {.object = (Object *) func}}});
     }
 
-    environments.top().assign(stmt->name, {ValueType::Object, {.object = (Object *) allocateClassObject(stmt, methods)}});
+    environments.top().assign(
+        stmt->name, {ValueType::Object, {.object = (Object *) allocateClassObject(stmt, methods)}});
 }
 
 void Interpreter::executeReturnStatement(ReturnStatement *stmt) {
@@ -382,7 +383,8 @@ RuntimeValue Interpreter::evaluate(Expression *expr) {
         case AstNodeType::GroupingExpression:
             return evaluate((static_cast<GroupingExpression *>(expr))->expr);
         case AstNodeType::VariableExpression:
-            return lookUpVariable(static_cast<VariableExpression *>(expr), static_cast<VariableExpression *>(expr)->name);
+            return lookUpVariable(static_cast<VariableExpression *>(expr),
+                                  static_cast<VariableExpression *>(expr)->name);
         case AstNodeType::AssignmentExpression:
             return evaluateAssignmentExpression(static_cast<AssignmentExpression *>(expr));
         case AstNodeType::CallExpression:
@@ -717,22 +719,24 @@ RuntimeValue Interpreter::evaluateIndexingExpression(IndexingExpression *expr) {
 }
 
 RuntimeValue Interpreter::evaluateGetExpression(GetExpression *expr) {
-    RuntimeValue object = evaluate(expr->object);
-    if (!IS_OBJ(object) || !IS_INSTANCE_OBJ(object)) {
-        throw InvalidPropertyAccess(expr->name, object);
+    RuntimeValue instance = evaluate(expr->object);
+    if (!IS_OBJ(instance) || !IS_INSTANCE_OBJ(instance)) {
+        throw InvalidPropertyAccess(expr->name, instance);
     }
 
-    if(auto val = AS_INSTANCE_OBJ(object)->fields.find(expr->name->value); val != AS_INSTANCE_OBJ(object)->fields.end()){
+    if (auto val = AS_INSTANCE_OBJ(instance)->fields.find(expr->name->value);
+        val != AS_INSTANCE_OBJ(instance)->fields.end()) {
         return val->second;
     }
 
-    if (auto method = AS_INSTANCE_OBJ(object)->klass->methods.find(expr->name->value); method != AS_INSTANCE_OBJ(object)->klass->methods.end()) {
-        Environment env(&(AS_FUNCTION_OBJ(method->second)->closure));
-        env.defineAndBindThis(object);
-        return {ValueType::Object, {.object = (Object *) allocateFunctionObject(AS_FUNCTION_OBJ(method->second)->declaration, &env)}};
+    if (auto methodIt = AS_INSTANCE_OBJ(instance)->klass->methods.find(expr->name->value);
+        methodIt != AS_INSTANCE_OBJ(instance)->klass->methods.end()) {
+        auto method = AS_FUNCTION_OBJ(methodIt->second);
+        return createFunctionWithBoundThis(method, instance);
     }
 
-    throw ObjHasNoAttr(expr->name, object); // eh fazon znaci treba bacati ovo ali je problem kako struktuirati poruku greske. U pythonu ide 'Obj' object has no attribute 'name'. Eh sad kako to prevesti, da li objekat tipa 'A' ili kako? MIslim onda se to bas opet ne poklapa sa onim da ce se refaktorisati kod kasnije da se koristi jedinstvena funkcija za stringifajanje tipova, a trebala bla bla cekaj ba pa i treba mi kao objekat tipa 'A instanca' nema polje tralala to je okej znaci treba koristit jedinstvenu funkcijui koju ja nemam yippie. Isto tako ne znam da li bi smio staviti kao instanca klase 'x' nema attribut mada to svakako nema smisla a pitanje je hoce li nekad kasnije postojati drugi tipovi koji koriste properties.
+    throw ObjHasNoAttr(expr->name, instance);
+    // eh fazon znaci treba bacati ovo ali je problem kako struktuirati poruku greske. U pythonu ide 'Obj' object has no attribute 'name'. Eh sad kako to prevesti, da li objekat tipa 'A' ili kako? MIslim onda se to bas opet ne poklapa sa onim da ce se refaktorisati kod kasnije da se koristi jedinstvena funkcija za stringifajanje tipova, a trebala bla bla cekaj ba pa i treba mi kao objekat tipa 'A instanca' nema polje tralala to je okej znaci treba koristit jedinstvenu funkcijui koju ja nemam yippie. Isto tako ne znam da li bi smio staviti kao instanca klase 'x' nema attribut mada to svakako nema smisla a pitanje je hoce li nekad kasnije postojati drugi tipovi koji koriste properties.
     // Takodjer da li ovo treba promijeniti sa attr na nesto drugo jer sad hendlujemo i atribute i metode? Da li su metode atributi?
 }
 
@@ -743,7 +747,8 @@ RuntimeValue Interpreter::evaluateSetExpression(SetExpression *expr) {
         throw InvalidPropertyAccess(expr->name, object);
     }
     RuntimeValue value = evaluate(expr->value);
-    ((ObjectInstance*)object.as.object)->fields[expr->name->value] = value; // check if this needs to be split into multiple variables in order to do some checks?
+    ((ObjectInstance *) object.as.object)->fields[expr->name->value] = value;
+    // check if this needs to be split into multiple variables in order to do some checks?
     // Actually it def will need to be split when slots are implemented so that the property name can be checked for existence
     // ovo za split sam mislio prije nego sto sam izdvojio value da ga mogu vratiti. Elem svakako ce za slots trebat i field provjeravat u posebnoj varijabli ili bez sa castom ugl provjeriti
     return value;
@@ -798,7 +803,7 @@ ObjectString *Interpreter::allocateStringObject(const std::wstring &value) {
     return obj;
 }
 
-ObjectFunction *Interpreter::allocateFunctionObject(FunctionDeclarationStatement *declaration, Environment* env) {
+ObjectFunction *Interpreter::allocateFunctionObject(FunctionDeclarationStatement *declaration, Environment *env) {
     invokeGarbageCollector();
 
     auto *obj = new ObjectFunction(declaration, env == nullptr ? &environments.top() : env);
@@ -806,6 +811,12 @@ ObjectFunction *Interpreter::allocateFunctionObject(FunctionDeclarationStatement
     objects = (Object *) obj;
     bytesAllocated += sizeof(ObjectFunction);
     return obj;
+}
+
+RuntimeValue Interpreter::createFunctionWithBoundThis(ObjectFunction *method, RuntimeValue instance) {
+    Environment env(&method->closure);
+    env.defineAndBindThis(instance);
+    return {ValueType::Object, {.object = (Object *) allocateFunctionObject(method->declaration, &env)}};
 }
 
 ObjectArray *Interpreter::allocateArrayObject(const std::vector<RuntimeValue> &elements) {
@@ -820,13 +831,19 @@ ObjectArray *Interpreter::allocateArrayObject(const std::vector<RuntimeValue> &e
     return obj;
 }
 
-ObjectClass *Interpreter::allocateClassObject(ClassDeclarationStatement *declaration, std::unordered_map<std::wstring, RuntimeValue> &methods) {
+ObjectClass *Interpreter::allocateClassObject(ClassDeclarationStatement *declaration,
+                                              std::unordered_map<std::wstring, RuntimeValue> &methods) {
     invokeGarbageCollector();
 
     auto *obj = new ObjectClass(declaration, methods);
-    obj->call = [obj](Interpreter *interpreter, const std::vector<RuntimeValue> &arguments) {
+    obj->call = [obj, this](Interpreter *interpreter, const std::vector<RuntimeValue> &arguments) {
         // interpreter->invokeGarbageCollector(); // I HAVE NO CLUE WHETHER THIS CAN MESS SOMETHING UP. ACTUALLY IT IS COMMENTED BECAUSE ALLOCATE INSTANCE OBJECT CALLS IT ITSELF????
-        return RuntimeValue{ValueType::Object, {.object = (Object *) interpreter->allocateInstanceObject(obj)}};
+
+        RuntimeValue instance = {ValueType::Object, {.object = (Object *) interpreter->allocateInstanceObject(obj)}};
+        if (auto konstruktor = obj->konstruktor) {
+            AS_FUNCTION_OBJ(createFunctionWithBoundThis(konstruktor, instance))->call(this, arguments);
+        }
+        return instance;
     };
     obj->obj.next = objects;
     objects = (Object *) obj;
@@ -848,6 +865,7 @@ ObjectInstance *Interpreter::allocateInstanceObject(ObjectClass *klass) {
 }
 
 void Interpreter::invokeGarbageCollector() {
+    return;
     if (disallowGC) {
 #if DEBUG_LOG_GC == 2
         std::wcout << L"bk: ---------- gc begin ---------" << std::endl;
@@ -884,13 +902,13 @@ void Interpreter::collectGarbage() {
 #if DEBUG_LOG_GC == 2
     std::wcout << L"bk: ---------- gc begin ---------" << std::endl;
     std::wcout << L"bk: ---------- marking ----------" << std::endl;
-//    size_t before = 0;
-//    size_t after = 0;
-//    for (Object *obj = objects; obj != nullptr; obj = obj->next) {
-//        after++;
-//    }
-//    std::wcout << L"Collected " << before - after << L" objects." << std::endl;
-//    std::wcout << L"-- gc end" << std::endl;
+    //    size_t before = 0;
+    //    size_t after = 0;
+    //    for (Object *obj = objects; obj != nullptr; obj = obj->next) {
+    //        after++;
+    //    }
+    //    std::wcout << L"Collected " << before - after << L" objects." << std::endl;
+    //    std::wcout << L"-- gc end" << std::endl;
 #endif
 
     // traverse objects linked list and delete each one JUST DEBUGGING
@@ -1079,9 +1097,9 @@ RuntimeError *Interpreter::reallocateError(RuntimeError *error) {
         handledError = new ConstructorNoNew(*dynamic_cast<ConstructorNoNew *>(error));
     } else if (dynamic_cast<ClassNotFound *>(error) != nullptr) {
         handledError = new ClassNotFound(*dynamic_cast<ClassNotFound *>(error));
-    } else if (dynamic_cast<InvalidPropertyAccess*>(error) != nullptr) {
+    } else if (dynamic_cast<InvalidPropertyAccess *>(error) != nullptr) {
         handledError = new InvalidPropertyAccess(*dynamic_cast<InvalidPropertyAccess *>(error));
-    } else if (dynamic_cast<ObjHasNoAttr*>(error) != nullptr) {
+    } else if (dynamic_cast<ObjHasNoAttr *>(error) != nullptr) {
         handledError = new ObjHasNoAttr(*dynamic_cast<ObjHasNoAttr *>(error));
     } else {
         throw std::runtime_error("ERROR REALLOCATION ERROR: Unknown error type");

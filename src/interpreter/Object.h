@@ -96,15 +96,23 @@ struct ObjectInstance {
 };
 
 struct ObjectClass : ObjectCallable {
-    explicit ObjectClass(const ClassDeclarationStatement* declaration, std::unordered_map<std::wstring, RuntimeValue> &passedMethods) {
+    explicit ObjectClass(const ClassDeclarationStatement *declaration,
+                         std::unordered_map<std::wstring, RuntimeValue> &passedMethods) {
         obj.type = ObjectType::OBJECT_CLASS;
         name = declaration->name->value;
-        arity = 0;
-        minArity = 0;
         methods = std::move(passedMethods);
-        // CALL WILL BE BOUND IN ALLOCATE CLASS OBJECT BECAUSE HERE IT COMPLICATES FORWARD DECLARATIONS AND STUFF
+        if (auto konstruktorIt = methods.find(L"Konstruktor"); konstruktorIt != methods.end()) {
+            konstruktor = AS_FUNCTION_OBJ(konstruktorIt->second);
+            methods.erase(konstruktorIt->first);
+        } else konstruktor = nullptr;
+        arity = konstruktor ? konstruktor->arity : 0;
+        minArity = konstruktor ? konstruktor->minArity : 0;
+        // CALL IS BE BOUND IN ALLOCATECLASSOBJECT BECAUSE HERE IT COMPLICATES FORWARD DECLARATIONS AND STUFF
     }
+
     std::unordered_map<std::wstring, RuntimeValue> methods;
+    ObjectFunction *konstruktor; // Ovo je jedini pokazivac na funkciju konstruktor, jer se brise iz liste metoda
+    // da se ne moze pozivati zasebno. U GC je potrebno voditi specijalnog racuna o njoj i odvojeno je markati nakon markanja svih metoda.
     std::wstring name;
 };
 

@@ -21,7 +21,8 @@ typedef std::stack<Scope> ScopeStack;
 enum class FunctionType {
     NONE,
     FUNCTION,
-    METHOD
+    METHOD,
+    KONSTRUKTOR
 };
 
 enum class ClassType {
@@ -120,7 +121,6 @@ private:
     void resolveSetExpression(SetExpression *expression);
 
     void resolveThisExpression(ThisExpression *expression);
-
 };
 
 

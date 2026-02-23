@@ -5,7 +5,7 @@ set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -DNDEBUG")
 set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -DDEBUG") # This was put here to disable the assert which checks native functions for disparities between expected default argument count and actual defaultArgument vector
 
-include_directories("src/interpreter/controlFlowExceptions" "src/lexer" "src/error" "src/error/exceptions/parser" "src/error/exceptions/lexer" "src/error/printer" "src/parser" "src/parser/ast/" "src/parser/ast/expressions" "src/parser/ast/statements" "src/interpreter/" "src/interpreter/runtimeValues" "src/error/exceptions" "src/interpreter/nativeFunctions" )
+include_directories("src/interpreter/controlFlowExceptions" "src/lexer" "src/error" "src/error/exceptions/parser" "src/error/exceptions/lexer" "src/error/printer" "src/parser" "src/parser/ast/" "src/parser/ast/expressions" "src/parser/ast/statements" "src/interpreter/" "src/interpreter/runtimeValues" "src/error/exceptions" "src/interpreter/nativeFunctions")
 add_executable(baklava main.cpp
         src/lexer/Lexer.cpp
         src/lexer/Lexer.h
@@ -101,6 +101,7 @@ add_executable(baklava main.cpp
         src/parser/ast/expressions/SetExpression.h
         src/parser/ast/expressions/ThisExpression.h
         src/error/exceptions/parser/InvalidThisPosition.h
+        src/error/exceptions/parser/InvalidReturnPosition.h
 )
 
 add_subdirectory(tests)

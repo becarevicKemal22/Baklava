@@ -42,10 +42,10 @@ public:
     void defineNativeFunctions();
 
     ~Interpreter() {
-        if(objects != nullptr){
-            Object* object = objects;
-            while(object != nullptr){
-                Object* next = object->next;
+        if (objects != nullptr) {
+            Object *object = objects;
+            while (object != nullptr) {
+                Object *next = object->next;
                 delete object;
                 object = next;
             }
@@ -78,19 +78,23 @@ public:
      * @param value value to be printed.
      * @param os output stream to print to. This is necessary for testing purposes, since that is the only time this function should not use wcout, hence that is the defaulted value.
      */
-    static void printValue(const RuntimeValue &value, std::wostream& os = std::wcout);
+    static void printValue(const RuntimeValue &value, std::wostream &os = std::wcout);
 
-    void resolve(const Expression *expr, int depth){
+    void resolve(const Expression *expr, int depth) {
         locals[expr] = depth;
     }
 
-    void executeBlock(const std::vector<StmtPtr> &statements, const Environment& environment);
+    void executeBlock(const std::vector<StmtPtr> &statements, const Environment &environment);
 
 
-    bool hadError = false; /**< Holds whether an error has occurred during the interpretation. Interpretation should stop if this is set to true. */
-    std::vector<Statement *> executedStatements; /**< List of pointers to all statements that have been executed. Only written to when DEBUG_TRACK_EXECUTION is set */
-    std::vector<RuntimeValue> printHistory; /**< List of all values that have been printed. Only written to when DEBUG_TRACK_PRINTING is set */
-    RuntimeError* handledError = nullptr; /**< Holds the last error that has been handled. No flags needed as this is only done when the program has to quit so performance is not an issue. Mainly used to check correct error throws during testing.*/
+    bool hadError = false;
+    /**< Holds whether an error has occurred during the interpretation. Interpretation should stop if this is set to true. */
+    std::vector<Statement *> executedStatements;
+    /**< List of pointers to all statements that have been executed. Only written to when DEBUG_TRACK_EXECUTION is set */
+    std::vector<RuntimeValue> printHistory;
+    /**< List of all values that have been printed. Only written to when DEBUG_TRACK_PRINTING is set */
+    RuntimeError *handledError = nullptr;
+    /**< Holds the last error that has been handled. No flags needed as this is only done when the program has to quit so performance is not an issue. Mainly used to check correct error throws during testing.*/
 
     bool isReturning = false;
     RuntimeValue returnedValue;
@@ -99,24 +103,36 @@ public:
     std::stack<Environment> environments;
 
     void invokeGarbageCollector();
+
     void collectGarbage();
+
     void markRoots();
-    void markValue(const RuntimeValue& value);
-    void markObject(Object* object);
-    std::stack<Object*> grayObjects;
+
+    void markValue(const RuntimeValue &value);
+
+    void markObject(Object *object);
+
+    std::stack<Object *> grayObjects;
+
     void traceReferences();
-    void blackenObject(Object* object);
+
+    void blackenObject(Object *object);
+
     void sweep();
-    void deleteObject(Object* object);
-    std::wstring getObjectLogString(Object* object);
-    bool disallowGC = false; /**< Forbids garbage collection while set to true. Used to pause GC while array elements are being potentially allocated. If this is not present, if the GC runs while the array has not yet been allocated but elements have, it causes SEGFAULTS when array goes out of scope or is deleted for any other reason. Probably causes other problems as well. */
+
+    void deleteObject(Object *object);
+
+    std::wstring getObjectLogString(Object *object);
+
+    bool disallowGC = false;
+    /**< Forbids garbage collection while set to true. Used to pause GC while array elements are being potentially allocated. If this is not present, if the GC runs while the array has not yet been allocated but elements have, it causes SEGFAULTS when array goes out of scope or is deleted for any other reason. Probably causes other problems as well. */
     size_t bytesAllocated = 0;
     size_t nextGC = 26214400; // 25MB
 
 private:
     friend class BaseFunctions;
 
-    std::unordered_map<const Expression*, int> locals;
+    std::unordered_map<const Expression *, int> locals;
 
     ErrorPrinter *errorPrinter;
 
@@ -181,14 +197,22 @@ private:
     Object *objects = nullptr;
 
     ObjectString *allocateStringObject(const std::wstring &value);
-    ObjectFunction *allocateFunctionObject(FunctionDeclarationStatement *declaration, Environment* env = nullptr); // ovaj parametar prije nije bio ovdje iz nekog razloga nego se samo uzimao environments.top() u tijelu funkcije. Ja nemam pojma da li je to smjelo tako da radi jer je u knjizi se prosljedjivao environment, mada mislim da se to svodilo na isti env kao i environments.top pa predpostavljam da sam to ja samo skratio tako. Medjutim sad sam dodao ovaj parametar sa default vrijednoscu jer mi treba pri radu sa this i metodama klasa da proslijedim ja env koji hocu.
+
+    ObjectFunction *allocateFunctionObject(FunctionDeclarationStatement *declaration, Environment *env = nullptr);
+
+    // ovaj parametar prije nije bio ovdje iz nekog razloga nego se samo uzimao environments.top() u tijelu funkcije. Ja nemam pojma da li je to smjelo tako da radi jer je u knjizi se prosljedjivao environment, mada mislim da se to svodilo na isti env kao i environments.top pa predpostavljam da sam to ja samo skratio tako. Medjutim sad sam dodao ovaj parametar sa default vrijednoscu jer mi treba pri radu sa this i metodama klasa da proslijedim ja env koji hocu.
+    RuntimeValue createFunctionWithBoundThis(ObjectFunction *method, RuntimeValue instance);
+
     ObjectArray *allocateArrayObject(const std::vector<RuntimeValue> &elements);
-    ObjectClass *allocateClassObject(ClassDeclarationStatement *declaration, std::unordered_map<std::wstring, RuntimeValue> &methods);
+
+    ObjectClass *allocateClassObject(ClassDeclarationStatement *declaration,
+                                     std::unordered_map<std::wstring, RuntimeValue> &methods);
+
     ObjectInstance *allocateInstanceObject(ObjectClass *klass);
 
     // Used to ensure that errors don't go out of scope when running tests, since the type needs to be checked on the handledError field.
     // This function just dynamically allocates a new error of the same type and returns it (so that handledError can be set and checked in tests).
-    RuntimeError* reallocateError(RuntimeError* error);
+    RuntimeError *reallocateError(RuntimeError *error);
 };
 
 #endif //BAKLAVA_INTERPRETER_H

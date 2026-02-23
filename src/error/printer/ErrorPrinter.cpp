@@ -376,6 +376,8 @@ void ErrorPrinter::printParserError(const ParserError *error) {
         printInvalidLValue(static_cast<const InvalidLValue *>(error));
     } else if (dynamic_cast<const InvalidReturnPosition *>(error) != nullptr) {
         printInvalidReturnPositionError(static_cast<const InvalidReturnPosition *>(error));
+    } else if (dynamic_cast<const ConstructorReturnWithValue *>(error) != nullptr) {
+        printConstructorReturnWithValue(static_cast<const ConstructorReturnWithValue *>(error));
     } else if (dynamic_cast<const SelfReferencingInitializer *>(error) != nullptr) {
         printSelfReferencingInitializerError(static_cast<const SelfReferencingInitializer *>(error));
     } else if (dynamic_cast<const InvalidDefaultParameterPosition *>(error) != nullptr) {
@@ -507,6 +509,28 @@ void ErrorPrinter::printInvalidReturnPositionError(const InvalidReturnPosition *
     printSquiggleSupportLine(error->token->line,
                              {{{error->token->offset, error->token->offset + getTokenValue(error->token).size() - 1},
                                ANSI_RED}});
+}
+
+void ErrorPrinter::printConstructorReturnWithValue(const ConstructorReturnWithValue *error) {
+    std::wstring message = formattedErrorMessage(error->code, error->messageArguments, error->token->line);
+    wcout << message << "\n";
+    printSourceLine(error->token->line,
+                    {
+                        {
+                            {error->token->offset, error->token->offset + getTokenValue(error->token).size() - 1},
+                            ANSI_RED
+                        }
+                    });
+    printSquiggleSupportLine(error->token->line,
+                             {
+                                 {
+                                     {
+                                         error->token->offset,
+                                         error->token->offset + getTokenValue(error->token).size() - 1
+                                     },
+                                     ANSI_RED
+                                 }
+                             });
 }
 
 void ErrorPrinter::printInvalidThisPositionError(const InvalidThisPosition *error) {
