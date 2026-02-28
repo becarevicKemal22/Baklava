@@ -84,7 +84,7 @@ public:
         locals[expr] = depth;
     }
 
-    void executeBlock(const std::vector<StmtPtr> &statements, const Environment &environment);
+    void executeBlock(const std::vector<StmtPtr> &statements, Environment &&environment);
 
 
     bool hadError = false;

@@ -221,7 +221,7 @@ void Interpreter::executeBlockStatement(BlockStatement *stmt) {
     executeBlock(stmt->statements, Environment(&environments.top()));
 }
 
-void Interpreter::executeBlock(const std::vector<Statement *> &statements, const Environment &environment) {
+void Interpreter::executeBlock(const std::vector<Statement *> &statements, Environment &&environment) {
     environments.push(environment);
     try {
         for (auto s: statements) {

@@ -25,10 +25,12 @@ void Environment::defineByNameString(const std::wstring& name, RuntimeValue valu
 }
 
 void Environment::defineAndBindThis(RuntimeValue instance) {
-    defineByNameString(L"ovo", instance, true);
-    defineByNameString(L"ovaj", instance, true);
-    defineByNameString(L"ova", instance, true);
-    defineByNameString(L"ovi", instance, true);
+    variables.insert({
+        {L"ovo", {instance, true}},
+        {L"ovaj", {instance, true}},
+        {L"ovi", {instance, true}},
+        {L"ova", {instance, true}}
+    });
 }
 
 
