@@ -22,6 +22,10 @@ std::wstring getRuntimeValueTypeString(const RuntimeValue &value) {
                 case ObjectType::OBJECT_FUNCTION:
                 case ObjectType::OBJECT_CALLABLE:
                     return L"funkcija";
+                case ObjectType::OBJECT_CLASS:
+                    return L"klasa";
+                case ObjectType::OBJECT_INSTANCE:
+                    return L"instanca";
                 default:
                     return L"nepoznat objekat";
             }

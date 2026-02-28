@@ -12,7 +12,7 @@ RuntimeValue ObjectFunction::functionCall(Interpreter* interpreter, const std::v
     for (int i = 0; i < arity; i++) {
         environment.define(declaration->parameters[i], arguments[i], false);
     }
-    interpreter->executeBlock(declaration->body, environment);
+    interpreter->executeBlock(declaration->body, std::move(environment));
     if(interpreter->isReturning){
         interpreter->isReturning = false;
         return interpreter->returnedValue;
@@ -27,9 +27,13 @@ std::wstring getObjectTypeName(ObjectType type){
         case ObjectType::OBJECT_CALLABLE:
             return L"callable";
         case ObjectType::OBJECT_FUNCTION:
-            return L"function";
+            return L"funkcija";
         case ObjectType::OBJECT_ARRAY:
             return L"array";
+        case ObjectType::OBJECT_CLASS:
+            return L"class";
+        case ObjectType::OBJECT_INSTANCE:
+            return L"instance";
     }
     return L"unknown";
 }

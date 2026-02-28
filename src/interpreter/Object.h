@@ -8,6 +8,7 @@
 #include <cstdint>
 #include <string>
 
+#include "ClassDeclarationStatement.h"
 #include "RuntimeValue.h"
 #include "FunctionDeclarationStatement.h"
 #include "Environment.h"
@@ -26,17 +27,25 @@
 #define AS_ARRAY_OBJ(value) ((ObjectArray*)value.as.object)
 #define GET_ARRAY_OBJ_ELEMENTS(val) (AS_ARRAY_OBJ(val)->elements)
 
-enum class ObjectType : uint8_t{
-  OBJECT_STRING,
-  OBJECT_CALLABLE,
-  OBJECT_FUNCTION,
-  OBJECT_ARRAY
+#define IS_CLASS_OBJ(value) ((value).as.object->type == ObjectType::OBJECT_CLASS)
+#define AS_CLASS_OBJ(value) ((ObjectClass*)value.as.object)
+
+#define IS_INSTANCE_OBJ(value) ((value).as.object->type == ObjectType::OBJECT_INSTANCE)
+#define AS_INSTANCE_OBJ(value) ((ObjectInstance*)value.as.object)
+
+enum class ObjectType : uint8_t {
+    OBJECT_STRING,
+    OBJECT_CALLABLE,
+    OBJECT_FUNCTION,
+    OBJECT_ARRAY,
+    OBJECT_CLASS,
+    OBJECT_INSTANCE,
 };
 
 struct Object {
     ObjectType type;
-    Object* next;
-    bool isMarked {false};
+    Object *next;
+    bool isMarked{false};
 };
 
 struct ObjectString {
@@ -49,7 +58,7 @@ struct ObjectCallable {
     size_t arity;
     size_t minArity;
     std::vector<RuntimeValue> defaultArguments; // refers to optional arguments and their values
-    std::function<RuntimeValue(Interpreter*, const std::vector<RuntimeValue>&)> call;
+    std::function<RuntimeValue(Interpreter *, const std::vector<RuntimeValue> &)> call;
 };
 
 struct ObjectArray {
@@ -59,18 +68,52 @@ struct ObjectArray {
 
 class Environment;
 
-struct ObjectFunction : public ObjectCallable {
-    FunctionDeclarationStatement* declaration;
+struct ObjectFunction : ObjectCallable {
+    FunctionDeclarationStatement *declaration;
     Environment closure;
-    RuntimeValue functionCall(Interpreter* interpreter, const std::vector<RuntimeValue>& arguments);
+
+    RuntimeValue functionCall(Interpreter *interpreter, const std::vector<RuntimeValue> &arguments);
+
     // Constructor, too scared to move it to the top of the struct
-    explicit ObjectFunction(FunctionDeclarationStatement* declaration, Environment* closure) : declaration(declaration){
+    explicit ObjectFunction(FunctionDeclarationStatement *declaration,
+                            Environment *closure) : declaration(declaration) {
         obj.type = ObjectType::OBJECT_FUNCTION;
         arity = declaration->parameters.size();
         minArity = arity - declaration->defaultParameters.size();
         this->closure = *closure;
-        call = [this](auto && PH1, auto && PH2) { return functionCall(std::forward<decltype(PH1)>(PH1), std::forward<decltype(PH2)>(PH2)); };
+        call = [this](auto &&PH1, auto &&PH2) {
+            return functionCall(std::forward<decltype(PH1)>(PH1), std::forward<decltype(PH2)>(PH2));
+        };
     }
+};
+
+struct ObjectClass;
+
+struct ObjectInstance {
+    Object obj;
+    ObjectClass *klass;
+    std::unordered_map<std::wstring, RuntimeValue> fields{};
+};
+
+struct ObjectClass : ObjectCallable {
+    explicit ObjectClass(const ClassDeclarationStatement *declaration,
+                         std::unordered_map<std::wstring, RuntimeValue> &passedMethods) {
+        obj.type = ObjectType::OBJECT_CLASS;
+        name = declaration->name->value;
+        methods = std::move(passedMethods);
+        if (auto konstruktorIt = methods.find(L"Konstruktor"); konstruktorIt != methods.end()) {
+            konstruktor = AS_FUNCTION_OBJ(konstruktorIt->second);
+            methods.erase(konstruktorIt->first);
+        } else konstruktor = nullptr;
+        arity = konstruktor ? konstruktor->arity : 0;
+        minArity = konstruktor ? konstruktor->minArity : 0;
+        // CALL IS BE BOUND IN ALLOCATECLASSOBJECT BECAUSE HERE IT COMPLICATES FORWARD DECLARATIONS AND STUFF
+    }
+
+    std::unordered_map<std::wstring, RuntimeValue> methods;
+    ObjectFunction *konstruktor; // Ovo je jedini pokazivac na funkciju konstruktor, jer se brise iz liste metoda
+    // da se ne moze pozivati zasebno. U GC je potrebno voditi specijalnog racuna o njoj i odvojeno je markati nakon markanja svih metoda.
+    std::wstring name;
 };
 
 /**
@@ -89,6 +132,6 @@ std::wstring getObjectTypeName(ObjectType type);
  * @param object The object to get the identifier of.
  * @return String representing the identifier of the object.
  */
-std::wstring getObjectIdentifier(Object* object);
+std::wstring getObjectIdentifier(Object *object);
 
 #endif //BAKLAVA_OBJECT_H

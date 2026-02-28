@@ -30,6 +30,10 @@
 #include "IfStatement.h"
 #include "ReturnStatement.h"
 #include "LogicalExpression.h"
+#include "ClassDeclarationStatement.h"
+#include "GetExpression.h"
+#include "ModifyStatement.h"
+#include "SetExpression.h"
 
 #define INDENTATION_PER_LEVEL 2
 
@@ -39,6 +43,15 @@ void printAST(std::unique_ptr<Program> &program) {
     std::wcout << L"Program" << std::endl;
     for (auto statement: program->statements) {
         printStatement(statement, 0);
+    }
+}
+
+void indent(int depth) {
+    for (int i = 0; i < depth * INDENTATION_PER_LEVEL; i++) {
+        if (i % INDENTATION_PER_LEVEL == 0 && i != 0)
+            std::wcout << L"|";
+        else
+            std::wcout << L" ";
     }
 }
 
@@ -118,12 +131,12 @@ void printFunctionDeclarationStatement(FunctionDeclarationStatement *statement, 
     }
 }
 
-void indent(int depth) {
-    for (int i = 0; i < depth * INDENTATION_PER_LEVEL; i++) {
-        if (i % INDENTATION_PER_LEVEL == 0 && i != 0)
-            std::wcout << L"|";
-        else
-            std::wcout << L" ";
+void printClassDeclarationStatement(ClassDeclarationStatement *statement, int depth) {
+    std::wcout << L"ClassDeclStmt( ";
+    std::wcout << statement->name->value << L" ) \n";
+    for (auto method: statement->methods) {
+        indent(depth + 1);
+        printFunctionDeclarationStatement(method, depth + 1);
     }
 }
 
@@ -250,6 +263,34 @@ void printStatement(Statement *statement, int depth) {
             }
             std::wcout << L" ) ";
             break;
+        case AstNodeType::ClassDeclarationStatement: {
+            printClassDeclarationStatement(static_cast<ClassDeclarationStatement *>(statement), depth);
+            break;
+        }
+        case AstNodeType::ModifyStatement: {
+            auto modifyStmt = static_cast<ModifyStatement *>(statement);
+            std::wcout << L"ModifyStmt( ";
+            std::wcout << modifyStmt->keyword->value << L" ";
+            printStatement(modifyStmt->lvalue, depth + 1);
+            std::wcout << L", ";
+            printStatement(modifyStmt->by, depth + 1);
+            std::wcout << L" ) ";
+            break;
+        }
+        case AstNodeType::GetExpression: {
+            std::wcout << L"GetExpr( ";
+            printStatement(static_cast<GetExpression *>(statement)->object, depth + 1);
+            std::wcout << L", " << static_cast<GetExpression *>(statement)->name->value << L" ) ";
+            break;
+        }
+        case AstNodeType::SetExpression: {
+            std::wcout << L"SetExpr( ";
+            printStatement(static_cast<SetExpression *>(statement)->object, depth + 1);
+            std::wcout << L", " << static_cast<SetExpression *>(statement)->name->value << L", ";
+            printStatement(static_cast<SetExpression *>(statement)->value, depth + 1);
+            std::wcout << L" ) ";
+            break;
+        }
         default:
             std::wcout << L"Unknown statement type in PrintAST" << std::endl;
     }

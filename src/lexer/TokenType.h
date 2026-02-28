@@ -67,6 +67,9 @@ enum class TokenType : uint8_t {
     Pomnozi,
     Podijeli,
     Sa,
+    Class,
+    New,
+    This,
     // New syntax keywords
     Jednako,
     Nije,

@@ -4,8 +4,8 @@
 
 #include <catch2/catch_test_macros.hpp>
 #include "Environment.h"
-#include "UndeclaredVariable.h"
-#include "VariableRedeclaration.h"
+#include "UndeclaredIdentifier.h"
+#include "IdentifierRedeclaration.h"
 #include "ConstReassignment.h"
 #include "Object.h"
 
@@ -72,14 +72,14 @@ TEST_CASE("Assigns string variable to another variable correctly", "[environment
 TEST_CASE("Throws error when getting undefined variable", "[environment]") {
     Environment env;
     Token *token = createMockToken(TokenType::Identifier, L"a");
-    REQUIRE_THROWS_AS(env.get(token), UndeclaredVariable);
+    REQUIRE_THROWS_AS(env.get(token), UndeclaredIdentifier);
 }
 
 TEST_CASE("Throws error when defining variable twice", "[environment]") {
     Environment env;
     Token *token = createMockToken(TokenType::Identifier, L"a");
     env.define(token, {ValueType::Number, {.number = 5}}, false);
-    REQUIRE_THROWS_AS(env.define(token, {ValueType::Number, {.number = 10}}, false), VariableRedeclaration);
+    REQUIRE_THROWS_AS(env.define(token, {ValueType::Number, {.number = 10}}, false), IdentifierRedeclaration);
 }
 
 TEST_CASE("Throws error on const reassignment", "[environment]") {
@@ -139,5 +139,5 @@ TEST_CASE("Throws on undefined variable in parent scopes", "[environment]"){
     Environment global;
     Environment local(&global);
     Token *token = createMockToken(TokenType::Identifier, L"a");
-    REQUIRE_THROWS_AS(local.get(token), UndeclaredVariable);
+    REQUIRE_THROWS_AS(local.get(token), UndeclaredIdentifier);
 }

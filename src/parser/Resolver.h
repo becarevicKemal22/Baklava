@@ -21,6 +21,13 @@ typedef std::stack<Scope> ScopeStack;
 enum class FunctionType {
     NONE,
     FUNCTION,
+    METHOD,
+    KONSTRUKTOR
+};
+
+enum class ClassType {
+    NONE,
+    CLASS
 };
 
 class Resolver {
@@ -43,6 +50,7 @@ private:
     ScopeStack scopes;
     Interpreter *interpreter;
     FunctionType currentFunction = FunctionType::NONE;
+    ClassType currentClass = ClassType::NONE;
 
     void beginScope() {
         scopes.emplace();
@@ -65,6 +73,8 @@ private:
     void resolveVarDeclarationStatement(VarDeclarationStatement *statement);
 
     void resolveFunctionDeclarationStatement(FunctionDeclarationStatement *statement);
+
+    void resolveClassDeclarationStatement(ClassDeclarationStatement *statement);
 
     void resolveExpressionStatement(ExpressionStatement *statement);
 
@@ -106,6 +116,11 @@ private:
 
     void resolveArrayLiteralExpression(ArrayLiteralExpression *expression);
 
+    void resolveGetExpression(GetExpression *expression);
+
+    void resolveSetExpression(SetExpression *expression);
+
+    void resolveThisExpression(ThisExpression *expression);
 };
 
 

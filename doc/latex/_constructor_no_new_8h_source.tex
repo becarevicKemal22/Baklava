@@ -1,0 +1,31 @@
+\doxysection{Constructor\+No\+New.\+h}
+\hypertarget{_constructor_no_new_8h_source}{}\label{_constructor_no_new_8h_source}\index{src/error/exceptions/ConstructorNoNew.h@{src/error/exceptions/ConstructorNoNew.h}}
+\mbox{\hyperlink{_constructor_no_new_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{//}}
+\DoxyCodeLine{00002\ \textcolor{comment}{//\ Created\ by\ kemal\ on\ 02-\/Jul-\/25.}}
+\DoxyCodeLine{00003\ \textcolor{comment}{//}}
+\DoxyCodeLine{00004\ }
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#ifndef\ CONSTRUCTORNONEW\_H}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#define\ CONSTRUCTORNONEW\_H}}
+\DoxyCodeLine{00007\ }
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_runtime_error_8h}{RuntimeError.h}}"{}}}
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_exception_helpers_8h}{ExceptionHelpers.h}}"{}}}
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_runtime_value_8h}{RuntimeValue.h}}"{}}}
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_expression_8h}{Expression.h}}"{}}}
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_object_8h}{Object.h}}"{}}}
+\DoxyCodeLine{00013\ }
+\DoxyCodeLine{00014\ }
+\DoxyCodeLine{00018\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_constructor_no_new}{ConstructorNoNew}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{class_runtime_error}{RuntimeError}}\ \{}
+\DoxyCodeLine{00019\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00020\ \ \ \ \ \mbox{\hyperlink{class_constructor_no_new_ac075e94fd6113590d7902e28445a202c}{ConstructorNoNew}}(\mbox{\hyperlink{class_expression}{Expression}}*\ expression,\ \mbox{\hyperlink{struct_runtime_value}{RuntimeValue}}\ classObj)\ :\ \mbox{\hyperlink{class_runtime_error}{RuntimeError}}(\mbox{\hyperlink{_error_code_8h_a59e56af19e754a6aa26a612ebf91d05f}{ErrorCode}}::\mbox{\hyperlink{_error_code_8h_a59e56af19e754a6aa26a612ebf91d05faf6edfe4be623091ac30e4d38c1606a65}{ERROR\_CONSTRUCTOR\_NO\_NEW}})\ \{}
+\DoxyCodeLine{00021\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ obj\ =\ \textcolor{keyword}{reinterpret\_cast<}\mbox{\hyperlink{struct_object_class}{ObjectClass}}*\textcolor{keyword}{>}(classObj.\mbox{\hyperlink{struct_runtime_value_aa8483e3ce601048c7a71115fe833b1eb}{as}}.\mbox{\hyperlink{struct_runtime_value_a85ce2db7e607276ee195a82dc3f7890d}{object}});}
+\DoxyCodeLine{00022\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_runtime_error_a5d005928ddf618703012ce4c1f8e3f03}{messageArguments}}.emplace\_back(obj-\/>name);}
+\DoxyCodeLine{00023\ \ \ \ \ \ \ \ \ this-\/>\mbox{\hyperlink{class_constructor_no_new_a8d59df1700c431aabbfa077f11361adc}{token}}\ =\ \mbox{\hyperlink{_exception_helpers_8cpp_a21dd8661b21077d61a64f924e346cecc}{getMostRelevantToken}}(expression);}
+\DoxyCodeLine{00024\ \ \ \ \ \}}
+\DoxyCodeLine{00025\ \ \ \ \ \mbox{\hyperlink{class_token}{Token}}*\ \mbox{\hyperlink{class_constructor_no_new_a8d59df1700c431aabbfa077f11361adc}{token}};}
+\DoxyCodeLine{00026\ \};}
+\DoxyCodeLine{00027\ }
+\DoxyCodeLine{00028\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//CONSTRUCTORNONEW\_H}}
+
+\end{DoxyCode}

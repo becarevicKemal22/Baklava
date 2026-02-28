@@ -11,12 +11,15 @@
 
 class CallExpression : public Expression {
 public:
-    CallExpression(ExprPtr callee, TokenPtr paren, std::vector<ExprPtr> arguments) : callee(callee), paren(paren), arguments(arguments) {
+    CallExpression(ExprPtr callee, TokenPtr paren, std::vector<ExprPtr> arguments, bool isNewPrefixed) : callee(callee),
+        paren(paren), arguments(arguments), isNewPrefixed(isNewPrefixed) {
         type = AstNodeType::CallExpression;
     }
+
     ExprPtr callee;
     TokenPtr paren;
     std::vector<ExprPtr> arguments;
+    const bool isNewPrefixed;
 };
 
 #endif //BAKLAVA_CALLEXPRESSION_H

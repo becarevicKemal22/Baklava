@@ -43,8 +43,8 @@ add_executable(tests ../src/error/printer/ErrorPrinter.cpp ../src/lexer/Lexer.cp
         ../src/interpreter/Environment.cpp
         ../src/interpreter/Environment.h
         ../src/parser/ast/expressions/AssignmentExpression.h
-        ../src/error/exceptions/VariableRedeclaration.h
-        ../src/error/exceptions/UndeclaredVariable.h
+        ../src/error/exceptions/IdentifierRedeclaration.h
+        ../src/error/exceptions/UndeclaredIdentifier.h
         ../src/error/exceptions/ConstReassignment.h
         environment/EnvironmentTest.cpp
         parser/ParserVariableExpressionTest.cpp
@@ -110,5 +110,16 @@ add_executable(tests ../src/error/printer/ErrorPrinter.cpp ../src/lexer/Lexer.cp
         ../src/error/exceptions/WrongTypeToStatement.h
         parser/ParserMultiplyDivideByStatementTest.cpp
         interpreter/InterpreterMultiplyDivideByStatementTest.cpp
+        ../src/parser/ast/statements/ClassDeclarationStatement.h
+        ../src/error/exceptions/ConstructorNoNew.h
+        ../src/error/exceptions/parser/InvalidNew.h
+        ../src/error/exceptions/ClassNotFound.h
+        ../src/parser/ast/expressions/GetExpression.h
+        ../src/error/exceptions/InvalidPropertyAccess.h
+        ../src/error/exceptions/ObjHasNoAttr.h
+        ../src/parser/ast/expressions/SetExpression.h
+        ../src/parser/ast/expressions/ThisExpression.h
+        ../src/error/exceptions/parser/InvalidThisPosition.h
+        ../src/error/exceptions/parser/InvalidReturnPosition.h
 )
 target_link_libraries(tests PRIVATE Catch2::Catch2WithMain)

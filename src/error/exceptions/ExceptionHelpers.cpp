@@ -17,6 +17,8 @@
 #include "IndexAssignmentExpression.h"
 #include "IndexingExpression.h"
 #include "ArrayLiteralExpression.h"
+#include "SetExpression.h"
+#include "GetExpression.h"
 
 Token* getMostRelevantToken(const Expression* expression) {
     if (expression->type == AstNodeType::BinaryExpression) {
@@ -74,6 +76,14 @@ Token* getMostRelevantToken(const Expression* expression) {
     if(expression->type == AstNodeType::ArrayLiteralExpression) {
         auto arrayLiteralExpression = static_cast<const ArrayLiteralExpression*>(expression);
         return arrayLiteralExpression->bracket;
+    }
+    if(expression->type == AstNodeType::SetExpression) {
+        auto setExpression = static_cast<const SetExpression*>(expression);
+        return setExpression->name;
+    }
+    if(expression->type == AstNodeType::GetExpression) {
+        auto getExpression = static_cast<const GetExpression*>(expression);
+        return getExpression->name;
     }
     throw std::runtime_error("INTERNAL ERROR IN GET MOST RELEVANT TOKEN: Unknown expression type");
 }

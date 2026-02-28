@@ -46,6 +46,8 @@
 #include "ArrayLiteralExpression.h"
 #include "IndexingExpression.h"
 #include "IndexAssignmentExpression.h"
+#include "GetExpression.h"
+#include "SetExpression.h"
 
 #include "BaseFunctions.h"
 
@@ -62,6 +64,10 @@
 #include "IndexOutOfBounds.h"
 #include "NonIntegerIndex.h"
 #include "IndexingNonArray.h"
+#include "ConstructorNoNew.h"
+#include "ClassNotFound.h"
+#include "InvalidPropertyAccess.h"
+#include "ObjHasNoAttr.h"
 
 #include <iostream>
 #include <cmath>
@@ -69,7 +75,9 @@
 #include <sstream>
 #include <cassert>
 
+#include "ClassDeclarationStatement.h"
 #include "ModifyStatement.h"
+#include "ThisExpression.h"
 #include "WrongTypeToStatement.h"
 
 void Interpreter::defineNativeFunctions() {
@@ -126,6 +134,9 @@ void Interpreter::execute(Statement *stmt) {
         case AstNodeType::ModifyStatement:
             executeModifyStatement(static_cast<ModifyStatement *>(stmt));
             return;
+        case AstNodeType::ClassDeclarationStatement:
+            executeClassDeclarationStatement(static_cast<ClassDeclarationStatement *>(stmt));
+            return;
         default:
             throw std::runtime_error("Unknown statement type");
     }
@@ -178,10 +189,20 @@ void Interpreter::printValue(const RuntimeValue &value, std::wostream &os) {
             } else if (IS_CALLABLE_OBJ(value)) {
                 os << L"<funkcija>";
                 return;
+            } else if (IS_CLASS_OBJ(value)) {
+                os << L"<klasa ";
+                os << AS_CLASS_OBJ(value)->name;
+                os << L">";
+                return;
+            } else if (IS_INSTANCE_OBJ(value)) {
+                os << "<";
+                os << AS_INSTANCE_OBJ(value)->klass->name;
+                os << L" instanca>";
+                return;
             }
-            throw "PRINT NOT YET IMPLEMENTED FOR THIS OBJECT TYPE!";
+            throw std::runtime_error("PRINT NOT YET IMPLEMENTED FOR THIS OBJECT TYPE!");
         default:
-            throw "UNKNOWN TYPE TO PRINT";
+            throw std::runtime_error("UNKNOWN TYPE TO PRINT");
     }
 }
 
@@ -200,7 +221,7 @@ void Interpreter::executeBlockStatement(BlockStatement *stmt) {
     executeBlock(stmt->statements, Environment(&environments.top()));
 }
 
-void Interpreter::executeBlock(const std::vector<Statement *> &statements, const Environment &environment) {
+void Interpreter::executeBlock(const std::vector<Statement *> &statements, Environment &&environment) {
     environments.push(environment);
     try {
         for (auto s: statements) {
@@ -253,6 +274,19 @@ void Interpreter::executeWhileStatement(WhileStatement *stmt) {
 void Interpreter::executeFunctionDeclarationStatement(FunctionDeclarationStatement *stmt) {
     environments.top().define(stmt->name, {ValueType::Object, {.object = (Object *) allocateFunctionObject(stmt)}},
                               false);
+}
+
+void Interpreter::executeClassDeclarationStatement(ClassDeclarationStatement *stmt) {
+    environments.top().define(stmt->name, {ValueType::Null}, false);
+
+    std::unordered_map<std::wstring, RuntimeValue> methods;
+    for (auto method: stmt->methods) {
+        auto func = allocateFunctionObject(method);
+        methods.insert({method->name->value, {ValueType::Object, {.object = (Object *) func}}});
+    }
+
+    environments.top().assign(
+        stmt->name, {ValueType::Object, {.object = (Object *) allocateClassObject(stmt, methods)}});
 }
 
 void Interpreter::executeReturnStatement(ReturnStatement *stmt) {
@@ -349,7 +383,8 @@ RuntimeValue Interpreter::evaluate(Expression *expr) {
         case AstNodeType::GroupingExpression:
             return evaluate((static_cast<GroupingExpression *>(expr))->expr);
         case AstNodeType::VariableExpression:
-            return lookUpVariable(static_cast<VariableExpression *>(expr));
+            return lookUpVariable(static_cast<VariableExpression *>(expr),
+                                  static_cast<VariableExpression *>(expr)->name);
         case AstNodeType::AssignmentExpression:
             return evaluateAssignmentExpression(static_cast<AssignmentExpression *>(expr));
         case AstNodeType::CallExpression:
@@ -360,6 +395,12 @@ RuntimeValue Interpreter::evaluate(Expression *expr) {
             return evaluateIndexingExpression(static_cast<IndexingExpression *>(expr));
         case AstNodeType::IndexAssignmentExpression:
             return evaluateIndexAssignmentExpression(static_cast<IndexAssignmentExpression *>(expr));
+        case AstNodeType::GetExpression:
+            return evaluateGetExpression(static_cast<GetExpression *>(expr));
+        case AstNodeType::SetExpression:
+            return evaluateSetExpression(static_cast<SetExpression *>(expr));
+        case AstNodeType::ThisExpression:
+            return evaluateThisExpression(static_cast<ThisExpression *>(expr));
         default:
             throw std::runtime_error("Unknown expression type in interpreter");
     }
@@ -481,7 +522,7 @@ RuntimeValue Interpreter::evaluateBinaryExpression(BinaryExpression *expr) {
 // Nek stoji ovdje funkcija jos ali je sad u switchu samo lookupVariable
 //
 RuntimeValue Interpreter::evaluateVariableExpression(VariableExpression *expr) {
-    return lookUpVariable(expr);
+    return lookUpVariable(expr, expr->name);
 }
 
 RuntimeValue Interpreter::evaluateAssignmentExpression(AssignmentExpression *expr) {
@@ -574,6 +615,7 @@ RuntimeValue Interpreter::evaluateStringLiteralExpression(StringLiteralExpressio
     return {ValueType::Object, {.object = (Object *) (allocateStringObject(expr->value))}};
 }
 
+// used for class instantiation as well since class inherits from callable
 RuntimeValue Interpreter::evaluateCallExpression(CallExpression *expr) {
     RuntimeValue callee = evaluate(expr->callee);
 
@@ -587,8 +629,14 @@ RuntimeValue Interpreter::evaluateCallExpression(CallExpression *expr) {
     if (!IS_OBJ(callee)) {
         throw InvalidCall(callee, getMostRelevantToken(expr->callee));
     }
-    if (!IS_CALLABLE_OBJ(callee) && !IS_FUNCTION_OBJ(callee)) {
+    if (!IS_CALLABLE_OBJ(callee) && !IS_FUNCTION_OBJ(callee) && !IS_CLASS_OBJ(callee)) {
         throw InvalidCall(callee, getMostRelevantToken(expr->callee));
+    }
+    if (expr->isNewPrefixed && !IS_CLASS_OBJ(callee)) {
+        throw ClassNotFound(expr->callee);
+    }
+    if (!expr->isNewPrefixed && IS_CLASS_OBJ(callee)) {
+        throw ConstructorNoNew(expr, callee);
     }
 
     ObjectCallable *callable = AS_CALLABLE_OBJ(
@@ -670,6 +718,46 @@ RuntimeValue Interpreter::evaluateIndexingExpression(IndexingExpression *expr) {
     return elements[(size_t) index.as.number];
 }
 
+RuntimeValue Interpreter::evaluateGetExpression(GetExpression *expr) {
+    RuntimeValue instance = evaluate(expr->object);
+    if (!IS_OBJ(instance) || !IS_INSTANCE_OBJ(instance)) {
+        throw InvalidPropertyAccess(expr->name, instance);
+    }
+
+    if (auto val = AS_INSTANCE_OBJ(instance)->fields.find(expr->name->value);
+        val != AS_INSTANCE_OBJ(instance)->fields.end()) {
+        return val->second;
+    }
+
+    if (auto methodIt = AS_INSTANCE_OBJ(instance)->klass->methods.find(expr->name->value);
+        methodIt != AS_INSTANCE_OBJ(instance)->klass->methods.end()) {
+        auto method = AS_FUNCTION_OBJ(methodIt->second);
+        return createFunctionWithBoundThis(method, instance);
+    }
+
+    throw ObjHasNoAttr(expr->name, instance);
+    // eh fazon znaci treba bacati ovo ali je problem kako struktuirati poruku greske. U pythonu ide 'Obj' object has no attribute 'name'. Eh sad kako to prevesti, da li objekat tipa 'A' ili kako? MIslim onda se to bas opet ne poklapa sa onim da ce se refaktorisati kod kasnije da se koristi jedinstvena funkcija za stringifajanje tipova, a trebala bla bla cekaj ba pa i treba mi kao objekat tipa 'A instanca' nema polje tralala to je okej znaci treba koristit jedinstvenu funkcijui koju ja nemam yippie. Isto tako ne znam da li bi smio staviti kao instanca klase 'x' nema attribut mada to svakako nema smisla a pitanje je hoce li nekad kasnije postojati drugi tipovi koji koriste properties.
+    // Takodjer da li ovo treba promijeniti sa attr na nesto drugo jer sad hendlujemo i atribute i metode? Da li su metode atributi?
+}
+
+RuntimeValue Interpreter::evaluateSetExpression(SetExpression *expr) {
+    RuntimeValue object = evaluate(expr->object);
+
+    if (!IS_OBJ(object) || !IS_INSTANCE_OBJ(object)) {
+        throw InvalidPropertyAccess(expr->name, object);
+    }
+    RuntimeValue value = evaluate(expr->value);
+    ((ObjectInstance *) object.as.object)->fields[expr->name->value] = value;
+    // check if this needs to be split into multiple variables in order to do some checks?
+    // Actually it def will need to be split when slots are implemented so that the property name can be checked for existence
+    // ovo za split sam mislio prije nego sto sam izdvojio value da ga mogu vratiti. Elem svakako ce za slots trebat i field provjeravat u posebnoj varijabli ili bez sa castom ugl provjeriti
+    return value;
+}
+
+RuntimeValue Interpreter::evaluateThisExpression(ThisExpression *expr) {
+    return lookUpVariable(expr, expr->token);
+}
+
 bool Interpreter::isTruthy(const RuntimeValue &value) {
     switch (value.type) {
         case ValueType::Boolean:
@@ -715,14 +803,20 @@ ObjectString *Interpreter::allocateStringObject(const std::wstring &value) {
     return obj;
 }
 
-ObjectFunction *Interpreter::allocateFunctionObject(FunctionDeclarationStatement *declaration) {
+ObjectFunction *Interpreter::allocateFunctionObject(FunctionDeclarationStatement *declaration, Environment *env) {
     invokeGarbageCollector();
 
-    auto *obj = new ObjectFunction(declaration, &environments.top());
+    auto *obj = new ObjectFunction(declaration, env == nullptr ? &environments.top() : env);
     obj->obj.next = objects;
     objects = (Object *) obj;
     bytesAllocated += sizeof(ObjectFunction);
     return obj;
+}
+
+RuntimeValue Interpreter::createFunctionWithBoundThis(ObjectFunction *method, RuntimeValue instance) {
+    Environment env(&method->closure);
+    env.defineAndBindThis(instance);
+    return {ValueType::Object, {.object = (Object *) allocateFunctionObject(method->declaration, &env)}};
 }
 
 ObjectArray *Interpreter::allocateArrayObject(const std::vector<RuntimeValue> &elements) {
@@ -737,12 +831,46 @@ ObjectArray *Interpreter::allocateArrayObject(const std::vector<RuntimeValue> &e
     return obj;
 }
 
+ObjectClass *Interpreter::allocateClassObject(ClassDeclarationStatement *declaration,
+                                              std::unordered_map<std::wstring, RuntimeValue> &methods) {
+    invokeGarbageCollector();
+
+    auto *obj = new ObjectClass(declaration, methods);
+    obj->call = [obj, this](Interpreter *interpreter, const std::vector<RuntimeValue> &arguments) {
+        // interpreter->invokeGarbageCollector(); // I HAVE NO CLUE WHETHER THIS CAN MESS SOMETHING UP. ACTUALLY IT IS COMMENTED BECAUSE ALLOCATE INSTANCE OBJECT CALLS IT ITSELF????
+
+        RuntimeValue instance = {ValueType::Object, {.object = (Object *) interpreter->allocateInstanceObject(obj)}};
+        if (auto konstruktor = obj->konstruktor) {
+            AS_FUNCTION_OBJ(createFunctionWithBoundThis(konstruktor, instance))->call(this, arguments);
+        }
+        return instance;
+    };
+    obj->obj.next = objects;
+    objects = (Object *) obj;
+    bytesAllocated += sizeof(ObjectClass);
+    // obj->methods = std::move(methods); prije je ovako bilo sad prosljedjujem u konstruktor. Ne bi trebalo praviti razliku?
+    return obj;
+}
+
+ObjectInstance *Interpreter::allocateInstanceObject(ObjectClass *klass) {
+    invokeGarbageCollector(); // THIS OK???? IDK IF IT CAN DELETE SOMETHING IN THE MEANTIME
+
+    auto *obj = new ObjectInstance();
+    obj->obj.type = ObjectType::OBJECT_INSTANCE;
+    obj->klass = klass;
+    obj->obj.next = objects;
+    objects = (Object *) obj;
+    bytesAllocated += sizeof(ObjectInstance);
+    return obj;
+}
+
 void Interpreter::invokeGarbageCollector() {
+    return;
     if (disallowGC) {
 #if DEBUG_LOG_GC == 2
-        //        std::wcout << L"bk: ---------- gc begin ---------" << std::endl;
-        //        std::wcout << L"bk: GC disallowed" << std::endl;
-        //        std::wcout << L"bk: ---------- gc end -----------\n" << std::endl;
+        std::wcout << L"bk: ---------- gc begin ---------" << std::endl;
+        std::wcout << L"bk: GC disallowed" << std::endl;
+        std::wcout << L"bk: ---------- gc end -----------\n" << std::endl;
 #endif
         return;
     }
@@ -774,13 +902,13 @@ void Interpreter::collectGarbage() {
 #if DEBUG_LOG_GC == 2
     std::wcout << L"bk: ---------- gc begin ---------" << std::endl;
     std::wcout << L"bk: ---------- marking ----------" << std::endl;
-//    size_t before = 0;
-//    size_t after = 0;
-//    for (Object *obj = objects; obj != nullptr; obj = obj->next) {
-//        after++;
-//    }
-//    std::wcout << L"Collected " << before - after << L" objects." << std::endl;
-//    std::wcout << L"-- gc end" << std::endl;
+    //    size_t before = 0;
+    //    size_t after = 0;
+    //    for (Object *obj = objects; obj != nullptr; obj = obj->next) {
+    //        after++;
+    //    }
+    //    std::wcout << L"Collected " << before - after << L" objects." << std::endl;
+    //    std::wcout << L"-- gc end" << std::endl;
 #endif
 
     // traverse objects linked list and delete each one JUST DEBUGGING
@@ -951,10 +1079,10 @@ RuntimeError *Interpreter::reallocateError(RuntimeError *error) {
         handledError = new TooManyArguments(*dynamic_cast<TooManyArguments *>(error));
     } else if (dynamic_cast<TooFewArguments *>(error) != nullptr) {
         handledError = new TooFewArguments(*dynamic_cast<TooFewArguments *>(error));
-    } else if (dynamic_cast<UndeclaredVariable *>(error) != nullptr) {
-        handledError = new UndeclaredVariable(*dynamic_cast<UndeclaredVariable *>(error));
-    } else if (dynamic_cast<VariableRedeclaration *>(error) != nullptr) {
-        handledError = new VariableRedeclaration(*dynamic_cast<VariableRedeclaration *>(error));
+    } else if (dynamic_cast<UndeclaredIdentifier *>(error) != nullptr) {
+        handledError = new UndeclaredIdentifier(*dynamic_cast<UndeclaredIdentifier *>(error));
+    } else if (dynamic_cast<IdentifierRedeclaration *>(error) != nullptr) {
+        handledError = new IdentifierRedeclaration(*dynamic_cast<IdentifierRedeclaration *>(error));
     } else if (dynamic_cast<ConstReassignment *>(error) != nullptr) {
         handledError = new ConstReassignment(*dynamic_cast<ConstReassignment *>(error));
     } else if (dynamic_cast<IndexOutOfBounds *>(error) != nullptr) {
@@ -965,16 +1093,24 @@ RuntimeError *Interpreter::reallocateError(RuntimeError *error) {
         handledError = new IndexingNonArray(*dynamic_cast<IndexingNonArray *>(error));
     } else if (dynamic_cast<WrongTypeToStatement *>(error) != nullptr) {
         handledError = new WrongTypeToStatement(*dynamic_cast<WrongTypeToStatement *>(error));
+    } else if (dynamic_cast<ConstructorNoNew *>(error) != nullptr) {
+        handledError = new ConstructorNoNew(*dynamic_cast<ConstructorNoNew *>(error));
+    } else if (dynamic_cast<ClassNotFound *>(error) != nullptr) {
+        handledError = new ClassNotFound(*dynamic_cast<ClassNotFound *>(error));
+    } else if (dynamic_cast<InvalidPropertyAccess *>(error) != nullptr) {
+        handledError = new InvalidPropertyAccess(*dynamic_cast<InvalidPropertyAccess *>(error));
+    } else if (dynamic_cast<ObjHasNoAttr *>(error) != nullptr) {
+        handledError = new ObjHasNoAttr(*dynamic_cast<ObjHasNoAttr *>(error));
     } else {
         throw std::runtime_error("ERROR REALLOCATION ERROR: Unknown error type");
     }
     return handledError;
 }
 
-RuntimeValue Interpreter::lookUpVariable(const VariableExpression *expr) {
+RuntimeValue Interpreter::lookUpVariable(const Expression *expr, TokenPtr name) {
     auto distance = locals.find(expr);
     if (distance != locals.end()) {
-        return environments.top().getAt(distance->second, expr->name->value);
+        return environments.top().getAt(distance->second, name->value);
     }
-    return globals->get(expr->name);
+    return globals->get(name);
 }

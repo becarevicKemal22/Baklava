@@ -14,8 +14,8 @@
 #include "ExpectedXAfterY.h"
 #include "UninitializedConst.h"
 #include "ParserError.h"
-#include "VariableRedeclaration.h"
-#include "UndeclaredVariable.h"
+#include "IdentifierRedeclaration.h"
+#include "UndeclaredIdentifier.h"
 #include "ConstReassignment.h"
 #include "InvalidDefaultParameterPosition.h"
 #include "InvalidDefaultParameterValue.h"
@@ -37,40 +37,51 @@ void ErrorPrinter::printRuntimeError(const RuntimeError *error) {
     if (dynamic_cast<const WrongTypeError *>(error) != nullptr) {
         printWrongTypeError(static_cast<const WrongTypeError *>(error));
     }
-    if (dynamic_cast<const WrongBinaryOperandTypes *>(error) != nullptr) {
+    else if (dynamic_cast<const WrongBinaryOperandTypes *>(error) != nullptr) {
         printWrongBinaryOperandTypeError(static_cast<const WrongBinaryOperandTypes *>(error));
     }
-    if (dynamic_cast<const VariableRedeclaration *>(error) != nullptr) {
-        printVariableRedeclarationError(static_cast<const VariableRedeclaration *>(error));
+    else if (dynamic_cast<const IdentifierRedeclaration *>(error) != nullptr) {
+        printIdentifierRedeclarationError(static_cast<const IdentifierRedeclaration *>(error));
     }
-    if (dynamic_cast<const UndeclaredVariable *>(error) != nullptr) {
-        printUndeclaredVariableError(static_cast<const UndeclaredVariable *>(error));
+    else if (dynamic_cast<const UndeclaredIdentifier *>(error) != nullptr) {
+        printUndeclaredIdentifierError(static_cast<const UndeclaredIdentifier *>(error));
     }
-    if (dynamic_cast<const ConstReassignment *>(error) != nullptr) {
+    else if (dynamic_cast<const ConstReassignment *>(error) != nullptr) {
         printConstReassignmentError(static_cast<const ConstReassignment *>(error));
     }
-    if (dynamic_cast<const InvalidCall *>(error) != nullptr) {
+    else if (dynamic_cast<const InvalidCall *>(error) != nullptr) {
         printInvalidCallError(static_cast<const InvalidCall *>(error));
     }
-    if (dynamic_cast<const TooManyArguments *>(error) != nullptr) {
+    else if (dynamic_cast<const TooManyArguments *>(error) != nullptr) {
         printTooManyArgumentsError(static_cast<const TooManyArguments *>(error));
     }
-    if (dynamic_cast<const TooFewArguments *>(error) != nullptr) {
+    else if (dynamic_cast<const TooFewArguments *>(error) != nullptr) {
         printTooFewArgumentsError(static_cast<const TooFewArguments *>(error));
     }
-    if (dynamic_cast<const IndexOutOfBounds *>(error) != nullptr) {
+    else if (dynamic_cast<const IndexOutOfBounds *>(error) != nullptr) {
         printIndexOutOfBoundsError(static_cast<const IndexOutOfBounds *>(error));
     }
-    if (dynamic_cast<const NonIntegerIndex *>(error) != nullptr) {
+    else if (dynamic_cast<const NonIntegerIndex *>(error) != nullptr) {
         printNonIntegerIndexError(static_cast<const NonIntegerIndex *>(error));
     }
-    if (dynamic_cast<const IndexingNonArray *>(error) != nullptr) {
+    else if (dynamic_cast<const IndexingNonArray *>(error) != nullptr) {
         printIndexingNonArrayError(static_cast<const IndexingNonArray *>(error));
     }
-    if (dynamic_cast<const WrongTypeToStatement *>(error) != nullptr) {
+    else if (dynamic_cast<const WrongTypeToStatement *>(error) != nullptr) {
         printWrongTypeToStatementError(static_cast<const WrongTypeToStatement *>(error));
     }
-    std::wcout << "\n";
+    else if (dynamic_cast<const ConstructorNoNew *>(error) != nullptr) {
+        printConstructorNoNewError(static_cast<const ConstructorNoNew *>(error));
+    } else if (dynamic_cast<const ClassNotFound *>(error) != nullptr) {
+        printClassNotFoundError(static_cast<const ClassNotFound *>(error));
+    } else if (dynamic_cast<const InvalidPropertyAccess*>(error) != nullptr) {
+        printInvalidPropertyAccessError(static_cast<const InvalidPropertyAccess*>(error));
+    } else if (dynamic_cast<const ObjHasNoAttr*>(error) != nullptr) {
+        printObjHasNoAttrError(static_cast<const ObjHasNoAttr*>(error));
+    } else {
+        wcout << L"INTERNAL ERROR: UNKNOWN RUNTIME ERROR TYPE\n";
+    }
+    wcout << "\n";
 }
 
 void ErrorPrinter::printConstReassignmentError(const ConstReassignment *error) {
@@ -83,7 +94,7 @@ void ErrorPrinter::printConstReassignmentError(const ConstReassignment *error) {
                                ANSI_RED}});
 }
 
-void ErrorPrinter::printVariableRedeclarationError(const VariableRedeclaration *error) {
+void ErrorPrinter::printIdentifierRedeclarationError(const IdentifierRedeclaration *error) {
     std::wstring message = formattedErrorMessage(error->code, error->messageArguments, error->token->line);
     wcout << message << "\n";
     printSourceLine(error->token->line,
@@ -94,7 +105,7 @@ void ErrorPrinter::printVariableRedeclarationError(const VariableRedeclaration *
                                ANSI_RED}});
 }
 
-void ErrorPrinter::printUndeclaredVariableError(const UndeclaredVariable *error) {
+void ErrorPrinter::printUndeclaredIdentifierError(const UndeclaredIdentifier *error) {
     std::wstring message = formattedErrorMessage(error->code, error->messageArguments, error->name->line);
     wcout << message << "\n";
     printSourceLine(error->name->line,
@@ -307,6 +318,46 @@ void ErrorPrinter::printWrongTypeToStatementError(const WrongTypeToStatement *er
     }
 }
 
+void ErrorPrinter::printConstructorNoNewError(const ConstructorNoNew *error) {
+    std::wstring message = formattedErrorMessage(error->code, error->messageArguments, error->token->line);
+    wcout << message << "\n";
+    printSourceLine(error->token->line,
+                    {{{error->token->offset, error->token->offset + getTokenValue(error->token).size() - 1}, ANSI_RED}});
+    printSquiggleSupportLine(error->token->line,
+                             {{{error->token->offset, error->token->offset + getTokenValue(error->token).size() - 1},
+                               ANSI_RED}});
+}
+
+void ErrorPrinter::printClassNotFoundError(const ClassNotFound *error) {
+    std::wstring message = formattedErrorMessage(error->code, error->messageArguments, error->token->line);
+    wcout << message << "\n";
+    printSourceLine(error->token->line,
+                    {{{error->token->offset, error->token->offset + getTokenValue(error->token).size() - 1}, ANSI_RED}});
+    printSquiggleSupportLine(error->token->line,
+                             {{{error->token->offset, error->token->offset + getTokenValue(error->token).size() - 1},
+                               ANSI_RED}});
+}
+
+void ErrorPrinter::printInvalidPropertyAccessError(const InvalidPropertyAccess *error) {
+    std::wstring message = formattedErrorMessage(error->code, error->messageArguments, error->token->line);
+    wcout << message << "\n";
+    printSourceLine(error->token->line,
+                    {{{error->token->offset, error->token->offset + getTokenValue(error->token).size() - 1}, ANSI_RED}});
+    printSquiggleSupportLine(error->token->line,
+                             {{{error->token->offset, error->token->offset + getTokenValue(error->token).size() - 1},
+                               ANSI_RED}});
+}
+
+void ErrorPrinter::printObjHasNoAttrError(const ObjHasNoAttr *error) {
+    std::wstring message = formattedErrorMessage(error->code, error->messageArguments, error->token->line);
+    wcout << message << "\n";
+    printSourceLine(error->token->line,
+                    {{{error->token->offset, error->token->offset + getTokenValue(error->token).size() - 1}, ANSI_RED}});
+    printSquiggleSupportLine(error->token->line,
+                             {{{error->token->offset, error->token->offset + getTokenValue(error->token).size() - 1},
+                               ANSI_RED}});
+}
+
 
 
 // ***********************************************************************
@@ -325,6 +376,8 @@ void ErrorPrinter::printParserError(const ParserError *error) {
         printInvalidLValue(static_cast<const InvalidLValue *>(error));
     } else if (dynamic_cast<const InvalidReturnPosition *>(error) != nullptr) {
         printInvalidReturnPositionError(static_cast<const InvalidReturnPosition *>(error));
+    } else if (dynamic_cast<const ConstructorReturnWithValue *>(error) != nullptr) {
+        printConstructorReturnWithValue(static_cast<const ConstructorReturnWithValue *>(error));
     } else if (dynamic_cast<const SelfReferencingInitializer *>(error) != nullptr) {
         printSelfReferencingInitializerError(static_cast<const SelfReferencingInitializer *>(error));
     } else if (dynamic_cast<const InvalidDefaultParameterPosition *>(error) != nullptr) {
@@ -333,6 +386,11 @@ void ErrorPrinter::printParserError(const ParserError *error) {
         printInvalidDefaultParameterValueError(static_cast<const InvalidDefaultParameterValue *>(error));
     } else if (dynamic_cast<const InvalidForLoopStep *>(error) != nullptr) {
         printInvalidForLoopStepError(static_cast<const InvalidForLoopStep *>(error));
+
+    } else if (dynamic_cast<const InvalidNew *>(error) != nullptr) {
+        printInvalidNewError(static_cast<const InvalidNew *>(error));
+    } else if (dynamic_cast<const InvalidThisPosition *>(error) != nullptr) {
+        printInvalidThisPositionError(static_cast<const InvalidThisPosition *>(error));
     } else { // Generic parser error, ne moze se koristiti ni sa cim drugim, jer samo bazni ima ovaj myToken atribut
         std::wstring message = formattedErrorMessage(error->code, error->messageArguments, error->myToken->line);
         wcout << message << "\n";
@@ -453,6 +511,39 @@ void ErrorPrinter::printInvalidReturnPositionError(const InvalidReturnPosition *
                                ANSI_RED}});
 }
 
+void ErrorPrinter::printConstructorReturnWithValue(const ConstructorReturnWithValue *error) {
+    std::wstring message = formattedErrorMessage(error->code, error->messageArguments, error->token->line);
+    wcout << message << "\n";
+    printSourceLine(error->token->line,
+                    {
+                        {
+                            {error->token->offset, error->token->offset + getTokenValue(error->token).size() - 1},
+                            ANSI_RED
+                        }
+                    });
+    printSquiggleSupportLine(error->token->line,
+                             {
+                                 {
+                                     {
+                                         error->token->offset,
+                                         error->token->offset + getTokenValue(error->token).size() - 1
+                                     },
+                                     ANSI_RED
+                                 }
+                             });
+}
+
+void ErrorPrinter::printInvalidThisPositionError(const InvalidThisPosition *error) {
+    std::wstring message = formattedErrorMessage(error->code, error->messageArguments, error->token->line);
+    wcout << message << "\n";
+    printSourceLine(error->token->line,
+                    {{{error->token->offset, error->token->offset + getTokenValue(error->token).size() - 1},
+                      ANSI_RED}});
+    printSquiggleSupportLine(error->token->line,
+                             {{{error->token->offset, error->token->offset + getTokenValue(error->token).size() - 1},
+                               ANSI_RED}});
+}
+
 void ErrorPrinter::printSelfReferencingInitializerError(const SelfReferencingInitializer *error) {
     std::wstring message = formattedErrorMessage(error->code, error->messageArguments, error->token->line);
     wcout << message << "\n";
@@ -497,6 +588,17 @@ void ErrorPrinter::printInvalidForLoopStepError(const InvalidForLoopStep *error)
                                ANSI_RED}});
 }
 
+void ErrorPrinter::printInvalidNewError(const InvalidNew *error) {
+    std::wstring message = formattedErrorMessage(error->code, error->messageArguments, error->token->line);
+    wcout << message << "\n";
+    printSourceLine(error->token->line,
+                    {{{error->token->offset, error->token->offset + getTokenValue(error->token).size() - 1},
+                      ANSI_RED}});
+    printSquiggleSupportLine(error->token->line,
+                             {{{error->token->offset, error->token->offset + getTokenValue(error->token).size() - 1},
+                               ANSI_RED}});
+}
+
 
 // ***********************************************************************
 // ----------------------- LEXER ERROR PRINTING METHODS ------------------
@@ -525,7 +627,6 @@ ErrorPrinter::printLexerError(const LexerError *error) {
     }
     std::wcout << "\n";
 }
-
 
 
 // ***********************************************************************

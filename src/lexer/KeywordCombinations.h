@@ -19,7 +19,7 @@ using std::pair;
 using Combination = vector<TokenType>;
 
 /**
- * @brief Array of all keyword combinations in the language and what their resulting type should be.
+ * @brief Array of all keyword combinations in the language and what their resulting token type should be.
  * For example, "manje ili jednako" should be concatenated into one token of type LessEqual.
  */
 const array<pair<Combination, TokenType>, 12> KEYWORD_COMBINATIONS = {

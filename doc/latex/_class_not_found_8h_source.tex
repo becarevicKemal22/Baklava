@@ -1,0 +1,31 @@
+\doxysection{Class\+Not\+Found.\+h}
+\hypertarget{_class_not_found_8h_source}{}\label{_class_not_found_8h_source}\index{src/error/exceptions/ClassNotFound.h@{src/error/exceptions/ClassNotFound.h}}
+\mbox{\hyperlink{_class_not_found_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{//}}
+\DoxyCodeLine{00002\ \textcolor{comment}{//\ Created\ by\ kemal\ on\ 03-\/Jul-\/25.}}
+\DoxyCodeLine{00003\ \textcolor{comment}{//}}
+\DoxyCodeLine{00004\ }
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#ifndef\ CLASSNOTFOUND\_H}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#define\ CLASSNOTFOUND\_H}}
+\DoxyCodeLine{00007\ }
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_runtime_error_8h}{RuntimeError.h}}"{}}}
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_exception_helpers_8h}{ExceptionHelpers.h}}"{}}}
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_runtime_value_8h}{RuntimeValue.h}}"{}}}
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_expression_8h}{Expression.h}}"{}}}
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_object_8h}{Object.h}}"{}}}
+\DoxyCodeLine{00013\ }
+\DoxyCodeLine{00014\ }
+\DoxyCodeLine{00018\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_class_not_found}{ClassNotFound}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{class_runtime_error}{RuntimeError}}\ \{}
+\DoxyCodeLine{00019\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00020\ \ \ \ \ \mbox{\hyperlink{class_class_not_found_aba8b2316a24f6569bb90dab560e0575d}{ClassNotFound}}(\mbox{\hyperlink{class_expression}{Expression}}*\ expression)\ :\ \mbox{\hyperlink{class_runtime_error}{RuntimeError}}(\mbox{\hyperlink{_error_code_8h_a59e56af19e754a6aa26a612ebf91d05faa33506510d9f3942d2e3f3d65c5f2937}{ERROR\_CLASS\_NOT\_FOUND}})\ \{}
+\DoxyCodeLine{00021\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ tok\ =\ \mbox{\hyperlink{_exception_helpers_8cpp_a21dd8661b21077d61a64f924e346cecc}{getMostRelevantToken}}(expression);}
+\DoxyCodeLine{00022\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_runtime_error_a5d005928ddf618703012ce4c1f8e3f03}{messageArguments}}.emplace\_back(tok-\/>value);}
+\DoxyCodeLine{00023\ \ \ \ \ \ \ \ \ this-\/>\mbox{\hyperlink{class_class_not_found_a34f57272b4639ebe81e2595cac814882}{token}}\ =\ tok;}
+\DoxyCodeLine{00024\ \ \ \ \ \}}
+\DoxyCodeLine{00025\ \ \ \ \ \mbox{\hyperlink{class_token}{Token}}*\ \mbox{\hyperlink{class_class_not_found_a34f57272b4639ebe81e2595cac814882}{token}};}
+\DoxyCodeLine{00026\ \};}
+\DoxyCodeLine{00027\ }
+\DoxyCodeLine{00028\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//CLASSNOTFOUND\_H}}
+
+\end{DoxyCode}

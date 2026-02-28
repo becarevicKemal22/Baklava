@@ -29,8 +29,8 @@ const std::unordered_map<int , std::wstring> ERRORMESSAGES = {
         {ERROR_EXPECTED_X_BEFORE_Y,          L"Očekivano '{}' prije '{}'."},
         {ERROR_UNINITIALIZED_CONST,          L"Konstanta '{}' mora biti inicijalizirana."},
         {ERROR_EXPECTED_X_BEFORE_Y,          L"Očekivano '{}' poslije '{}'."},
-        {ERROR_VARIABLE_REDECLARATION,       L"Varijabla '{}' je već deklarisana."},
-        {ERROR_UNDECLARED_VARIABLE,          L"Nepoznata varijabla '{}'."},
+        {ERROR_IDENTIFIER_REDECLARATION,       L"Identifikator '{}' je već deklarisan."},
+        {ERROR_UNDECLARED_IDENTIFIER,          L"Nepoznat identifikator '{}'."},
         {ERROR_CONST_REASSIGNMENT,           L"Nedozvoljeno dodjeljivanje vrijednosti konstanti '{}'."},
         {ERROR_EXPECTED_EXPRESSION_AT_START, L"Očekivan izraz prije '{}'."},
         {ERROR_INVALID_LVALUE,               L"Nedozvoljena l-vrijednost '{}'."},
@@ -38,10 +38,16 @@ const std::unordered_map<int , std::wstring> ERRORMESSAGES = {
         {ERROR_TOO_MANY_ARGUMENTS,           L"Nedozvoljen broj argumenata. Očekivano {}, proslijeđeno {}."},
         {ERROR_TOO_FEW_ARGUMENTS,           L"Nedozvoljen broj argumenata. Nedostaje {} obaveznih argumenata."},
         {ERROR_INVALID_RETURN_POSITION,      L"Izjava 'vrati' ne smije se nalaziti izvan tijela funkcije."},
+        {
+            ERROR_CONSTRUCTOR_RETURN_WITH_VALUE,
+            L"Izjava 'vrati' se unutar konstruktora smije koristiti isključivo bez povratne vrijednosti. Konstruktor klase ne smije vraćati vrijednosti."
+        },
+        {ERROR_INVALID_THIS_POSITION,      L"Nije moguće referencirati '{}' izvan tijela metoda klase."},
         {ERROR_SELF_REFERENCING_INITIALIZER, L"Varijabla '{}' ne može se inicijalizirati sama sobom."},
         {ERROR_INVALID_DEFAULT_PARAMETER_POSITION, L"Podrazumijevani parametri ne smiju se nalaziti prije obaveznih parametara."},
         {ERROR_INVALID_DEFAULT_PARAMETER_VALUE, L"Vrijednost podrazumijevanog parametra mora biti literal."},
         {ERROR_INVALID_FOR_LOOP_STEP,        L"Korak petlje 'za svako' mora biti numericki literal."},
+        {ERROR_INVALID_NEW,                  L"Ključna riječ '{}' može se koristiti samo za pozive konstruktora klasa."},
 
         // 4xx
         {ERROR_WRONG_TYPE_OPERAND,           L"Tip '{}' nije dozvoljen za operator '{}'."},
@@ -50,6 +56,10 @@ const std::unordered_map<int , std::wstring> ERRORMESSAGES = {
         {ERROR_NON_INTEGER_INDEX,            L"Indeksiranje brojem '{}' nije moguće. Indeks mora biti cijeli broj."},
         {ERROR_INDEXING_NON_ARRAY,           L"Tip '{}' nije dozvoljen za operator '[]'. Indeksiranje je moguće vršiti samo nad nizovima."},
         {ERROR_WRONG_TYPE_TO_STATEMENT,           L"Tip '{}' nije dozvoljen za izjavu '{}'."},
+        {ERROR_CONSTRUCTOR_NO_NEW,           L"Konstruktor klase '{}' ne može biti pozvan bez 'novi'/'novo'/'novi'."},
+        {ERROR_CLASS_NOT_FOUND,              L"Nepoznata klasa '{}'."},
+        {ERROR_INVALID_PROPERTY_ACCESS,      L"Pristup polju '{}' na vrijednosti tipa '{}' nije moguć."},
+           {ERROR_OBJ_HAS_NO_ATTR,              L"Objekt tipa '{}' nema polje '{}'."},
 };
 
 #endif //BAKLAVA_ERRORMESSAGES_H

@@ -4,6 +4,8 @@
 
 #include "Resolver.h"
 
+#include <cmath>
+
 #include "VarDeclarationStatement.h"
 #include "VariableExpression.h"
 #include "AssignmentExpression.h"
@@ -28,7 +30,11 @@
 #include "IndexAssignmentExpression.h"
 #include "IndexingExpression.h"
 #include "ArrayLiteralExpression.h"
+#include "ClassDeclarationStatement.h"
 #include "ModifyStatement.h"
+#include "GetExpression.h"
+#include "SetExpression.h"
+#include "ThisExpression.h"
 
 void Resolver::resolve(std::unique_ptr<Program> &program) {
     for (auto &statement: program->statements) {
@@ -70,6 +76,9 @@ void Resolver::resolve(Statement *statement) {
             break;
         case AstNodeType::ModifyStatement:
             resolveModifyStatement(static_cast<ModifyStatement *>(statement));
+            break;
+        case AstNodeType::ClassDeclarationStatement:
+            resolveClassDeclarationStatement(static_cast<ClassDeclarationStatement *>(statement));
             break;
         default:
             std::wcout << L"Unknown statement type in resolver." << std::endl;
@@ -120,6 +129,15 @@ void Resolver::resolve(Expression *expression) {
         case AstNodeType::IndexAssignmentExpression:
             resolveIndexAssignmentExpression(static_cast<IndexAssignmentExpression *>(expression));
             break;
+        case AstNodeType::GetExpression:
+            resolveGetExpression(static_cast<GetExpression *>(expression));
+            break;
+        case AstNodeType::SetExpression:
+            resolveSetExpression(static_cast<SetExpression *>(expression));
+            break;
+        case AstNodeType::ThisExpression:
+            resolveThisExpression(static_cast<ThisExpression *>(expression));
+            break;
         default:
             std::wcout << L"Unknown expression type in resolver." << std::endl;
     }
@@ -130,7 +148,7 @@ void Resolver::declare(Token *name) {
 
     auto &scope = scopes.top();
     if (scope.find(name->value) != scope.end()) {
-        throw VariableRedeclaration(name);
+        throw IdentifierRedeclaration(name);
     }
     scope.insert({name->value, false});
 }
@@ -203,6 +221,32 @@ void Resolver::resolveFunctionDeclarationStatement(FunctionDeclarationStatement 
     resolveFunction(statement, FunctionType::FUNCTION);
 }
 
+void Resolver::resolveClassDeclarationStatement(ClassDeclarationStatement *statement) {
+    ClassType enclosingClassType = currentClass;
+    currentClass = ClassType::CLASS;
+
+    declare(statement->name);
+    define(statement->name);
+
+    beginScope();
+    scopes.top().emplace(L"ovo", true);
+    scopes.top().emplace(L"ovaj", true);
+    scopes.top().emplace(L"ova", true);
+    scopes.top().emplace(L"ovi", true);
+
+    for (auto method: statement->methods) {
+        FunctionType type = FunctionType::METHOD;
+        if (method->name->value == L"Konstruktor") {
+            type = ::FunctionType::KONSTRUKTOR;
+        }
+        resolveFunction(method, type);
+    }
+
+    endScope();
+    currentClass = enclosingClassType;
+}
+
+
 void Resolver::resolveExpressionStatement(ExpressionStatement *statement) {
     resolve(statement->expr);
 }
@@ -225,11 +269,11 @@ void Resolver::resolveWhileStatement(WhileStatement *statement) {
     // Ovo je ovdje bilo dok sam mislio da ce moci da se za step koriste razne vrste izraza, ali je sad svakako ograniceno
     // na brojcane literale. Ovo svakako nije ni radilo kada sam htio da budu svi izrazi podrzani, tako da ne pomislim
     // da je ovo nesto sto se samo moze ukljuciti i radit ce.
-//    if(statement->isForLoop){
-//        if(statement->forIncrement != nullptr){
-//            resolve(statement->forIncrement);
-//        }
-//    }
+    //    if(statement->isForLoop){
+    //        if(statement->forIncrement != nullptr){
+    //            resolve(statement->forIncrement);
+    //        }
+    //    }
     resolve(statement->condition);
     resolve(statement->body);
 }
@@ -239,6 +283,9 @@ void Resolver::resolveReturnStatement(ReturnStatement *statement) {
         throw InvalidReturnPosition(statement->keyword);
     }
     if (statement->value != nullptr) {
+        if (currentFunction == FunctionType::KONSTRUKTOR) {
+            throw ConstructorReturnWithValue(statement->keyword);
+        }
         resolve(statement->value);
     }
 }
@@ -290,10 +337,32 @@ void Resolver::resolveArrayLiteralExpression(ArrayLiteralExpression *expression)
     }
 }
 
-void Resolver::resolveNumericLiteralExpression(NumericLiteralExpression *expression) {}
+void Resolver::resolveGetExpression(GetExpression *expression) {
+    resolve(expression->object);
+}
 
-void Resolver::resolveStringLiteralExpression(StringLiteralExpression *expression) {}
+void Resolver::resolveSetExpression(SetExpression *expression) {
+    resolve(expression->value);
+    resolve(expression->object);
+}
 
-void Resolver::resolveBooleanLiteralExpression(BooleanLiteralExpression *expression) {}
+void Resolver::resolveThisExpression(ThisExpression *expression) {
+    if (currentClass == ClassType::NONE) {
+        throw InvalidThisPosition(expression->token);
+    }
 
-void Resolver::resolveNullLiteralExpression(NullLiteralExpression *expression) {}
+    resolveLocal(expression, expression->value);
+}
+
+
+void Resolver::resolveNumericLiteralExpression(NumericLiteralExpression *expression) {
+}
+
+void Resolver::resolveStringLiteralExpression(StringLiteralExpression *expression) {
+}
+
+void Resolver::resolveBooleanLiteralExpression(BooleanLiteralExpression *expression) {
+}
+
+void Resolver::resolveNullLiteralExpression(NullLiteralExpression *expression) {
+}

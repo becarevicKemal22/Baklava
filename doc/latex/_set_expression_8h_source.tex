@@ -1,0 +1,29 @@
+\doxysection{Set\+Expression.\+h}
+\hypertarget{_set_expression_8h_source}{}\label{_set_expression_8h_source}\index{src/parser/ast/expressions/SetExpression.h@{src/parser/ast/expressions/SetExpression.h}}
+\mbox{\hyperlink{_set_expression_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{//}}
+\DoxyCodeLine{00002\ \textcolor{comment}{//\ Created\ by\ kemal\ on\ 09-\/Jul-\/25.}}
+\DoxyCodeLine{00003\ \textcolor{comment}{//}}
+\DoxyCodeLine{00004\ }
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#ifndef\ SETEXPRESSION\_H}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#define\ SETEXPRESSION\_H}}
+\DoxyCodeLine{00007\ }
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_expression_8h}{Expression.h}}"{}}}
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_token_8h}{Token.h}}"{}}}
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#include\ <vector>}}
+\DoxyCodeLine{00011\ }
+\DoxyCodeLine{00015\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_set_expression}{SetExpression}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{class_expression}{Expression}}\ \{}
+\DoxyCodeLine{00016\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00017\ \ \ \ \ \mbox{\hyperlink{class_set_expression_a54c9d36d8493e38ffeb69d3663af0ec7}{SetExpression}}(\mbox{\hyperlink{class_expression}{ExprPtr}}\ \textcolor{keywordtype}{object},\ \mbox{\hyperlink{class_token}{TokenPtr}}\ \mbox{\hyperlink{class_set_expression_ac0d698304238d0b0a1f8927daa9dc28c}{name}},\ \mbox{\hyperlink{class_expression}{ExprPtr}}\ \mbox{\hyperlink{class_set_expression_adfad9ab9d3865d493500094dc1cc44c0}{value}})\ :\ \mbox{\hyperlink{class_set_expression_a35a386229afdca11acef5d44f1e2cb62}{object}}(\mbox{\hyperlink{class_set_expression_a35a386229afdca11acef5d44f1e2cb62}{object}}),\ \mbox{\hyperlink{class_set_expression_ac0d698304238d0b0a1f8927daa9dc28c}{name}}(\mbox{\hyperlink{class_set_expression_ac0d698304238d0b0a1f8927daa9dc28c}{name}}),\ \mbox{\hyperlink{class_set_expression_adfad9ab9d3865d493500094dc1cc44c0}{value}}(\mbox{\hyperlink{class_set_expression_adfad9ab9d3865d493500094dc1cc44c0}{value}})\ \{}
+\DoxyCodeLine{00018\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_statement_af799a81c3fbd31e741cc01d09324df30}{type}}\ =\ \mbox{\hyperlink{_ast_8h_abbed81ee894f251822f94201ef008817a20b036568c96aa156a0fcdd8e368fab2}{AstNodeType::SetExpression}};}
+\DoxyCodeLine{00019\ \ \ \ \ \}}
+\DoxyCodeLine{00020\ \ \ \ \ \mbox{\hyperlink{class_expression}{ExprPtr}}\ \mbox{\hyperlink{class_set_expression_a35a386229afdca11acef5d44f1e2cb62}{object}};\ \ \ \ \ \ \textcolor{comment}{//\ The\ object\ from\ which\ the\ property\ is\ being\ accessed}}
+\DoxyCodeLine{00021\ \ \ \ \ \mbox{\hyperlink{class_token}{TokenPtr}}\ \mbox{\hyperlink{class_set_expression_ac0d698304238d0b0a1f8927daa9dc28c}{name}};\ \ \ \ \ \ \ \textcolor{comment}{//\ The\ name\ of\ the\ property\ being\ accessed}}
+\DoxyCodeLine{00022\ \ \ \ \ \mbox{\hyperlink{class_expression}{ExprPtr}}\ \mbox{\hyperlink{class_set_expression_adfad9ab9d3865d493500094dc1cc44c0}{value}};\ \ \ \ \ \ \ \textcolor{comment}{//\ Value\ to\ assign}}
+\DoxyCodeLine{00023\ }
+\DoxyCodeLine{00024\ \};}
+\DoxyCodeLine{00025\ }
+\DoxyCodeLine{00026\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//SETEXPRESSION\_H}}
+
+\end{DoxyCode}

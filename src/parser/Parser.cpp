@@ -30,11 +30,16 @@
 #include "ReturnStatement.h"
 #include "IndexingExpression.h"
 #include "ArrayLiteralExpression.h"
+#include "ClassDeclarationStatement.h"
 #include "ModifyStatement.h"
 #include "IndexAssignmentExpression.h"
 #include "InvalidDefaultParameterPosition.h"
 #include "InvalidDefaultParameterValue.h"
 #include "InvalidForLoopStep.h"
+#include "InvalidNew.h"
+#include "GetExpression.h"
+#include "SetExpression.h"
+#include "ThisExpression.h"
 
 #define IS_LITERAL(x) (x->type == AstNodeType::NumericLiteralExpression || x->type == AstNodeType::StringLiteralExpression || x->type == AstNodeType::BooleanLiteralExpression || x->type == AstNodeType::NullLiteralExpression || x->type == AstNodeType::ArrayLiteralExpression)
 #define IS_NEGATIVE_NUMBER(x) (x->type == AstNodeType::UnaryExpression && dynamic_cast<UnaryExpression*>(x)->op->type == TokenType::Minus && dynamic_cast<UnaryExpression*>(x)->expr->type == AstNodeType::NumericLiteralExpression)
@@ -51,7 +56,63 @@ Statement *Parser::declaration() {
     if (match({TokenType::Var}) || match({TokenType::Const})) {
         return varDeclarationStatement();
     }
+    if (match({TokenType::Function})) {
+        return functionDeclarationStatement();
+    }
+    if (match({TokenType::Class})) {
+        return classDeclarationStatement();
+    }
     return statement();
+}
+
+Statement *Parser::functionDeclarationStatement() {
+    if (!atType(TokenType::Identifier)) {
+        throw ExpectedXBeforeY(L"identifikator", previous(), at());
+    }
+    advance();
+    Token *name = previous();
+    if (!atType(TokenType::OpenParenthesis)) {
+        throw ExpectedXBeforeY(L"(", previous(), at());
+    }
+    advance();
+
+    std::vector<Token *> parameters;
+    std::vector<ExprPtr> defaultParameters;
+    if (!atType(TokenType::ClosedParenthesis)) {
+        bool reachedDefaultValues = false;
+        do {
+            if (!atType(TokenType::Identifier)) {
+                throw ExpectedXBeforeY(L"identifikator", previous(), at());
+            }
+            advance();
+
+            parameters.push_back(previous());
+
+            if (match({TokenType::Equal})) {
+                ExprPtr value = expression();
+                if (!IS_LITERAL(value) && !IS_NEGATIVE_NUMBER(value)) {
+                    throw InvalidDefaultParameterValue(parameters[parameters.size() - 1]);
+                }
+
+                defaultParameters.push_back(value);
+                reachedDefaultValues = true;
+            } else if (reachedDefaultValues) {
+                // in case there's no equal (required param) but there were default values before
+                throw InvalidDefaultParameterPosition(parameters[parameters.size() - 2]);
+                // -2 because the last one is the current one, and this error message needs the default argument that was in the disallowed position
+            }
+        } while (match({TokenType::Comma}));
+    }
+    if (!atType(TokenType::ClosedParenthesis)) {
+        throw ExpectedXBeforeY(L")", previous(), at());
+    }
+    advance();
+    if (!atType(TokenType::OpenBrace)) {
+        throw ExpectedXBeforeY(L"{", previous(), at());
+    }
+    advance();
+    std::vector<Statement *> body = block();
+    return new FunctionDeclarationStatement(name, parameters, body, defaultParameters);
 }
 
 Statement *Parser::varDeclarationStatement() {
@@ -79,6 +140,27 @@ Statement *Parser::varDeclarationStatement() {
     throw ExpectedXBeforeY(L";", previous(), at());
 }
 
+Statement *Parser::classDeclarationStatement() {
+    if (!match({TokenType::Identifier})) {
+        throw ExpectedXBeforeY(L"identifikator", previous(), at());
+    }
+    TokenPtr name = previous();
+    if (!match({TokenType::OpenBrace})) {
+        throw ExpectedXBeforeY(L"{", previous(), at());
+    }
+    std::vector<FunctionDeclarationStatement*> methods;
+    while (!atType(TokenType::ClosedBrace) && !atType(TokenType::Eof)) {
+        methods.push_back(static_cast<FunctionDeclarationStatement*>(functionDeclarationStatement()));
+    }
+
+    if (!match({TokenType::ClosedBrace})) {
+        throw ExpectedXBeforeY(L"}", previous(), at());
+    }
+
+    return new ClassDeclarationStatement(name, methods);
+}
+
+
 Statement *Parser::statement() {
     if (match({TokenType::Print})) {
         return printStatement();
@@ -94,9 +176,6 @@ Statement *Parser::statement() {
     }
     if (match({TokenType::For})) {
         return forStatement();
-    }
-    if (match({TokenType::Function})) {
-        return functionDeclarationStatement();
     }
     if (match({TokenType::Return})) {
         return returnStatement();
@@ -300,56 +379,6 @@ Statement *Parser::forStatement() {
     return body;
 }
 
-Statement *Parser::functionDeclarationStatement() {
-    if (!atType(TokenType::Identifier)) {
-        throw ExpectedXBeforeY(L"identifikator", previous(), at());
-    }
-    advance();
-    Token *name = previous();
-    if (!atType(TokenType::OpenParenthesis)) {
-        throw ExpectedXBeforeY(L"(", previous(), at());
-    }
-    advance();
-
-    std::vector<Token *> parameters;
-    std::vector<ExprPtr> defaultParameters;
-    bool reachedDefaultValues = false; // so i can check whether I have non-default parameters after default ones
-    if (!atType(TokenType::ClosedParenthesis)) {
-        do {
-            if (!atType(TokenType::Identifier)) {
-                throw ExpectedXBeforeY(L"identifikator", previous(), at());
-            }
-            advance();
-
-            parameters.push_back(previous());
-
-            if (match({TokenType::Equal})) {
-                ExprPtr value = expression();
-                if (!IS_LITERAL(value) && !IS_NEGATIVE_NUMBER(value)) {
-                    throw InvalidDefaultParameterValue(parameters[parameters.size() - 1]);
-                }
-
-                defaultParameters.push_back(value);
-                reachedDefaultValues = true;
-            } else if (reachedDefaultValues) {
-                // in case there's no equal (required param) but there were default values before
-                throw InvalidDefaultParameterPosition(parameters[parameters.size() - 2]);
-                // -2 because the last one is the current one, and this error message needs the default argument that was in the disallowed position
-            }
-        } while (match({TokenType::Comma}));
-    }
-    if (!atType(TokenType::ClosedParenthesis)) {
-        throw ExpectedXBeforeY(L")", previous(), at());
-    }
-    advance();
-    if (!atType(TokenType::OpenBrace)) {
-        throw ExpectedXBeforeY(L"{", previous(), at());
-    }
-    advance();
-    std::vector<Statement *> body = block();
-    return new FunctionDeclarationStatement(name, parameters, body, defaultParameters);
-}
-
 Statement *Parser::expressionStatement() {
     ExprPtr value = expression();
     if (match({TokenType::Semicolon})) {
@@ -415,9 +444,14 @@ ExprPtr Parser::assignmentExpression() {
         if (expr->type == AstNodeType::VariableExpression) {
             auto *var = static_cast<VariableExpression *>(expr);
             return new AssignmentExpression(var->name, value);
-        } else if (expr->type == AstNodeType::IndexingExpression) {
+        }
+        if (expr->type == AstNodeType::IndexingExpression) {
             auto *indexing = static_cast<IndexingExpression *>(expr);
             return new IndexAssignmentExpression(indexing->left, indexing->index, value);
+        }
+        if (expr->type == AstNodeType::GetExpression) {
+            auto *getExpr = static_cast<GetExpression *>(expr);
+            return new SetExpression(getExpr->object, getExpr->name, value);
         }
         throw InvalidLValue(getMostRelevantToken(expr));
     }
@@ -493,12 +527,17 @@ ExprPtr Parser::unaryExpression() {
     return callExpression();
 }
 
-// ovo "call" se odnosi i na poziv funkcije i na indeksiranje, i eventualno kasnije na property access
+// ovo "call" se odnosi i na poziv funkcije i na indeksiranje, i na property access
 ExprPtr Parser::callExpression() {
+    bool isNewPrefixed = match({TokenType::New});
+    auto newToken = isNewPrefixed ? previous() : nullptr;
+    bool isCall = false; // so that a call to anything is accepted as something which can be new-prefixed, and the actual callee type(whether it is a class) is determined at runtime. But disallows immediately in the parser using novi for non-call expressions.
     ExprPtr expr = primaryExpression();
     while (true) {
         if (match({TokenType::OpenParenthesis})) {
-            expr = finishCallExpression(expr);
+            expr = finishCallExpression(expr, isNewPrefixed);
+            isNewPrefixed = false;
+            isCall = true;
         } else if (match({TokenType::OpenBracket})) {
             auto bracket = previous();
             ExprPtr index = expression();
@@ -507,14 +546,22 @@ ExprPtr Parser::callExpression() {
             }
             advance();
             expr = new IndexingExpression(expr, bracket, index);
+        } else if (match({TokenType::Dot})) {
+            if (!atType(TokenType::Identifier)) {
+                throw ExpectedXBeforeY(L"identifikator", previous(), at());
+            }
+            advance();
+            TokenPtr name = previous();
+            expr = new GetExpression(expr, name);
         } else {
             break;
         }
     }
+    if (!isCall && isNewPrefixed) throw InvalidNew(newToken);
     return expr;
 }
 
-ExprPtr Parser::finishCallExpression(Expression *callee) {
+ExprPtr Parser::finishCallExpression(Expression *callee, bool newPrefixed) {
     std::vector<ExprPtr> arguments;
     if (!atType(TokenType::ClosedParenthesis)) {
         do {
@@ -525,7 +572,7 @@ ExprPtr Parser::finishCallExpression(Expression *callee) {
         throw ExpectedXBeforeY(L")", previous(), at());
     }
     advance();
-    return new CallExpression(callee, previous(), arguments);
+    return new CallExpression(callee, previous(), arguments, newPrefixed);
 }
 
 ExprPtr Parser::primaryExpression() {
@@ -535,6 +582,7 @@ ExprPtr Parser::primaryExpression() {
     if (match({TokenType::Number})) return new NumericLiteralExpression(previous());
     if (match({TokenType::String})) return new StringLiteralExpression(previous());
     if (match({TokenType::Identifier})) return new VariableExpression(previous());
+    if (match({TokenType::This})) return new ThisExpression(previous());
     if (match({TokenType::OpenParenthesis})) {
         ExprPtr expr = expression();
         if (match({TokenType::ClosedParenthesis})) {

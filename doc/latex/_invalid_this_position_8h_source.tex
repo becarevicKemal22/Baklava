@@ -1,0 +1,26 @@
+\doxysection{Invalid\+This\+Position.\+h}
+\hypertarget{_invalid_this_position_8h_source}{}\label{_invalid_this_position_8h_source}\index{src/error/exceptions/parser/InvalidThisPosition.h@{src/error/exceptions/parser/InvalidThisPosition.h}}
+\mbox{\hyperlink{_invalid_this_position_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{//}}
+\DoxyCodeLine{00002\ \textcolor{comment}{//\ Created\ by\ kemal\ on\ 10-\/Feb-\/26.}}
+\DoxyCodeLine{00003\ \textcolor{comment}{//}}
+\DoxyCodeLine{00004\ }
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#ifndef\ INVALIDTHISPOSITION\_H}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#define\ INVALIDTHISPOSITION\_H}}
+\DoxyCodeLine{00007\ }
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_parser_error_8h}{ParserError.h}}"{}}}
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_token_8h}{Token.h}}"{}}}
+\DoxyCodeLine{00010\ }
+\DoxyCodeLine{00014\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_invalid_this_position}{InvalidThisPosition}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{class_parser_error}{ParserError}}\ \{}
+\DoxyCodeLine{00015\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00016\ \ \ \ \ \mbox{\hyperlink{class_invalid_this_position_a6bf63f0a1478e16507397fb7dcd21c5e}{InvalidThisPosition}}(\mbox{\hyperlink{class_token}{TokenPtr}}\ \mbox{\hyperlink{class_invalid_this_position_a12c8025fcbbf1c2462a5263125150ca3}{token}})\ :\ \mbox{\hyperlink{class_parser_error}{ParserError}}(\mbox{\hyperlink{_error_code_8h_a59e56af19e754a6aa26a612ebf91d05faa57dbf724a0864380ceb7798b539e2f0}{ERROR\_INVALID\_THIS\_POSITION}}),\ \mbox{\hyperlink{class_invalid_this_position_a12c8025fcbbf1c2462a5263125150ca3}{token}}(\mbox{\hyperlink{class_invalid_this_position_a12c8025fcbbf1c2462a5263125150ca3}{token}})\ \{}
+\DoxyCodeLine{00017\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_parser_error_afd3884bd1c9e5edf8321f7824a858657}{messageArguments}}.push\_back(\mbox{\hyperlink{class_invalid_this_position_a12c8025fcbbf1c2462a5263125150ca3}{token}}-\/>\mbox{\hyperlink{class_token_acfd9e64709c736211934e4b27ac20955}{value}});}
+\DoxyCodeLine{00018\ \ \ \ \ \}}
+\DoxyCodeLine{00019\ }
+\DoxyCodeLine{00020\ \ \ \ \ \mbox{\hyperlink{class_token}{TokenPtr}}\ \mbox{\hyperlink{class_invalid_this_position_a12c8025fcbbf1c2462a5263125150ca3}{token}};}
+\DoxyCodeLine{00021\ \};}
+\DoxyCodeLine{00022\ }
+\DoxyCodeLine{00023\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//INVALIDTHISPOSITION\_H}}
+
+\end{DoxyCode}

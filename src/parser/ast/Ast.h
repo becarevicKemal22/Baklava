@@ -24,7 +24,7 @@ enum class AstNodeType : uint8_t {
     FunctionDeclarationStatement,
     ReturnStatement,
     ModifyStatement,
-    MultiplyByStatement,
+    ClassDeclarationStatement,
 
     // Expressions
     AssignmentExpression,
@@ -41,6 +41,9 @@ enum class AstNodeType : uint8_t {
     CallExpression,
     IndexingExpression,
     ArrayLiteralExpression,
+    GetExpression,
+    SetExpression,
+    ThisExpression,
 };
 
 class Statement;
@@ -55,6 +58,7 @@ class FunctionDeclarationStatement;
 class ReturnStatement;
 class ModifyStatement;
 class MultiplyByStatement;
+class ClassDeclarationStatement;
 
 class Expression;
 class BinaryExpression;
@@ -70,6 +74,10 @@ class CallExpression;
 class IndexingExpression;
 class ArrayLiteralExpression;
 class IndexAssignmentExpression;
+class GetExpression;
+class AssignmentExpression;
+class SetExpression;
+class ThisExpression;
 
 typedef Statement* StmtPtr;
 typedef Expression* ExprPtr;

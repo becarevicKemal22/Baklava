@@ -4,18 +4,35 @@
 
 #include "Environment.h"
 #include "RuntimeValue.h"
-#include "VariableRedeclaration.h"
-#include "UndeclaredVariable.h"
+#include "IdentifierRedeclaration.h"
+#include "UndeclaredIdentifier.h"
 #include "ConstReassignment.h"
 
 void Environment::define(Token* name, RuntimeValue value, bool isConstant) {
     auto it = variables.find(name->value);
     if(it != variables.end()){
-        throw VariableRedeclaration(name);
+        throw IdentifierRedeclaration(name);
     }
-
     variables.insert({name->value, {value, isConstant}});
 }
+
+void Environment::defineByNameString(const std::wstring& name, RuntimeValue value, bool isConstant) {
+    auto it = variables.find(name);
+    if(it != variables.end()){
+        throw IdentifierRedeclaration(new Token(TokenType::Identifier ,name, 0, 0)); // This causes error reporting to not work correctly for this method. Token type is assumed to be identifier. Constult method documentation for reasons and explanation.
+    }
+    variables.insert({name, {value, isConstant}});
+}
+
+void Environment::defineAndBindThis(RuntimeValue instance) {
+    variables.insert({
+        {L"ovo", {instance, true}},
+        {L"ovaj", {instance, true}},
+        {L"ovi", {instance, true}},
+        {L"ova", {instance, true}}
+    });
+}
+
 
 RuntimeValue Environment::get(Token* name){
     auto it = variables.find(name->value);
@@ -25,7 +42,7 @@ RuntimeValue Environment::get(Token* name){
     if(parent != nullptr) {
         return parent->get(name);
     }
-    throw UndeclaredVariable(name);
+    throw UndeclaredIdentifier(name);
 }
 
 void Environment::assign(Token* name, RuntimeValue value) {
@@ -35,7 +52,7 @@ void Environment::assign(Token* name, RuntimeValue value) {
             parent->assign(name, value);
             return;
         }
-        throw UndeclaredVariable(name);
+        throw UndeclaredIdentifier(name);
     }
     if(it->second.second){
         throw ConstReassignment(name);
