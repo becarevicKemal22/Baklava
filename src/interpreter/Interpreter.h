@@ -6,6 +6,7 @@
 #define BAKLAVA_INTERPRETER_H
 
 #include <stack>
+#include <iostream>
 
 #include "Object.h"
 #include "Ast.h"

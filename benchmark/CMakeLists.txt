@@ -1,7 +1,6 @@
 project(gbench)
 add_subdirectory(lib)
 
-add_definitions(-DDEBUG_TRACK_EXECUTION -DDEBUG_TRACK_PRINTING -DDEBUG_TRACK_ERRORS -DDEBUG_STRESS_GC)
 set(BENCHMARK_ENABLE_GTEST_TESTS OFF)
 
 add_executable(gbench ../src/error/printer/ErrorPrinter.cpp ../src/lexer/Lexer.cpp ../src/parser/Parser.cpp
@@ -75,5 +74,8 @@ add_executable(gbench ../src/error/printer/ErrorPrinter.cpp ../src/lexer/Lexer.c
         ../src/error/exceptions/parser/InvalidThisPosition.h
         ../src/error/exceptions/parser/InvalidReturnPosition.h
         benchmarks/prvi.cpp
+        benchmarks/environment/EnvironmentRangedEnvSizeLookupBench.cpp
+        benchmarks/InterpreterCoreSuite.cpp
 )
 target_link_libraries(gbench PRIVATE benchmark::benchmark benchmark::benchmark_main)
+target_compile_definitions(gbench PRIVATE BENCHMARK_SCRIPTS_DIR=L"${CMAKE_CURRENT_SOURCE_DIR}/benchmarks/scripts")

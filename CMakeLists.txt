@@ -102,7 +102,6 @@ add_executable(baklava main.cpp
         src/parser/ast/expressions/ThisExpression.h
         src/error/exceptions/parser/InvalidThisPosition.h
         src/error/exceptions/parser/InvalidReturnPosition.h
-        benchmark/benchmarks/prvi.cpp
 )
 
 add_subdirectory(tests)

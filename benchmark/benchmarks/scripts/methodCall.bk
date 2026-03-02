@@ -1,0 +1,9 @@
+klasa k{
+    f(){}
+}
+var obj = nova k();
+var j = 0;
+dok je j < 10000{
+    j = j + 1;
+    obj.f();
+}

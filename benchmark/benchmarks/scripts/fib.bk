@@ -1,0 +1,7 @@
+funkcija fib(n){
+    ako je n jednako 0 onda vrati 0;
+    ako je n jednako 1 onda vrati 1;
+    vrati fib(n - 2) + fib(n - 1);
+}
+
+fib(25);

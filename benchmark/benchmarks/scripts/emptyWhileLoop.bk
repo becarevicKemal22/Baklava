@@ -1,0 +1,2 @@
+var j = 0;
+dok je j < 1000000 ponavljaj j = j + 1;

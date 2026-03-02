@@ -83,7 +83,6 @@ add_executable(tests ../src/error/printer/ErrorPrinter.cpp ../src/lexer/Lexer.cp
         ../src/error/exceptions/NonIntegerIndex.h
         ../src/error/exceptions/IndexingNonArray.h
         interpreter/InterpreterIndexAssignmentExpressionTest.cpp
-        benchmarks/test.cpp
         interpreter/RuntimeValueStringificationTest.cpp
         interpreter/ValuePrintingTest.cpp
         ../src/interpreter/nativeFunctions/BaseFunctions.h
@@ -121,6 +120,5 @@ add_executable(tests ../src/error/printer/ErrorPrinter.cpp ../src/lexer/Lexer.cp
         ../src/parser/ast/expressions/ThisExpression.h
         ../src/error/exceptions/parser/InvalidThisPosition.h
         ../src/error/exceptions/parser/InvalidReturnPosition.h
-        ../benchmark/benchmarks/prvi.cpp
 )
 target_link_libraries(tests PRIVATE Catch2::Catch2WithMain)
