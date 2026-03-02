@@ -106,6 +106,9 @@ add_executable(baklava main.cpp
 
 add_subdirectory(tests)
 
+set(BENCHMARK_ENABLE_GTEST_TESTS OFF)
+add_subdirectory(benchmark)
+
 target_link_libraries(baklava -static)
 
 target_compile_options(baklava PRIVATE -fexec-charset=utf-8)

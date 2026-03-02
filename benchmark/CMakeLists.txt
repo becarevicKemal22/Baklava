@@ -1,44 +1,26 @@
-project(tests)
-add_subdirectory(lib/Catch2)
+project(gbench)
+add_subdirectory(lib)
 
-add_definitions(-DDEBUG_TRACK_EXECUTION -DDEBUG_TRACK_PRINTING -DDEBUG_TRACK_ERRORS -DDEBUG_STRESS_GC)
+set(BENCHMARK_ENABLE_GTEST_TESTS OFF)
 
-add_executable(tests ../src/error/printer/ErrorPrinter.cpp ../src/lexer/Lexer.cpp ../src/parser/Parser.cpp
-        lexer/LexerTest.cpp
-        parser/ParserLiteralTest.cpp
-        parser/ParserTest.cpp
-        parser/ParserUnaryExpressionTest.cpp
-        TestHelpers.h
-        parser/ParserBinaryExpressionTest.cpp
+add_executable(gbench ../src/error/printer/ErrorPrinter.cpp ../src/lexer/Lexer.cpp ../src/parser/Parser.cpp
         ../src/interpreter/Interpreter.cpp
-        ../src/interpreter/Interpreter.h
-        interpreter/InterpreterUnaryExpressionsTest.cpp
-        TestHelpers.cpp
-        interpreter/InterpreterLiteralExpressionsTest.cpp
         ../src/error/exceptions/RuntimeError.h
         ../src/error/ErrorMessageArgument.h
         ../src/error/exceptions/WrongTypeError.h
         ../src/interpreter/RuntimeValue.cpp
         ../src/error/exceptions/ExceptionHelpers.cpp
-        interpreter/InterpreterBinaryExpressionTest.cpp
         ../src/error/exceptions/WrongBinaryOperandTypes.h
         ../src/interpreter/Object.h
         ../src/interpreter/Object.cpp
-        interpreter/InterpreterBinaryLogicalExpressionTest.cpp
         ../src/parser/ast/expressions/LogicalExpression.h
-        parser/ParserLogicalExpressionTest.cpp
-        parser/ParserBinaryComparisonExpressionTest.cpp
-        interpreter/InterpreterBinaryComparisonExpressionTest.cpp
         ../src/error/exceptions/parser/ParserError.h
         ../src/error/exceptions/parser/ExpectedXBeforeY.h
-        parser/ParserGroupingExpressionTest.cpp
         ../src/parser/ast/expressions/GroupingExpression.h
-        interpreter/InterpreterGroupingExpressionTest.cpp
         ../src/parser/ast/statements/ExpressionStatement.h
         ../src/parser/ast/statements/PrintStatement.h
         ../src/parser/ast/expressions/VariableExpression.h
         ../src/parser/ast/statements/VarDeclarationStatement.h
-        parser/ParserVariableDeclarationTest.cpp
         ../src/error/exceptions/parser/UninitializedConst.h
         ../src/interpreter/Environment.cpp
         ../src/interpreter/Environment.h
@@ -46,69 +28,40 @@ add_executable(tests ../src/error/printer/ErrorPrinter.cpp ../src/lexer/Lexer.cp
         ../src/error/exceptions/IdentifierRedeclaration.h
         ../src/error/exceptions/UndeclaredIdentifier.h
         ../src/error/exceptions/ConstReassignment.h
-        environment/EnvironmentTest.cpp
-        parser/ParserVariableExpressionTest.cpp
-        parser/ParserAssignmentExpressionTest.cpp
         ../src/error/exceptions/parser/InvalidLValue.h
-        interpreter/InterpreterVariableTest.cpp
         ../src/parser/ast/statements/BlockStatement.h
-        parser/ParserBlockStatementTest.cpp
-        interpreter/InterpreterBlockStatementTest.cpp
         ../src/parser/ast/statements/IfStatement.h
-        parser/ParserIfStatementTest.cpp
-        interpreter/InterpreterIfStatementTest.cpp
         ../src/parser/ast/statements/WhileStatement.h
-        parser/ParserWhileStatementTest.cpp
-        interpreter/InterpreterWhileStatementTest.cpp
-        parser/ParserForStatementTest.cpp
         ../src/parser/ast/expressions/CallExpression.h
-        parser/ParserFunctionCallTest.cpp
         ../src/parser/ast/statements/FunctionDeclarationStatement.h
-        parser/ParserFunctionDeclarationTest.cpp
         ../src/error/exceptions/InvalidCall.h
         ../src/error/exceptions/TooManyArguments.h
-        interpreter/InterpreterFunctionTest.cpp
         ../src/parser/ast/statements/ReturnStatement.h
         ../src/parser/Resolver.cpp
         ../src/parser/Resolver.h
         ../src/error/exceptions/parser/InvalidReturnPosition.h
         ../src/error/exceptions/parser/SelfReferencingInitializer.h
-        parser/ParserIndexingOperatorTest.cpp
         ../src/parser/ast/expressions/IndexingExpression.h
         ../src/parser/ast/expressions/ArrayLiteralExpression.h
         ../src/parser/ast/expressions/IndexAssignmentExpression.h
-        parser/ParserIndexAssignmentExpressionTest.cpp
-        interpreter/InterpreterIndexingExpressionTest.cpp
         ../src/error/exceptions/IndexOutOfBounds.h
         ../src/error/exceptions/NonIntegerIndex.h
         ../src/error/exceptions/IndexingNonArray.h
-        interpreter/InterpreterIndexAssignmentExpressionTest.cpp
-        interpreter/RuntimeValueStringificationTest.cpp
-        interpreter/ValuePrintingTest.cpp
         ../src/interpreter/nativeFunctions/BaseFunctions.h
         ../src/interpreter/nativeFunctions/BaseFunctions.cpp
         ../src/interpreter/nativeFunctions/NativeFunction.h
         ../src/interpreter/nativeFunctions/NativeFunction.cpp
         ../src/error/printer/ansiCompatibility.cpp
         ../src/error/exceptions/TooFewArguments.h
-        parser/ParserDefaultParameterTest.cpp
         ../src/error/exceptions/parser/InvalidDefaultParameterPosition.h
         ../src/error/exceptions/parser/InvalidDefaultParameterValue.h
-        interpreter/InterpreterFuncDefaultParamTest.cpp
-        lexer/LexerKeywordToSymbolTest.cpp
         ../src/lexer/KeywordCombinations.h
-        interpreter/InterpreterForStatementTest.cpp
         ../src/error/exceptions/parser/InvalidForLoopStep.h
-        parser/ParserFuncDefaultParamTest.cpp
         ../src/error/exceptions/lexer/UnterminatedString.h
         ../src/error/exceptions/lexer/LexerError.h
         ../src/error/exceptions/lexer/UnexpectedCharacter.h
         ../src/parser/ast/statements/ModifyStatement.h
-        parser/ParserIncrementDecrementStatementTest.cpp
-        interpreter/InterpreterIncrementDecrementTest.cpp
         ../src/error/exceptions/WrongTypeToStatement.h
-        parser/ParserMultiplyDivideByStatementTest.cpp
-        interpreter/InterpreterMultiplyDivideByStatementTest.cpp
         ../src/parser/ast/statements/ClassDeclarationStatement.h
         ../src/error/exceptions/ConstructorNoNew.h
         ../src/error/exceptions/parser/InvalidNew.h
@@ -120,5 +73,9 @@ add_executable(tests ../src/error/printer/ErrorPrinter.cpp ../src/lexer/Lexer.cp
         ../src/parser/ast/expressions/ThisExpression.h
         ../src/error/exceptions/parser/InvalidThisPosition.h
         ../src/error/exceptions/parser/InvalidReturnPosition.h
+        benchmarks/prvi.cpp
+        benchmarks/environment/EnvironmentRangedEnvSizeLookupBench.cpp
+        benchmarks/InterpreterCoreSuite.cpp
 )
-target_link_libraries(tests PRIVATE Catch2::Catch2WithMain)
+target_link_libraries(gbench PRIVATE benchmark::benchmark benchmark::benchmark_main)
+target_compile_definitions(gbench PRIVATE BENCHMARK_SCRIPTS_DIR=L"${CMAKE_CURRENT_SOURCE_DIR}/benchmarks/scripts")

@@ -8,10 +8,7 @@
 #include <unordered_map>
 #include <algorithm>
 #include "Token.h"
-
-#include <iostream>
-
-typedef struct RuntimeValue RuntimeValue;
+#include "RuntimeValue.h"
 
 class Environment {
 public:
