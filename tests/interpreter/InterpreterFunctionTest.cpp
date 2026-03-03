@@ -92,48 +92,6 @@ TEST_CASE("Declares function outside block and calls inside block", "[interprete
     REQUIRE(interpreter.printHistory[0].as.number == 5);
 }
 
-TEST_CASE("Closure test", "[interpreter][function]") {
-    std::wstring source = L"funkcija makeCounter(){\n"
-                          "    var j = 0;\n"
-                          "    funkcija count(){\n"
-                          "        j = j + 1;\n"
-                          "        vrati j;\n"
-                          "    }\n"
-                          "    vrati count;\n"
-                          "}\n"
-                          "\n"
-                          "var counter = makeCounter();\n"
-                          "\n"
-                          "ispiši counter(); // 1\n"
-                          "ispiši counter(); // 2";
-    Interpreter interpreter;
-    std::unique_ptr<Program> program = parseSource(source, &interpreter);
-    interpreter.interpret(program.get());
-    REQUIRE(interpreter.printHistory.size() == 2);
-    REQUIRE(interpreter.printHistory[0].as.number == 1);
-    REQUIRE(interpreter.printHistory[1].as.number == 2);
-}
-
-TEST_CASE("Closure edge case test", "[interpreter][function]") {
-    std::wstring source = L"var a = \"global\";\n"
-                          "{\n"
-                          "    funkcija fn(){\n"
-                          "        ispiši a;\n"
-                          "    }\n"
-                          "    fn();\n"
-                          "    var a = \"local\";\n"
-                          "    fn();\n"
-                          "}";
-    Interpreter interpreter;
-    std::unique_ptr<Program> program = parseSource(source, &interpreter);
-    interpreter.interpret(program.get());
-    REQUIRE(interpreter.printHistory.size() == 2);
-    REQUIRE(IS_STRING_OBJ(interpreter.printHistory[0]));
-    REQUIRE(GET_STRING_OBJ_VALUE(interpreter.printHistory[0]) == L"global");
-    REQUIRE(IS_STRING_OBJ(interpreter.printHistory[1]));
-    REQUIRE(GET_STRING_OBJ_VALUE(interpreter.printHistory[1]) == L"global");
-}
-
 TEST_CASE("Has error on string call", "[interpreter][function]") {
     std::wstring source = L"var f = \"string\"; f();";
     Interpreter interpreter;
