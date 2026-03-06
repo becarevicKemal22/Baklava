@@ -73,13 +73,15 @@ TEST_CASE("Prints function", "[interpreter][runtimeValue]") {
     FunctionDeclarationStatement* declaration = new FunctionDeclarationStatement(&token, {}, {}, {});
 
     Object base(ObjectType::OBJECT_FUNCTION);
-    Environment env;
-    ObjectFunction funcObj(declaration, &env);
+    Environment *env = new Environment();
+    env->addRef();
+    ObjectFunction funcObj(declaration, env);
     RuntimeValue function(ValueType::Object);
     function.as.object = &funcObj.obj;
     std::wostringstream stream;
     Interpreter::printValue(function, stream);
     REQUIRE(stream.str() == L"<funkcija test>");
+    env->release();
 }
 
 TEST_CASE("Prints callable", "[interpreter][runtimeValue]") {

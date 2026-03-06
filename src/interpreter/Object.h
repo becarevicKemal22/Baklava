@@ -70,7 +70,7 @@ class Environment;
 
 struct ObjectFunction : ObjectCallable {
     FunctionDeclarationStatement *declaration;
-    Environment closure;
+    Environment *closure;
 
     RuntimeValue functionCall(Interpreter *interpreter, const std::vector<RuntimeValue> &arguments);
 
@@ -80,10 +80,15 @@ struct ObjectFunction : ObjectCallable {
         obj.type = ObjectType::OBJECT_FUNCTION;
         arity = declaration->parameters.size();
         minArity = arity - declaration->defaultParameters.size();
-        this->closure = *closure;
+        this->closure = closure;
+        this->closure->addRef();
         call = [this](auto &&PH1, auto &&PH2) {
             return functionCall(std::forward<decltype(PH1)>(PH1), std::forward<decltype(PH2)>(PH2));
         };
+    }
+
+    ~ObjectFunction() {
+        closure->release();
     }
 };
 

@@ -8,11 +8,13 @@
 #include "Environment.h"
 
 RuntimeValue ObjectFunction::functionCall(Interpreter* interpreter, const std::vector<RuntimeValue>& arguments){
-    Environment environment(&closure);
+    Environment *environment = new Environment(closure);
+    environment->addRef();
     for (int i = 0; i < arity; i++) {
-        environment.define(declaration->parameters[i], arguments[i], false);
+        environment->define(declaration->parameters[i], arguments[i], false);
     }
-    interpreter->executeBlock(declaration->body, std::move(environment));
+    interpreter->executeBlock(declaration->body, environment);
+    environment->release();
     if(interpreter->isReturning){
         interpreter->isReturning = false;
         return interpreter->returnedValue;

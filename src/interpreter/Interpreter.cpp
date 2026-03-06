@@ -214,14 +214,17 @@ void Interpreter::executeVarDeclarationStatement(VarDeclarationStatement *stmt) 
         value = {ValueType::Null};
     }
 
-    environments.top().define(stmt->name, value, stmt->isConst);
+    environments.top()->define(stmt->name, value, stmt->isConst);
 }
 
 void Interpreter::executeBlockStatement(BlockStatement *stmt) {
-    executeBlock(stmt->statements, Environment(&environments.top()));
+    Environment *blockEnv = new Environment(environments.top());
+    blockEnv->addRef();
+    executeBlock(stmt->statements, blockEnv);
+    blockEnv->release();
 }
 
-void Interpreter::executeBlock(const std::vector<Statement *> &statements, Environment &&environment) {
+void Interpreter::executeBlock(const std::vector<Statement *> &statements, Environment *environment) {
     environments.push(environment);
     try {
         for (auto s: statements) {
@@ -272,12 +275,12 @@ void Interpreter::executeWhileStatement(WhileStatement *stmt) {
 }
 
 void Interpreter::executeFunctionDeclarationStatement(FunctionDeclarationStatement *stmt) {
-    environments.top().define(stmt->name, {ValueType::Object, {.object = (Object *) allocateFunctionObject(stmt)}},
-                              false);
+    environments.top()->define(stmt->name, {ValueType::Object, {.object = (Object *) allocateFunctionObject(stmt)}},
+                               false);
 }
 
 void Interpreter::executeClassDeclarationStatement(ClassDeclarationStatement *stmt) {
-    environments.top().define(stmt->name, {ValueType::Null}, false);
+    environments.top()->define(stmt->name, {ValueType::Null}, false);
 
     std::unordered_map<std::wstring, RuntimeValue> methods;
     for (auto method: stmt->methods) {
@@ -285,7 +288,7 @@ void Interpreter::executeClassDeclarationStatement(ClassDeclarationStatement *st
         methods.insert({method->name->value, {ValueType::Object, {.object = (Object *) func}}});
     }
 
-    environments.top().assign(
+    environments.top()->assign(
         stmt->name, {ValueType::Object, {.object = (Object *) allocateClassObject(stmt, methods)}});
 }
 
@@ -329,7 +332,7 @@ void Interpreter::executeModifyStatement(ModifyStatement *stmt) {
         auto expr = static_cast<VariableExpression *>(stmt->lvalue);
         auto distance = locals.find(expr);
         if (distance != locals.end()) {
-            environments.top().assignAt(distance->second, expr->name->value, currentValue);
+            environments.top()->assignAt(distance->second, expr->name->value, currentValue);
         } else {
             globals->assign(expr->name, currentValue);
         }
@@ -530,7 +533,7 @@ RuntimeValue Interpreter::evaluateAssignmentExpression(AssignmentExpression *exp
 
     auto distance = locals.find(expr);
     if (distance != locals.end()) {
-        environments.top().assignAt(distance->second, expr->name->value, value);
+        environments.top()->assignAt(distance->second, expr->name->value, value);
     } else {
         globals->assign(expr->name, value);
     }
@@ -806,7 +809,7 @@ ObjectString *Interpreter::allocateStringObject(const std::wstring &value) {
 ObjectFunction *Interpreter::allocateFunctionObject(FunctionDeclarationStatement *declaration, Environment *env) {
     invokeGarbageCollector();
 
-    auto *obj = new ObjectFunction(declaration, env == nullptr ? &environments.top() : env);
+    auto *obj = new ObjectFunction(declaration, env == nullptr ? environments.top() : env);
     obj->obj.next = objects;
     objects = (Object *) obj;
     bytesAllocated += sizeof(ObjectFunction);
@@ -814,9 +817,10 @@ ObjectFunction *Interpreter::allocateFunctionObject(FunctionDeclarationStatement
 }
 
 RuntimeValue Interpreter::createFunctionWithBoundThis(ObjectFunction *method, RuntimeValue instance) {
-    Environment env(&method->closure);
-    env.defineAndBindThis(instance);
-    return {ValueType::Object, {.object = (Object *) allocateFunctionObject(method->declaration, &env)}};
+    Environment *env = new Environment(method->closure);
+    env->defineAndBindThis(instance);
+    // No need to addref to this env, as ObjectFunction constructor will do it and i wouldnt be able to release it anyway and nothing in this function references it.
+    return {ValueType::Object, {.object = (Object *) allocateFunctionObject(method->declaration, env)}};
 }
 
 ObjectArray *Interpreter::allocateArrayObject(const std::vector<RuntimeValue> &elements) {
@@ -944,12 +948,10 @@ void Interpreter::collectGarbage() {
 }
 
 void Interpreter::markRoots() {
-    std::stack<Environment> envCopy = environments;
+    std::stack<Environment *> envCopy = environments;
     while (!envCopy.empty()) {
-        Environment &environment = envCopy.top();
-        for (auto &variable: environment.variables) {
-            markValue(variable.second.first);
-        }
+        Environment *environment = envCopy.top();
+        markObjectsInEnvironment(environment);
         envCopy.pop();
     }
 #if DEBUG_LOG_GC == 2
@@ -962,9 +964,21 @@ void Interpreter::markRoots() {
     //    } seems not to be necessary as globals is actually the top environment of the stack that has already been copied and traversed.
 }
 
+void Interpreter::markObjectsInEnvironment(Environment *env) {
+    for (auto &variable: env->variables) {
+        markValue(variable.second.first);
+    }
+}
+
 void Interpreter::markValue(const RuntimeValue &value) {
     if (value.type == ValueType::Object) {
         markObject(value.as.object);
+        if (IS_OBJ(value) && IS_FUNCTION_OBJ(value)) {
+            // This way could be pretty inefficient as the closure environment could still be on the stack and already
+            // traversed. Should add a flag to the environment to keep track of whether it was traversed already.
+            // Flag then also needs to be reset on GC start.
+            if (AS_FUNCTION_OBJ(value)->closure != nullptr) markObjectsInEnvironment(AS_FUNCTION_OBJ(value)->closure);
+        }
     }
 }
 
@@ -1110,7 +1124,7 @@ RuntimeError *Interpreter::reallocateError(RuntimeError *error) {
 RuntimeValue Interpreter::lookUpVariable(const Expression *expr, TokenPtr name) {
     auto distance = locals.find(expr);
     if (distance != locals.end()) {
-        return environments.top().getAt(distance->second, name->value);
+        return environments.top()->getAt(distance->second, name->value);
     }
     return globals->get(name);
 }

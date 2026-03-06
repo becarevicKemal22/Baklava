@@ -25,8 +25,9 @@ public:
      * @brief Constructor with no error printer. Should almost never be used, as it leaves the interpreter with no error printing capability. Useful for testing.
      */
     Interpreter() : errorPrinter(nullptr) {
-        environments.emplace();
-        globals = &environments.top();
+        globals = new Environment();
+        globals->addRef();
+        environments.push(globals);
         defineNativeFunctions();
     }
 
@@ -35,8 +36,9 @@ public:
      * @param errorPrinter Error printer to use for printing errors.
      */
     explicit Interpreter(ErrorPrinter *errorPrinter) : errorPrinter(errorPrinter) {
-        environments.emplace();
-        globals = &environments.top();
+        globals = new Environment();
+        globals->addRef();
+        environments.push(globals);
         defineNativeFunctions();
     }
 
@@ -51,6 +53,7 @@ public:
                 object = next;
             }
         }
+        globals->release();
     }
 
     /**
@@ -85,7 +88,7 @@ public:
         locals[expr] = depth;
     }
 
-    void executeBlock(const std::vector<StmtPtr> &statements, Environment &&environment);
+    void executeBlock(const std::vector<StmtPtr> &statements, Environment *environment);
 
 
     bool hadError = false;
@@ -101,7 +104,7 @@ public:
     RuntimeValue returnedValue;
 
     Environment *globals;
-    std::stack<Environment> environments;
+    std::stack<Environment *> environments;
 
     void invokeGarbageCollector();
 
@@ -110,6 +113,8 @@ public:
     void markRoots();
 
     void markValue(const RuntimeValue &value);
+
+    void markObjectsInEnvironment(Environment *environment);
 
     void markObject(Object *object);
 

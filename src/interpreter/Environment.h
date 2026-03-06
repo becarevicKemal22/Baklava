@@ -7,16 +7,38 @@
 
 #include <unordered_map>
 #include <algorithm>
+#include <iostream>
+
 #include "Token.h"
 #include "RuntimeValue.h"
 
 class Environment {
+    unsigned int refCount;
+
 public:
-    Environment() : parent(nullptr) {};
-    explicit Environment(Environment* parent) : parent(parent) {}
+    Environment() : parent(nullptr), refCount(0) {
+    };
+
+    explicit Environment(Environment *parent) : parent(parent), refCount(0) {
+        parent->addRef();
+    };
+
+    ~Environment() {
+        if (parent) parent->release();
+    }
 
     std::unordered_map<std::wstring, std::pair<RuntimeValue, bool>> variables{}; // Holds a map of variable names bound to a std::pair that holds the runtime value and whether the variable is constant
     Environment* parent; /* Points to the parent environment of the env. If this is nullptr, it means that the environment is the global one. */
+
+    void addRef() {
+        ++refCount;
+    }
+
+    void release() {
+        if (--refCount == 0) {
+            delete this;
+        }
+    }
 
     /**
      * Makes a new variable in the environment

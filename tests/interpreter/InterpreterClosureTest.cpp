@@ -49,7 +49,7 @@ TEST_CASE("Closure counter test", "[interpreter][closure]") {
     REQUIRE(interpreter.printHistory[1].as.number == 2);
 }
 
-TEST_CASE("Closure counter shared state test", "[interpreter][closure]") {
+TEST_CASE("Closure counter test with 2 created counters", "[interpreter][closure]") {
     std::wstring source = L"funkcija makeCounter(){\n"
             "    var j = 0;\n"
             "    funkcija count(){\n"
@@ -63,15 +63,15 @@ TEST_CASE("Closure counter shared state test", "[interpreter][closure]") {
             "var counter2 = makeCounter();"
             "\n"
             "ispiši counter1(); // 1\n"
-            "ispiši counter2(); // 2\n"
-            "ispiši counter1(); // 3";
+            "ispiši counter2(); // 1\n"
+            "ispiši counter1(); // 2";
     Interpreter interpreter;
     std::unique_ptr<Program> program = parseSource(source, &interpreter);
     interpreter.interpret(program.get());
     REQUIRE(interpreter.printHistory.size() == 3);
     REQUIRE(interpreter.printHistory[0].as.number == 1);
-    REQUIRE(interpreter.printHistory[1].as.number == 2);
-    REQUIRE(interpreter.printHistory[2].as.number == 3);
+    REQUIRE(interpreter.printHistory[1].as.number == 1);
+    REQUIRE(interpreter.printHistory[2].as.number == 2);
 }
 
 TEST_CASE("Closure adder test", "[interpreter][closure]") {
@@ -97,7 +97,7 @@ TEST_CASE("Nested closures test", "[interpreter][closure]") {
             "funkcija suma3(c){"
             "funkcija suma4(d){"
             "  vrati a + b + c + d;"
-            "}}}}"
+            "}vrati suma4;} vrati suma3;} vrati suma2;}"
             "ispisi suma1(10)(20)(30)(40);";
     Interpreter interpreter;
     std::unique_ptr<Program> program = parseSource(source, &interpreter);
@@ -106,7 +106,7 @@ TEST_CASE("Nested closures test", "[interpreter][closure]") {
     REQUIRE(interpreter.printHistory[0].as.number == 100);
 }
 
-TEST_CASE("Closure keeps reference to enclosing env test", "[interpreter][closure]") {
+TEST_CASE("Closure keeps reference to correct enclosing env test", "[interpreter][closure]") {
     std::wstring source = L"var a = \"global\";\n"
             "{\n"
             "    funkcija fn(){\n"
@@ -123,10 +123,10 @@ TEST_CASE("Closure keeps reference to enclosing env test", "[interpreter][closur
     REQUIRE(IS_STRING_OBJ(interpreter.printHistory[0]));
     REQUIRE(GET_STRING_OBJ_VALUE(interpreter.printHistory[0]) == L"global");
     REQUIRE(IS_STRING_OBJ(interpreter.printHistory[1]));
-    REQUIRE(GET_STRING_OBJ_VALUE(interpreter.printHistory[1]) == L"local");
+    REQUIRE(GET_STRING_OBJ_VALUE(interpreter.printHistory[1]) == L"global");
 }
 
-TEST_CASE("Closure keeps reference to enclosing env test 2", "[interpreter][closure]") {
+TEST_CASE("Closure keeps reference to enclosing env test", "[interpreter][closure]") {
     std::wstring source = L"funkcija f(){"
             "   var lok = 'Prva';"
             "   funkcija g(){"
@@ -143,4 +143,27 @@ TEST_CASE("Closure keeps reference to enclosing env test 2", "[interpreter][clos
     REQUIRE(interpreter.printHistory.size() == 1);
     REQUIRE(IS_STRING_OBJ(interpreter.printHistory[0]));
     REQUIRE(GET_STRING_OBJ_VALUE(interpreter.printHistory[0]) == L"Druga");
+}
+
+TEST_CASE("Closure shared state test", "[interpreter][closure]") {
+    std::wstring source = L"var inc;"
+            "var dec;"
+            "{ var shared = 0;"
+            "funkcija f(){ vrati shared = shared + 1; }"
+            "funkcija g(){ vrati shared = shared - 1; }"
+            "inc = f;"
+            "dec = g;"
+            "}"
+            "ispisi inc();"
+            "ispisi inc();"
+            "ispisi dec();"
+            "ispisi inc();";
+    Interpreter interpreter;
+    std::unique_ptr<Program> program = parseSource(source, &interpreter);
+    interpreter.interpret(program.get());
+    REQUIRE(interpreter.printHistory.size() == 4);
+    REQUIRE(interpreter.printHistory[0].as.number == 1);
+    REQUIRE(interpreter.printHistory[1].as.number == 2);
+    REQUIRE(interpreter.printHistory[2].as.number == 1);
+    REQUIRE(interpreter.printHistory[3].as.number == 2);
 }
