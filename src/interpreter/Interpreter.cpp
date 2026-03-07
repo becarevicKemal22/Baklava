@@ -218,7 +218,7 @@ void Interpreter::executeVarDeclarationStatement(VarDeclarationStatement *stmt) 
 }
 
 void Interpreter::executeBlockStatement(BlockStatement *stmt) {
-    Environment *blockEnv = new Environment(environments.top());
+    Environment *blockEnv = Environment::allocate(environments.top());
     blockEnv->addRef();
     executeBlock(stmt->statements, blockEnv);
     blockEnv->release();
@@ -817,7 +817,7 @@ ObjectFunction *Interpreter::allocateFunctionObject(FunctionDeclarationStatement
 }
 
 RuntimeValue Interpreter::createFunctionWithBoundThis(ObjectFunction *method, RuntimeValue instance) {
-    Environment *env = new Environment(method->closure);
+    Environment *env = Environment::allocate(method->closure);
     env->defineAndBindThis(instance);
     // No need to addref to this env, as ObjectFunction constructor will do it and i wouldnt be able to release it anyway and nothing in this function references it.
     return {ValueType::Object, {.object = (Object *) allocateFunctionObject(method->declaration, env)}};

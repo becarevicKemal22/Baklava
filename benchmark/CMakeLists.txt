@@ -76,6 +76,8 @@ add_executable(gbench ../src/error/printer/ErrorPrinter.cpp ../src/lexer/Lexer.c
         benchmarks/prvi.cpp
         benchmarks/environment/EnvironmentRangedEnvSizeLookupBench.cpp
         benchmarks/InterpreterCoreSuite.cpp
+        ../src/interpreter/EnvironmentPool.cpp
+        ../src/interpreter/EnvironmentPool.h
 )
 target_link_libraries(gbench PRIVATE benchmark::benchmark benchmark::benchmark_main)
 target_compile_definitions(gbench PRIVATE BENCHMARK_SCRIPTS_DIR=L"${CMAKE_CURRENT_SOURCE_DIR}/benchmarks/scripts")

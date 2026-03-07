@@ -102,6 +102,8 @@ add_executable(baklava main.cpp
         src/parser/ast/expressions/ThisExpression.h
         src/error/exceptions/parser/InvalidThisPosition.h
         src/error/exceptions/parser/InvalidReturnPosition.h
+        src/interpreter/EnvironmentPool.cpp
+        src/interpreter/EnvironmentPool.h
 )
 
 add_subdirectory(tests)

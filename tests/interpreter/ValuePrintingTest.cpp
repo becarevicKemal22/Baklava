@@ -73,7 +73,7 @@ TEST_CASE("Prints function", "[interpreter][runtimeValue]") {
     FunctionDeclarationStatement* declaration = new FunctionDeclarationStatement(&token, {}, {}, {});
 
     Object base(ObjectType::OBJECT_FUNCTION);
-    Environment *env = new Environment();
+    Environment *env = new Environment(nullptr);
     env->addRef();
     ObjectFunction funcObj(declaration, env);
     RuntimeValue function(ValueType::Object);

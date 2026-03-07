@@ -121,5 +121,7 @@ add_executable(tests ../src/error/printer/ErrorPrinter.cpp ../src/lexer/Lexer.cp
         ../src/error/exceptions/parser/InvalidThisPosition.h
         ../src/error/exceptions/parser/InvalidReturnPosition.h
         interpreter/InterpreterClosureTest.cpp
+        ../src/interpreter/EnvironmentPool.cpp
+        ../src/interpreter/EnvironmentPool.h
 )
 target_link_libraries(tests PRIVATE Catch2::Catch2WithMain)

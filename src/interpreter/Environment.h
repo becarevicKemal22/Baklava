@@ -7,20 +7,19 @@
 
 #include <unordered_map>
 #include <algorithm>
-#include <iostream>
 
 #include "Token.h"
 #include "RuntimeValue.h"
+#include "EnvironmentPool.h"
+
+#define POOL_CHUNK_COUNT 32
+
+class EnvironmentPool;
 
 class Environment {
-    unsigned int refCount;
-
 public:
-    Environment() : parent(nullptr), refCount(0) {
-    };
-
     explicit Environment(Environment *parent) : parent(parent), refCount(0) {
-        parent->addRef();
+        if (parent) parent->addRef();
     };
 
     ~Environment() {
@@ -36,8 +35,12 @@ public:
 
     void release() {
         if (--refCount == 0) {
-            delete this;
+            pool.destroy(this);
         }
+    }
+
+    static Environment *allocate(Environment *parent) {
+        return pool.create(parent);
     }
 
     /**
@@ -92,7 +95,11 @@ public:
 
     Environment* ancestor(int distance);
 
-    void assignAt(int distance, const std::wstring& name, RuntimeValue value);
+    void assignAt(int distance, const std::wstring &name, RuntimeValue value);
+
+private:
+    unsigned int refCount;
+    static EnvironmentPool pool;
 };
 
 

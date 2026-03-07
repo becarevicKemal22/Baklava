@@ -9,8 +9,8 @@ static void BM_EnvironmentLookup(benchmark::State& state) {
     for (auto _ : state) {
         // Sve UNUTAR petlje se meri (hiljade puta)
         for (int i = 0; i < 10000; i++) {
-            Environment env;
-            env.define(new Token(TokenType::Identifier, L"myVar", 0, 0), {ValueType::Null, {}}, false);
+            Environment *env = Environment::allocate(nullptr);
+            env->define(new Token(TokenType::Identifier, L"myVar", 0, 0), {ValueType::Null, {}}, false);
             benchmark::DoNotOptimize(env);
         }
     }

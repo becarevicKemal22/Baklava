@@ -25,7 +25,7 @@ public:
      * @brief Constructor with no error printer. Should almost never be used, as it leaves the interpreter with no error printing capability. Useful for testing.
      */
     Interpreter() : errorPrinter(nullptr) {
-        globals = new Environment();
+        globals = Environment::allocate(nullptr);
         globals->addRef();
         environments.push(globals);
         defineNativeFunctions();
@@ -36,7 +36,7 @@ public:
      * @param errorPrinter Error printer to use for printing errors.
      */
     explicit Interpreter(ErrorPrinter *errorPrinter) : errorPrinter(errorPrinter) {
-        globals = new Environment();
+        globals = Environment::allocate(nullptr);
         globals->addRef();
         environments.push(globals);
         defineNativeFunctions();

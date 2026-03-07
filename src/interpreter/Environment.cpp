@@ -7,6 +7,9 @@
 #include "IdentifierRedeclaration.h"
 #include "UndeclaredIdentifier.h"
 #include "ConstReassignment.h"
+#include "EnvironmentPool.h"
+
+EnvironmentPool Environment::pool(POOL_CHUNK_COUNT);
 
 void Environment::define(Token* name, RuntimeValue value, bool isConstant) {
     auto it = variables.find(name->value);
@@ -32,7 +35,6 @@ void Environment::defineAndBindThis(RuntimeValue instance) {
         {L"ova", {instance, true}}
     });
 }
-
 
 RuntimeValue Environment::get(Token* name){
     auto it = variables.find(name->value);

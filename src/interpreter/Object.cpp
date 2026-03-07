@@ -8,7 +8,7 @@
 #include "Environment.h"
 
 RuntimeValue ObjectFunction::functionCall(Interpreter* interpreter, const std::vector<RuntimeValue>& arguments){
-    Environment *environment = new Environment(closure);
+    Environment *environment = Environment::allocate(closure);
     environment->addRef();
     for (int i = 0; i < arity; i++) {
         environment->define(declaration->parameters[i], arguments[i], false);

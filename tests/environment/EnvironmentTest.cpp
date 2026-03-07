@@ -14,7 +14,7 @@ Token *createMockToken(TokenType type, std::wstring value) {
 }
 
 TEST_CASE("Defines and gets variable", "[environment]") {
-    Environment *env = new Environment();
+    Environment *env = new Environment(nullptr);
     env->addRef();
     Token *token = createMockToken(TokenType::Identifier, L"a");
     env->define(token, {ValueType::Number, {.number = 5}}, false);
@@ -24,7 +24,7 @@ TEST_CASE("Defines and gets variable", "[environment]") {
 }
 
 TEST_CASE("Assigns variable", "[environment]") {
-    Environment *env = new Environment();
+    Environment *env = new Environment(nullptr);
     env->addRef();
     Token *token = createMockToken(TokenType::Identifier, L"a");
     env->define(token, {ValueType::Number, {.number = 5}}, false);
@@ -35,7 +35,7 @@ TEST_CASE("Assigns variable", "[environment]") {
 }
 
 TEST_CASE("Assigns variable to another variable", "[environment]") {
-    Environment *env = new Environment();
+    Environment *env = new Environment(nullptr);
     env->addRef();
     Token *tokenA = createMockToken(TokenType::Identifier, L"a");
     Token *tokenB = createMockToken(TokenType::Identifier, L"b");
@@ -52,7 +52,7 @@ TEST_CASE("Assigns variable to another variable", "[environment]") {
 }
 
 TEST_CASE("Assigns string variable to another variable correctly", "[environment]") {
-    Environment *env = new Environment();
+    Environment *env = new Environment(nullptr);
     env->addRef();
     Token *tokenA = createMockToken(TokenType::Identifier, L"a");
     Token *tokenB = createMockToken(TokenType::Identifier, L"b");
@@ -84,7 +84,7 @@ TEST_CASE("Assigns string variable to another variable correctly", "[environment
 }
 
 TEST_CASE("Throws error when getting undefined variable", "[environment]") {
-    Environment *env = new Environment();
+    Environment *env = new Environment(nullptr);
     env->addRef();
     Token *token = createMockToken(TokenType::Identifier, L"a");
     REQUIRE_THROWS_AS(env->get(token), UndeclaredIdentifier);
@@ -93,7 +93,7 @@ TEST_CASE("Throws error when getting undefined variable", "[environment]") {
 }
 
 TEST_CASE("Throws error when defining variable twice", "[environment]") {
-    Environment *env = new Environment();
+    Environment *env = new Environment(nullptr);
     env->addRef();
     Token *token = createMockToken(TokenType::Identifier, L"a");
     env->define(token, {ValueType::Number, {.number = 5}}, false);
@@ -103,7 +103,7 @@ TEST_CASE("Throws error when defining variable twice", "[environment]") {
 }
 
 TEST_CASE("Throws error on const reassignment", "[environment]") {
-    Environment *env = new Environment();
+    Environment *env = new Environment(nullptr);
     env->addRef();
     Token *token = createMockToken(TokenType::Identifier, L"a");
     env->define(token, {ValueType::Number, {.number = 5}}, true);
@@ -117,7 +117,7 @@ TEST_CASE("Throws error on const reassignment", "[environment]") {
 //****************************************
 
 TEST_CASE("Gets variable from parent scope", "[environment]"){
-    Environment *global = new Environment();
+    Environment *global = new Environment(nullptr);
     global->addRef();
     Environment *local = new Environment(global);
     local->addRef();
@@ -130,7 +130,7 @@ TEST_CASE("Gets variable from parent scope", "[environment]"){
 }
 
 TEST_CASE("Assigns variable from parent scope", "[environment]") {
-    Environment *global = new Environment();
+    Environment *global = new Environment(nullptr);
     global->addRef();
     Environment *local = new Environment(global);
     local->addRef();
@@ -145,7 +145,7 @@ TEST_CASE("Assigns variable from parent scope", "[environment]") {
 }
 
 TEST_CASE("Shadowing variable", "[environment]") {
-    Environment *global = new Environment();
+    Environment *global = new Environment(nullptr);
     global->addRef();
     Environment *local = new Environment(global);
     local->addRef();
@@ -166,7 +166,7 @@ TEST_CASE("Shadowing variable", "[environment]") {
 }
 
 TEST_CASE("Throws on parent const reassignment", "[environment]") {
-    Environment *global = new Environment();
+    Environment *global = new Environment(nullptr);
     global->addRef();
     Environment *local = new Environment(global);
     local->addRef();
@@ -179,7 +179,7 @@ TEST_CASE("Throws on parent const reassignment", "[environment]") {
 }
 
 TEST_CASE("Throws on undefined variable in parent scopes", "[environment]") {
-    Environment *global = new Environment();
+    Environment *global = new Environment(nullptr);
     global->addRef();
     Environment *local = new Environment(global);
     local->addRef();
